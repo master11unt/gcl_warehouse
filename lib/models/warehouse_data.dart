@@ -1,0 +1,273 @@
+import 'package:flutter/material.dart';
+
+class WarehouseData {
+  static final Map<String, dynamic> rackData = {
+    'Not In Rack': 37,
+    'racks': [
+      {'id': 'Rack Line 10', 'number': '1', 'color': Colors.orange, 'items': 1},
+      {'id': 'Temporary Location Floor 10', 'number': '35', 'color': Colors.pink[300], 'items': 35},
+      {'id': 'Rack Line 8', 'number': '2', 'color': Colors.orange, 'items': 2},
+      {'id': 'Temp. Loc. Floor 7', 'number': '0', 'color': Colors.pink[300], 'items': 0},
+      {'id': 'Rack Line 7', 'number': '0', 'color': Colors.orange, 'items': 0},
+      {'id': 'Rack Line 6', 'number': '7', 'color': Colors.orange, 'items': 7},
+      {'id': 'Temporary Location Floor 6', 'number': '39', 'color': Colors.pink[300], 'items': 39},
+      {'id': 'Rack Line 5', 'number': '8', 'color': Colors.orange, 'items': 8},
+      {'id': 'Temp. Loc. Floor 5', 'number': '12', 'color': Colors.pink[300], 'items': 12},
+      {'id': 'Rack Line 4', 'number': '15', 'color': Colors.orange, 'items': 15},
+      {'id': 'Temp. Loc. Floor 4', 'number': '283', 'color': Colors.pink[300], 'items': 283},
+      {'id': 'Temporary Location Floor 3', 'number': '151', 'color': Colors.pink[300], 'items': 151},
+      {'id': 'Rack Line 3', 'number': '21', 'color': Colors.orange, 'items': 21},
+      {'id': 'Quarantine Area', 'number': '31', 'color': Colors.green[300], 'items': 31},
+      {'id': 'Rack Line 2', 'number': '105', 'color': Colors.orange, 'items': 105},
+      {'id': 'Temporary Location Front Floor', 'number': '234', 'color': Colors.pink[300], 'items': 234},
+    ]
+  };
+
+  static final List<String> rackLines = [
+    'All', 'Rack Line 1', 'Rack Line 2', 'Rack Line 3', 'Rack Line 4', 
+    'Rack Line 5', 'Rack Line 6', 'Rack Line 7', 'Rack Line 8', 'Rack Line 9', 'Rack Line 10'
+  ];
+
+  static final List<String> tempLocations = [
+    'All', 'Temporary Location Floor 3', 'Temporary Location Floor 4', 
+    'Temporary Location Floor 5', 'Temporary Location Floor 6', 
+    'Temporary Location Floor 10', 'Temporary Location Front Floor',
+    'Temporary Location Side Floor A', 'Temporary Location Side Floor B'
+  ];
+
+  static final List<Map<String, dynamic>> rackCategories = [
+    {
+      'title': 'Rack Line 1',
+      'count': '10 Items',
+      'isExpanded': false,
+      'bookings': [
+        {
+          'code': 'GTW-202503041653',
+          'type': 'FLUSEN LOGISTIK INDONESIA, PT',
+          'info': '1 PALLETS',
+          'destination': 'JAKARTA-PKG'
+        }
+      ]
+    },
+    {
+      'title': 'Rack Line 2',
+      'count': '105 Items',
+      'isExpanded': false,
+      'bookings': [
+        {
+          'code': 'GTW-202502050232',
+          'type': 'WINDAS SHIPPING INDONESIA, PT',
+          'info': '1 PALLETS',
+          'destination': 'JAKARTA-PKG'
+        }
+      ]
+    },
+    {
+      'title': 'Rack Line 3',
+      'count': '21 Items',
+      'isExpanded': false,
+      'bookings': [
+        {
+          'code': 'GTW-202501001820',
+          'type': 'SARANA PUBLIC WAREHOUSE, PT',
+          'info': '2 ROLLS',
+          'destination': 'JAKARTA-PKG'
+        }
+      ]
+    },
+    {
+      'title': 'Rack Line 4',
+      'count': '15 Items',
+      'isExpanded': false,
+      'bookings': [
+        {
+          'code': 'GTW-202502081104',
+          'type': 'FIKRI JAYA LOGISTIK JAKARTA, PT',
+          'info': '4 PALLETS',
+          'destination': 'SURABAYAS'
+        }
+      ]
+    },
+    {
+      'title': 'Rack Line 5',
+      'count': '8 Items',
+      'isExpanded': false,
+      'bookings': [
+        {
+          'code': 'GTW-202500021913',
+          'type': 'SIM LOGISTIK FORWARDING INDONESIA, PT',
+          'info': '3 PACKAGES',
+          'destination': 'TOKYO'
+        }
+      ]
+    },
+    {
+      'title': 'Rack Line 6',
+      'count': '7 Items',
+      'isExpanded': false,
+      'bookings': [
+        {
+          'code': 'GTW-202502055119',
+          'type': 'FORTINY MAKMUR, PT',
+          'info': '1 CARTONS',
+          'destination': 'COLOMBO'
+        }
+      ]
+    },
+    {
+      'title': 'Rack Line 7',
+      'count': '0 Items',
+      'isExpanded': false,
+      'bookings': []
+    },
+    {
+      'title': 'Rack Line 8',
+      'count': '2 Items',
+      'isExpanded': false,
+      'bookings': [
+        {
+          'code': 'GTW-202502099554',
+          'type': 'MITSU SHIPBUILDERS',
+          'info': '1 PALLETS',
+          'destination': 'HONG KONG'
+        }
+      ]
+    },
+    {
+      'title': 'Rack Line 9',
+      'count': '0 Items',
+      'isExpanded': false,
+      'bookings': []
+    },
+    {
+      'title': 'Rack Line 10',
+      'count': '1 Items',
+      'isExpanded': false,
+      'bookings': []
+    },
+    {
+      'title': 'Temporary Location Floor 3',
+      'count': '151 Items',
+      'isExpanded': false,
+      'bookings': [
+        {
+          'code': 'GTW-202503041653',
+          'type': 'FLUSEN LOGISTIK INDONESIA, PT',
+          'info': '25 PALLETS',
+          'destination': 'JAKARTA-PKG'
+        },
+        {
+          'code': 'GTW-202502051232',
+          'type': 'SARANA PUBLIC WAREHOUSE, PT',
+          'info': '50 CARTONS',
+          'destination': 'SURABAYA'
+        },
+        {
+          'code': 'GTW-202501081820',
+          'type': 'WINDAS SHIPPING INDONESIA, PT',
+          'info': '76 PACKAGES',
+          'destination': 'BATAM'
+        },
+      ]
+    },
+    {
+      'title': 'Temporary Location Floor 4',
+      'count': '283 Items',
+      'isExpanded': false,
+      'bookings': [
+        {
+          'code': 'GTW-202503041653',
+          'type': 'MAJOR LOGISTICS INDONESIA, PT',
+          'info': '120 PALLETS',
+          'destination': 'SINGAPORE'
+        },
+        {
+          'code': 'GTW-202502088104',
+          'type': 'FIKRI JAYA LOGISTIK JAKARTA, PT',
+          'info': '83 CARTONS',
+          'destination': 'MALAYSIA'
+        },
+        {
+          'code': 'GTW-202501021913',
+          'type': 'SIM LOGISTIK FORWARDING, PT',
+          'info': '80 PACKAGES',
+          'destination': 'THAILAND'
+        },
+      ]
+    },
+    {
+      'title': 'Temporary Location Floor 5',
+      'count': '12 Items',
+      'isExpanded': false,
+      'bookings': []
+    },
+    {
+      'title': 'Temporary Location Floor 6',
+      'count': '39 Items',
+      'isExpanded': false,
+      'bookings': []
+    },
+    {
+      'title': 'Temporary Location Floor 10',
+      'count': '35 Items',
+      'isExpanded': false,
+      'bookings': []
+    },
+    {
+      'title': 'Temporary Location Front Floor',
+      'count': '234 Items',
+      'isExpanded': false,
+      'bookings': []
+    },
+    {
+      'title': 'Temporary Location Side Floor A',
+      'count': '9 Items',
+      'isExpanded': false,
+      'bookings': []
+    },
+    {
+      'title': 'Temporary Location Side Floor B',
+      'count': '34 Items',
+      'isExpanded': false,
+      'bookings': []
+    },
+    {
+      'title': 'Quarantine Area',
+      'count': '31 Items',
+      'isExpanded': false,
+      'bookings': [
+        {
+          'code': 'QTN-202503041653',
+          'type': 'INSPECTION PENDING - CHEMICALS',
+          'info': '15 DRUMS',
+          'destination': 'PENDING'
+        },
+        {
+          'code': 'QTN-202502088104',
+          'type': 'CUSTOMS HOLD - ELECTRONICS',
+          'info': '16 BOXES',
+          'destination': 'PENDING'
+        },
+      ]
+    },
+    {
+      'title': 'Not In Rack',
+      'count': '37 Items',
+      'isExpanded': false,
+      'bookings': [
+        {
+          'code': 'NIR-202503041653',
+          'type': 'AWAITING RACK ASSIGNMENT',
+          'info': '20 PALLETS',
+          'destination': 'TBD'
+        },
+        {
+          'code': 'NIR-202502088104',
+          'type': 'OVERFLOW - TEMPORARY STORAGE',
+          'info': '17 CARTONS',
+          'destination': 'TBD'
+        },
+      ]
+    },
+  ];
+}
