@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/home/custom_drawer.dart';
 
-class InventoryDetailPage extends StatefulWidget {
+class InventoryDetailCargoOutPage extends StatefulWidget {
   final Map<String, dynamic> inventoryData;
 
-  const InventoryDetailPage({super.key, required this.inventoryData});
+  const InventoryDetailCargoOutPage({super.key, required this.inventoryData});
 
   @override
-  State<InventoryDetailPage> createState() => _InventoryDetailPageState();
+  State<InventoryDetailCargoOutPage> createState() => _InventoryDetailCargoOutPageState();
 }
 
-class _InventoryDetailPageState extends State<InventoryDetailPage> {
+class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPage> {
   bool _isArrivalExpanded = false;
-  // bool _isStuffedExpanded = false;
-  // bool _isDeliveredExpanded = false;
+  bool _isStuffedExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +35,8 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
               _buildCombinedDataSection(),
               const SizedBox(height: 20),
 
-              // Location
-              _buildLocationSection(),
+              // Info Card (replaces location section)
+              _buildCargoOutInfoSection(),
               const SizedBox(height: 20),
 
               // Options Section
@@ -1443,15 +1442,15 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
             child: Row(
               children: [
                 _buildOptionButton(Icons.ads_click, 'Action'),
-                const SizedBox(width: 21),
+                const SizedBox(width: 16),
                 _buildOptionButton(Icons.edit_square, 'Edit'),
-                const SizedBox(width: 21),
+                const SizedBox(width: 16),
                 _buildOptionButton(Icons.share_outlined, 'Share'),
-                const SizedBox(width: 21),
+                const SizedBox(width: 16),
                 _buildOptionButton(Icons.print_outlined, 'Print'),
-                const SizedBox(width: 21),
+                const SizedBox(width: 16),
                 _buildOptionButton(Icons.headset_mic_rounded, 'Call Support'),
-                const SizedBox(width: 21),
+                const SizedBox(width: 16),
                 _buildOptionButton(Icons.send, 'Send Tallysheet'),
               ],
             ),
@@ -1461,20 +1460,20 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
     );
   }
 
-  Widget _buildOptionButton(IconData icon, String label, {bool isDisabled = false}) {
+  Widget _buildOptionButton(IconData icon, String label) {
     return Container(
       width: 50,
       height: 50,
       decoration: BoxDecoration(
-        color: isDisabled ? const Color(0xFFE5E7EB) : const Color(0xFF374151),
+        color: const Color(0xFF374151),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Center(
-        child: Icon(
-          icon, 
-          color: isDisabled ? const Color(0xFF9CA3AF) : Colors.white, 
-          size: 24
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: Colors.white, size: 24),
+          const SizedBox(height: 4),
+        ],
       ),
     );
   }
@@ -1770,8 +1769,8 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
             children: [
               // Arrival
               _buildTimelineItem(
-                isCompleted: false,
-                hasConnector: false,
+                isCompleted: true,
+                hasConnector: true,
                 title: 'Arrival',
                 time: '2025-09-09 03:53',
                 isExpandable: true,
@@ -1781,6 +1780,29 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                     _isArrivalExpanded = !_isArrivalExpanded;
                   });
                 },
+              ),
+              
+              // Stuffed
+              _buildTimelineItem(
+                isCompleted: true,
+                hasConnector: true,
+                title: 'Stuffed',
+                time: '2025-09-09 06:56',
+                isExpandable: true,
+                isExpanded: _isStuffedExpanded,
+                onTap: () {
+                  setState(() {
+                    _isStuffedExpanded = !_isStuffedExpanded;
+                  });
+                },
+              ),
+              
+              // Delivered
+              _buildTimelineItem(
+                isCompleted: false,
+                hasConnector: false,
+                title: 'Delivered',
+                time: '2025-09-09 11:42',
               ),
             ],
           ),
@@ -1923,7 +1945,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                     ),
                                   ),
                                   child: Text(
-                                    title == 'Stuffed' ? '115' : title == 'Delivered' ? '4' : '32',
+                                    title == 'Stuffed' ? '115' : '32',
                                     style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF6B7280)),
                                     textAlign: TextAlign.center,
                                   ),
@@ -2122,12 +2144,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      // Notes content - different for each status
+                      // Notes content - different for Stuffed vs Arrival
                       Text(
                         title == 'Stuffed' 
                           ? 'Stuffed with job number : GCL-1002509172'
-                          : title == 'Delivered'
-                          ? 'Delivered with job number GCL-1002509171'
                           : '',
                         style: const TextStyle(fontSize: 14, color: Color(0xFF6B7280)),
                       ),
@@ -2137,7 +2157,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         style: TextStyle(fontSize: 13, color: Color(0xFF9CA3AF), fontStyle: FontStyle.italic),
                       ),
                       Text(
-                        title == 'Stuffed' || title == 'Delivered' ? 'NaN' : 'User',
+                        title == 'Stuffed' ? 'NaN' : 'User',
                         style: const TextStyle(fontSize: 14, color: Color(0xFF6B7280)),
                       ),
                       const SizedBox(height: 12),
@@ -2145,9 +2165,9 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         'Last Updated At',
                         style: TextStyle(fontSize: 13, color: Color(0xFF9CA3AF), fontStyle: FontStyle.italic),
                       ),
-                      Text(
-                        title == 'Delivered' ? '2025-09-09 11:42:58' : '2025-09-09 12:26:41',
-                        style: const TextStyle(fontSize: 14, color: Color(0xFF6B7280)),
+                      const Text(
+                        '2025-09-09 12:26:41',
+                        style: TextStyle(fontSize: 14, color: Color(0xFF6B7280)),
                       ),
                       const SizedBox(height: 12),
                       const Text(
@@ -2159,341 +2179,6 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  //location
-
-Widget _buildLocationSection() {
-    return Container(
-      padding: const EdgeInsets.all(32),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 6,
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          // Header
-          Row(
-            children: [
-              Expanded(
-                child: Container(height: 1, color: const Color(0xFFE5E7EB)),
-              ),
-              const SizedBox(width: 16),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8,
-                  horizontal: 20,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF374151),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Text(
-                  'Location',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Container(height: 1, color: const Color(0xFFE5E7EB)),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-
-          // Rack status with divider
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: const Color(0xFF374151),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              children: [
-                // In Rack
-                Expanded(
-                  child: Column(
-                    children: [
-                      const Text(
-                        '1',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      const Text(
-                        'In Rack',
-                        style: TextStyle(fontSize: 14, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-                // Divider
-                Container(
-                  height: 60,
-                  width: 1,
-                  color: Colors.white.withOpacity(0.3),
-                ),
-                // Not In Rack
-                Expanded(
-                  child: Column(
-                    children: [
-                      const Text(
-                        '0',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFFF59E0B), // Yellow color for 0
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      const Text(
-                        'Not In Rack',
-                        style: TextStyle(fontSize: 14, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
-
-          // Warehouse and Telp info
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Warehouse',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFF6B7280),
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    const Text(
-                      'Marunda',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF1F2937),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Telp',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFF6B7280),
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    const Text(
-                      '(021) 29088309',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF1F2937),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-
-          // Address
-          Container(
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Address',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF6B7280),
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                const Text(
-                  'Jl. Kawasan Marunda Center No.27\nBlok B, Sagara Makmur, Tarumajaya,\nBekasi Regency, West Java 17211',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF1F2937),
-                    height: 1.5,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
-
-          Container(
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 3,
-                    horizontal: 4,
-                  ),
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      left: BorderSide(color: Color(0xFF374151), width: 6),
-                    ),
-                  ),
-                  child: const Text(
-                    'Racking Detail',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF1F2937),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Last Forklift',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Color(0xFF6B7280),
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Container(
-                            width: double.infinity,
-                            height: 45,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 12,
-                            ),
-                            // decoration: BoxDecoration(
-                            //   border: Border.all(color: const Color(0xFFE5E7EB)),
-                            //   borderRadius: BorderRadius.circular(6),
-                            //   color: Colors.white,
-                            // ),
-                            alignment: Alignment.centerLeft,
-                            child: const Text(
-                              '',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFF6B7280),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Racking Notes',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Color(0xFF6B7280),
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Container(
-                            width: double.infinity,
-                            height: 45,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 12,
-                            ),
-                            alignment: Alignment.centerLeft,
-                            child: const Text(
-                              '',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFF6B7280),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          // Bottom arrow
-          Row(
-            children: [
-              Expanded(
-                child: Container(height: 1, color: const Color(0xFFE5E7EB)),
-              ),
-              const SizedBox(width: 16),
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  border: Border.all(color: const Color(0xFFE5E7EB)),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Icon(
-                  Icons.keyboard_arrow_down,
-                  color: Color(0xFF6B7280),
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Container(height: 1, color: const Color(0xFFE5E7EB)),
-              ),
-            ],
           ),
         ],
       ),
@@ -2541,10 +2226,26 @@ Widget _buildLocationSection() {
             children: [
               // Received in warehouse
               _buildHistoryTimelineItem(
-                isCompleted: false,
-                hasConnector: false,
+                isCompleted: true,
+                hasConnector: true,
                 title: 'Received in warehouse',
                 time: '2025-09-09 13:54:10',
+              ),
+              
+              // Stuffing
+              _buildHistoryTimelineItem(
+                isCompleted: true,
+                hasConnector: true,
+                title: 'Stuffing',
+                time: '2025-09-09 13:56:35',
+              ),
+              
+              // Deliver to destination
+              _buildHistoryTimelineItem(
+                isCompleted: true,
+                hasConnector: false,
+                title: 'Deliver to destination',
+                time: '2025-09-09 18:42:58',
               ),
             ],
           ),

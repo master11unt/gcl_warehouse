@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gcl_warehouse/pages/inventory_detail_cargo_out_page.dart';
 import '../widgets/home/custom_drawer.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/ticket/ticket_table.dart';
@@ -92,11 +93,11 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            _buildTabItem(Icons.description, "Cargo\nIn", 0),
+                            _buildTabItem(Icons.description, "Cargo In", 0),
                             const SizedBox(width: 12),
-                            _buildTabItem(Icons.assessment, "Stock\nInventory", 1),
+                            _buildTabItem(Icons.assessment, "Stock Inventory", 1),
                             const SizedBox(width: 12),
-                            _buildTabItem(Icons.local_shipping, "Cargo\nOut", 2),
+                            _buildTabItem(Icons.local_shipping, "Cargo Out", 2),
                             const SizedBox(width: 12),
                             _buildTabItem(Icons.grid_view, "Layout", 3),
                           ],
@@ -606,7 +607,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => InventoryDetailPage(
+                      builder: (context) => InventoryDetailCargoOutPage(
                         inventoryData: {
                           'bookingCode': rowData[0],
                           'dateIn': rowData[1],
