@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../pages/stuffing_detail_page.dart';
+import '../../pages/ticket_stuffing_detail_page.dart';
 
 class TodayStuffings extends StatelessWidget {
   const TodayStuffings({Key? key}) : super(key: key);
@@ -100,8 +100,8 @@ class TodayStuffings extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => StuffingDetailPage(
-              stuffingData: {
+            builder: (context) => TicketStuffingDetailPage(
+              ticketData: {
                 'jobNumber': jobNumber,
                 'destination': destination,
                 'status': 'Unloaded',

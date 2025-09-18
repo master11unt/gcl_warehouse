@@ -51,66 +51,84 @@ class StuffingTable extends StatelessWidget {
           rowData['jobNumber'] ?? '',
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 13,
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
             color: Color(0xFF111827),
+            height: 1.3,
           ),
           softWrap: false,
-          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          overflow: TextOverflow.visible,
         );
       case 'stuffing date':
         return Text(
           _formatDate(rowData['stuffingDate'] ?? ''),
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 13,
-            color: Color(0xFF111827),
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF6B7280),
+            height: 1.3,
           ),
           softWrap: false,
-          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          overflow: TextOverflow.visible,
         );
       case 'destination':
         return Text(
           rowData['destination'] ?? '',
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 13,
-            color: Color(0xFF111827),
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF6B7280),
+            height: 1.3,
           ),
-          softWrap: true,
-          maxLines: 2,
+          softWrap: false,
+          maxLines: 1,
+          overflow: TextOverflow.visible,
         );
       case 'etd':
         return Text(
           _formatDate(rowData['etd'] ?? ''),
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 13,
-            color: Color(0xFF111827),
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF6B7280),
+            height: 1.3,
           ),
           softWrap: false,
-          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          overflow: TextOverflow.visible,
         );
       case 'closing date':
         return Text(
           _formatDate(rowData['closingDate'] ?? ''),
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 13,
-            color: Color(0xFF111827),
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF6B7280),
+            height: 1.3,
           ),
           softWrap: false,
-          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          overflow: TextOverflow.visible,
         );
       case 'owner':
         return Text(
           rowData['owner'] ?? '',
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 13,
-            color: Color(0xFF111827),
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF6B7280),
+            height: 1.3,
           ),
-          softWrap: true,
-          maxLines: 2,
+          softWrap: false,
+          maxLines: 1,
+          overflow: TextOverflow.visible,
         );
       case 'total container':
         return Center(
@@ -135,11 +153,13 @@ class StuffingTable extends StatelessWidget {
           rowData[columnName] ?? '',
           textAlign: TextAlign.center,
           style: const TextStyle(
-            fontSize: 13,
-            color: Color(0xFF111827),
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF6B7280),
+            height: 1.3,
           ),
-          softWrap: true,
-          maxLines: 3,
+          softWrap: false,
+          maxLines: 1,
           overflow: TextOverflow.visible,
         );
     }
@@ -147,88 +167,133 @@ class StuffingTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final headerStyle = const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 14);
-    final flexes = columnFlexes ?? List<int>.filled(columns.length, 1);
-    final List<double> widths = columnWidths != null
-        ? List<double>.from(columnWidths!)
-        : List<double>.generate(columns.length, (i) => (i < flexes.length ? flexes[i] : 1) * baseColumnWidth);
-    final double totalWidth = widths.fold(0, (sum, w) => sum + w);
+    final headerStyle = const TextStyle(
+      color: Colors.white, 
+      fontWeight: FontWeight.w600, 
+      fontSize: 12
+    );
 
+    // Always use flexible sizing for content-responsive width  
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minWidth: totalWidth),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Header
-                Container(
-                  width: totalWidth,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF1F2937)
-                  ),
-                  child: Row(
-                    children: [
-                      for (int i = 0; i < columns.length; i++)
-                        SizedBox(
-                          width: widths[i],
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: i < columns.length - 1
-                                  ? const Border(right: BorderSide(color: Color(0xFF9CA3AF), width: 1))
-                                  : null,
-                            ),
-                            child: Text(columns[i], style: headerStyle, textAlign: TextAlign.center),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                if (isLoading)
-                  const Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Center(child: CircularProgressIndicator()),
-                  )
-                else if (rows.isEmpty)
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(emptyMessage, style: const TextStyle(color: Color(0xFF6B7280), fontSize: 14)),
-                  )
-                else ...[
-                  for (int r = 0; r < rows.length; r++) ...[
-                    if (r > 0) const Divider(height: 1, color: Color(0xFFE5E7EB)),
-                    GestureDetector(
-                      onTap: () => onRowTap?.call(rows[r]),
-                      child: Container(
-                        color: Colors.transparent,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              for (int i = 0; i < columns.length; i++)
-                                SizedBox(
-                                  width: widths[i],
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-                                    alignment: Alignment.center,
-                                    child: _buildCellContent(columns[i], rows[r]),
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.white),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: IntrinsicWidth(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Table Header
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF374151),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        topRight: Radius.circular(8),
                       ),
                     ),
-                  ],
+                    child: IntrinsicHeight(
+                      child: Row(
+                        children: columns.asMap().entries.map((entry) {
+                          final index = entry.key;
+                          final column = entry.value;
+                          
+                          return Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                              decoration: BoxDecoration(
+                                border: index < columns.length - 1
+                                    ? const Border(
+                                        right: BorderSide(
+                                          color: Colors.white,
+                                          width: 1,
+                                        ),
+                                      )
+                                    : null,
+                              ),
+                              child: Text(
+                                column,
+                                style: headerStyle,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+                  
+                  // Table Rows
+                  if (isLoading)
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      child: const Center(child: CircularProgressIndicator()),
+                    )
+                  else if (rows.isEmpty)
+                    Container(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        emptyMessage, 
+                        style: const TextStyle(color: Color(0xFF6B7280), fontSize: 14)
+                      ),
+                    )
+                  else
+                    Column(
+                      children: rows.asMap().entries.map((entry) {
+                        final rowIndex = entry.key;
+                        final rowData = entry.value;
+                        final isLastRow = rowIndex == rows.length - 1;
+                        
+                        return GestureDetector(
+                          onTap: () => onRowTap?.call(rowData),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: rowIndex % 2 == 0 ? Colors.white : const Color(0xFFF9FAFB),
+                              border: isLastRow ? null : const Border(
+                                bottom: BorderSide(
+                                  color: Colors.white,
+                                  width: 1,
+                                ),
+                              ),
+                              borderRadius: isLastRow ? const BorderRadius.only(
+                                bottomLeft: Radius.circular(8),
+                                bottomRight: Radius.circular(8),
+                              ) : null,
+                            ),
+                            child: Row(
+                              children: columns.asMap().entries.map((cellEntry) {
+                                final cellIndex = cellEntry.key;
+                                final column = cellEntry.value;
+                                
+                                return Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                                    decoration: BoxDecoration(
+                                      border: cellIndex < columns.length - 1
+                                          ? const Border(
+                                              right: BorderSide(
+                                                color: Colors.white,
+                                                width: 1,
+                                              ),
+                                            )
+                                          : null,
+                                    ),
+                                    child: _buildCellContent(column, rowData),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
                 ],
-              ],
+              ),
             ),
           ),
         ),

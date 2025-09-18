@@ -74,9 +74,33 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
         children: [
           // Booking Code Section
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                child: _buildDetailItem('Booking Code', widget.ticketData['bookingCode'] ?? 'GTW-20250001000001'),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Booking Code',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF9CA3AF),
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      widget.ticketData['bookingCode'] ?? 'GTW-20250001000001',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF111827),
+                        height: 1.3,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(width: 16),
               // Action buttons
@@ -114,41 +138,91 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
           
           const SizedBox(height: 24),
           
-          // Two Column Layout
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-
+          // Two Column Layout with equal height rows
+          Column(
             children: [
-              // Left Column
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildDetailItem('Shipper', widget.ticketData['shipper'] ?? 'GIMUDAN INDONESIA, PT'),
-                    _buildDetailItem('Description of Goods', widget.ticketData['description'] ?? '15 BALES 2/32NM ACRYLIC 65% AND WOOL 35% YARN UNDYED'),
-                    _buildDetailItem('Destination', widget.ticketData['destination'] ?? 'HO CHI MINH'),
-                    _buildDetailItem('Container Number', widget.ticketData['containerNumber'] ?? '-'),
-                    _buildDetailItem('Vessel', widget.ticketData['vessel'] ?? 'WAR HAI 377 V.W004'),
-                    _buildDetailItem('Marking', widget.ticketData['marking'] ?? 'SHINGORA B/NO. NHAVA SHEVA PT. ACHEM MADE IN INDONESIA'),
-                  ],
-                ),
+              // Row 1: Shipper - Status Ticket
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Shipper', widget.ticketData['shipper'] ?? 'GIMUDAN INDONESIA, PT'),
+                  ),
+                  const SizedBox(width: 32),
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Status Ticket', widget.ticketData['status'] ?? 'Invalid', isStatus: true, isInvalid: true),
+                  ),
+                ],
               ),
               
-              const SizedBox(width: 32),
+              // Row 2: Description of Goods - Cargo Owner
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Description of Goods', widget.ticketData['description'] ?? '15 BALES 2/32NM ACRYLIC 65% AND WOOL 35% YARN UNDYED'),
+                  ),
+                  const SizedBox(width: 32),
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Cargo Owner', widget.ticketData['cargoOwner'] ?? 'GCL-SURABAYA'),
+                  ),
+                ],
+              ),
               
-              // Right Column
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildDetailItem('Status Ticket', widget.ticketData['status'] ?? 'Invalid', isStatus: true, isInvalid: true),
-                    _buildDetailItem('Cargo Owner', widget.ticketData['cargoOwner'] ?? 'GCL-SURABAYA'),
-                    _buildDetailItem('Estimated Time Departure', widget.ticketData['etd'] ?? '2025-01-25'),
-                    _buildDetailItem('Container Size', widget.ticketData['containerSize'] ?? '-'),
-                    _buildDetailItem('Connecting Vessel', widget.ticketData['connectingVessel'] ?? '-'),
-                    _buildDetailItem('Estimated Cargo In', widget.ticketData['estimatedCargoIn'] ?? '2024-01-01 00:00:00'),
-                  ],
-                ),
+              // Row 3: Destination - Estimated Time Departure
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Destination', widget.ticketData['destination'] ?? 'HO CHI MINH'),
+                  ),
+                  const SizedBox(width: 32),
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Estimated Time Departure', widget.ticketData['etd'] ?? '2025-01-25'),
+                  ),
+                ],
+              ),
+              
+              // Row 4: Container Number - Container Size
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Container Number', widget.ticketData['containerNumber'] ?? '-'),
+                  ),
+                  const SizedBox(width: 32),
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Container Size', widget.ticketData['containerSize'] ?? '-'),
+                  ),
+                ],
+              ),
+              
+              // Row 5: Vessel - Connecting Vessel
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Vessel', widget.ticketData['vessel'] ?? 'WAR HAI 377 V.W004'),
+                  ),
+                  const SizedBox(width: 32),
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Connecting Vessel', widget.ticketData['connectingVessel'] ?? '-'),
+                  ),
+                ],
+              ),
+              
+              // Row 6: Marking - Estimated Cargo In
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Marking', widget.ticketData['marking'] ?? 'SHINGORA B/NO. NHAVA SHEVA PT. ACHEM MADE IN INDONESIA'),
+                  ),
+                  const SizedBox(width: 32),
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Estimated Cargo In', widget.ticketData['estimatedCargoIn'] ?? '2024-01-01 00:00:00'),
+                  ),
+                ],
               ),
             ],
           ),
@@ -633,6 +707,88 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                     height: 1.3,
                   ),
                 ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDetailItemWithHeight(String label, String value, {bool isStatus = false, bool isInvalid = false}) {
+    if (isStatus) {
+      // Untuk status ticket, background melingkupi seluruh area
+      return Container(
+        height: 60,
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF3F4F6), // Abu-abu terang untuk background
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Color(0xFF9CA3AF),
+                fontWeight: FontWeight.w400,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Expanded(
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  value,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: isInvalid ? const Color(0xFFDC2626) : const Color(0xFF10B981), // Warna teks: merah untuk invalid, hijau untuk valid
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    
+    // Untuk item lainnya, tetap menggunakan struktur lama
+    return Container(
+      height: 60, // Reduced from 80 to 60 for smaller vertical spacing
+      margin: const EdgeInsets.only(bottom: 12), // Reduced from 16 to 12
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 12,
+              color: Color(0xFF9CA3AF),
+              fontWeight: FontWeight.w400,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          const SizedBox(height: 4), // Reduced from 6 to 4
+          Expanded(
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF111827),
+                  height: 1.3,
+                ),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
         ],
       ),
     );

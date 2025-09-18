@@ -99,13 +99,13 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1F2937),
+                    color: Color(0xFF374151),
                   ),
                 ),
                 const SizedBox(width: 6),
                 const Icon(
                   Icons.chevron_right,
-                  color: Color(0xFF1F2937),
+                  color: Color(0xFF374151),
                   size: 20,
                 ),
                 const SizedBox(width: 6),
@@ -114,7 +114,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                     widget.inventoryData['bookingCode'] ?? '20250822034402',
                     style: const TextStyle(
                       fontSize: 18,
-                      color: Color(0xFF1F2937),
+                      color: Color(0xFF374151),
                       fontWeight: FontWeight.bold,
                     ),
                     overflow: TextOverflow.ellipsis,
@@ -270,7 +270,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
             'Please check again or if there something suspicious\ncontact support',
             style: TextStyle(
               fontSize: 16,
-              color: Color(0xFF6B7280),
+              color: Color(0xFF374151),
               height: 1.5,
             ),
             textAlign: TextAlign.center,
@@ -418,7 +418,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1F2937),
+                  color: Color(0xFF374151),
                 ),
               ),
               const SizedBox(width: 16),
@@ -450,7 +450,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                   'Remark',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF6B7280),
+                    color: Color(0xFF374151),
                     fontStyle: FontStyle.italic,
                   ),
                 ),
@@ -472,7 +472,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF1F2937),
+                          color: Color(0xFF374151),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -487,7 +487,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             'Quantity',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF6B7280),
+                              color: Color(0xFF374151),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -495,7 +495,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             'Package',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF6B7280),
+                              color: Color(0xFF374151),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -510,7 +510,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF1F2937),
+                              color: Color(0xFF374151),
                             ),
                           ),
                           Text(
@@ -518,7 +518,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF1F2937),
+                              color: Color(0xFF374151),
                             ),
                           ),
                         ],
@@ -533,7 +533,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             'Weight',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF6B7280),
+                              color: Color(0xFF374151),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -541,7 +541,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             'Volume',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF6B7280),
+                              color: Color(0xFF374151),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -556,7 +556,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF1F2937),
+                              color: Color(0xFF374151),
                             ),
                           ),
                           Text(
@@ -564,7 +564,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF1F2937),
+                              color: Color(0xFF374151),
                             ),
                           ),
                         ],
@@ -579,7 +579,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             'Warehouse Meas',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF6B7280),
+                              color: Color(0xFF374151),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -589,7 +589,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF1F2937),
+                              color: Color(0xFF374151),
                             ),
                           ),
                         ],
@@ -611,7 +611,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1F2937),
+                  color: Color(0xFF374151),
                 ),
               ),
               const SizedBox(width: 16),
@@ -627,7 +627,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
             scrollDirection: Axis.horizontal,
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: const Color(0xFFD1D5DB), width: 1),
+                border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
@@ -643,9 +643,9 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             width: 70,
                             height: 90,
                             decoration: const BoxDecoration(
-                              color: Color(0xFF6B7280),
+                              color: Color(0xFF374151),
                               border: Border(
-                                right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                               ),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(7),
@@ -668,9 +668,9 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             width: 180,
                             height: 90,
                             decoration: const BoxDecoration(
-                              color: Color(0xFF6B7280),
+                              color: Color(0xFF374151),
                               border: Border(
-                                right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                               ),
                             ),
                             child: const Center(
@@ -695,10 +695,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     width: 210,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF6B7280),
+                                      color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
-                                        bottom: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                        bottom: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                                       ),
                                     ),
                                     child: const Center(
@@ -717,10 +717,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     width: 210,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF6B7280),
+                                      color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
-                                        bottom: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                        bottom: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                                       ),
                                     ),
                                     child: const Center(
@@ -745,9 +745,9 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     width: 70,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF6B7280),
+                                      color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                                       ),
                                     ),
                                     child: const Center(
@@ -766,9 +766,9 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     width: 70,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF6B7280),
+                                      color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                                       ),
                                     ),
                                     child: const Center(
@@ -788,9 +788,9 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     width: 70,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF6B7280),
+                                      color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                                       ),
                                     ),
                                     child: const Center(
@@ -810,9 +810,9 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     width: 70,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF6B7280),
+                                      color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                                       ),
                                     ),
                                     child: const Center(
@@ -831,9 +831,9 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     width: 70,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF6B7280),
+                                      color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                                       ),
                                     ),
                                     child: const Center(
@@ -852,9 +852,9 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     width: 70,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF6B7280),
+                                      color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                                       ),
                                     ),
                                     child: const Center(
@@ -878,7 +878,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             width: 100,
                             height: 90,
                             decoration: const BoxDecoration(
-                              color: Color(0xFF6B7280),
+                              color: Color(0xFF374151),
                               borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(7),
                               ),
@@ -910,7 +910,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                         bottomRight: Radius.circular(7),
                       ),
                       border: Border(
-                        top: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                        top: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                       ),
                     ),
                     child: Row(
@@ -921,7 +921,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                             ),
                           ),
                           child: const Center(
@@ -930,7 +930,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF374151),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -943,7 +943,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                             ),
                           ),
                           child: const Center(
@@ -952,7 +952,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF374151),
                                 height: 1.3,
                               ),
                               textAlign: TextAlign.center,
@@ -965,7 +965,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                             ),
                           ),
                           child: const Center(
@@ -974,7 +974,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF374151),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -986,7 +986,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                             ),
                           ),
                           child: const Center(
@@ -995,7 +995,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF374151),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -1007,7 +1007,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                             ),
                           ),
                           child: const Center(
@@ -1016,7 +1016,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF374151),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -1028,7 +1028,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                             ),
                           ),
                           child: const Center(
@@ -1037,7 +1037,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF374151),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -1049,7 +1049,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                             ),
                           ),
                           child: const Center(
@@ -1058,7 +1058,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF374151),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -1070,7 +1070,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
                             ),
                           ),
                           child: const Center(
@@ -1079,7 +1079,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF374151),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -1095,7 +1095,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF374151),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -1119,7 +1119,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1F2937),
+                  color: Color(0xFF374151),
                 ),
               ),
               const SizedBox(width: 16),
@@ -1135,7 +1135,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
             'PKBE Aju',
             style: TextStyle(
               fontSize: 14,
-              color: Color(0xFF6B7280),
+              color: Color(0xFF374151),
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -1162,7 +1162,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                         'Number',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF6B7280),
+                          color: Color(0xFF374151),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1184,7 +1184,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                         '-',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF1F2937),
+                          color: Color(0xFF374151),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1213,7 +1213,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                         'Date',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF6B7280),
+                          color: Color(0xFF374151),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1235,7 +1235,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                         '-',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF1F2937),
+                          color: Color(0xFF374151),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1253,7 +1253,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
             'PKBE',
             style: TextStyle(
               fontSize: 14,
-              color: Color(0xFF6B7280),
+              color: Color(0xFF374151),
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -1280,7 +1280,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                         'Number',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF6B7280),
+                          color: Color(0xFF374151),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1302,7 +1302,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                         '-',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF1F2937),
+                          color: Color(0xFF374151),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1331,7 +1331,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                         'Date',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF6B7280),
+                          color: Color(0xFF374151),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1353,7 +1353,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                         '-',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF1F2937),
+                          color: Color(0xFF374151),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1382,7 +1382,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
             label,
             style: const TextStyle(
               fontSize: 12,
-              color: Color(0xFF6B7280),
+              color: Color(0xFF374151),
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -1391,7 +1391,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
             value.isEmpty ? '-' : value,
             style: const TextStyle(
               fontSize: 13,
-              color: Color(0xFF1F2937),
+              color: Color(0xFF374151),
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -1430,7 +1430,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF374151),
               ),
             ),
           ),
@@ -1509,7 +1509,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF374151),
               ),
             ),
           ),
@@ -1543,7 +1543,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF374151),
               ),
             ),
           ),
@@ -1586,7 +1586,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
               color:
                   isIncomplete
                       ? const Color(0xFFEF4444)
-                      : const Color(0xFF1F2937),
+                      : const Color(0xFF374151),
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -1614,7 +1614,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
               value.isEmpty ? '-' : value,
               style: const TextStyle(
                 fontSize: 14,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF374151),
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -1661,7 +1661,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF374151),
               ),
             ),
           ),
@@ -1758,7 +1758,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF374151),
               ),
             ),
           ),
@@ -1824,7 +1824,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
     final GlobalKey cardKey = GlobalKey();
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 0), // Jarak tetap antar timeline items
+      padding: const EdgeInsets.only(bottom: 0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -1833,7 +1833,6 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
             width: 20,
             child: Column(
               children: [
-                // Spacer untuk menurunkan lingkaran ke tengah
                 const SizedBox(height: 24),
                 // Timeline indicator
                 Container(
@@ -1849,11 +1848,11 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                   ),
                 ),
                 
-                // Timeline connector line - panjang dinamis berdasarkan content
+                // Timeline connector line
                 if (hasConnector)
                   Container(
                     width: 2,
-                    height: isExpandable && isExpanded ? 420 : 80, // Tinggi penuh untuk content
+                    height: isExpandable && isExpanded ? 420 : 80,
                     color: const Color(0xFF6B7280),
                   ),
               ],
@@ -1887,7 +1886,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF1F2937),
+                        color: Color(0xFF374151),
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -1895,11 +1894,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                       time,
                       style: const TextStyle(
                         fontSize: 14,
-                        color: Color(0xFF6B7280),
+                        color: Color(0xFF374151),
                       ),
                     ),
                     
-                    // Expandable content for Arrival or Stuffed
                     if (isExpandable && isExpanded) ...[
                       const SizedBox(height: 16),
                       const Text(
@@ -1912,7 +1910,6 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                       ),
                       const SizedBox(height: 8),
                       
-                      // Condition grid - different values for Stuffed vs Arrival
                       Row(
                         children: [
                           Expanded(
@@ -1930,7 +1927,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                   ),
                                   child: const Text(
                                     'Good',
-                                    style: TextStyle(fontSize: 14, color: Color(0xFF6B7280), fontWeight: FontWeight.w500),
+                                    style: TextStyle(fontSize: 14, color: Color(0xFF374151), fontWeight: FontWeight.w500),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -1969,7 +1966,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                   ),
                                   child: const Text(
                                     'Damaged',
-                                    style: TextStyle(fontSize: 14, color: Color(0xFF6B7280), fontWeight: FontWeight.w500),
+                                    style: TextStyle(fontSize: 14, color: Color(0xFF374151), fontWeight: FontWeight.w500),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -2013,7 +2010,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                   ),
                                   child: const Text(
                                     'Short',
-                                    style: TextStyle(fontSize: 14, color: Color(0xFF6B7280), fontWeight: FontWeight.w500),
+                                    style: TextStyle(fontSize: 14, color: Color(0xFF374151), fontWeight: FontWeight.w500),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -2052,7 +2049,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                   ),
                                   child: const Text(
                                     'Over',
-                                    style: TextStyle(fontSize: 14, color: Color(0xFF6B7280), fontWeight: FontWeight.w500),
+                                    style: TextStyle(fontSize: 14, color: Color(0xFF374151), fontWeight: FontWeight.w500),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -2104,7 +2101,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             children: [
                               Text(
                                 'Sender Identity',
-                                style: TextStyle(color: Color(0xFF6B7280), fontWeight: FontWeight.w600),
+                                style: TextStyle(color: Color(0xFF374151), fontWeight: FontWeight.w600),
                               ),
                               Icon(Icons.chevron_right, color: Color(0xFF9CA3AF)),
                             ],
@@ -2126,7 +2123,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             children: [
                               Text(
                                 'Documentation',
-                                style: TextStyle(color: Color(0xFF6B7280), fontWeight: FontWeight.w600),
+                                style: TextStyle(color: Color(0xFF374151), fontWeight: FontWeight.w600),
                               ),
                               Icon(Icons.chevron_right, color: Color(0xFF9CA3AF)),
                             ],
@@ -2215,7 +2212,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF374151),
               ),
             ),
           ),
@@ -2307,7 +2304,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF1F2937),
+                    color: Color(0xFF374151),
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -2315,7 +2312,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                   time,
                   style: const TextStyle(
                     fontSize: 14,
-                    color: Color(0xFF6B7280),
+                    color: Color(0xFF374151),
                   ),
                 ),
               ],

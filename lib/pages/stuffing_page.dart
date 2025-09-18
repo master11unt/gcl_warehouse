@@ -3,7 +3,7 @@ import '../widgets/home/custom_drawer.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/stuffing/stuffing_table.dart';
 import '../models/stuffing_data.dart';
-import 'stuffing_detail_page.dart';
+import 'ticket_stuffing_detail_page.dart';
 
 class StuffingPage extends StatefulWidget {
   @override
@@ -416,8 +416,8 @@ class _StuffingPageState extends State<StuffingPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => StuffingDetailPage(
-                                stuffingData: stuffingData,
+                              builder: (context) => TicketStuffingDetailPage(
+                                ticketData: stuffingData,
                               ),
                             ),
                           );

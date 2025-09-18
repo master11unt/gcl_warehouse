@@ -32,16 +32,8 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
               _buildBreadcrumb(),
               const SizedBox(height: 16),
               
-              // Main Content Card
-              _buildMainContentCard(),
-              const SizedBox(height: 16),
-              
-              // Stuffing List Section
-              _buildStuffingListSection(),
-              const SizedBox(height: 16),
-              
-              // Stuffing Instruction Section
-              _buildStuffingInstructionSection(),
+              // Combined Content (Main Content + Stuffing List + Stuffing Instruction)
+              _buildCombinedContentCard(),
               const SizedBox(height: 16),
               
               // Rules Section
@@ -147,106 +139,7 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
     );
   }
 
-  Widget _buildMainContentCard() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 6,
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Job Number Section
-          Row(
-            children: [
-              Expanded(
-                child: _buildDetailItem('Job Number', widget.ticketData['jobNumber'] ?? 'GCL-1002507096'),
-              ),
-              const SizedBox(width: 16),
-              // Action buttons
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF374151),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: const Icon(
-                      Icons.send_rounded,
-                      color: Colors.white,
-                      size: 16,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF374151),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: const Icon(
-                      Icons.headset_mic,
-                      color: Colors.white,
-                      size: 16,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          
-          const SizedBox(height: 24),
-          
-          // Two Column Layout
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Left Column
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildDetailItem('Destination', widget.ticketData['destination'] ?? 'SHANGHAI'),
-                    _buildDetailItem('Container Number', widget.ticketData['containerNumber'] ?? 'KOCU5009373 / 24H0102212'),
-                    _buildDetailItem('Estimated Time Departure', widget.ticketData['etd'] ?? '2025-08-02'),
-                    _buildDetailItem('Vessel', widget.ticketData['vessel'] ?? 'HMM MIRACLE V 009N'),
-                    _buildDetailItem('Agent', widget.ticketData['agent'] ?? 'PORTSHA'),
-                  ],
-                ),
-              ),
-              
-              const SizedBox(width: 32),
-              
-              // Right Column
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildDetailItem('Stuffing Date', widget.ticketData['stuffingDate'] ?? '2025-07-31'),
-                    _buildDetailItem('Container Size', widget.ticketData['containerSize'] ?? '40HC'),
-                    _buildDetailItem('Closing Date', widget.ticketData['closingDate'] ?? '2025-08-31\n00:00:00'),
-                    _buildDetailItem('Stuffing Owner', widget.ticketData['stuffingOwner'] ?? 'GCL-JAKARTA'),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStuffingListSection() {
+  Widget _buildCombinedContentCard() {
     final stuffingList = [
       {
         'num': 'A',
@@ -397,6 +290,8 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
     ];
 
     return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -411,24 +306,166 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Section Title
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              'Stuffing List',
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF9CA3AF),
-                fontStyle: FontStyle.italic,
+          // Main Content Section
+          // Job Number Section
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Job Number',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF9CA3AF),
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      widget.ticketData['jobNumber'] ?? 'GCL-1002507096',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF111827),
+                        height: 1.3,
+                      ),
+                    ),
+                  ],
+                ),
               ),
+              const SizedBox(width: 16),
+              // Action buttons
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF374151),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: const Icon(
+                      Icons.send_rounded,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF374151),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: const Icon(
+                      Icons.headset_mic,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          
+          const SizedBox(height: 24),
+          
+          // Two Column Layout with equal height rows
+          Column(
+            children: [
+              // Row 1: Destination - Stuffing Date
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Destination', widget.ticketData['destination'] ?? 'SHANGHAI'),
+                  ),
+                  const SizedBox(width: 32),
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Stuffing Date', _formatDate(widget.ticketData['stuffingDate'], type: 'stuffingDate'), isStuffingDate: true),
+                  ),
+                ],
+              ),
+              
+              // Row 2: Container Number - Container Size
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Container Number', widget.ticketData['containerNumber'] ?? 'KOCU5009373 / 24H0102212'),
+                  ),
+                  const SizedBox(width: 32),
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Container Size', widget.ticketData['containerSize'] ?? '40HC'),
+                  ),
+                ],
+              ),
+              
+              // Row 3: Estimated Time Departure - Closing Date
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Estimated Time Departure', _formatDate(widget.ticketData['etd'], type: 'etd')),
+                  ),
+                  const SizedBox(width: 32),
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Closing Date', _formatDate(widget.ticketData['closingDate'], type: 'closingDate')),
+                  ),
+                ],
+              ),
+              
+              // Row 4: Vessel - Stuffing Owner
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Vessel', widget.ticketData['vessel'] ?? 'HMM MIRACLE V 009N'),
+                  ),
+                  const SizedBox(width: 32),
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Stuffing Owner', widget.ticketData['stuffingOwner'] ?? 'GCL-JAKARTA'),
+                  ),
+                ],
+              ),
+              
+              // Row 5: Agent - (empty slot for balance)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _buildDetailItemWithHeight('Agent', widget.ticketData['agent'] ?? 'PORTSHA'),
+                  ),
+                  const SizedBox(width: 32),
+                  const Expanded(
+                    child: SizedBox(), // Empty space for balance
+                  ),
+                ],
+              ),
+            ],
+          ),
+          
+          const SizedBox(height: 32),
+          
+          // Stuffing List Section
+          const Text(
+            'Stuffing List',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFF9CA3AF),
+              fontStyle: FontStyle.italic,
             ),
           ),
+          
+          const SizedBox(height: 16),
           
           // Horizontal Scrollable Table
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(color: const Color(0xFFE5E7EB)),
@@ -557,44 +594,24 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
             ),
           ),
           
-          const SizedBox(height: 16),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStuffingInstructionSection() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 6,
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
+          const SizedBox(height: 32),
+          
+          // Stuffing Instruction Section
+          const Text(
             'Stuffing Instruction',
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
               color: Color(0xFF9CA3AF),
               fontStyle: FontStyle.italic,
             ),
           ),
-          const SizedBox(height: 12),
-          Text(
+          const SizedBox(height: 16),
+          const Text(
             '*HANDLE CARGO WITH CARE\n**SEBELUM CONTAINER DI SEAL\nPASTIKAN DIGUDANG TIDAK ADA CARGO YANG TERTINGGAL.\n***JAUHKAN CARGO YANG BERBAU DENGAN CARGO GARMENT ATAU SEJENISNYA BELI STIKER DG AGENT PORTSHA',
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
               color: Color(0xFF374151),
               height: 1.5,
             ),
@@ -606,7 +623,8 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
 
   Widget _buildRulesSection() {
     return Container(
-      padding: const EdgeInsets.all(16),
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -621,21 +639,19 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Rules',
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: Color(0xFF111827),
-              // fontStyle: FontStyle.italic,
             ),
           ),
           const SizedBox(height: 8),
           Text(
             'Based On : ${widget.ticketData['rulesReference'] ?? 'GTW/SOP/JKT/122331'}',
             style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
+              fontSize: 12,
               color: Color(0xFF6B7280),
             ),
           ),
@@ -764,103 +780,155 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
   }
 
   Widget _buildFooterSection() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 6,
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Requested By',
-            style: const TextStyle(
-              fontSize: 12,
-              color: Color(0xFF9CA3AF),
-              fontWeight: FontWeight.w400,
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            widget.ticketData['requestedBy'] ?? 'SITI AISYAH',
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF111827),
-            ),
-          ),
-          const SizedBox(height: 16),
-          
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                widget.ticketData['requestDate'] ?? '2025-07-24',
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF6B7280),
-                ),
+    return Column(
+      children: [
+        // Requested By Section
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 6,
               ),
             ],
           ),
-          
-          const SizedBox(height: 20),
-          
-          // Process Stuffing Button
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                // TODO: Implement process stuffing functionality
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF10B981),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Requested By',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Color(0xFF9CA3AF),
+                  fontWeight: FontWeight.w400,
+                  fontStyle: FontStyle.italic,
                 ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Process Stuffing',
-                    style: TextStyle(
+                  Text(
+                    widget.ticketData['requestedBy'] ?? 'SITI AISYAH',
+                    style: const TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF111827),
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  const Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                    size: 20,
+                  Text(
+                    widget.ticketData['requestDate'] ?? '2025-07-24',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF6B7280),
+                    ),
                   ),
                 ],
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        ),
+        
+        const SizedBox(height: 16),
+        
+        // Process Stuffing Button Section
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: const Color(0xFF10B981),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 6,
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Process Stuffing',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(width: 12),
+              const Icon(
+                Icons.rocket_launch,
+                color: Colors.white,
+                size: 20,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
-  Widget _buildDetailItem(String label, String value) {
+  Widget _buildDetailItemWithHeight(String label, String value, {bool isStuffingDate = false}) {
+    if (isStuffingDate) {
+      // Untuk stuffing date, background melingkupi seluruh area
+      return Container(
+        height: 60,
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF3F4F6), // Abu-abu terang untuk background
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Color(0xFF9CA3AF),
+                fontWeight: FontWeight.w400,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Expanded(
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF111827),
+                    height: 1.3,
+                  ),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    
+    // Untuk item lainnya, tetap menggunakan struktur lama
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      height: 60, // Reduced from 80 to 60 for smaller vertical spacing
+      margin: const EdgeInsets.only(bottom: 12), // Reduced from 16 to 12
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             label,
@@ -871,18 +939,54 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
               fontStyle: FontStyle.italic,
             ),
           ),
-          const SizedBox(height: 6),
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF111827),
-              height: 1.3,
+          const SizedBox(height: 4), // Reduced from 6 to 4
+          Expanded(
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF111827),
+                  height: 1.3,
+                ),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  // Helper function to format dates
+  String _formatDate(String? dateString, {required String type}) {
+    if (dateString == null || dateString.isEmpty) {
+      // Return default values based on type
+      switch (type) {
+        case 'stuffingDate':
+          return '2025-07-31';
+        case 'etd':
+          return '2025-08-02';
+        case 'closingDate':
+          return '2025-08-31 00:00:00';
+        default:
+          return '';
+      }
+    }
+    
+    switch (type) {
+      case 'stuffingDate':
+      case 'etd':
+        // Remove T00:00:00 and Z for stuffing date and estimated time departure
+        return dateString.replaceAll('T00:00:00', '').replaceAll('Z', '');
+      case 'closingDate':
+        // Only remove T and Z for closing date
+        return dateString.replaceAll('T', ' ').replaceAll('Z', '');
+      default:
+        return dateString;
+    }
   }
 }
