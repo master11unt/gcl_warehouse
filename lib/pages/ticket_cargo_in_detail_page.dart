@@ -600,6 +600,7 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                       fontSize: 12,
                       color: Color(0xFF6B7280),
                       fontWeight: FontWeight.w500,
+                      fontStyle: FontStyle.italic,
                     ),
                   ),
                   const SizedBox(height: 4),

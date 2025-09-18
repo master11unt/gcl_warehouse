@@ -8,12 +8,54 @@ class InventoryDetailCargoOutPage extends StatefulWidget {
   const InventoryDetailCargoOutPage({super.key, required this.inventoryData});
 
   @override
-  State<InventoryDetailCargoOutPage> createState() => _InventoryDetailCargoOutPageState();
+  State<InventoryDetailCargoOutPage> createState() =>
+      _InventoryDetailCargoOutPageState();
 }
 
-class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPage> {
+class _InventoryDetailCargoOutPageState
+    extends State<InventoryDetailCargoOutPage> {
   bool _isArrivalExpanded = false;
   bool _isStuffedExpanded = false;
+  bool _isDeliveredExpanded = false;
+  
+  // Separate state variables for each timeline item
+  bool _isArrivalSenderIdentityExpanded = false;
+  bool _isArrivalDocumentationExpanded = false;
+  bool _isStuffedSenderIdentityExpanded = false;
+  bool _isStuffedDocumentationExpanded = false;
+  bool _isDeliveredSenderIdentityExpanded = false;
+  bool _isDeliveredDocumentationExpanded = false;
+  
+  // Scroll controller for options section
+  late ScrollController _optionsScrollController;
+  double _scrollIndicatorPosition = 0.0;
+  
+  @override
+  void initState() {
+    super.initState();
+    _optionsScrollController = ScrollController();
+    _optionsScrollController.addListener(_updateScrollIndicator);
+  }
+  
+  @override
+  void dispose() {
+    _optionsScrollController.removeListener(_updateScrollIndicator);
+    _optionsScrollController.dispose();
+    super.dispose();
+  }
+  
+  void _updateScrollIndicator() {
+    if (_optionsScrollController.hasClients) {
+      final maxScroll = _optionsScrollController.position.maxScrollExtent;
+      final currentScroll = _optionsScrollController.offset;
+      if (maxScroll > 0) {
+        setState(() {
+          // Calculate position: 0 to 40 (60 - 20 = 40 is the range the thumb can move)
+          _scrollIndicatorPosition = (currentScroll / maxScroll) * 40;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +220,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                     color: const Color(0xFF6B7280).withOpacity(0.3),
                   ),
                 ),
-                
+
                 // Main folder illustration
                 Center(
                   child: Container(
@@ -195,7 +237,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                     ),
                   ),
                 ),
-                
+
                 // Character illustration (simplified)
                 Positioned(
                   right: 20,
@@ -210,11 +252,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.help_outline,
-                          color: Colors.white,
-                          size: 20,
-                        ),
+                        Icon(Icons.help_outline, color: Colors.white, size: 20),
                         SizedBox(height: 4),
                         Text(
                           '?',
@@ -228,7 +266,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                     ),
                   ),
                 ),
-                
+
                 // Lamp illustration
                 Positioned(
                   top: 0,
@@ -255,7 +293,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
               ],
             ),
           ),
-          
+
           const Text(
             'Sorry, I think we already exiting this cargo',
             style: TextStyle(
@@ -645,7 +683,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             decoration: const BoxDecoration(
                               color: Color(0xFF374151),
                               border: Border(
-                                right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                right: BorderSide(
+                                  color: Color(0xFFE5E7EB),
+                                  width: 1,
+                                ),
                               ),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(7),
@@ -670,7 +711,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                             decoration: const BoxDecoration(
                               color: Color(0xFF374151),
                               border: Border(
-                                right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                right: BorderSide(
+                                  color: Color(0xFFE5E7EB),
+                                  width: 1,
+                                ),
                               ),
                             ),
                             child: const Center(
@@ -697,8 +741,14 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
-                                        bottom: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFE5E7EB),
+                                          width: 1,
+                                        ),
+                                        bottom: BorderSide(
+                                          color: Color(0xFFE5E7EB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -719,8 +769,14 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
-                                        bottom: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFE5E7EB),
+                                          width: 1,
+                                        ),
+                                        bottom: BorderSide(
+                                          color: Color(0xFFE5E7EB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -747,7 +803,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFE5E7EB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -768,7 +827,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFE5E7EB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -790,7 +852,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFE5E7EB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -812,7 +877,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFE5E7EB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -833,7 +901,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFE5E7EB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -854,7 +925,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF374151),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFE5E7EB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -900,7 +974,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                       ),
                     ],
                   ),
-                  
+
                   // Data Row
                   Container(
                     decoration: const BoxDecoration(
@@ -921,7 +995,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFE5E7EB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -940,10 +1017,16 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                         Container(
                           width: 180,
                           height: 60,
-                          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 8,
+                          ),
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFE5E7EB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -965,7 +1048,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFE5E7EB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -986,7 +1072,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFE5E7EB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -1007,7 +1096,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFE5E7EB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -1028,7 +1120,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFE5E7EB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -1049,7 +1144,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFE5E7EB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -1070,7 +1168,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFE5E7EB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -1439,11 +1540,12 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
           // Options buttons
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
+            controller: _optionsScrollController,
             child: Row(
               children: [
-                _buildOptionButton(Icons.ads_click, 'Action'),
+                _buildOptionButton(Icons.ads_click, 'Action', isEnabled: false),
                 const SizedBox(width: 16),
-                _buildOptionButton(Icons.edit_square, 'Edit'),
+                _buildOptionButton(Icons.edit_square, 'Edit', isEnabled: false),
                 const SizedBox(width: 16),
                 _buildOptionButton(Icons.share_outlined, 'Share'),
                 const SizedBox(width: 16),
@@ -1455,23 +1557,59 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
               ],
             ),
           ),
+          const SizedBox(height: 16),
+          
+          // Scroll indicator
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 60,
+                height: 3,
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+                child: Stack(
+                  children: [
+                    AnimatedPositioned(
+                      duration: const Duration(milliseconds: 100),
+                      left: _scrollIndicatorPosition,
+                      child: Container(
+                        width: 20,
+                        height: 3,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.7),
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildOptionButton(IconData icon, String label) {
+  Widget _buildOptionButton(IconData icon, String label, {bool isEnabled = true}) {
     return Container(
       width: 50,
       height: 50,
       decoration: BoxDecoration(
-        color: const Color(0xFF374151),
+        color: isEnabled ? const Color(0xFF374151) : const Color(0xFF9CA3AF),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color: Colors.white, size: 24),
+          Icon(
+            icon, 
+            color: isEnabled ? Colors.white : const Color(0xFFD1D5DB), 
+            size: 24
+          ),
           const SizedBox(height: 4),
         ],
       ),
@@ -1780,8 +1918,23 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                     _isArrivalExpanded = !_isArrivalExpanded;
                   });
                 },
+                isSenderIdentityExpanded: _isArrivalSenderIdentityExpanded,
+                isDocumentationExpanded: _isArrivalDocumentationExpanded,
+                onSenderIdentityTap: () {
+                  setState(() {
+                    _isArrivalSenderIdentityExpanded = !_isArrivalSenderIdentityExpanded;
+                  });
+                },
+                onDocumentationTap: () {
+                  setState(() {
+                    _isArrivalDocumentationExpanded = !_isArrivalDocumentationExpanded;
+                  });
+                },
               ),
-              
+              SizedBox(
+                height: (_isArrivalExpanded || _isStuffedExpanded) ? 16 : 4,
+              ),
+
               // Stuffed
               _buildTimelineItem(
                 isCompleted: true,
@@ -1795,14 +1948,48 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                     _isStuffedExpanded = !_isStuffedExpanded;
                   });
                 },
+                isSenderIdentityExpanded: _isStuffedSenderIdentityExpanded,
+                isDocumentationExpanded: _isStuffedDocumentationExpanded,
+                onSenderIdentityTap: () {
+                  setState(() {
+                    _isStuffedSenderIdentityExpanded = !_isStuffedSenderIdentityExpanded;
+                  });
+                },
+                onDocumentationTap: () {
+                  setState(() {
+                    _isStuffedDocumentationExpanded = !_isStuffedDocumentationExpanded;
+                  });
+                },
               ),
-              
+              SizedBox(
+                height: (_isStuffedExpanded || _isDeliveredExpanded) ? 16 : 4,
+              ),
+
               // Delivered
               _buildTimelineItem(
                 isCompleted: false,
                 hasConnector: false,
                 title: 'Delivered',
                 time: '2025-09-09 11:42',
+                isExpandable: true,
+                isExpanded: _isDeliveredExpanded,
+                onTap: () {
+                  setState(() {
+                    _isDeliveredExpanded = !_isDeliveredExpanded;
+                  });
+                },
+                isSenderIdentityExpanded: _isDeliveredSenderIdentityExpanded,
+                isDocumentationExpanded: _isDeliveredDocumentationExpanded,
+                onSenderIdentityTap: () {
+                  setState(() {
+                    _isDeliveredSenderIdentityExpanded = !_isDeliveredSenderIdentityExpanded;
+                  });
+                },
+                onDocumentationTap: () {
+                  setState(() {
+                    _isDeliveredDocumentationExpanded = !_isDeliveredDocumentationExpanded;
+                  });
+                },
               ),
             ],
           ),
@@ -1819,6 +2006,11 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
     bool isExpandable = false,
     bool isExpanded = false,
     VoidCallback? onTap,
+    // Parameters for dropdown states
+    bool isSenderIdentityExpanded = false,
+    bool isDocumentationExpanded = false,
+    VoidCallback? onSenderIdentityTap,
+    VoidCallback? onDocumentationTap,
   }) {
     // GlobalKey untuk mengukur tinggi sebenarnya dari content card
     final GlobalKey cardKey = GlobalKey();
@@ -1833,7 +2025,6 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
             width: 20,
             child: Column(
               children: [
-                const SizedBox(height: 24),
                 // Timeline indicator
                 Container(
                   width: 20,
@@ -1842,17 +2033,24 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                     shape: BoxShape.circle,
                     color: isCompleted ? const Color(0xFF6B7280) : Colors.white,
                     border: Border.all(
-                      color: const Color(0xFF6B7280), 
-                      width: isCompleted ? 0 : 3
+                      color: const Color(0xFF6B7280),
+                      width: isCompleted ? 0 : 3,
                     ),
                   ),
                 ),
-                
+
                 // Timeline connector line
                 if (hasConnector)
                   Container(
                     width: 2,
-                    height: isExpandable && isExpanded ? 420 : 80,
+                    height:
+                        isExpanded
+                            ? (title == 'Delivered'
+                                ? 600
+                                : title == 'Stuffed'
+                                ? 450
+                                : 400)
+                            : 80,
                     color: const Color(0xFF6B7280),
                   ),
               ],
@@ -1897,7 +2095,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                         color: Color(0xFF374151),
                       ),
                     ),
-                    
+
                     if (isExpandable && isExpanded) ...[
                       const SizedBox(height: 16),
                       const Text(
@@ -1909,7 +2107,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                         ),
                       ),
                       const SizedBox(height: 8),
-                      
+
                       Row(
                         children: [
                           Expanded(
@@ -1917,7 +2115,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                               children: [
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: const BoxDecoration(
                                     color: Color(0xFFE5E7EB),
                                     borderRadius: BorderRadius.only(
@@ -1927,15 +2128,24 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                   ),
                                   child: const Text(
                                     'Good',
-                                    style: TextStyle(fontSize: 14, color: Color(0xFF374151), fontWeight: FontWeight.w500),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xFF374151),
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: const Color(0xFFE5E7EB)),
+                                    border: Border.all(
+                                      color: const Color(0xFFE5E7EB),
+                                    ),
                                     borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(6),
                                       bottomRight: Radius.circular(6),
@@ -1943,7 +2153,11 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                   ),
                                   child: Text(
                                     title == 'Stuffed' ? '115' : '32',
-                                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF6B7280)),
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF6B7280),
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -1956,7 +2170,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                               children: [
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: const BoxDecoration(
                                     color: Color(0xFFE5E7EB),
                                     borderRadius: BorderRadius.only(
@@ -1966,15 +2183,24 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                   ),
                                   child: const Text(
                                     'Damaged',
-                                    style: TextStyle(fontSize: 14, color: Color(0xFF374151), fontWeight: FontWeight.w500),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xFF374151),
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: const Color(0xFFE5E7EB)),
+                                    border: Border.all(
+                                      color: const Color(0xFFE5E7EB),
+                                    ),
                                     borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(6),
                                       bottomRight: Radius.circular(6),
@@ -1982,7 +2208,11 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                   ),
                                   child: const Text(
                                     '0',
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF6B7280)),
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF6B7280),
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -1991,7 +2221,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           ),
                         ],
                       ),
-                      
+
                       const SizedBox(height: 8),
                       Row(
                         children: [
@@ -2000,7 +2230,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                               children: [
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: const BoxDecoration(
                                     color: Color(0xFFE5E7EB),
                                     borderRadius: BorderRadius.only(
@@ -2010,15 +2243,24 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                   ),
                                   child: const Text(
                                     'Short',
-                                    style: TextStyle(fontSize: 14, color: Color(0xFF374151), fontWeight: FontWeight.w500),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xFF374151),
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: const Color(0xFFE5E7EB)),
+                                    border: Border.all(
+                                      color: const Color(0xFFE5E7EB),
+                                    ),
                                     borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(6),
                                       bottomRight: Radius.circular(6),
@@ -2026,7 +2268,11 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                   ),
                                   child: const Text(
                                     '0',
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF6B7280)),
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF6B7280),
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -2039,7 +2285,10 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                               children: [
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: const BoxDecoration(
                                     color: Color(0xFFE5E7EB),
                                     borderRadius: BorderRadius.only(
@@ -2049,15 +2298,24 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                   ),
                                   child: const Text(
                                     'Over',
-                                    style: TextStyle(fontSize: 14, color: Color(0xFF374151), fontWeight: FontWeight.w500),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xFF374151),
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: const Color(0xFFE5E7EB)),
+                                    border: Border.all(
+                                      color: const Color(0xFFE5E7EB),
+                                    ),
                                     borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(6),
                                       bottomRight: Radius.circular(6),
@@ -2065,7 +2323,11 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                                   ),
                                   child: const Text(
                                     '0',
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF6B7280)),
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF6B7280),
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -2074,7 +2336,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                           ),
                         ],
                       ),
-                      
+
                       const SizedBox(height: 16),
                       const Text(
                         'Package',
@@ -2085,52 +2347,201 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                         ),
                       ),
                       const SizedBox(height: 8),
-                      
+
                       // Expandable sections
-                      Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.only(bottom: 8),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      GestureDetector(
+                        onTap: onSenderIdentityTap,
+                        child: Container(
+                          width: double.infinity,
+                          margin: const EdgeInsets.only(bottom: 8),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
                             children: [
-                              Text(
-                                'Sender Identity',
-                                style: TextStyle(color: Color(0xFF374151), fontWeight: FontWeight.w600),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Sender Identity',
+                                      style: TextStyle(color: Color(0xFF6B7280), fontWeight: FontWeight.w600),
+                                    ),
+                                    Icon(
+                                      isSenderIdentityExpanded ? Icons.expand_less : Icons.chevron_right, 
+                                      color: const Color(0xFF9CA3AF)
+                                    ),
+                                  ],
+                                ),
                               ),
-                              Icon(Icons.chevron_right, color: Color(0xFF9CA3AF)),
+                              if (isSenderIdentityExpanded) ...[
+                                Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(16),
+                                  child: const Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Truck Number',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF9CA3AF),
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        'B 1234 ABC',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xFF374151),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      SizedBox(height: 12),
+                                      Text(
+                                        'Driver Name',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF9CA3AF),
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        'Ahmad Susanto',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xFF374151),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      SizedBox(height: 12),
+                                      Text(
+                                        'Driver Contact',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF9CA3AF),
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        '+62 812-3456-7890',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xFF374151),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ],
                           ),
                         ),
                       ),
-                      
-                      Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.only(bottom: 8),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                      GestureDetector(
+                        onTap: onDocumentationTap,
+                        child: Container(
+                          width: double.infinity,
+                          margin: const EdgeInsets.only(bottom: 8),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
                             children: [
-                              Text(
-                                'Documentation',
-                                style: TextStyle(color: Color(0xFF374151), fontWeight: FontWeight.w600),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Documentation',
+                                      style: TextStyle(color: Color(0xFF6B7280), fontWeight: FontWeight.w600),
+                                    ),
+                                    Icon(
+                                      isDocumentationExpanded ? Icons.expand_less : Icons.chevron_right,
+                                      color: const Color(0xFF9CA3AF)
+                                    ),
+                                  ],
+                                ),
                               ),
-                              Icon(Icons.chevron_right, color: Color(0xFF9CA3AF)),
+                              if (isDocumentationExpanded) ...[
+                                Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(16),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      // Received status badge - full width gray bar
+                                      Container(
+                                        width: double.infinity,
+                                        padding: EdgeInsets.symmetric(vertical: 2),
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFFE5E7EB),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Received',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Color(0xFF6B7280),
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 16),
+                                      Text(
+                                        'Surat Jalan ID',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF9CA3AF),
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        'SJ-2025-001234',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xFF374151),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      SizedBox(height: 12),
+                                      Text(
+                                        'Origin',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF9CA3AF),
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        'Jakarta Warehouse',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xFF374151),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ],
                           ),
                         ),
                       ),
-                      
+
                       const SizedBox(height: 16),
                       const Text(
                         'Notes',
@@ -2143,33 +2554,54 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                       const SizedBox(height: 8),
                       // Notes content - different for Stuffed vs Arrival
                       Text(
-                        title == 'Stuffed' 
-                          ? 'Stuffed with job number : GCL-1002509172'
-                          : '',
-                        style: const TextStyle(fontSize: 14, color: Color(0xFF6B7280)),
+                        title == 'Stuffed'
+                            ? 'Stuffed with job number : GCL-1002509172'
+                            : '',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF6B7280),
+                        ),
                       ),
                       const SizedBox(height: 12),
                       const Text(
                         'In Charge',
-                        style: TextStyle(fontSize: 13, color: Color(0xFF9CA3AF), fontStyle: FontStyle.italic),
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Color(0xFF9CA3AF),
+                          fontStyle: FontStyle.italic,
+                        ),
                       ),
                       Text(
                         title == 'Stuffed' ? 'NaN' : 'User',
-                        style: const TextStyle(fontSize: 14, color: Color(0xFF6B7280)),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF6B7280),
+                        ),
                       ),
                       const SizedBox(height: 12),
                       const Text(
                         'Last Updated At',
-                        style: TextStyle(fontSize: 13, color: Color(0xFF9CA3AF), fontStyle: FontStyle.italic),
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Color(0xFF9CA3AF),
+                          fontStyle: FontStyle.italic,
+                        ),
                       ),
                       const Text(
                         '2025-09-09 12:26:41',
-                        style: TextStyle(fontSize: 14, color: Color(0xFF6B7280)),
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF6B7280),
+                        ),
                       ),
                       const SizedBox(height: 12),
                       const Text(
                         'Photo Cargo',
-                        style: TextStyle(fontSize: 13, color: Color(0xFF9CA3AF), fontStyle: FontStyle.italic),
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Color(0xFF9CA3AF),
+                          fontStyle: FontStyle.italic,
+                        ),
                       ),
                     ],
                   ],
@@ -2228,7 +2660,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                 title: 'Received in warehouse',
                 time: '2025-09-09 13:54:10',
               ),
-              
+
               // Stuffing
               _buildHistoryTimelineItem(
                 isCompleted: true,
@@ -2236,7 +2668,7 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                 title: 'Stuffing',
                 time: '2025-09-09 13:56:35',
               ),
-              
+
               // Deliver to destination
               _buildHistoryTimelineItem(
                 isCompleted: true,
@@ -2277,12 +2709,12 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
                     shape: BoxShape.circle,
                     color: isCompleted ? const Color(0xFF6B7280) : Colors.white,
                     border: Border.all(
-                      color: const Color(0xFF6B7280), 
-                      width: isCompleted ? 0 : 3
+                      color: const Color(0xFF6B7280),
+                      width: isCompleted ? 0 : 3,
                     ),
                   ),
                 ),
-                
+
                 // Timeline connector line
                 if (hasConnector)
                   Container(
@@ -2323,4 +2755,3 @@ class _InventoryDetailCargoOutPageState extends State<InventoryDetailCargoOutPag
     );
   }
 }
-

@@ -59,20 +59,16 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                 ],
               ),
               child: Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(8),
                 child: Row(
                   children: [
                     // QR Code Icon
                     Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                      padding: const EdgeInsets.all(10),
                       child: const Icon(
                         Icons.qr_code_2,
                         color: Colors.white,
-                        size: 28,
+                        size: 40, 
                       ),
                     ),
                     
@@ -93,13 +89,13 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            _buildTabItem(Icons.description, "Cargo In", 0),
+                            _buildTabItem(Icons.description_outlined, "Cargo In", 0),
                             const SizedBox(width: 12),
-                            _buildTabItem(Icons.assessment, "Stock Inventory", 1),
+                            _buildTabItem(Icons.home_work_outlined, "Stock Inventory", 1),
                             const SizedBox(width: 12),
-                            _buildTabItem(Icons.local_shipping, "Cargo Out", 2),
+                            _buildTabItem(Icons.local_shipping_outlined, "Cargo Out", 2),
                             const SizedBox(width: 12),
-                            _buildTabItem(Icons.grid_view, "Layout", 3),
+                            _buildCustomLayoutTab(3),
                           ],
                         ),
                       ),
@@ -242,22 +238,22 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                   'Status',
                 ],
                 columnWidths: const [
-                  155, // Booking Code
-                  150, // Date In
-                  300, // Shipper
-                  150, // Destination
-                  100, // Quantity
-                  100, // Marking
-                  180, // Description of Goods
-                  130, // Warehouse Meas
-                  130, // Weight (KGs)
-                  120, // PEB Number
-                  100, // PEB Date
-                  120, // NPE Number
-                  100, // NPE Date
-                  90,  // Value
-                  90,  // Currency
-                  150, // Status
+                  120, // Booking Code
+                  130, // Date In
+                  200, // Shipper - tetap panjang karena data panjang
+                  100, // Destination
+                  80,  // Quantity
+                  80,  // Marking
+                  110, // Description of Goods
+                  90,  // Warehouse Meas
+                  80,  // Weight (KGs)
+                  100, // PEB Number
+                  80,  // PEB Date
+                  100, // NPE Number
+                  80,  // NPE Date
+                  60,  // Value
+                  50,  // Currency
+                  220, // Status - tetap panjang karena data panjang
                 ],
                 rows: InventoryData.cargoInTableData,
                 emptyMessage: 'Showing Result',
@@ -410,22 +406,22 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                   'Status',
                 ],
                 columnWidths: const [
-                  155, // Booking Code
-                  150, // Date In
-                  300, // Shipper
-                  150, // Destination
-                  100, // Quantity
-                  100, // Marking
-                  180, // Description of Goods
-                  130, // Warehouse Meas
-                  130, // Weight (KGs)
-                  120, // PEB Number
-                  100, // PEB Date
-                  120, // NPE Number
-                  100, // NPE Date
-                  90,  // Value
-                  90,  // Currency
-                  150, // Status
+                  120, // Booking Code
+                  130, // Date In
+                  200, // Shipper - tetap panjang karena data panjang
+                  100, // Destination
+                  80,  // Quantity
+                  80,  // Marking
+                  110, // Description of Goods
+                  90,  // Warehouse Meas
+                  80,  // Weight (KGs)
+                  100, // PEB Number
+                  80,  // PEB Date
+                  100, // NPE Number
+                  80,  // NPE Date
+                  60,  // Value
+                  50,  // Currency
+                  220, // Status - tetap panjang karena data panjang
                 ],
                 rows: InventoryData.stockInventoryTableData,
                 emptyMessage: 'Showing Result',
@@ -578,22 +574,22 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                   'Status',
                 ],
                 columnWidths: const [
-                  155, // Booking Code
-                  150, // Date In
-                  300, // Shipper
-                  150, // Destination
-                  100, // Quantity
-                  100, // Marking
-                  180, // Description of Goods
-                  130, // Warehouse Meas
-                  130, // Weight (KGs)
-                  120, // PEB Number
-                  100, // PEB Date
-                  120, // NPE Number
-                  100, // NPE Date
-                  90,  // Value
-                  90,  // Currency
-                  150, // Status
+                  120, // Booking Code
+                  130, // Date In
+                  200, // Shipper - tetap panjang karena data panjang
+                  100, // Destination
+                  80,  // Quantity
+                  80,  // Marking
+                  110, // Description of Goods
+                  90,  // Warehouse Meas
+                  80,  // Weight (KGs)
+                  100, // PEB Number
+                  80,  // PEB Date
+                  100, // NPE Number
+                  80,  // NPE Date
+                  60,  // Value
+                  50,  // Currency
+                  220, // Status - tetap panjang karena data panjang
                 ],
                 rows: InventoryData.cargoOutTableData,
                 emptyMessage: 'Showing Result',
@@ -658,10 +654,19 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.warehouse,
-            size: 80,
-            color: Colors.grey[400],
+          // Icon with background similar to the image
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              color: const Color(0xFF374151), // Dark background like in the image
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const Icon(
+              Icons.add,
+              size: 40,
+              color: Colors.white,
+            ),
           ),
           const SizedBox(height: 20),
           Text(
@@ -718,6 +723,22 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
   Widget _buildTabItem(IconData icon, String text, int index) {
     final bool isSelected = _tabController.index == index;
     
+    // Determine the icon based on selection state
+    IconData displayIcon;
+    switch (index) {
+      case 0: // Cargo In
+        displayIcon = isSelected ? Icons.description : Icons.description_outlined;
+        break;
+      case 1: // Stock Inventory
+        displayIcon = isSelected ? Icons.home_work : Icons.home_work_outlined;
+        break;
+      case 2: // Cargo Out
+        displayIcon = isSelected ? Icons.local_shipping : Icons.local_shipping_outlined;
+        break;
+      default:
+        displayIcon = icon;
+    }
+    
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -726,7 +747,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected 
               ? Colors.white.withOpacity(0.2) 
@@ -737,9 +758,9 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
-              icon,
+              displayIcon,
               color: Colors.white,
-              size: 20,
+              size: 32,
             ),
             const SizedBox(width: 8),
             Text(
@@ -751,6 +772,61 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
               ),
               textAlign: TextAlign.left,
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCustomLayoutTab(int index) {
+    final bool isSelected = _tabController.index == index;
+    
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _tabController.animateTo(index);
+        });
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected 
+              ? Colors.white.withOpacity(0.2) 
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Custom icon container like in the image
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: isSelected ? Colors.white.withOpacity(0.1) : Colors.transparent, // Slight background when selected
+                border: Border.all(
+                  color: Colors.white, 
+                  width: isSelected ? 3 : 2, // Thicker border when selected
+                ), 
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Icon(
+                isSelected ? Icons.add_circle : Icons.add, // Different icon when selected
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
+            // const SizedBox(width: 8),
+            // Text(
+            //   "Layout",
+            //   style: TextStyle(
+            //     color: Colors.white,
+            //     fontSize: 14,
+            //     fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+            //   ),
+            //   textAlign: TextAlign.left,
+            // ),
           ],
         ),
       ),

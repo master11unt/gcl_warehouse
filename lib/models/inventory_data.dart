@@ -56,11 +56,11 @@ class InventoryData {
     ];
     
     final statuses = [
-      'Deliver To Destination / Received In Warehouse',
+      'Deliver To Destination',
       'In Transit',
       'Pending Delivery',
       'Ready for Pickup',
-      'Under Inspection',
+      'Received In Warehouse',
       'Cleared Customs',
     ];
     

@@ -6,13 +6,44 @@ class InventoryDetailPage extends StatefulWidget {
   final Map<String, dynamic> inventoryData;
 
   const InventoryDetailPage({super.key, required this.inventoryData});
-
+ 
   @override
   State<InventoryDetailPage> createState() => _InventoryDetailPageState();
 }
 
 class _InventoryDetailPageState extends State<InventoryDetailPage> {
   bool _isArrivalExpanded = false;
+  bool _isSenderIdentityExpanded = false;
+  bool _isDocumentationExpanded = false;
+  late ScrollController _optionsScrollController;
+  double _scrollIndicatorPosition = 0.0;
+  
+  @override
+  void initState() {
+    super.initState();
+    _optionsScrollController = ScrollController();
+    _optionsScrollController.addListener(_updateScrollIndicator);
+  }
+  
+  @override
+  void dispose() {
+    _optionsScrollController.removeListener(_updateScrollIndicator);
+    _optionsScrollController.dispose();
+    super.dispose();
+  }
+  
+  void _updateScrollIndicator() {
+    if (_optionsScrollController.hasClients) {
+      final maxScroll = _optionsScrollController.position.maxScrollExtent;
+      final currentScroll = _optionsScrollController.offset;
+      if (maxScroll > 0) {
+        setState(() {
+          // Calculate position: 0 to 40 (60 - 20 = 40 is the range the thumb can move)
+          _scrollIndicatorPosition = (currentScroll / maxScroll) * 40;
+        });
+      }
+    }
+  }
   // bool _isStuffedExpanded = false;
   // bool _isDeliveredExpanded = false;
 
@@ -95,12 +126,17 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
           Expanded(
             child: Row(
               children: [
-                const Text(
-                  'Inventory',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF1F2937),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Inventory',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF1F2937),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 6),
@@ -1375,14 +1411,14 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             label,
             style: const TextStyle(
-              fontSize: 12,
+              fontSize: 14,
               color: Color(0xFF6B7280),
               fontStyle: FontStyle.italic,
             ),
@@ -1391,9 +1427,9 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
           Text(
             value.isEmpty ? '-' : value,
             style: const TextStyle(
-              fontSize: 13,
+              fontSize: 14,
               color: Color(0xFF1F2937),
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
@@ -1439,6 +1475,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
 
           // Options buttons
           SingleChildScrollView(
+            controller: _optionsScrollController,
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
@@ -1455,6 +1492,38 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                 _buildOptionButton(Icons.send, 'Send Tallysheet'),
               ],
             ),
+          ),
+          
+          // Scroll indicator bar
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 60,
+                height: 3,
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+                child: Stack(
+                  children: [
+                    AnimatedPositioned(
+                      duration: const Duration(milliseconds: 100),
+                      left: _scrollIndicatorPosition,
+                      child: Container(
+                        width: 20,
+                        height: 3,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.7),
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -1798,11 +1867,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
     bool isExpanded = false,
     VoidCallback? onTap,
   }) {
-    // GlobalKey untuk mengukur tinggi sebenarnya dari content card
     final GlobalKey cardKey = GlobalKey();
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 0), // Jarak tetap antar timeline items
+      padding: const EdgeInsets.only(bottom: 0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -1811,7 +1879,6 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
             width: 20,
             child: Column(
               children: [
-                // Spacer untuk menurunkan lingkaran ke tengah
                 const SizedBox(height: 24),
                 // Timeline indicator
                 Container(
@@ -2068,45 +2135,202 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                       const SizedBox(height: 8),
                       
                       // Expandable sections
-                      Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.only(bottom: 8),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _isSenderIdentityExpanded = !_isSenderIdentityExpanded;
+                          });
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          margin: const EdgeInsets.only(bottom: 8),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
                             children: [
-                              Text(
-                                'Sender Identity',
-                                style: TextStyle(color: Color(0xFF6B7280), fontWeight: FontWeight.w600),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Sender Identity',
+                                      style: TextStyle(color: Color(0xFF6B7280), fontWeight: FontWeight.w600),
+                                    ),
+                                    Icon(
+                                      _isSenderIdentityExpanded ? Icons.expand_less : Icons.chevron_right, 
+                                      color: const Color(0xFF9CA3AF)
+                                    ),
+                                  ],
+                                ),
                               ),
-                              Icon(Icons.chevron_right, color: Color(0xFF9CA3AF)),
+                              if (_isSenderIdentityExpanded) ...[
+                                Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(16),
+                                  child: const Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Truck Number',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF9CA3AF),
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        'B 1234 ABC',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xFF374151),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      SizedBox(height: 12),
+                                      Text(
+                                        'Driver Name',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF9CA3AF),
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        'Ahmad Susanto',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xFF374151),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      SizedBox(height: 12),
+                                      Text(
+                                        'Driver Contact',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF9CA3AF),
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        '+62 812-3456-7890',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xFF374151),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ],
                           ),
                         ),
                       ),
                       
-                      Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.only(bottom: 8),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _isDocumentationExpanded = !_isDocumentationExpanded;
+                          });
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          margin: const EdgeInsets.only(bottom: 8),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
                             children: [
-                              Text(
-                                'Documentation',
-                                style: TextStyle(color: Color(0xFF6B7280), fontWeight: FontWeight.w600),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Documentation',
+                                      style: TextStyle(color: Color(0xFF6B7280), fontWeight: FontWeight.w600),
+                                    ),
+                                    Icon(
+                                      _isDocumentationExpanded ? Icons.expand_less : Icons.chevron_right,
+                                      color: const Color(0xFF9CA3AF)
+                                    ),
+                                  ],
+                                ),
                               ),
-                              Icon(Icons.chevron_right, color: Color(0xFF9CA3AF)),
+                              if (_isDocumentationExpanded) ...[
+                                Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(16),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      // Received status badge - full width gray bar
+                                      Container(
+                                        width: double.infinity,
+                                        padding: const EdgeInsets.symmetric(vertical: 2),
+                                        decoration: const BoxDecoration(
+                                          color: Color(0xFFE5E7EB),
+                                        ),
+                                        child: const Center(
+                                          child: Text(
+                                            'Received',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Color(0xFF6B7280),
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      const Text(
+                                        'Surat Jalan ID',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF9CA3AF),
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      const Text(
+                                        'SJ-2025-001234',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xFF374151),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 12),
+                                      const Text(
+                                        'Origin',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF9CA3AF),
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      const Text(
+                                        'Jakarta Warehouse',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xFF374151),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ],
                           ),
                         ),
@@ -2570,7 +2794,7 @@ Widget _buildLocationSection() {
             child: Column(
               children: [
                 // Spacer untuk menurunkan lingkaran ke tengah
-                const SizedBox(height: 24),
+                const SizedBox(height: 15),
                 // Timeline indicator
                 Container(
                   width: 20,
