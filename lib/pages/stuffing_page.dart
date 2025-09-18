@@ -4,6 +4,8 @@ import '../widgets/common/common_app_bar.dart';
 import '../widgets/stuffing/stuffing_table.dart';
 import '../models/stuffing_data.dart';
 import 'ticket_stuffing_detail_page.dart';
+import 'stuffing_ongoing_detail_page.dart';
+import 'stuffing_cleared_detail_page.dart';
 
 class StuffingPage extends StatefulWidget {
   @override
@@ -33,6 +35,102 @@ class _StuffingPageState extends State<StuffingPage> {
       currentPage,
       StuffingData.itemsPerPage,
     );
+  }
+
+  // Get table columns based on selected filter
+  List<String> get currentTableColumns {
+    switch (selectedFilter) {
+      case 'all':
+        return [
+          'Job Number',
+          'Stuffing Date',
+          'Destination',
+          'ETD',
+          'Closing Date',
+          'Stuffing Owner',
+          'Total Container Fill',
+        ];
+      case 'ongoing':
+        return [
+          'Job Number',
+          'Stuffing Date',
+          'Destination',
+          'ETD',
+          'Closing Date',
+          'Total Container Fill',
+          'Status',
+        ];
+      case 'cleared':
+        return [
+          'Job Number',
+          'Stuffing Date',
+          'Destination',
+          'ETD',
+          'Closing Date',
+          'Total Container Fill',
+          'Status',
+        ];
+      default:
+        return [
+          'Job Number',
+          'Stuffing Date',
+          'Destination',
+          'ETD',
+          'Closing Date',
+          'Stuffing Owner',
+          'Total Container Fill',
+        ];
+    }
+  }
+
+  // Get table column widths based on selected filter
+  List<double> get currentColumnWidths {
+    switch (selectedFilter) {
+      case 'all':
+        return [150, 150, 150, 100, 150, 150, 150];
+      case 'ongoing':
+        return [150, 150, 120, 100, 150, 150, 120];
+      case 'cleared':
+        return [150, 150, 120, 100, 150, 150, 120];
+      default:
+        return [150, 150, 150, 100, 150, 150, 150];
+    }
+  }
+
+  // Handle row tap based on selected filter
+  void _handleRowTap(Map<String, dynamic> stuffingData) {
+    switch (selectedFilter) {
+      case 'all':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TicketStuffingDetailPage(
+              ticketData: stuffingData,
+            ),
+          ),
+        );
+        break;
+      case 'ongoing':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => StuffingOngoingDetailPage(
+              stuffingData: stuffingData,
+            ),
+          ),
+        );
+        break;
+      case 'cleared':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => StuffingClearedDetailPage(
+              stuffingData: stuffingData,
+            ),
+          ),
+        );
+        break;
+    }
   }
 
   @override
@@ -384,25 +482,9 @@ class _StuffingPageState extends State<StuffingPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: StuffingTable(
-                        columns: const [
-                          'Job Number',
-                          'Stuffing Date',
-                          'Destination',
-                          'ETD',
-                          'Closing Date',
-                          'Owner',
-                          'Total Container',
-                        ],
+                        columns: currentTableColumns,
                         rows: displayedData,
-                        columnWidths: const [
-                          150, 
-                          150, 
-                          150, 
-                          100, 
-                          150,
-                          150, 
-                          150,
-                        ],
+                        columnWidths: currentColumnWidths,
                         currentPage: currentPage,
                         totalPages: totalPages,
                         totalItems: filteredStuffingData.length,
@@ -412,16 +494,7 @@ class _StuffingPageState extends State<StuffingPage> {
                             currentPage = page;
                           });
                         },
-                        onRowTap: (stuffingData) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TicketStuffingDetailPage(
-                                ticketData: stuffingData,
-                              ),
-                            ),
-                          );
-                        },
+                        onRowTap: _handleRowTap,
                       ),
                     ),
                   ],

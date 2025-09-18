@@ -132,7 +132,6 @@ class _InventoryDetailCargoOutPageState
             ),
           ),
           const SizedBox(width: 16),
-          // Content in single line
           Expanded(
             child: Row(
               children: [

@@ -130,7 +130,21 @@ class StuffingTable extends StatelessWidget {
           maxLines: 1,
           overflow: TextOverflow.visible,
         );
-      case 'total container':
+      case 'stuffing owner':
+        return Text(
+          rowData['owner'] ?? '',
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF6B7280),
+            height: 1.3,
+          ),
+          softWrap: false,
+          maxLines: 1,
+          overflow: TextOverflow.visible,
+        );
+      case 'total container fill':
         return Center(
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -147,6 +161,71 @@ class StuffingTable extends StatelessWidget {
               ),
             ),
           ),
+        );
+      case 'container number':
+        return Text(
+          rowData['containerNumber'] ?? 'SIKU2243145 / 0059574',
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF6B7280),
+            height: 1.3,
+          ),
+          softWrap: false,
+          maxLines: 1,
+          overflow: TextOverflow.visible,
+        );
+      case 'container size':
+        return Text(
+          rowData['containerSize'] ?? '20FT',
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF6B7280),
+            height: 1.3,
+          ),
+          softWrap: false,
+          maxLines: 1,
+          overflow: TextOverflow.visible,
+        );
+      case 'status':
+        String status = rowData['status'] ?? 'ongoing';
+        Color statusColor = status == 'ongoing' ? const Color(0xFFF59E0B) : const Color(0xFF10B981);
+        Color statusBgColor = status == 'ongoing' ? const Color(0xFFFEF3C7) : const Color(0xFFD1FAE5);
+        
+        return Center(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: statusBgColor,
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: statusColor, width: 1),
+            ),
+            child: Text(
+              status == 'ongoing' ? 'In Progress' : 'Completed',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: statusColor,
+              ),
+            ),
+          ),
+        );
+      case 'completion date':
+        return Text(
+          _formatDate(rowData['completionDate'] ?? rowData['etd'] ?? ''),
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF6B7280),
+            height: 1.3,
+          ),
+          softWrap: false,
+          maxLines: 1,
+          overflow: TextOverflow.visible,
         );
       default:
         return Text(

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gcl_warehouse/widgets/common/common_app_bar.dart';
 import '../widgets/home/custom_drawer.dart';
 
-class StuffingOngoingDetailPage extends StatelessWidget {
+class StuffingClearedDetailPage extends StatelessWidget {
   final Map<String, dynamic> stuffingData;
-  const StuffingOngoingDetailPage({Key? key, required this.stuffingData}) : super(key: key);
+  const StuffingClearedDetailPage({Key? key, required this.stuffingData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -79,13 +79,13 @@ class StuffingOngoingDetailPage extends StatelessWidget {
           const SizedBox(height: 24),
           
           // Job Details
-          _buildDetailRow('Job No', 'GCL-10025081107', isFirst: true),
+          _buildDetailRow('Job No', 'GCL-10025091142', isFirst: true),
           _buildDetailRow('Container Number', 'SIKU2243145 / 0059574'),
           _buildDetailRow('Container Size', '20FT'),
-          _buildDetailRow('Stuffing Date', '2025-08-29'),
-          _buildDetailRow('Estimated Time\nDeparture', '2025-09-03'),
-          _buildDetailRow('Closing Date', '2025-08-30'),
-          _buildDetailRow('Destination', 'SINGAPORE'),
+          _buildDetailRow('Stuffing Date', '2025-09-01'),
+          _buildDetailRow('Estimated Time\nDeparture', '2025-09-04'),
+          _buildDetailRow('Closing Date', '2025-09-02'),
+          _buildDetailRow('Destination', 'PORT KELANG'),
           _buildDetailRow('Agent', 'ASTSIN', isLast: true),
         ],
       ),
@@ -133,105 +133,88 @@ class StuffingOngoingDetailPage extends StatelessWidget {
     final stuffingList = [
       {
         'num': 'A',
-        'bookingNumber': 'GTW-20250810113423',
-        'shipper': 'OCEAN SKY I',
-        'marking': 'OCEAN SKY I',
-        'destination': 'HONG KONG',
-        'cargoReadiness': 'READY',
-        'quantity': '8',
-        'packages': 'PALLETS',
-        'description': 'MARINE EQUIPMENT & SPARE PARTS',
-        'grossWeight': '3,240.120',
-        'nettWeight': '3,150.000',
-        'shipperMeas': '7.8000',
-        'warehouseMeas': '7.5000',
-        'chargedMeas': '9.1200',
-        'pebNumber': 'PEB-HK-08/2025/2456',
-      },
-      {
-        'num': 'B',
-        'bookingNumber': 'GTW-20250809142035',
-        'shipper': 'LAVA TEXTIL BVBA INDON PT',
-        'marking': 'LAVA TEXTIL BVBA INDON PT',
-        'destination': 'HONG KONG',
-        'cargoReadiness': 'READY',
-        'quantity': '12',
-        'packages': 'BALES',
-        'description': 'TEXTILE MATERIALS & FABRIC ROLLS',
-        'grossWeight': '4,580.350',
-        'nettWeight': '4,420.000',
-        'shipperMeas': '11.2000',
-        'warehouseMeas': '10.8000',
-        'chargedMeas': '12.9600',
-        'pebNumber': 'PEB-HK-08/2025/2457',
-      },
-      {
-        'num': 'C',
-        'bookingNumber': 'GTW-20250808091247',
-        'shipper': 'KLINE LOGIST PT',
-        'marking': 'KLINE LOGIST PT',
-        'destination': 'HONG KONG',
-        'cargoReadiness': 'READY',
-        'quantity': '6',
-        'packages': 'PALLETS',
-        'description': 'INDUSTRIAL MACHINERY COMPONENTS',
-        'grossWeight': '2,890.000',
-        'nettWeight': '2,750.000',
-        'shipperMeas': '6.5000',
-        'warehouseMeas': '6.2000',
-        'chargedMeas': '7.8000',
-        'pebNumber': 'PEB-HK-08/2025/2458',
-      },
-      {
-        'num': 'D',
-        'bookingNumber': 'GTW-20250807154512',
-        'shipper': 'WINFASTSHIP INDONESIA',
-        'marking': 'WINFASTSHIP INDONESIA',
-        'destination': 'HONG KONG',
-        'cargoReadiness': 'READY',
-        'quantity': '15',
-        'packages': 'BOXES',
-        'description': 'ELECTRONIC COMPONENTS & DEVICES',
-        'grossWeight': '1,875.500',
-        'nettWeight': '1,800.000',
+        'bookingNumber': 'GTW-20250915031425',
+        'shipper': 'TELAGA HARAPAN SEMESTA, PT',
+        'marking': 'TELAGA HARAPAN SEMESTA, PT',
+        'destination': 'SINGAPORE',
+        'cargoReadiness': 'CLEARED',
+        'quantity': '18',
+        'packages': 'CARTONS',
+        'description': 'ELECTRONICS & COMPONENTS',
+        'grossWeight': '2,150.300',
+        'nettWeight': '2,050.000',
         'shipperMeas': '5.2000',
         'warehouseMeas': '5.0000',
         'chargedMeas': '6.2400',
-        'pebNumber': 'PEB-HK-08/2025/2459',
+        'pebNumber': 'PEB-SG-09/2025/3254',
+      },
+      {
+        'num': 'B',
+        'bookingNumber': 'GTW-20250914120637',
+        'shipper': 'MARITIME LOGISTICS INDO',
+        'marking': 'MARITIME LOGISTICS INDO',
+        'destination': 'SINGAPORE',
+        'cargoReadiness': 'CLEARED',
+        'quantity': '25',
+        'packages': 'PALLETS',
+        'description': 'MACHINERY PARTS & EQUIPMENT',
+        'grossWeight': '5,780.420',
+        'nettWeight': '5,600.000',
+        'shipperMeas': '13.5000',
+        'warehouseMeas': '13.2000',
+        'chargedMeas': '15.8400',
+        'pebNumber': 'PEB-SG-09/2025/3255',
+      },
+      {
+        'num': 'C',
+        'bookingNumber': 'GTW-20250913084512',
+        'shipper': 'GLOBAL EXPRESS SYSTEMS',
+        'marking': 'GLOBAL EXPRESS SYSTEMS',
+        'destination': 'SINGAPORE',
+        'cargoReadiness': 'CLEARED',
+        'quantity': '10',
+        'packages': 'BOXES',
+        'description': 'AUTOMOTIVE SPARE PARTS',
+        'grossWeight': '1,890.150',
+        'nettWeight': '1,750.000',
+        'shipperMeas': '4.5000',
+        'warehouseMeas': '4.3000',
+        'chargedMeas': '5.1600',
+        'pebNumber': 'PEB-SG-09/2025/3256',
+      },
+      {
+        'num': 'D',
+        'bookingNumber': 'GTW-20250912151203',
+        'shipper': 'OCEAN FRONTIER CARGO',
+        'marking': 'OCEAN FRONTIER CARGO',
+        'destination': 'SINGAPORE',
+        'cargoReadiness': 'CLEARED',
+        'quantity': '32',
+        'packages': 'BALES',
+        'description': 'TEXTILE & FABRIC MATERIALS',
+        'grossWeight': '3,940.680',
+        'nettWeight': '3,800.000',
+        'shipperMeas': '9.8000',
+        'warehouseMeas': '9.5000',
+        'chargedMeas': '11.4000',
+        'pebNumber': 'PEB-SG-09/2025/3257',
       },
       {
         'num': 'E',
-        'bookingNumber': 'GTW-20250806083316',
-        'shipper': 'NIDEC INSTRUMENT INDONESIA',
-        'marking': 'NIDEC INSTRUMENT INDONESIA',
-        'destination': 'HONG KONG',
-        'cargoReadiness': 'READY',
-        'quantity': '4',
-        'packages': 'CARTONS',
-        'description': 'SERVO MOTORS & AUTOMATION EQUIPMENT',
-        'grossWeight': '1,290.750',
-        'nettWeight': '1,200.000',
-        'shipperMeas': '3.8000',
-        'warehouseMeas': '3.6000',
-        'chargedMeas': '4.5600',
-        'pebNumber': 'PEB-HK-08/2025/2460',
-      },
-      {
-        'num': 'F',
-        'bookingNumber': 'GTW-20250805121540',
-        'shipper': 'VAN AROMA',
-        'marking': 'SYMRISE FLAVORS & FRAGRANCES (NANTONG) NANJING UNIVIS',
-        'destination': 'HONG KONG',
-        'cargoReadiness': 'READY',
-        'quantity': '9',
-        'packages': 'PALLETS',
-        'description': 'PATCHOULI OIL DECOL, EUGENOL NAT (UN 3082, CLASS 9, PG III)',
-        'grossWeight': '3,650.250',
-        'nettWeight': '3,500.000',
-        'shipperMeas': '8.9000',
-        'warehouseMeas': '8.5000',
-        'chargedMeas': '10.2000',
-        'pebNumber': 'PEB-HK-08/2025/2461',
+        'bookingNumber': 'GTW-20250911093528',
+        'shipper': 'DYNAMIC SHIPPING LINES',
+        'marking': 'DYNAMIC SHIPPING LINES',
+        'destination': 'SINGAPORE',
+        'cargoReadiness': 'CLEARED',
+        'quantity': '14',
+        'packages': 'CRATES',
+        'description': 'INDUSTRIAL TOOLS & EQUIPMENT',
+        'grossWeight': '2,650.920',
+        'nettWeight': '2,520.000',
+        'shipperMeas': '6.8000',
+        'warehouseMeas': '6.5000',
+        'chargedMeas': '7.8000',
+        'pebNumber': 'PEB-SG-09/2025/3258',
       },
     ];
 
@@ -409,11 +392,11 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                                       )
                                     : null,
                               ),
-                              child: cellIndex == 5 && cellData == 'READY' 
+                              child: cellIndex == 5 && cellData == 'CLEARED' 
                                   ? Container(
                                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                       decoration: BoxDecoration(
-                                        color: const Color(0xFF10B981),
+                                        color: const Color(0xFF6B7280),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: Text(
@@ -489,15 +472,15 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFFEF2F2),
+                        color: const Color(0xFFF0FDF4),
                         borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: const Color(0xFFEF4444), width: 1),
+                        border: Border.all(color: const Color(0xFF22C55E), width: 1),
                       ),
                       child: const Text(
-                        'Access Denied',
+                        'Completed',
                         style: TextStyle(
                           fontSize: 12,
-                          color: Color(0xFFEF4444),
+                          color: Color(0xFF22C55E),
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -513,7 +496,7 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     const Text(
-                      '-',
+                      'Standard Stuffing Procedure',
                       style: TextStyle(
                         fontSize: 14,
                         color: Color(0xFF374151),
@@ -566,11 +549,12 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 2),
                     const Text(
-                      '-',
+                      '2025-08-13\n14:25:18',
                       style: TextStyle(
                         fontSize: 14,
                         color: Color(0xFF374151),
                         fontWeight: FontWeight.w500,
+                        height: 1.4,
                       ),
                     ),
                   ],
@@ -583,14 +567,3 @@ class StuffingOngoingDetailPage extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
