@@ -52,7 +52,7 @@ class StuffingTable extends StatelessWidget {
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 14,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w500,
             color: Color(0xFF111827),
             height: 1.3,
           ),
@@ -64,9 +64,9 @@ class StuffingTable extends StatelessWidget {
         return Text(
           _formatDate(rowData['stuffingDate'] ?? ''),
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: const TextStyle( 
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
             color: Color(0xFF6B7280),
             height: 1.3,
           ),
@@ -80,7 +80,7 @@ class StuffingTable extends StatelessWidget {
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
             color: Color(0xFF6B7280),
             height: 1.3,
           ),
@@ -94,7 +94,7 @@ class StuffingTable extends StatelessWidget {
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
             color: Color(0xFF6B7280),
             height: 1.3,
           ),
@@ -108,7 +108,7 @@ class StuffingTable extends StatelessWidget {
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
             color: Color(0xFF6B7280),
             height: 1.3,
           ),
@@ -122,7 +122,7 @@ class StuffingTable extends StatelessWidget {
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
             color: Color(0xFF6B7280),
             height: 1.3,
           ),
@@ -136,7 +136,7 @@ class StuffingTable extends StatelessWidget {
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
             color: Color(0xFF6B7280),
             height: 1.3,
           ),
@@ -148,16 +148,16 @@ class StuffingTable extends StatelessWidget {
         return Center(
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: const Color(0xFF3B82F6),
-              borderRadius: BorderRadius.circular(6),
-            ),
+            // decoration: BoxDecoration(
+            //   color: const Color(0xFF3B82F6),
+            //   borderRadius: BorderRadius.circular(6),
+            // ),
             child: Text(
               rowData['totalContainerFill']?.toString() ?? '0',
               style: const TextStyle(
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: FontWeight.w600,
-                color: Colors.white,
+                // color: Colors.white,
               ),
             ),
           ),
@@ -168,7 +168,7 @@ class StuffingTable extends StatelessWidget {
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
             color: Color(0xFF6B7280),
             height: 1.3,
           ),
@@ -182,7 +182,7 @@ class StuffingTable extends StatelessWidget {
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
             color: Color(0xFF6B7280),
             height: 1.3,
           ),
@@ -219,7 +219,7 @@ class StuffingTable extends StatelessWidget {
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
             color: Color(0xFF6B7280),
             height: 1.3,
           ),
@@ -233,7 +233,7 @@ class StuffingTable extends StatelessWidget {
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
             color: Color(0xFF6B7280),
             height: 1.3,
           ),

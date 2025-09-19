@@ -50,7 +50,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: CommonAppBar(),
-      drawer: CustomDrawer(),
+      drawer: CustomDrawer(currentPage: "report"),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -195,7 +195,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: const Color(0xFF374151),
+            color: const Color(0xFF1F2937),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -325,16 +325,16 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
       children: [
         // Header "Cargo" dengan background dark
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           decoration: BoxDecoration(
-            color: const Color(0xFF374151),
-            borderRadius: BorderRadius.circular(8),
+            color: const Color(0xFF1F2937),
+            borderRadius: BorderRadius.circular(4),
           ),
           child: const Text(
             'Cargo',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 15,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -358,7 +358,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
 
   Widget _buildStatCardWithBackground(String title, String value) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: const Color(0xFFF9FAFB),
         borderRadius: BorderRadius.circular(8),
@@ -395,16 +395,16 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
       children: [
         // Header dengan background dark
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           decoration: BoxDecoration(
-            color: const Color(0xFF374151),
-            borderRadius: BorderRadius.circular(8),
+            color: const Color(0xFF1F2937),
+            borderRadius: BorderRadius.circular(4),
           ),
           child: const Text(
             'Detail Quantity Cargo',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 15,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -661,15 +661,15 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
         children: [
           // Header
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFF374151),
-              borderRadius: BorderRadius.circular(6),
+              color: const Color(0xFF1F2937),
+              borderRadius: BorderRadius.circular(4),
             ),
             child: const Text(
               'Detail Status Cargo',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 15,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),
@@ -931,15 +931,15 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
         children: [
           // Header
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFF374151),
-              borderRadius: BorderRadius.circular(6),
+              color: const Color(0xFF1F2937),
+              borderRadius: BorderRadius.circular(4),
             ),
             child: const Text(
-              'Value Cargo',
+              'Values',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 15,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),
@@ -1098,15 +1098,15 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
         children: [
           // Header
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFF374151),
-              borderRadius: BorderRadius.circular(6),
+              color: const Color(0xFF1F2937),
+              borderRadius: BorderRadius.circular(4),
             ),
             child: const Text(
               'Cargo Flow in a Year',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 15,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),
@@ -1334,15 +1334,15 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
         children: [
           // Header
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFF374151),
-              borderRadius: BorderRadius.circular(6),
+              color: const Color(0xFF1F2937),
+              borderRadius: BorderRadius.circular(4),
             ),
             child: const Text(
               'Top Shipper',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 15,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),
@@ -1466,15 +1466,15 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
         children: [
           // Header
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFF374151),
-              borderRadius: BorderRadius.circular(6),
+              color: const Color(0xFF1F2937),
+              borderRadius: BorderRadius.circular(4),
             ),
             child: const Text(
               'Stuffing',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 15,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),
@@ -1576,15 +1576,15 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
         children: [
           // Header
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFF374151),
-              borderRadius: BorderRadius.circular(6),
+              color: const Color(0xFF1F2937),
+              borderRadius: BorderRadius.circular(4),
             ),
             child: const Text(
               'Most Destination',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 15,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),
@@ -1626,13 +1626,14 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: const Color(0xFFE5E7EB)),
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: Colors.grey,
-              //     spreadRadius: 1,
-              //     blurRadius: 6,
-              //   ),
-              // ],
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  offset: const Offset(0, 4),
+                  spreadRadius: 1,
+                  blurRadius: 6,
+                ),
+              ],
             ),
             child: Column(
               children: [
@@ -1669,15 +1670,15 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
         children: [
           // Header
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFF374151),
-              borderRadius: BorderRadius.circular(6),
+              color: const Color(0xFF1F2937),
+              borderRadius: BorderRadius.circular(4),
             ),
             child: const Text(
               'Detail Destination',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 15,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),

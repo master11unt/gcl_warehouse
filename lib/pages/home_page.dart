@@ -13,7 +13,7 @@ class _HomeGCLPageState extends State<HomeGCLPage> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: CommonAppBar(),
-      drawer: CustomDrawer(),
+      drawer: CustomDrawer(currentPage: "home"),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

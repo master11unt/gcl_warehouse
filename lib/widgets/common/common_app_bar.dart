@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../home/notification_popup.dart';
+import '../home/user_popup.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CommonAppBar({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         NotificationPopup(),
         SizedBox(width: 16),
-        Icon(Icons.person_outline, color: Colors.black),
+        UserPopup(),
         SizedBox(width: 12),
       ],
     );

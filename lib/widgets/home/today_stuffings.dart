@@ -34,7 +34,7 @@ class TodayStuffings extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: Color(0xFF404B5C),
+                color: Color(0xFF1F2937),
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Text(
@@ -135,7 +135,7 @@ class TodayStuffings extends StatelessWidget {
                 Text(
                   jobNumber,
                   style: TextStyle(
-                    color: Color(0xFF232F6A),
+                    color: Color(0xFF1F2937),
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
                   ),

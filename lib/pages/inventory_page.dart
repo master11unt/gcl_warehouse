@@ -39,7 +39,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: CommonAppBar(),
-      drawer: CustomDrawer(),
+      drawer: CustomDrawer(currentPage: "inventory"),
       body: SafeArea(
         child: Column(
           children: [
@@ -47,7 +47,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
             Container(
               margin: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFF374151),
+                color: const Color(0xFF1F2937),
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(

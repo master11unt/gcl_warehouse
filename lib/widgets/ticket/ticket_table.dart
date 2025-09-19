@@ -39,7 +39,6 @@ class TicketTable extends StatelessWidget {
       fontSize: 12
     );
 
-    // Always use flexible sizing for content-responsive width
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -57,7 +56,7 @@ class TicketTable extends StatelessWidget {
                   // Table Header
                   Container(
                     decoration: const BoxDecoration(
-                      color: Color(0xFF374151),
+                      color: Color(0xFF1F2937),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(8),
                         topRight: Radius.circular(8),

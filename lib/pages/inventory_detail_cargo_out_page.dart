@@ -135,12 +135,17 @@ class _InventoryDetailCargoOutPageState
           Expanded(
             child: Row(
               children: [
-                const Text(
-                  'Inventory',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF374151),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Inventory',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF1F2937),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 6),
@@ -155,7 +160,7 @@ class _InventoryDetailCargoOutPageState
                     widget.inventoryData['bookingCode'] ?? '20250822034402',
                     style: const TextStyle(
                       fontSize: 18,
-                      color: Color(0xFF374151),
+                      color: Color(0xFF1F2937),
                       fontWeight: FontWeight.bold,
                     ),
                     overflow: TextOverflow.ellipsis,
@@ -226,7 +231,7 @@ class _InventoryDetailCargoOutPageState
                     width: 140,
                     height: 100,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF374151),
+                      color: const Color(0xFF1F2937),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Icon(
@@ -273,7 +278,7 @@ class _InventoryDetailCargoOutPageState
                     width: 40,
                     height: 20,
                     decoration: const BoxDecoration(
-                      color: Color(0xFF374151),
+                      color: Color(0xFF1F2937),
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20),
@@ -286,7 +291,7 @@ class _InventoryDetailCargoOutPageState
                   child: Container(
                     width: 2,
                     height: 40,
-                    color: const Color(0xFF374151),
+                    color: const Color(0xFF1F2937),
                   ),
                 ),
               ],
@@ -362,7 +367,7 @@ class _InventoryDetailCargoOutPageState
                   horizontal: 20,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF374151),
+                  color: const Color(0xFF1F2937),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Text(
@@ -386,7 +391,7 @@ class _InventoryDetailCargoOutPageState
             width: double.infinity,
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: const Color(0xFF374151),
+              color: const Color(0xFF1F2937),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -680,7 +685,7 @@ class _InventoryDetailCargoOutPageState
                             width: 70,
                             height: 90,
                             decoration: const BoxDecoration(
-                              color: Color(0xFF374151),
+                              color: Color(0xFF6B7280),
                               border: Border(
                                 right: BorderSide(
                                   color: Color(0xFFE5E7EB),
@@ -708,7 +713,7 @@ class _InventoryDetailCargoOutPageState
                             width: 180,
                             height: 90,
                             decoration: const BoxDecoration(
-                              color: Color(0xFF374151),
+                              color: Color(0xFF6B7280),
                               border: Border(
                                 right: BorderSide(
                                   color: Color(0xFFE5E7EB),
@@ -738,7 +743,7 @@ class _InventoryDetailCargoOutPageState
                                     width: 210,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF374151),
+                                      color: Color(0xFF6B7280),
                                       border: Border(
                                         right: BorderSide(
                                           color: Color(0xFFE5E7EB),
@@ -766,7 +771,7 @@ class _InventoryDetailCargoOutPageState
                                     width: 210,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF374151),
+                                      color: Color(0xFF6B7280),
                                       border: Border(
                                         right: BorderSide(
                                           color: Color(0xFFE5E7EB),
@@ -800,7 +805,7 @@ class _InventoryDetailCargoOutPageState
                                     width: 70,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF374151),
+                                      color: Color(0xFF6B7280),
                                       border: Border(
                                         right: BorderSide(
                                           color: Color(0xFFE5E7EB),
@@ -824,7 +829,7 @@ class _InventoryDetailCargoOutPageState
                                     width: 70,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF374151),
+                                      color: Color(0xFF6B7280),
                                       border: Border(
                                         right: BorderSide(
                                           color: Color(0xFFE5E7EB),
@@ -849,7 +854,7 @@ class _InventoryDetailCargoOutPageState
                                     width: 70,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF374151),
+                                      color: Color(0xFF6B7280),
                                       border: Border(
                                         right: BorderSide(
                                           color: Color(0xFFE5E7EB),
@@ -874,7 +879,7 @@ class _InventoryDetailCargoOutPageState
                                     width: 70,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF374151),
+                                      color: Color(0xFF6B7280),
                                       border: Border(
                                         right: BorderSide(
                                           color: Color(0xFFE5E7EB),
@@ -898,7 +903,7 @@ class _InventoryDetailCargoOutPageState
                                     width: 70,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF374151),
+                                      color: Color(0xFF6B7280),
                                       border: Border(
                                         right: BorderSide(
                                           color: Color(0xFFE5E7EB),
@@ -922,7 +927,7 @@ class _InventoryDetailCargoOutPageState
                                     width: 70,
                                     height: 45,
                                     decoration: const BoxDecoration(
-                                      color: Color(0xFF374151),
+                                      color: Color(0xFF6B7280),
                                       border: Border(
                                         right: BorderSide(
                                           color: Color(0xFFE5E7EB),
@@ -951,7 +956,7 @@ class _InventoryDetailCargoOutPageState
                             width: 100,
                             height: 90,
                             decoration: const BoxDecoration(
-                              color: Color(0xFF374151),
+                              color: Color(0xFF6B7280),
                               borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(7),
                               ),
@@ -1481,8 +1486,8 @@ class _InventoryDetailCargoOutPageState
           Text(
             label,
             style: const TextStyle(
-              fontSize: 12,
-              color: Color(0xFF374151),
+              fontSize: 14,
+              color: Color(0xFF6B7280),
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -1490,9 +1495,9 @@ class _InventoryDetailCargoOutPageState
           Text(
             value.isEmpty ? '-' : value,
             style: const TextStyle(
-              fontSize: 13,
-              color: Color(0xFF374151),
-              fontWeight: FontWeight.w500,
+              fontSize: 14,
+              color: Color(0xFF1F2937),
+              fontWeight: FontWeight.w600, 
             ),
           ),
         ],
@@ -1522,7 +1527,7 @@ class _InventoryDetailCargoOutPageState
             padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
             decoration: const BoxDecoration(
               border: Border(
-                left: BorderSide(color: Color(0xFF374151), width: 6),
+                left: BorderSide(color: Color(0xFF1F2937), width: 6),
               ),
             ),
             child: const Text(
@@ -1530,7 +1535,7 @@ class _InventoryDetailCargoOutPageState
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF374151),
+                color: Color(0xFF1F2937),
               ),
             ),
           ),
@@ -1598,7 +1603,7 @@ class _InventoryDetailCargoOutPageState
       width: 50,
       height: 50,
       decoration: BoxDecoration(
-        color: isEnabled ? const Color(0xFF374151) : const Color(0xFF9CA3AF),
+        color: isEnabled ? const Color(0xFF1F2937) : const Color(0xFF9CA3AF),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(

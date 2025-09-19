@@ -21,7 +21,7 @@ class WarehouseStatusBarChart extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
-                color: Color(0xFF232F6A),
+                color: Color(0xFF1F2937),
               ),
             ),
             SizedBox(height: 20),

@@ -30,7 +30,7 @@ class WarehouseCapacity extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
-                    color: Color(0xFF232F6A),
+                    color: Color(0xFF1F2937),
                   ),
                 ),
               ],
@@ -63,7 +63,7 @@ class WarehouseCapacity extends StatelessWidget {
                       ),
                       // Value text on the bar
                       Positioned(
-                        left: -25,
+                        // left: 15,
                         bottom: 180 * (1091.2194 / 2500) + 5,
                         child: Text(
                           "3.6487769",
@@ -88,7 +88,7 @@ class WarehouseCapacity extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF232F6A),
+                          color: Color(0xFF1F2937),
                         ),
                       ),
                       SizedBox(height: 16),
@@ -109,7 +109,7 @@ class WarehouseCapacity extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF2346A0),
+                                color: Color(0xFF214098),
                               ),
                             ),
                             TextSpan(
@@ -141,7 +141,7 @@ class WarehouseCapacity extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF232F6A),
+                                color: Colors.black,
                               ),
                             ),
                             TextSpan(

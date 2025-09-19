@@ -138,7 +138,7 @@ class _StuffingPageState extends State<StuffingPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: CommonAppBar(),
-      drawer: CustomDrawer(),
+      drawer: CustomDrawer(currentPage: "stuffing"),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

@@ -56,7 +56,7 @@ class MenuSection extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Icon(icon, color: Colors.black, size: 36),
+                child: Icon(icon, color: Color(0xFF1F2937), size: 36),
               ),
             ),
           ),

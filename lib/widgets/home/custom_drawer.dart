@@ -8,7 +8,9 @@ import '../../pages/warehouse_report_page.dart';
 import '../../pages/user_page.dart';
 
 class CustomDrawer extends StatefulWidget {
-  const CustomDrawer({Key? key}) : super(key: key);
+  final String? currentPage; // Tambahkan parameter untuk halaman aktif
+  
+  const CustomDrawer({Key? key, this.currentPage}) : super(key: key);
 
   @override
   _CustomDrawerState createState() => _CustomDrawerState();
@@ -74,6 +76,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   Widget _drawerMenuItem(IconData icon, String label, String itemKey, VoidCallback? onTap) {
     bool isHovered = hoveredItem == itemKey;
+    bool isActive = widget.currentPage == itemKey;
     bool isClickable = onTap != null;
     
     return GestureDetector(
@@ -99,19 +102,21 @@ class _CustomDrawerState extends State<CustomDrawer> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: isHovered 
-                ? const Color(0xFF4A5568).withOpacity(0.1)
-                : Colors.transparent,
+            color: isActive
+                ? const Color(0xFF1F2937) 
+                : isHovered 
+                    ? const Color(0xFF1F2937)
+                    : Colors.transparent,
             border: Border.all(
-              color: isHovered 
-                  ? const Color(0xFF4A5568).withOpacity(0.3)
+              color: (isActive || isHovered)
+                  ? const Color(0xFF1F2937) 
                   : Colors.transparent,
-              width: 1,
+              width: isActive ? 2 : 1, // Thicker border for active state
             ),
-            boxShadow: isHovered
+            boxShadow: (isHovered || isActive)
                 ? [
                     BoxShadow(
-                      color: const Color(0xFF4A5568).withOpacity(0.1),
+                      color: const Color(0xFF1F2937).withOpacity(0.2),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),
@@ -124,11 +129,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 duration: const Duration(milliseconds: 200),
                 curve: Curves.easeInOut,
                 transform: Matrix4.identity()
-                  ..scale(isHovered ? 1.1 : 1.0),
+                  ..scale((isHovered || isActive) ? 1.1 : 1.0),
                 child: Icon(
                   icon,
-                  color: isHovered
-                      ? const Color(0xFF4A5568)
+                  color: (isActive || isHovered)
+                      ? Colors.white
                       : (isClickable ? Colors.black87 : Colors.grey[500]),
                   size: 24,
                 ),
@@ -138,12 +143,16 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 duration: const Duration(milliseconds: 200),
                 curve: Curves.easeInOut,
                 style: TextStyle(
-                  fontWeight: isHovered ? FontWeight.w700 : FontWeight.w600,
-                  fontSize: isHovered ? 16.5 : 16,
-                  color: isHovered
-                      ? const Color(0xFF4A5568)
+                  fontWeight: isActive
+                      ? FontWeight.w800
+                      : isHovered 
+                          ? FontWeight.w700 
+                          : FontWeight.w600,
+                  fontSize: (isHovered || isActive) ? 16.5 : 16,
+                  color: (isActive || isHovered)
+                      ? Colors.white
                       : (isClickable ? Colors.black87 : Colors.grey[500]),
-                  letterSpacing: isHovered ? 0.3 : 0,
+                  letterSpacing: (isHovered || isActive) ? 0.3 : 0,
                 ),
                 child: Text(label),
               ),
@@ -153,14 +162,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   duration: const Duration(milliseconds: 200),
                   curve: Curves.easeInOut,
                   transform: Matrix4.identity()
-                    ..translate(isHovered ? 4.0 : 0.0, 0.0),
-                  child: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 14,
-                    color: isHovered
-                        ? const Color(0xFF4A5568)
-                        : Colors.grey[400],
-                  ),
+                    ..translate((isHovered || isActive) ? 4.0 : 0.0, 0.0),
                 ),
               ],
             ],

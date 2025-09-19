@@ -47,7 +47,7 @@ class WelcomeCard extends StatelessWidget {
                     Text(
                       "$username ",
                       style: TextStyle(
-                        color: Color(0xFFFFF100),
+                        color: Color(0xFFFFEB3B),
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
                       ),

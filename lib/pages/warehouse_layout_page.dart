@@ -17,7 +17,7 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: CommonAppBar(),
-      drawer: CustomDrawer(),
+      drawer: CustomDrawer(currentPage: "rack"),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -81,7 +81,7 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                         child: Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF374151),
+                            color: const Color(0xFF1F2937),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Column(
@@ -162,13 +162,13 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                     Container(
                       padding: const EdgeInsets.all(20),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Text(
                             "Options",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 18,
+                              fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

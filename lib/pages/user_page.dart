@@ -17,7 +17,7 @@ class _UserPageState extends State<UserPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: CommonAppBar(),
-      drawer: CustomDrawer(),
+      drawer: CustomDrawer(currentPage: "user"),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),

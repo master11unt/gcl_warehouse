@@ -45,7 +45,7 @@ class GuideSection extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 16,
-                color: Color(0xFF232F6A),
+                color: Color(0xFF1F2937),
               ),
             ),
             trailing: Icon(

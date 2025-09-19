@@ -122,7 +122,6 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
             ),
           ),
           const SizedBox(width: 16),
-          // Content in single line
           Expanded(
             child: Row(
               children: [
@@ -165,173 +164,173 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
     );
   }
 
-  Widget _buildCargoOutInfoSection() {
-    // This replaces the location section with the custom empty/out info card
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(32),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 6,
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // Custom illustration similar to the mockup
-          Container(
-            height: 200,
-            width: double.infinity,
-            margin: const EdgeInsets.only(bottom: 24),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // Background elements
-                Positioned(
-                  top: 20,
-                  left: 50,
-                  child: Container(
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF6B7280).withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 40,
-                  right: 60,
-                  child: Container(
-                    width: 2,
-                    height: 30,
-                    color: const Color(0xFF6B7280).withOpacity(0.3),
-                  ),
-                ),
+  // Widget _buildCargoOutInfoSection() {
+  //   // This replaces the location section with the custom empty/out info card
+  //   return Container(
+  //     width: double.infinity,
+  //     padding: const EdgeInsets.all(32),
+  //     decoration: BoxDecoration(
+  //       color: Colors.white,
+  //       borderRadius: BorderRadius.circular(12),
+  //       boxShadow: [
+  //         BoxShadow(
+  //           color: Colors.grey.withOpacity(0.1),
+  //           spreadRadius: 1,
+  //           blurRadius: 6,
+  //         ),
+  //       ],
+  //     ),
+  //     child: Column(
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       crossAxisAlignment: CrossAxisAlignment.center,
+  //       children: [
+  //         // Custom illustration similar to the mockup
+  //         Container(
+  //           height: 200,
+  //           width: double.infinity,
+  //           margin: const EdgeInsets.only(bottom: 24),
+  //           child: Stack(
+  //             alignment: Alignment.center,
+  //             children: [
+  //               // Background elements
+  //               Positioned(
+  //                 top: 20,
+  //                 left: 50,
+  //                 child: Container(
+  //                   width: 20,
+  //                   height: 20,
+  //                   decoration: BoxDecoration(
+  //                     color: const Color(0xFF6B7280).withOpacity(0.3),
+  //                     borderRadius: BorderRadius.circular(10),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Positioned(
+  //                 top: 40,
+  //                 right: 60,
+  //                 child: Container(
+  //                   width: 2,
+  //                   height: 30,
+  //                   color: const Color(0xFF6B7280).withOpacity(0.3),
+  //                 ),
+  //               ),
                 
-                // Main folder illustration
-                Center(
-                  child: Container(
-                    width: 140,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF374151),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Icon(
-                      Icons.close,
-                      color: Color(0xFF9CA3AF),
-                      size: 50,
-                    ),
-                  ),
-                ),
+  //               // Main folder illustration
+  //               Center(
+  //                 child: Container(
+  //                   width: 140,
+  //                   height: 100,
+  //                   decoration: BoxDecoration(
+  //                     color: const Color(0xFF374151),
+  //                     borderRadius: BorderRadius.circular(8),
+  //                   ),
+  //                   child: const Icon(
+  //                     Icons.close,
+  //                     color: Color(0xFF9CA3AF),
+  //                     size: 50,
+  //                   ),
+  //                 ),
+  //               ),
                 
-                // Character illustration (simplified)
-                Positioned(
-                  right: 20,
-                  bottom: 20,
-                  child: Container(
-                    width: 60,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF6B7280).withOpacity(0.7),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.help_outline,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          '?',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+  //               // Character illustration (simplified)
+  //               Positioned(
+  //                 right: 20,
+  //                 bottom: 20,
+  //                 child: Container(
+  //                   width: 60,
+  //                   height: 80,
+  //                   decoration: BoxDecoration(
+  //                     color: const Color(0xFF6B7280).withOpacity(0.7),
+  //                     borderRadius: BorderRadius.circular(30),
+  //                   ),
+  //                   child: const Column(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: [
+  //                       Icon(
+  //                         Icons.help_outline,
+  //                         color: Colors.white,
+  //                         size: 20,
+  //                       ),
+  //                       SizedBox(height: 4),
+  //                       Text(
+  //                         '?',
+  //                         style: TextStyle(
+  //                           color: Colors.white,
+  //                           fontSize: 16,
+  //                           fontWeight: FontWeight.bold,
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ),
                 
-                // Lamp illustration
-                Positioned(
-                  top: 0,
-                  child: Container(
-                    width: 40,
-                    height: 20,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF374151),
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 18,
-                  child: Container(
-                    width: 2,
-                    height: 40,
-                    color: const Color(0xFF374151),
-                  ),
-                ),
-              ],
-            ),
-          ),
+  //               // Lamp illustration
+  //               Positioned(
+  //                 top: 0,
+  //                 child: Container(
+  //                   width: 40,
+  //                   height: 20,
+  //                   decoration: const BoxDecoration(
+  //                     color: Color(0xFF374151),
+  //                     borderRadius: BorderRadius.only(
+  //                       bottomLeft: Radius.circular(20),
+  //                       bottomRight: Radius.circular(20),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //               Positioned(
+  //                 top: 18,
+  //                 child: Container(
+  //                   width: 2,
+  //                   height: 40,
+  //                   color: const Color(0xFF374151),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
           
-          const Text(
-            'Sorry, I think we already exiting this cargo',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF374151),
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16),
-          const Text(
-            'Please check again or if there something suspicious\ncontact support',
-            style: TextStyle(
-              fontSize: 16,
-              color: Color(0xFF6B7280),
-              height: 1.5,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              color: const Color(0xFF9CA3AF).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: const Text(
-              'RULES : GTW/SOP/JKT/122331',
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0xFF9CA3AF),
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  //         const Text(
+  //           'Sorry, I think we already exiting this cargo',
+  //           style: TextStyle(
+  //             fontSize: 24,
+  //             fontWeight: FontWeight.bold,
+  //             color: Color(0xFF374151),
+  //           ),
+  //           textAlign: TextAlign.center,
+  //         ),
+  //         const SizedBox(height: 16),
+  //         const Text(
+  //           'Please check again or if there something suspicious\ncontact support',
+  //           style: TextStyle(
+  //             fontSize: 16,
+  //             color: Color(0xFF6B7280),
+  //             height: 1.5,
+  //           ),
+  //           textAlign: TextAlign.center,
+  //         ),
+  //         const SizedBox(height: 16),
+  //         Container(
+  //           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+  //           decoration: BoxDecoration(
+  //             color: const Color(0xFF9CA3AF).withOpacity(0.1),
+  //             borderRadius: BorderRadius.circular(6),
+  //           ),
+  //           child: const Text(
+  //             'RULES : GTW/SOP/JKT/122331',
+  //             style: TextStyle(
+  //               fontSize: 14,
+  //               color: Color(0xFF9CA3AF),
+  //               fontWeight: FontWeight.w500,
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _buildCombinedDataSection() {
     return Container(
@@ -362,7 +361,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                   horizontal: 20,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF374151),
+                  color: const Color(0xFF1F2937),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Text(
@@ -386,7 +385,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
             width: double.infinity,
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: const Color(0xFF374151),
+              color: const Color(0xFF1F2937),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -455,7 +454,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1F2937),
+                  color: Color(0xFF374151),
                 ),
               ),
               const SizedBox(width: 16),
@@ -487,7 +486,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                   'Remark',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF6B7280),
+                    color: Color(0xFF374151),
                     fontStyle: FontStyle.italic,
                   ),
                 ),
@@ -509,7 +508,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF1F2937),
+                          color: Color(0xFF374151),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -524,7 +523,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             'Quantity',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF6B7280),
+                              color: Color(0xFF374151),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -532,7 +531,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             'Package',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF6B7280),
+                              color: Color(0xFF374151),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -547,7 +546,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF1F2937),
+                              color: Color(0xFF374151),
                             ),
                           ),
                           Text(
@@ -555,7 +554,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF1F2937),
+                              color: Color(0xFF374151),
                             ),
                           ),
                         ],
@@ -570,7 +569,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             'Weight',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF6B7280),
+                              color: Color(0xFF374151),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -578,7 +577,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             'Volume',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF6B7280),
+                              color: Color(0xFF374151),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -601,7 +600,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF1F2937),
+                              color: Color(0xFF374151),
                             ),
                           ),
                         ],
@@ -616,7 +615,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             'Warehouse Meas',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF6B7280),
+                              color: Color(0xFF374151),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -626,7 +625,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF1F2937),
+                              color: Color(0xFF374151),
                             ),
                           ),
                         ],
@@ -648,7 +647,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1F2937),
+                  color: Color(0xFF374151),
                 ),
               ),
               const SizedBox(width: 16),
@@ -1535,7 +1534,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
       width: 50,
       height: 50,
       decoration: BoxDecoration(
-        color: isDisabled ? const Color(0xFFE5E7EB) : const Color(0xFF374151),
+        color: isDisabled ? const Color(0xFFE5E7EB) : const Color(0xFF1F2937),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Center(
@@ -1898,7 +1897,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                 if (hasConnector)
                   Container(
                     width: 2,
-                    height: isExpandable && isExpanded ? 420 : 80, // Tinggi penuh untuk content
+                    height: isExpandable && isExpanded ? 420 : 80,
                     color: const Color(0xFF6B7280),
                   ),
               ],
@@ -1957,7 +1956,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                       ),
                       const SizedBox(height: 8),
                       
-                      // Condition grid - different values for Stuffed vs Arrival
+                      // Condition grid
                       Row(
                         children: [
                           Expanded(
@@ -2420,7 +2419,7 @@ Widget _buildLocationSection() {
                   horizontal: 20,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF374151),
+                  color: const Color(0xFF1F2937),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Text(
@@ -2444,7 +2443,7 @@ Widget _buildLocationSection() {
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: const Color(0xFF374151),
+              color: const Color(0xFF1F2937),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
@@ -2484,7 +2483,7 @@ Widget _buildLocationSection() {
                         style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFF59E0B), // Yellow color for 0
+                          color: Color(0xFFFFEB3B), // Yellow color for 0
                         ),
                       ),
                       const SizedBox(height: 4),

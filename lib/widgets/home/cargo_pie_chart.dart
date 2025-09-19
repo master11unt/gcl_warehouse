@@ -112,7 +112,8 @@ class _CargoPieChartState extends State<CargoPieChart> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Color(0xFF232F6A),
+                    color: Color(0xFF1F2937),
+                    // color: Colors.grey[800],
                   ),
                 ),
               ],
