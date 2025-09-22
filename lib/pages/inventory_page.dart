@@ -17,6 +17,8 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
   final TextEditingController _searchController = TextEditingController();
   String searchQuery = "";
   int _currentPage = 1;
+  int _currentPageStock = 1;
+  int _currentPageCargoOut = 1;
 
   // Filter variables
   bool _isFilterExpandedCargoIn = false;
@@ -920,11 +922,11 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                 ],
                 rows: InventoryData.stockInventoryTableData,
                 emptyMessage: 'Showing Result',
-                currentPage: 1,
+                currentPage: _currentPageStock,
                 totalPages: (InventoryData.stockInventoryTableData.length / InventoryData.pageSize).ceil(),
                 totalItems: InventoryData.stockInventoryTableData.length,
                 pageSize: InventoryData.pageSize,
-                onPageChange: (p) => setState(() => _currentPage = p),
+                onPageChange: (p) => setState(() => _currentPageStock = p),
                 onRowTap: (rowData) {
                   // Navigate to inventory detail page
                   Navigator.push(
@@ -1320,11 +1322,11 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                 ],
                 rows: InventoryData.cargoOutTableData,
                 emptyMessage: 'Showing Result',
-                currentPage: 1,
+                currentPage: _currentPageCargoOut,
                 totalPages: (InventoryData.cargoOutTableData.length / InventoryData.pageSize).ceil(),
                 totalItems: InventoryData.cargoOutTableData.length,
                 pageSize: InventoryData.pageSize,
-                onPageChange: (p) => setState(() => _currentPage = p),
+                onPageChange: (p) => setState(() => _currentPageCargoOut = p),
                 onRowTap: (rowData) {
                   // Navigate to inventory detail page
                   Navigator.push(

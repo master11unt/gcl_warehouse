@@ -1,5 +1,4 @@
 class StuffingData {
-  // Sample stuffing data
   static final List<Map<String, dynamic>> allStuffingData = [
     {
       'jobNumber': 'GCL-10025070967',

@@ -309,7 +309,6 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
             ),
             child: Column(
               children: [
-                // First row: GTW Code and Quantity
                 Row(
                   children: [
                     // GTW Code
@@ -318,13 +317,12 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                       child: Text(
                         item['gtwCode']!,
                         style: const TextStyle(
-                          color: Color(0xFFFFEB3B), // Yellow color
+                          color: Color(0xFFFFF100),
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
-                    // Quantity
                     Expanded(
                       flex: 1,
                       child: Text(
@@ -340,10 +338,8 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                   ],
                 ),
                 const SizedBox(height: 4),
-                // Second row: Company and Destination
                 Row(
                   children: [
-                    // Company
                     Expanded(
                       flex: 3,
                       child: Text(
@@ -355,7 +351,6 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                         ),
                       ),
                     ),
-                    // Destination
                     Expanded(
                       flex: 1,
                       child: Text(
@@ -379,7 +374,6 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
   }
 
   Widget _buildModernRackList() {
-    // Data rack sesuai dengan gambar
     final List<Map<String, dynamic>> rackItems = [
       {'name': 'Rack Line 1', 'items': '30 Items'},
       {'name': 'Rack Line 2', 'items': '88 Items'},
@@ -454,7 +448,6 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                   });
                 },
               ),
-              // Dropdown content with animation
               AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
@@ -479,7 +472,6 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
             height: 1200,
             child: Stack(
               children: [
-                // Background
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.grey[100],

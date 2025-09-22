@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomeData {
-  // Data untuk Cargo Pie Chart
+  // Data Cargo Pie Chart
   static final Map<String, double> cargoSummary = {
     "Match": 5806,
     "Over": 258,

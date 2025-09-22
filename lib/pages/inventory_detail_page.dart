@@ -2483,7 +2483,7 @@ Widget _buildLocationSection() {
                         style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFFFEB3B), // Yellow color for 0
+                          color: Color(0xFFFFF100),
                         ),
                       ),
                       const SizedBox(height: 4),

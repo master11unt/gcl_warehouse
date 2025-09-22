@@ -18,7 +18,6 @@ class _InventoryDetailCargoOutPageState
   bool _isStuffedExpanded = false;
   bool _isDeliveredExpanded = false;
   
-  // Separate state variables for each timeline item
   bool _isArrivalSenderIdentityExpanded = false;
   bool _isArrivalDocumentationExpanded = false;
   bool _isStuffedSenderIdentityExpanded = false;
@@ -26,7 +25,6 @@ class _InventoryDetailCargoOutPageState
   bool _isDeliveredSenderIdentityExpanded = false;
   bool _isDeliveredDocumentationExpanded = false;
   
-  // Scroll controller for options section
   late ScrollController _optionsScrollController;
   double _scrollIndicatorPosition = 0.0;
   
@@ -50,7 +48,6 @@ class _InventoryDetailCargoOutPageState
       final currentScroll = _optionsScrollController.offset;
       if (maxScroll > 0) {
         setState(() {
-          // Calculate position: 0 to 40 (60 - 20 = 40 is the range the thumb can move)
           _scrollIndicatorPosition = (currentScroll / maxScroll) * 40;
         });
       }
@@ -69,7 +66,6 @@ class _InventoryDetailCargoOutPageState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header Section
               _buildHeaderSection(),
               const SizedBox(height: 20),
 
@@ -77,11 +73,9 @@ class _InventoryDetailCargoOutPageState
               _buildCombinedDataSection(),
               const SizedBox(height: 20),
 
-              // Info Card (replaces location section)
               _buildCargoOutInfoSection(),
               const SizedBox(height: 20),
 
-              // Options Section
               _buildOptionsSection(),
               const SizedBox(height: 20),
 
@@ -89,15 +83,12 @@ class _InventoryDetailCargoOutPageState
               _buildCombinedStatusCargoSection(),
               const SizedBox(height: 20),
 
-              // Items Received Section
               _buildItemsReceivedSection(),
               const SizedBox(height: 20),
 
-              // Cargo Transaction Section
               _buildCargoTransactionSection(),
               const SizedBox(height: 20),
 
-              // Cargo History Section
               _buildCargoHistorySection(),
             ],
           ),
@@ -122,7 +113,6 @@ class _InventoryDetailCargoOutPageState
       ),
       child: Row(
         children: [
-          // Gray vertical bar
           Container(
             width: 4,
             height: 40,
@@ -175,7 +165,6 @@ class _InventoryDetailCargoOutPageState
   }
 
   Widget _buildCargoOutInfoSection() {
-    // This replaces the location section with the custom empty/out info card
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(32),
@@ -194,7 +183,6 @@ class _InventoryDetailCargoOutPageState
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Custom illustration similar to the mockup
           Container(
             height: 200,
             width: double.infinity,
@@ -202,7 +190,6 @@ class _InventoryDetailCargoOutPageState
             child: Stack(
               alignment: Alignment.center,
               children: [
-                // Background elements
                 Positioned(
                   top: 20,
                   left: 50,
@@ -225,7 +212,6 @@ class _InventoryDetailCargoOutPageState
                   ),
                 ),
 
-                // Main folder illustration
                 Center(
                   child: Container(
                     width: 140,
@@ -242,7 +228,6 @@ class _InventoryDetailCargoOutPageState
                   ),
                 ),
 
-                // Character illustration (simplified)
                 Positioned(
                   right: 20,
                   bottom: 20,
@@ -271,7 +256,6 @@ class _InventoryDetailCargoOutPageState
                   ),
                 ),
 
-                // Lamp illustration
                 Positioned(
                   top: 0,
                   child: Container(
@@ -664,7 +648,6 @@ class _InventoryDetailCargoOutPageState
           ),
           const SizedBox(height: 16),
 
-          // Horizontal Scrollable Table
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
@@ -674,13 +657,10 @@ class _InventoryDetailCargoOutPageState
               ),
               child: Column(
                 children: [
-                  // Header Row with merged cells
                   Stack(
                     children: [
-                      // Background row with full height for merged columns
                       Row(
                         children: [
-                          // No Column (merged - full height)
                           Container(
                             width: 70,
                             height: 90,
@@ -708,7 +688,6 @@ class _InventoryDetailCargoOutPageState
                               ),
                             ),
                           ),
-                          // Marking Column (merged - full height)
                           Container(
                             width: 180,
                             height: 90,
@@ -733,10 +712,8 @@ class _InventoryDetailCargoOutPageState
                               ),
                             ),
                           ),
-                          // Tally Detail and Dimension area
                           Column(
                             children: [
-                              // Top row: Tally Detail and Dimension headers
                               Row(
                                 children: [
                                   Container(
@@ -797,10 +774,8 @@ class _InventoryDetailCargoOutPageState
                                   ),
                                 ],
                               ),
-                              // Bottom row: Sub headers
                               Row(
                                 children: [
-                                  // Tally Detail sub headers
                                   Container(
                                     width: 70,
                                     height: 45,
@@ -874,7 +849,6 @@ class _InventoryDetailCargoOutPageState
                                       ),
                                     ),
                                   ),
-                                  // Dimension sub headers
                                   Container(
                                     width: 70,
                                     height: 45,
@@ -951,7 +925,6 @@ class _InventoryDetailCargoOutPageState
                               ),
                             ],
                           ),
-                          // Meas Column (merged - full height)
                           Container(
                             width: 100,
                             height: 90,
@@ -2016,49 +1989,37 @@ class _InventoryDetailCargoOutPageState
     VoidCallback? onSenderIdentityTap,
     VoidCallback? onDocumentationTap,
   }) {
-    // GlobalKey untuk mengukur tinggi sebenarnya dari content card
-    final GlobalKey cardKey = GlobalKey();
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 0),
+    return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Timeline column (circle + connector)
-          SizedBox(
-            width: 20,
-            child: Column(
-              children: [
-                // Timeline indicator
-                Container(
-                  width: 20,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: isCompleted ? const Color(0xFF6B7280) : Colors.white,
-                    border: Border.all(
-                      color: const Color(0xFF6B7280),
-                      width: isCompleted ? 0 : 3,
-                    ),
+          Column(
+            children: [
+              // Timeline indicator
+              Container(
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: isCompleted ? const Color(0xFF6B7280) : Colors.white,
+                  border: Border.all(
+                    color: const Color(0xFF6B7280),
+                    width: isCompleted ? 0 : 3,
                   ),
                 ),
+              ),
 
-                // Timeline connector line
-                if (hasConnector)
-                  Container(
+              // Timeline connector line
+              if (hasConnector)
+                Expanded(
+                  child: Container(
                     width: 2,
-                    height:
-                        isExpanded
-                            ? (title == 'Delivered'
-                                ? 600
-                                : title == 'Stuffed'
-                                ? 450
-                                : 400)
-                            : 80,
+                    margin: const EdgeInsets.symmetric(vertical: 4),
                     color: const Color(0xFF6B7280),
                   ),
-              ],
-            ),
+                ),
+            ],
           ),
           const SizedBox(width: 16),
           // Content card
@@ -2066,7 +2027,6 @@ class _InventoryDetailCargoOutPageState
             child: GestureDetector(
               onTap: isExpandable ? onTap : null,
               child: Container(
-                key: cardKey,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -2693,8 +2653,7 @@ class _InventoryDetailCargoOutPageState
     required String title,
     required String time,
   }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 0), // Jarak antar item
+    return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -2703,8 +2662,6 @@ class _InventoryDetailCargoOutPageState
             width: 20,
             child: Column(
               children: [
-                // Spacer untuk menurunkan lingkaran ke tengah
-                const SizedBox(height: 24),
                 // Timeline indicator
                 Container(
                   width: 20,
@@ -2719,12 +2676,13 @@ class _InventoryDetailCargoOutPageState
                   ),
                 ),
 
-                // Timeline connector line
+                // Timeline connector line - dynamic height
                 if (hasConnector)
-                  Container(
-                    width: 2,
-                    height: 80, // Tinggi penuh sampai item berikutnya
-                    color: const Color(0xFF6B7280),
+                  Expanded(
+                    child: Container(
+                      width: 2,
+                      color: const Color(0xFF6B7280),
+                    ),
                   ),
               ],
             ),
@@ -2732,26 +2690,29 @@ class _InventoryDetailCargoOutPageState
           const SizedBox(width: 16),
           // Content
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF374151),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF374151),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  time,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF374151),
+                  const SizedBox(height: 4),
+                  Text(
+                    time,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF374151),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

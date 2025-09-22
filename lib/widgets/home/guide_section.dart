@@ -33,36 +33,38 @@ class GuideSection extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
           ),
           elevation: 2,
-          child: ExpansionTile(
-            tilePadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            childrenPadding: EdgeInsets.only(
-              left: 16,
-              right: 16,
-              bottom: 16,
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              dividerColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
             ),
-            title: Text(
-              "Standard Operational Receiving Cargo",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
-                color: Color(0xFF1F2937),
+            child: ExpansionTile(
+              tilePadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              childrenPadding: EdgeInsets.only(
+                left: 16,
+                right: 16,
+                bottom: 16,
               ),
-            ),
-            trailing: Icon(
-              Icons.keyboard_arrow_down,
-              color: Color(0xFF6B7280),
-            ),
-            children: [
+              title: Text(
+                "Standard Operational Receiving Cargo",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: Color(0xFF1F2937),
+                ),
+              ),
+              trailing: Icon(
+                Icons.keyboard_arrow_down,
+                color: Color(0xFF6B7280),
+              ),
+              children: [
               Container(
                 width: double.infinity,
                 height: 400,
                 decoration: BoxDecoration(
                   color: Color(0xFFF8F9FA),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: Color(0xFFE5E7EB),
-                    width: 1,
-                  ),
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
@@ -131,6 +133,7 @@ class GuideSection extends StatelessWidget {
                 ],
               ),
             ],
+          ),
           ),
         ),
       ],

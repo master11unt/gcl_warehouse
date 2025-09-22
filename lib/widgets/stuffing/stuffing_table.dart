@@ -445,40 +445,66 @@ class _PaginationBarState extends State<_PaginationBar> {
   @override
   Widget build(BuildContext context) {
     final pages = _visiblePages(widget.currentPage, widget.totalPages);
-    return SingleChildScrollView(
-      controller: _controller,
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _NavButton(
-            label: 'Prev',
-            icon: Icons.arrow_back,
-            enabled: widget.currentPage > 1,
-            onTap: () => widget.onPageChange?.call(widget.currentPage - 1),
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: SingleChildScrollView(
+        controller: _controller,
+        scrollDirection: Axis.horizontal,
+        child: IntrinsicWidth(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Prev Button
+              _NavButton(
+                label: 'Prev',
+                icon: Icons.arrow_back,
+                enabled: widget.currentPage > 1,
+                onTap: () => widget.onPageChange?.call(widget.currentPage - 1),
+              ),
+              
+              const SizedBox(width: 12),
+              
+              // Page Numbers
+              ...pages.asMap().entries.map((entry) {
+                final i = entry.key;
+                final page = entry.value;
+                final widgets = <Widget>[
+                  _PageChip(
+                    key: _pageKeys.putIfAbsent(page, () => GlobalKey()),
+                    page: page,
+                    active: page == widget.currentPage,
+                    onTap: () => widget.onPageChange?.call(page),
+                  ),
+                ];
+                
+                if (i < pages.length - 1) {
+                  if (pages[i + 1] - page > 1) {
+                    widgets.add(const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 6), 
+                      child: Text('...', style: TextStyle(color: Color(0xFF6B7280)))
+                    ));
+                  } else {
+                    widgets.add(const SizedBox(width: 6));
+                  }
+                }
+                
+                return widgets;
+              }).expand((widgets) => widgets),
+              
+              const SizedBox(width: 12),
+              
+              // Next Button
+              _NavButton(
+                label: 'Next',
+                icon: Icons.arrow_forward,
+                enabled: widget.currentPage < widget.totalPages,
+                onTap: () => widget.onPageChange?.call(widget.currentPage + 1),
+              ),
+            ],
           ),
-          const SizedBox(width: 8),
-          ...[for (int i = 0; i < pages.length; i++) ...[
-            _PageChip(
-              key: _pageKeys.putIfAbsent(pages[i], () => GlobalKey()),
-              page: pages[i],
-              active: pages[i] == widget.currentPage,
-              onTap: () => widget.onPageChange?.call(pages[i]),
-            ),
-            if (i < pages.length - 1)
-              if (pages[i + 1] - pages[i] > 1)
-                const Padding(padding: EdgeInsets.symmetric(horizontal: 6), child: Text('...', style: TextStyle(color: Color(0xFF6B7280))))
-              else
-                const SizedBox(width: 6),
-          ]],
-          const SizedBox(width: 8),
-          _NavButton(
-            label: 'Next',
-            icon: Icons.arrow_forward,
-            enabled: widget.currentPage < widget.totalPages,
-            onTap: () => widget.onPageChange?.call(widget.currentPage + 1),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -494,15 +520,40 @@ class _NavButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = enabled ? const Color(0xFF6B7280) : const Color(0xFFCBD5E1);
     return GestureDetector(
       onTap: enabled ? onTap : null,
-      child: Row(
-        children: [
-          Icon(icon, color: color, size: 20),
-          const SizedBox(width: 6),
-          Text(label, style: TextStyle(color: color, fontSize: 14)),
-        ],
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (label == 'Prev') ...[
+              Icon(
+                Icons.arrow_back_ios, 
+                size: 12, 
+                color: enabled ? Color(0xFF374151) : Color(0xFFD1D5DB)
+              ),
+              SizedBox(width: 4),
+            ],
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                color: enabled ? Color(0xFF374151) : Color(0xFFD1D5DB),
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
+              ),
+            ),
+            if (label == 'Next') ...[
+              SizedBox(width: 4),
+              Icon(
+                Icons.arrow_forward_ios, 
+                size: 12, 
+                color: enabled ? Color(0xFF374151) : Color(0xFFD1D5DB)
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }
@@ -520,16 +571,24 @@ class _PageChip extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        width: 32,
+        height: 32,
         decoration: BoxDecoration(
-          color: active ? const Color(0xFF2563EB) : Colors.transparent,
-          borderRadius: BorderRadius.circular(6),
+          border: Border(
+            top: BorderSide(
+              color: active ? const Color(0xFF3B82F6) : const Color(0xFFE5E7EB),
+              width: 2,
+            ),
+          ),
         ),
-        child: Text(
-          '$page',
-          style: TextStyle(
-            color: active ? Colors.white : const Color(0xFF1F2937),
-            fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+        child: Center(
+          child: Text(
+            '$page',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              color: active ? const Color(0xFF3B82F6) : const Color(0xFF6B7280),
+            ),
           ),
         ),
       ),
