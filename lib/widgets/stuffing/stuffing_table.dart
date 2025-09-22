@@ -270,7 +270,7 @@ class StuffingTable extends StatelessWidget {
                   // Table Header
                   Container(
                     decoration: const BoxDecoration(
-                      color: Color(0xFF374151),
+                      color: Color(0xFF1F2937),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(8),
                         topRight: Radius.circular(8),

@@ -21,7 +21,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         NotificationPopup(),
-        SizedBox(width: 16),
+        SizedBox(width: 8),
         UserPopup(),
         SizedBox(width: 12),
       ],

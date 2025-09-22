@@ -21,14 +21,24 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
   late final List<List<String>> _stuffingAllRows;
   
   // Filter variables
+  bool _isFilterExpanded = false;
+  // Cargo In filters
   String _selectedCategory = 'None';
-  String _selectedStatus = 'Valid';
+  String _selectedStatus = 'All';
   DateTime? _selectedDate;
+  // Stuffing filters
+  String _selectedCategoryStuffing = 'None';
+  String _selectedStatusStuffing = 'All';
+  DateTime? _selectedDateStuffing;
   
   // Filter options
   final List<String> _categoryOptions = [
     'None', 'GCL-JAKARTA', 'GCL-BANDUNG', 'GCL-CIKARANG', 
     'OSLINE-JAKARTA', 'OSLINE-BANDUNG', 'BPLINE', 'WINFAST', 'LCL', 'FCL'
+  ];
+  final List<String> _categoryOptionsStuffing = [
+    'None', 'GCL-JAKARTA', 'GCL-BANDUNG', 'GCL-CIKARANG', 
+    'OSLINE-JAKARTA', 'OSLINE-BANDUNG', 'BPLINE', 'WINFAST'
   ];
   final List<String> _statusOptions = ['Valid', 'Invalid', 'All'];
 
@@ -161,7 +171,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
 
   Widget _buildTicketCargoInTab() {
     // Apply filters to the data
-    final filteredRows = _getFilteredRows(_cargoInAllRows);
+    final filteredRows = _getFilteredRows(_cargoInAllRows, isCargoInTab: true);
     final totalItems = filteredRows.length;
     final totalPages = (totalItems + TicketData.cargoInPageSize - 1) ~/ TicketData.cargoInPageSize;
     final page = _cargoInPage.clamp(1, totalPages == 0 ? 1 : totalPages);
@@ -283,12 +293,13 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
   }
 
   Widget _buildTicketStuffingTab() {
-    final totalItems = _stuffingAllRows.length;
-    final totalPages =
-        (totalItems + TicketData.stuffingPageSize - 1) ~/ TicketData.stuffingPageSize;
+    // Apply filters to the data
+    final filteredRows = _getFilteredRows(_stuffingAllRows, isCargoInTab: false);
+    final totalItems = filteredRows.length;
+    final totalPages = (totalItems + TicketData.stuffingPageSize - 1) ~/ TicketData.stuffingPageSize;
     final page = _stuffingPage.clamp(1, totalPages == 0 ? 1 : totalPages);
     final visibleRows = TicketData.paginateRows(
-      _stuffingAllRows,
+      filteredRows,
       page,
       TicketData.stuffingPageSize,
     );
@@ -566,189 +577,21 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
 
           Row(
             children: [
-              PopupMenuButton<String>(
-                onSelected: (value) {
-                  // Handle filter selection
+              // Filter icon button
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _isFilterExpanded = !_isFilterExpanded;
+                  });
                 },
-                icon: const Icon(Icons.tune, color: Color(0xFF6B7280)),
-                color: Colors.white,
-                surfaceTintColor: Colors.white,
-                itemBuilder: (BuildContext context) => [
-                  PopupMenuItem<String>(
-                    enabled: false,
-                    child: Container(
-                      width: 320,
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Time Filter Section
-                          const Text(
-                            'Time Filter',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          Container(
-                            width: double.infinity,
-                            height: 48,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF374151),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(8),
-                                onTap: () async {
-                                  final DateTime? picked = await showDatePicker(
-                                    context: context,
-                                    initialDate: _selectedDate ?? DateTime.now(),
-                                    firstDate: DateTime(2020),
-                                    lastDate: DateTime(2030),
-                                  );
-                                  if (picked != null) {
-                                    setState(() {
-                                      _selectedDate = picked;
-                                    });
-                                  }
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          _selectedDate != null
-                                              ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                                              : 'Select Date',
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ),
-                                      const Icon(
-                                        Icons.calendar_today,
-                                        color: Colors.white,
-                                        size: 20,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          
-                          const SizedBox(height: 20),
-                          
-                          // Category Filter
-                          const Text(
-                            'Category Filter',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          Container(
-                            height: 36,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: _categoryOptions.map((category) {
-                                  final isSelected = _selectedCategory == category;
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 8),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          _selectedCategory = category;
-                                        });
-                                        Navigator.pop(context);
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                                        decoration: BoxDecoration(
-                                          color: isSelected ? const Color(0xFF374151) : Colors.white,
-                                          borderRadius: BorderRadius.circular(6),
-                                          border: Border.all(
-                                            color: const Color(0xFFE5E7EB),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          category,
-                                          style: TextStyle(
-                                            color: isSelected ? Colors.white : const Color(0xFF374151),
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ),
-                          
-                          const SizedBox(height: 20),
-                          
-                          // Status Filter
-                          const Text(
-                            'Status Filter',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          Row(
-                            children: _statusOptions.map((status) {
-                              final isSelected = _selectedStatus == status;
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 12),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _selectedStatus = status;
-                                    });
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                                    decoration: BoxDecoration(
-                                      color: isSelected ? const Color(0xFF374151) : Colors.white,
-                                      borderRadius: BorderRadius.circular(6),
-                                      border: Border.all(
-                                        color: const Color(0xFFE5E7EB),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      status,
-                                      style: TextStyle(
-                                        color: isSelected ? Colors.white : const Color(0xFF374151),
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        ],
-                      ),
-                    ),
+                child: const Icon(
+                    Icons.tune,
+                    color: Color(0xFF6B7280),
+                    size: 24,
                   ),
-                ],
               ),
               const SizedBox(width: 16),
+              // Search field
               Expanded(
                 child: SizedBox(
                   height: 40,
@@ -780,6 +623,181 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
               ),
             ],
           ),
+          
+          // Filter expandable section - only shows when expanded
+          if (_isFilterExpanded)
+            Container(
+              width: double.infinity,
+              margin: const EdgeInsets.only(top: 16),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Time Filter Section
+                    const Text(
+                      'Time Filter',
+                      style: TextStyle(
+                        color: Color(0xFF374151),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Container(
+                      width: double.infinity,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF1F2937),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Color(0xFFE5E7EB)),
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(8),
+                          onTap: () async {
+                            final bool isCargoInTab = _tabController.index == 0;
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CustomDatePicker(
+                                  initialDate: isCargoInTab ? _selectedDate : _selectedDateStuffing,
+                                  onDateSelected: (DateTime selectedDate) {
+                                    setState(() {
+                                      if (isCargoInTab) {
+                                        _selectedDate = selectedDate;
+                                      } else {
+                                        _selectedDateStuffing = selectedDate;
+                                      }
+                                    });
+                                  },
+                                );
+                              },
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    () {
+                                      final bool isCargoInTab = _tabController.index == 0;
+                                      final DateTime? currentDate = isCargoInTab ? _selectedDate : _selectedDateStuffing;
+                                      return currentDate != null
+                                          ? '${currentDate.day}/${currentDate.month}/${currentDate.year}'
+                                          : 'Select Date';
+                                    }(),
+                                    style: const TextStyle(
+                                      color: Color(0xFF6B7280),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                                const Icon(
+                                  Icons.calendar_today,
+                                  color: Color(0xFF6B7280),
+                                  size: 20,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // Category Filter
+                    const Text(
+                      'Category Filter',
+                      style: TextStyle(
+                        color: Color(0xFF374151),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    
+                    SizedBox(
+                      height: 50,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: () {
+                            final bool isCargoInTab = _tabController.index == 0;
+                            final List<String> currentCategoryOptions = isCargoInTab ? _categoryOptions : _categoryOptionsStuffing;
+                            final String currentSelectedCategory = isCargoInTab ? _selectedCategory : _selectedCategoryStuffing;
+                            
+                            return currentCategoryOptions.map((category) => Padding(
+                              padding: const EdgeInsets.only(right: 8),
+                              child: _buildFilterChip(
+                                category, 
+                                currentSelectedCategory == category,
+                                () => setState(() {
+                                  if (isCargoInTab) {
+                                    _selectedCategory = category;
+                                  } else {
+                                    _selectedCategoryStuffing = category;
+                                  }
+                                }),
+                              ),
+                            )).toList();
+                          }(),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // Status Filter
+                    const Text(
+                      'Status Filter',
+                      style: TextStyle(
+                        color: Color(0xFF374151),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    
+                    SizedBox(
+                      height: 50,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: _statusOptions.map((status) => Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: _buildFilterChip(
+                              status, 
+                              () {
+                                final bool isCargoInTab = _tabController.index == 0;
+                                return isCargoInTab ? _selectedStatus == status : _selectedStatusStuffing == status;
+                              }(),
+                              () => setState(() {
+                                final bool isCargoInTab = _tabController.index == 0;
+                                if (isCargoInTab) {
+                                  _selectedStatus = status;
+                                } else {
+                                  _selectedStatusStuffing = status;
+                                }
+                              }),
+                            ),
+                          )).toList(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
 
           const SizedBox(height: 20),
 
@@ -801,28 +819,32 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
   }
 
   // Helper method to filter table rows based on selected filters
-  List<List<String>> _getFilteredRows(List<List<String>> allRows) {
+  List<List<String>> _getFilteredRows(List<List<String>> allRows, {bool isCargoInTab = true}) {
+    final String selectedCategory = isCargoInTab ? _selectedCategory : _selectedCategoryStuffing;
+    final String selectedStatus = isCargoInTab ? _selectedStatus : _selectedStatusStuffing;
+    final DateTime? selectedDate = isCargoInTab ? _selectedDate : _selectedDateStuffing;
+    
     return allRows.where((row) {
       bool categoryMatch = true;
       bool statusMatch = true;
       bool dateMatch = true;
       
       // Category filter logic (assuming category is in a specific column - adjust index as needed)
-      if (_selectedCategory != 'None') {
+      if (selectedCategory != 'None') {
         // For cargo in, you might want to check shipper (column 2) or cargo service type (column 6)
         categoryMatch = row.length > 6 && 
-            (row[2].toLowerCase().contains(_selectedCategory.toLowerCase()) ||
-             row[6].toLowerCase().contains(_selectedCategory.toLowerCase()));
+            (row[2].toLowerCase().contains(selectedCategory.toLowerCase()) ||
+             row[6].toLowerCase().contains(selectedCategory.toLowerCase()));
       }
       
       // Status filter logic (assuming status is in the last column)
-      if (_selectedStatus != 'All') {
+      if (selectedStatus != 'All') {
         statusMatch = row.length > 7 && 
-            row[7].toLowerCase().contains(_selectedStatus.toLowerCase());
+            row[7].toLowerCase().contains(selectedStatus.toLowerCase());
       }
       
       // Date filter logic (assuming date is in column 1 - Plan Date In)
-      if (_selectedDate != null && row.length > 1) {
+      if (selectedDate != null && row.length > 1) {
         try {
           // Parse the date from the row (assuming format like "2024-01-01")
           final rowDateParts = row[1].split('-');
@@ -845,4 +867,281 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
     }).toList();
   }
 
+  Widget _buildFilterChip(String text, bool isSelected, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFF1F2937) : Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: isSelected ? const Color(0xFF374151) : const Color(0xFFE5E7EB),
+            width: 1,
+          ),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: isSelected ? Colors.white : const Color(0xFF374151),
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Custom Date Picker Widget
+class CustomDatePicker extends StatefulWidget {
+  final DateTime? initialDate;
+  final Function(DateTime) onDateSelected;
+
+  const CustomDatePicker({
+    Key? key,
+    this.initialDate,
+    required this.onDateSelected,
+  }) : super(key: key);
+
+  @override
+  _CustomDatePickerState createState() => _CustomDatePickerState();
+}
+
+class _CustomDatePickerState extends State<CustomDatePicker> {
+  late DateTime _currentMonth;
+  DateTime? _selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentMonth = widget.initialDate ?? DateTime.now();
+    _selectedDate = widget.initialDate;
+  }
+
+  void _onQuickSelect(String option) {
+    DateTime selectedDate;
+    switch (option) {
+      case 'Today':
+        selectedDate = DateTime.now();
+        break;
+      case 'Yesterday':
+        selectedDate = DateTime.now().subtract(const Duration(days: 1));
+        break;
+      case 'Last 7 days':
+        selectedDate = DateTime.now().subtract(const Duration(days: 7));
+        break;
+      case 'Last 30 days':
+        selectedDate = DateTime.now().subtract(const Duration(days: 30));
+        break;
+      case 'This month':
+        selectedDate = DateTime(DateTime.now().year, DateTime.now().month, 1);
+        break;
+      case 'Last month':
+        final now = DateTime.now();
+        selectedDate = DateTime(now.year, now.month - 1, 1);
+        break;
+      default:
+        selectedDate = DateTime.now();
+    }
+    
+    setState(() {
+      _selectedDate = selectedDate;
+      _currentMonth = DateTime(selectedDate.year, selectedDate.month, 1);
+    });
+    widget.onDateSelected(selectedDate);
+    Navigator.pop(context);
+  }
+
+  void _onDateTap(int day) {
+    final selectedDate = DateTime(_currentMonth.year, _currentMonth.month, day);
+    setState(() {
+      _selectedDate = selectedDate;
+    });
+    widget.onDateSelected(selectedDate);
+    Navigator.pop(context);
+  }
+
+  void _previousMonth() {
+    setState(() {
+      _currentMonth = DateTime(_currentMonth.year, _currentMonth.month - 1, 1);
+    });
+  }
+
+  void _nextMonth() {
+    setState(() {
+      _currentMonth = DateTime(_currentMonth.year, _currentMonth.month + 1, 1);
+    });
+  }
+
+  List<String> _getMonthName() {
+    const months = [
+      'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+      'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+    ];
+    return months;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final monthNames = _getMonthName();
+    final currentMonthName = monthNames[_currentMonth.month - 1];
+    
+    return Dialog(
+      backgroundColor: const Color(0xFF2D3748),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Container(
+        width: 320,
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Quick select options
+            GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 2.5,
+              children: [
+                _buildQuickOption('Today'),
+                _buildQuickOption('Yesterday'),
+                _buildQuickOption('Last 7 days'),
+                _buildQuickOption('Last 30 days'),
+                _buildQuickOption('This month'),
+                _buildQuickOption('Last month'),
+              ],
+            ),
+            
+            const SizedBox(height: 20),
+            
+            // Month/Year navigation
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                border: Border.all(color: const Color(0xFF4A5568)),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: _previousMonth,
+                    child: const Icon(Icons.chevron_left, color: Colors.white),
+                  ),
+                  Text(
+                    '$currentMonthName ${_currentMonth.year}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: _nextMonth,
+                    child: const Icon(Icons.chevron_right, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+            
+            const SizedBox(height: 16),
+            
+            // Day headers
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: const [
+                Text('Sun', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
+                Text('Mon', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
+                Text('Tue', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
+                Text('Wed', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
+                Text('Thu', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
+                Text('Fri', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
+                Text('Sat', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
+              ],
+            ),
+            
+            const SizedBox(height: 8),
+            
+            // Calendar grid
+            _buildCalendarGrid(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildQuickOption(String text) {
+    return GestureDetector(
+      onTap: () => _onQuickSelect(text),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: const TextStyle(
+              color: Color(0xFF63B3ED),
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCalendarGrid() {
+    final firstDayOfMonth = DateTime(_currentMonth.year, _currentMonth.month, 1);
+    final startOfWeek = firstDayOfMonth.subtract(Duration(days: firstDayOfMonth.weekday % 7));
+    
+    List<Widget> dayWidgets = [];
+    
+    for (int i = 0; i < 42; i++) {
+      final date = startOfWeek.add(Duration(days: i));
+      final isCurrentMonth = date.month == _currentMonth.month;
+      final isSelected = _selectedDate != null &&
+          date.year == _selectedDate!.year &&
+          date.month == _selectedDate!.month &&
+          date.day == _selectedDate!.day;
+      final isToday = date.year == DateTime.now().year &&
+          date.month == DateTime.now().month &&
+          date.day == DateTime.now().day;
+      
+      dayWidgets.add(
+        GestureDetector(
+          onTap: isCurrentMonth ? () => _onDateTap(date.day) : null,
+          child: Container(
+            width: 32,
+            height: 32,
+            decoration: BoxDecoration(
+              color: isSelected ? const Color(0xFF63B3ED) : Colors.transparent,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Center(
+              child: Text(
+                '${date.day}',
+                style: TextStyle(
+                  color: isCurrentMonth
+                      ? (isSelected ? Colors.white : Colors.white)
+                      : const Color(0xFF4A5568),
+                  fontSize: 14,
+                  fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+    
+    return GridView.count(
+      shrinkWrap: true,
+      crossAxisCount: 7,
+      children: dayWidgets,
+    );
+  }
 }

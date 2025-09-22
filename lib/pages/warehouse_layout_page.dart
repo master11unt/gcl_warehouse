@@ -11,6 +11,7 @@ class WarehouseLayoutPage extends StatefulWidget {
 class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
   String selectedLocation = 'Marunda';
   String selectedFilter = 'All';
+  Set<int> expandedRackItems = {}; // Track which rack items are expanded
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +173,15 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 12),
+                          
+                          // Horizontal line
+                          Container(
+                            height: 1,
+                            color: Colors.white.withOpacity(0.3),
+                          ),
+                          
+                          const SizedBox(height: 20),
 
                           // Search Field
                           Container(
@@ -182,10 +191,15 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                             ),
                             child: TextField(
                               decoration: InputDecoration(
-                                hintText: "Search",
+                                hintText: "Search...",
+                                hintStyle: const TextStyle(
+                                  color: Color(0xFF9CA3AF),
+                                  fontSize: 14,
+                                ),
                                 prefixIcon: const Icon(
                                   Icons.search,
                                   color: Color(0xFF6B7280),
+                                  size: 20,
                                 ),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
@@ -204,10 +218,10 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                       ),
                     ),
 
-                    // Integrated Rack Details List
+                    // Rack List
                     Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: _buildCompactRackList(),
+                      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                      child: _buildModernRackList(),
                     ),
                   ],
                 ),
@@ -221,218 +235,236 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     );
   }
 
-  Widget _buildCompactRackList() {
-    // Menggunakan data dari WarehouseData model
-    final List<Map<String, dynamic>> rackCategories =
-        WarehouseData.rackCategories;
+  // Generate sample dropdown data based on the provided image
+  List<Map<String, String>> _getDropdownDataForRack(String rackName) {
+    // Sample data matching the image format
+    return [
+      {
+        'gtwCode': 'GTW-20250207052451',
+        'company': 'UNIAIR INDOTAMA CARGO, PT',
+        'quantity': '2 PALLETS',
+        'destination': 'KEELUNG (CHILUNG)'
+      },
+      {
+        'gtwCode': 'GTW-20250211030718',
+        'company': 'NARUMI INDONESIA, PT',
+        'quantity': '5 PALLETS',
+        'destination': 'LOS ANGELES'
+      },
+      {
+        'gtwCode': 'GTW-20250212032324',
+        'company': 'NARUMI INDONESIA, PT',
+        'quantity': '2 PALLETS',
+        'destination': 'SHANGHAI'
+      },
+      {
+        'gtwCode': 'GTW-20250207032804',
+        'company': 'NARUMI INDONESIA, PT',
+        'quantity': '23 CARTONS',
+        'destination': 'HONG KONG'
+      },
+      {
+        'gtwCode': 'GTW-20250210044929',
+        'company': 'YAMATO INDONESIA FORWARDING, PT',
+        'quantity': '2 PALLETS',
+        'destination': 'MANZANILLO'
+      },
+      {
+        'gtwCode': 'GTW-20250213040108',
+        'company': 'YAMATO INDONESIA FORWARDING, PT',
+        'quantity': '3 PACKAGES',
+        'destination': 'LAEM CHABANG'
+      },
+      {
+        'gtwCode': 'GTW-20250212015407',
+        'company': 'YAMATO INDONESIA FORWARDING, PT',
+        'quantity': '2 PALLETS',
+        'destination': 'BANGKOK'
+      },
+    ];
+  }
 
-    return StatefulBuilder(
-      builder: (context, setExpansionState) {
-        return Column(
-          children:
-              rackCategories.asMap().entries.map<Widget>((entry) {
-                final index = entry.key;
-                final category = entry.value;
-
-                return Column(
+  Widget _buildDropdownContent(String rackName) {
+    List<Map<String, String>> dropdownData = _getDropdownDataForRack(rackName);
+    
+    return Container(
+      decoration: const BoxDecoration(
+        color: Color(0xFF1F2937), // Dark background like in the image
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(8),
+          bottomRight: Radius.circular(8),
+        ),
+      ),
+      child: Column(
+        children: dropdownData.map((item) {
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            decoration: const BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: Color(0xFF4A5568),
+                  width: 0.5,
+                ),
+              ),
+            ),
+            child: Column(
+              children: [
+                // First row: GTW Code and Quantity
+                Row(
                   children: [
-                    // Smaller grey container for category title
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 4),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 6,
-                      ), // Much smaller padding
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(
-                          3,
-                        ), // Even smaller radius
-                      ),
-                      child: Theme(
-                        data: Theme.of(
-                          context,
-                        ).copyWith(dividerColor: Colors.transparent),
-                        child: ExpansionTile(
-                          tilePadding: EdgeInsets.zero,
-                          childrenPadding: EdgeInsets.zero,
-                          iconColor: Colors.grey[600],
-                          collapsedIconColor: Colors.grey[600],
-                          onExpansionChanged: (expanded) {
-                            setExpansionState(() {
-                              rackCategories[index]['isExpanded'] = expanded;
-                            });
-                          },
-                          initiallyExpanded: category['isExpanded'] as bool,
-                          title: Row(
-                            children: [
-                              // Yellow line indicator
-                              Container(
-                                width: 2,
-                                height: 12, // Even smaller height
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFFFD700),
-                                  borderRadius: BorderRadius.circular(1),
-                                ),
-                              ),
-                              const SizedBox(width: 6),
-                              Expanded(
-                                child: Text(
-                                  category['title'] as String,
-                                  style: TextStyle(
-                                    color: Colors.grey[800],
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                category['count'] as String,
-                                style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                          children:
-                              (category['bookings'] as List).isEmpty
-                                  ? []
-                                  : [
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                        top: 4,
-                                        bottom: 8,
-                                      ),
-                                      constraints: const BoxConstraints(
-                                        maxHeight: 200,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFF1F2937),
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      child: SingleChildScrollView(
-                                        child: Column(
-                                          children:
-                                              (category['bookings'] as List).asMap().entries.map<
-                                                Widget
-                                              >((bookingEntry) {
-                                                final bookingIndex =
-                                                    bookingEntry.key;
-                                                final booking =
-                                                    bookingEntry.value;
-                                                final isLast =
-                                                    bookingIndex ==
-                                                    (category['bookings']
-                                                                as List)
-                                                            .length -
-                                                        1;
-
-                                                return Column(
-                                                  children: [
-                                                    Container(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                            12,
-                                                          ),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          // Booking code
-                                                          Text(
-                                                            booking['code']
-                                                                as String,
-                                                            style:
-                                                                const TextStyle(
-                                                                  color: Color(
-                                                                    0xFFFFD700,
-                                                                  ),
-                                                                  fontSize: 11,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 2,
-                                                          ),
-                                                          // Company/Type
-                                                          Text(
-                                                            booking['type']
-                                                                as String,
-                                                            style:
-                                                                const TextStyle(
-                                                                  color:
-                                                                      Colors
-                                                                          .white,
-                                                                  fontSize: 10,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                ),
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 4,
-                                                          ),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                booking['info']
-                                                                    as String,
-                                                                style: const TextStyle(
-                                                                  color:
-                                                                      Colors
-                                                                          .white70,
-                                                                  fontSize: 9,
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                booking['destination']
-                                                                    as String,
-                                                                style: const TextStyle(
-                                                                  color:
-                                                                      Colors
-                                                                          .white70,
-                                                                  fontSize: 9,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    if (!isLast)
-                                                      Container(
-                                                        height: 1,
-                                                        color: Colors.white
-                                                            .withOpacity(0.2),
-                                                        margin:
-                                                            const EdgeInsets.symmetric(
-                                                              horizontal: 8,
-                                                            ),
-                                                      ),
-                                                  ],
-                                                );
-                                              }).toList(),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                    // GTW Code
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        item['gtwCode']!,
+                        style: const TextStyle(
+                          color: Color(0xFFFFEB3B), // Yellow color
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 6),
+                    // Quantity
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        item['quantity']!,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ],
-                );
-              }).toList(),
+                ),
+                const SizedBox(height: 4),
+                // Second row: Company and Destination
+                Row(
+                  children: [
+                    // Company
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        item['company']!,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    // Destination
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        item['destination']!,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget _buildModernRackList() {
+    // Data rack sesuai dengan gambar
+    final List<Map<String, dynamic>> rackItems = [
+      {'name': 'Rack Line 1', 'items': '30 Items'},
+      {'name': 'Rack Line 2', 'items': '88 Items'},
+      {'name': 'Rack Line 3', 'items': '24 Items'},
+      {'name': 'Rack Line 4', 'items': '14 Items'},
+      {'name': 'Rack Line 5', 'items': '8 Items'},
+      {'name': 'Rack Line 6', 'items': '7 Items'},
+      {'name': 'Rack Line 8', 'items': '2 Items'},
+      {'name': 'Rack Line 10', 'items': '1 Items'},
+      {'name': 'Temporary Location Floor 3', 'items': '169 Items'},
+      {'name': 'Temporary Location Floor 4', 'items': '483 Items'},
+      {'name': 'Temporary Location Floor 5', 'items': '16 Items'},
+      {'name': 'Temporary Location Floor 6', 'items': '39 Items'},
+      {'name': 'Temporary Location Floor 10', 'items': '35 Items'},
+      {'name': 'Temporary Location Front Floor', 'items': '270 Items'},
+      {'name': 'Temporary Location Side Floor A', 'items': '9 Items'},
+      {'name': 'Temporary Location Side Floor B', 'items': '32 Items'},
+      {'name': 'Quarantine Area', 'items': '35 Items'},
+      {'name': 'Not In Rack', 'items': '59 Items'},
+    ];
+
+    return Column(
+      children: rackItems.asMap().entries.map((entry) {
+        int index = entry.key;
+        Map<String, dynamic> item = entry.value;
+        bool isExpanded = expandedRackItems.contains(index);
+        
+        return Container(
+          margin: const EdgeInsets.only(bottom: 8),
+          decoration: BoxDecoration(
+            color: const Color(0xFFE2E8F0),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            children: [
+              ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                title: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: item['name'],
+                        style: const TextStyle(
+                          color: Color(0xFF4A5568),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' - ${item['items']}',
+                        style: const TextStyle(
+                          color: Color(0xFF718096),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                trailing: Icon(
+                  isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                  color: const Color(0xFF4A5568),
+                  size: 20,
+                ),
+                onTap: () {
+                  setState(() {
+                    if (isExpanded) {
+                      expandedRackItems.remove(index);
+                    } else {
+                      expandedRackItems.add(index);
+                    }
+                  });
+                },
+              ),
+              // Dropdown content with animation
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+                height: isExpanded ? null : 0,
+                child: isExpanded ? _buildDropdownContent(item['name']) : const SizedBox(),
+              ),
+            ],
+          ),
         );
-      },
+      }).toList(),
     );
   }
 

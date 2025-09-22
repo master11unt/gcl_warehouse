@@ -109,7 +109,7 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF374151),
+                      color: const Color(0xFF1F2937),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: const Icon(
@@ -122,7 +122,7 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF374151),
+                      color: const Color(0xFF1F2937),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: const Icon(
