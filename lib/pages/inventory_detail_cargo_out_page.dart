@@ -2676,7 +2676,7 @@ class _InventoryDetailCargoOutPageState
                   ),
                 ),
 
-                // Timeline connector line - dynamic height
+                // Timeline connector line
                 if (hasConnector)
                   Expanded(
                     child: Container(

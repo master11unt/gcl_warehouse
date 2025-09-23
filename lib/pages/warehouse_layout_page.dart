@@ -118,27 +118,27 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              Container(
-                                width: 4,
-                                height: 24,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF6B7280),
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              const Text(
-                                "Layout Overview",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
+                          // Row(
+                          //   children: [
+                          //     Container(
+                          //       width: 4,
+                          //       height: 24,
+                          //       decoration: BoxDecoration(
+                          //         color: const Color(0xFF6B7280),
+                          //         borderRadius: BorderRadius.circular(2),
+                          //       ),
+                          //     ),
+                          //     const SizedBox(width: 16),
+                          //     const Text(
+                          //       "Layout Overview",
+                          //       style: TextStyle(
+                          //         fontSize: 18,
+                          //         fontWeight: FontWeight.bold,
+                          //         color: Colors.black,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                           const SizedBox(height: 20),
 
                           // Interactive Layout Grid
@@ -381,12 +381,15 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
       {'name': 'Rack Line 4', 'items': '14 Items'},
       {'name': 'Rack Line 5', 'items': '8 Items'},
       {'name': 'Rack Line 6', 'items': '7 Items'},
+      {'name': 'Rack Line 7', 'items': '0 Items'},
       {'name': 'Rack Line 8', 'items': '2 Items'},
+      {'name': 'Rack Line 9', 'items': '0 Items'},
       {'name': 'Rack Line 10', 'items': '1 Items'},
-      {'name': 'Temporary Location Floor 3', 'items': '169 Items'},
-      {'name': 'Temporary Location Floor 4', 'items': '483 Items'},
+      {'name': 'Temporary Location Floor 3', 'items': '174 Items'},
+      {'name': 'Temporary Location Floor 4', 'items': '489 Items'},
       {'name': 'Temporary Location Floor 5', 'items': '16 Items'},
       {'name': 'Temporary Location Floor 6', 'items': '39 Items'},
+      {'name': 'Temporary Location Floor 7', 'items': '0 Items'},
       {'name': 'Temporary Location Floor 10', 'items': '35 Items'},
       {'name': 'Temporary Location Front Floor', 'items': '270 Items'},
       {'name': 'Temporary Location Side Floor A', 'items': '9 Items'},
@@ -462,197 +465,302 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
   }
 
   Widget _buildInteractiveLayout() {
-    return Container(
-      height: 600,
+    return SizedBox(
+      height: 950, // Height yang cukup untuk menampilkan semua elemen
       child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: SingleChildScrollView(
-          child: Container(
-            width: 800,
-            height: 1200,
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.grey[300]!),
-                  ),
+        scrollDirection: Axis.horizontal, // Hanya scroll horizontal
+        child: Container(
+          width: 950, // Lebar yang cukup untuk seluruh layout
+          height: 950, // Height untuk menampilkan semua elemen tanpa terpotong
+          child: Stack(
+            children: [
+              // Background
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey[300]!),
                 ),
+              ),
 
-                // Side Door Area
-                Positioned(
-                  left: 20,
-                  top: 100,
-                  child: Container(
-                    width: 80,
-                    height: 600,
-                    decoration: BoxDecoration(
-                      color: Colors.blue[300],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Center(
-                      child: RotatedBox(
-                        quarterTurns: 3,
-                        child: Text(
-                          "Temp. Location Side Floor A",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                // Build rack sections
-                ..._buildRackSections(),
-
-                // Pedestrian Door
-                Positioned(
-                  bottom: 20,
-                  left: 350,
-                  right: 350,
-                  child: Container(
-                    height: 30,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[600],
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        "Pedestrian Door",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              // Build warehouse layout exactly like the design
+              ..._buildAccurateWarehouseLayout(),
+            ],
           ),
         ),
       ),
     );
   }
 
-  List<Widget> _buildRackSections() {
+  List<Widget> _buildAccurateWarehouseLayout() {
     List<Widget> sections = [];
 
-    // Top section racks
-    sections.add(
-      _buildRackWidget("Rack Line 10\n1", 150, 50, 200, 80, Colors.orange),
-    );
+    // LEFT SIDE - Temp Location Side Floor A (vertikal panjang)
     sections.add(
       _buildRackWidget(
-        "Temporary Location\nFloor 10\n35",
-        350,
-        50,
-        200,
-        80,
-        Colors.pink[300]!,
-      ),
-    );
-    sections.add(
-      _buildRackWidget("Rack Line 8\n2", 150, 150, 150, 60, Colors.orange),
-    );
-    sections.add(
-      _buildRackWidget(
-        "Temp. Loc.\nFloor 7\n0",
-        300,
-        150,
-        120,
-        60,
-        Colors.pink[300]!,
-      ),
-    );
-    sections.add(
-      _buildRackWidget("Rack Line 7\n0", 150, 220, 150, 60, Colors.orange),
-    );
-
-    // Middle section
-    sections.add(
-      _buildRackWidget("Rack Line 6\n7", 500, 400, 120, 80, Colors.orange),
-    );
-    sections.add(
-      _buildRackWidget(
-        "Temporary\nLocation\nFloor 6\n39",
-        420,
-        500,
-        100,
-        120,
-        Colors.pink[300]!,
+        "Temp. Location Side Floor A\n9", 
+        20, 120, 60, 300, // Adjust height untuk kompak
+        Colors.blue[300]!
       ),
     );
 
-    // Lower middle section
-    sections.add(
-      _buildRackWidget("Rack Line 5\n8", 500, 650, 120, 80, Colors.orange),
-    );
+    // LEFT SIDE - Rack Line 9 (vertikal)
     sections.add(
       _buildRackWidget(
-        "Temp. Loc.\nFloor 5\n12",
-        420,
-        750,
-        100,
-        60,
-        Colors.pink[300]!,
-      ),
-    );
-    sections.add(
-      _buildRackWidget("Rack Line 4\n15", 420, 820, 120, 60, Colors.orange),
-    );
-    sections.add(
-      _buildRackWidget(
-        "Temp. Loc.\nFloor 4\n283",
-        420,
-        890,
-        120,
-        60,
-        Colors.pink[300]!,
-      ),
-    );
-    sections.add(
-      _buildRackWidget(
-        "Temporary\nLocation\nFloor 3\n151",
-        300,
-        900,
-        100,
-        120,
-        Colors.pink[300]!,
+        "Rack Line 9\n0", 
+        90, 120, 80, 300, // Adjust height
+        const Color(0xFFFFC107)
       ),
     );
 
-    // Bottom section
-    sections.add(
-      _buildRackWidget("Rack Line 3\n21", 120, 800, 80, 200, Colors.orange),
-    );
+    // LEFT SIDE - Temp Location Side Floor B (vertikal) - Sesuaikan untuk match gambar
     sections.add(
       _buildRackWidget(
-        "Quarantine\nArea\n31",
-        120,
-        1020,
-        80,
-        80,
-        Colors.green[300]!,
+        "Temp. Location Side Floor B\n32", 
+        20, 450, 60, 200, // Adjust position dan height
+        Colors.blue[300]!
       ),
     );
-    sections.add(
-      _buildRackWidget("Rack Line 2\n105", 220, 1020, 100, 60, Colors.orange),
-    );
+
+    // LEFT SIDE - Rack Line 3 (vertikal) - Sesuaikan posisi untuk match gambar
     sections.add(
       _buildRackWidget(
-        "Temporary Location\nFront Floor\n234",
-        250,
-        1100,
-        300,
-        80,
-        Colors.pink[300]!,
+        "Rack Line 3\n24", 
+        90, 450, 80, 200, // Adjust position dan height
+        const Color(0xFFFFC107)
+      ),
+    );
+
+    // BOTTOM LEFT - Quarantine Area
+    sections.add(
+      _buildRackWidget(
+        "Quarantine Area\n35", 
+        90, 760, 80, 70, // Adjust position
+        Colors.green[400]!
+      ),
+    );
+
+    // BOTTOM - Rack Line 2
+    sections.add(
+      _buildRackWidget(
+        "Rack Line 2\n88",
+        190, 780, 120, 50,
+        const Color(0xFFFFC107)
+      ),
+    );
+
+    // BOTTOM - Temporary Location Front Floor (horizontal panjang)
+    sections.add(
+      _buildRackWidget(
+        "Temporary Location Front Floor\n270", 
+        190, 850, 400, 60, // Adjust height untuk lebih kompak
+        Colors.pink[300]!
+      ),
+    );
+
+    // CENTER-LEFT - Temporary Location Floor 3 (persegi besar)
+    sections.add(
+      _buildRackWidget(
+        "Temporary Location Floor 3\n174", 
+        200, 500, 150, 200, // Adjust position untuk lebih kompak
+        Colors.pink[300]!
+      ),
+    );
+
+    // CENTER - Rack Line 5
+    sections.add(
+      _buildRackWidget(
+        "Rack Line 5\n8", 
+        370, 500, 120, 70, // Adjust height
+        const Color(0xFFFFC107)
+      ),
+    );
+
+    // CENTER - Temp. Loc. Floor 5
+    sections.add(
+      _buildRackWidget(
+        "Temp. Loc. Floor 5\n16", 
+        370, 580, 120, 50, // Adjust position dan height
+        Colors.pink[300]!
+      ),
+    );
+
+    // CENTER - Rack Line 4
+    sections.add(
+      _buildRackWidget(
+        "Rack Line 4\n14", 
+        370, 640, 120, 50, // Adjust position
+        const Color(0xFFFFC107)
+      ),
+    );
+
+    // CENTER - Temp. Loc. Floor 4
+    sections.add(
+      _buildRackWidget(
+        "Temp. Loc. Floor 4\n489", 
+        370, 700, 120, 50, // Adjust position
+        Colors.pink[300]!
+      ),
+    );
+
+    // CENTER-UPPER - Temporary Location Floor 6
+    sections.add(
+      _buildRackWidget(
+        "Temporary Location Floor 6\n39", 
+        200, 330, 150, 60,
+        Colors.pink[300]!
+      ),
+    );
+
+    // CENTER-UPPER - Rack Line 6
+    sections.add(
+      _buildRackWidget(
+        "Rack Line 6\n7", 
+        370, 330, 120, 60,
+        const Color(0xFFFFC107)
+      ),
+    );
+
+    // UPPER - Rack Line 7
+    sections.add(
+      _buildRackWidget(
+        "Rack Line 7\n0", 
+        200, 270, 150, 50, 
+        const Color(0xFFFFC107)
+      ),
+    );
+
+    // UPPER - Rack Line 8
+    sections.add(
+      _buildRackWidget(
+        "Rack Line 8\n2", 
+        200, 210, 150, 50,
+        const Color(0xFFFFC107)
+      ),
+    );
+
+    // UPPER - Temp. Loc. Floor 7
+    sections.add(
+      _buildRackWidget(
+        "Temp. Loc. Floor 7\n0", 
+        370, 210, 120, 50,
+        Colors.pink[300]!
+      ),
+    );
+
+    // TOP - Temporary Location Floor 10
+    sections.add(
+      _buildRackWidget(
+        "Temporary Location Floor 10\n35", 
+        200, 120, 290, 50,
+        Colors.pink[300]!
+      ),
+    );
+
+    // TOP - Rack Line 10
+    sections.add(
+      _buildRackWidget(
+        "Rack Line 10\n1", 
+        200, 60, 180, 50, 
+        const Color(0xFFFFC107)
+      ),
+    );
+
+    // TOP RIGHT - Loading Area
+    sections.add(
+      _buildRackWidget(
+        "Loading Area\n0", 
+        520, 40, 100, 140,
+        Colors.orange[400]!
+      ),
+    );
+
+    // TOP RIGHT - Back Door
+    sections.add(
+      _buildRackWidget(
+        "Back Door", 
+        640, 40, 80, 100,
+        Colors.grey[400]!
+      ),
+    );
+
+    // RIGHT SIDE - Rack Line 1 (vertikal panjang di kanan)
+    sections.add(
+      _buildRackWidget(
+        "Rack Line 1\n30", 
+        750, 300, 120, 350,
+        const Color(0xFFFFC107)
+      ),
+    );
+
+    // BOTTOM RIGHT - Front Door
+    sections.add(
+      _buildRackWidget(
+        "Front Door", 
+        640, 850, 120, 60,
+        Colors.grey[600]!
+      ),
+    );
+
+    // BOTTOM CENTER - Pedestrian Door
+    sections.add(
+      _buildRackWidget(
+        "Pedestrian Door", 
+        320, 920, 150, 25,
+        Colors.grey[600]!
+      ),
+    );
+
+    // LEFT SIDE - Side Door
+    sections.add(
+      _buildRackWidget(
+        "Side Door", 
+        20, 430, 60, 15,
+        Colors.grey[600]!
+      ),
+    );
+
+    // Add location label at the top
+    sections.add(
+      Positioned(
+        top: 10,
+        left: 400,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          // decoration: BoxDecoration(
+          //   color: Colors.white,
+          //   borderRadius: BorderRadius.circular(8),
+          //   border: Border.all(color: Colors.grey[300]!),
+          //   boxShadow: [
+          //     BoxShadow(
+          //       color: Colors.black.withOpacity(0.1),
+          //       blurRadius: 4,
+          //       offset: const Offset(0, 2),
+          //     ),
+          //   ],
+          // ),
+          // child: Column(
+          //   children: [
+          //     const Text(
+          //       "Location",
+          //       style: TextStyle(
+          //         fontSize: 11,
+          //         color: Colors.grey,
+          //         fontWeight: FontWeight.w500,
+          //       ),
+          //     ),
+          //     const SizedBox(height: 2),
+          //     Text(
+          //       selectedLocation,
+          //       style: const TextStyle(
+          //         fontSize: 14,
+          //         fontWeight: FontWeight.bold,
+          //         color: Colors.black,
+          //       ),
+          //     ),
+          //   ],
+          // ),
+        ),
       ),
     );
 
@@ -667,6 +775,18 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     double height,
     Color color,
   ) {
+    // Extract rack name and number from label
+    List<String> parts = label.split('\n');
+    String rackName = parts[0];
+    String rackNumber = parts.length > 1 ? parts[1] : '';
+    
+    // Determine if this is a special area (door, etc.)
+    bool isDoor = rackName.toLowerCase().contains('door');
+    bool isRackLine = rackName.toLowerCase().contains('rack line');
+    bool isTempLocation = rackName.toLowerCase().contains('temp');
+    bool isQuarantine = rackName.toLowerCase().contains('quarantine');
+    bool isLoading = rackName.toLowerCase().contains('loading');
+    
     return Positioned(
       left: left,
       top: top,
@@ -679,30 +799,170 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
           height: height,
           decoration: BoxDecoration(
             color: color,
-            borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: Colors.white, width: 2),
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(
+              color: isDoor ? Colors.black54 : Colors.white, 
+              width: isDoor ? 1 : 2
+            ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: Colors.black.withOpacity(0.2),
                 blurRadius: 4,
-                offset: const Offset(0, 2),
+                offset: const Offset(1, 2),
               ),
             ],
           ),
-          child: Center(
-            child: Text(
-              label,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
-              ),
-            ),
+          child: Container(
+            padding: const EdgeInsets.all(4),
+            child: _buildRackContent(rackName, rackNumber, width, height, color, isRackLine, isTempLocation, isDoor, isQuarantine, isLoading),
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildRackContent(String rackName, String rackNumber, double width, double height, Color bgColor, bool isRackLine, bool isTempLocation, bool isDoor, bool isQuarantine, bool isLoading) {
+    Color textColor = _getTextColor(bgColor);
+    double fontSize = _getFontSize(width, height);
+    
+    if (isDoor) {
+      return Center(
+        child: Text(
+          rackName,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: textColor,
+            fontWeight: FontWeight.bold,
+            fontSize: fontSize - 1,
+          ),
+        ),
+      );
+    }
+    
+    if (isRackLine) {
+      // Format khusus untuk Rack Line seperti di gambar
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (height > 50) ...[
+            Text(
+              rackName,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: textColor,
+                fontWeight: FontWeight.bold,
+                fontSize: fontSize,
+              ),
+            ),
+            const SizedBox(height: 2),
+          ],
+          if (rackNumber.isNotEmpty)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                rackNumber,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: fontSize + 4,
+                ),
+              ),
+            ),
+        ],
+      );
+    }
+    
+    if (isTempLocation || isQuarantine || isLoading) {
+      // Format untuk temporary location dan area khusus lainnya
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Flexible(
+            child: Text(
+              rackName,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: textColor,
+                fontWeight: FontWeight.bold,
+                fontSize: fontSize - 1,
+              ),
+              maxLines: height > 100 ? 3 : 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          if (rackNumber.isNotEmpty && rackNumber != '0') ...[
+            const SizedBox(height: 4),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.9),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: bgColor, width: 1),
+              ),
+              child: Text(
+                rackNumber,
+                style: TextStyle(
+                  color: bgColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: fontSize + 2,
+                ),
+              ),
+            ),
+          ],
+        ],
+      );
+    }
+    
+    // Default format
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            rackName,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: textColor,
+              fontWeight: FontWeight.bold,
+              fontSize: fontSize,
+            ),
+          ),
+          if (rackNumber.isNotEmpty) ...[
+            const SizedBox(height: 4),
+            Text(
+              rackNumber,
+              style: TextStyle(
+                color: textColor,
+                fontWeight: FontWeight.bold,
+                fontSize: fontSize + 2,
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  // Helper method to get appropriate text color based on background
+  Color _getTextColor(Color backgroundColor) {
+    // Calculate luminance to determine if text should be light or dark
+    double luminance = backgroundColor.computeLuminance();
+    return luminance > 0.5 ? Colors.black87 : Colors.white;
+  }
+
+  // Helper method to get appropriate font size based on widget dimensions
+  double _getFontSize(double width, double height) {
+    double minDimension = width < height ? width : height;
+    if (minDimension < 60) return 7;
+    if (minDimension < 80) return 8;
+    if (minDimension < 100) return 9;
+    if (minDimension < 120) return 10;
+    if (minDimension < 150) return 11;
+    return 12;
   }
 
   void _showRackDetails(String rackName) {
@@ -741,10 +1001,19 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
   }
 
   int _getItemCount(String rackName) {
+    // Clean up the rack name to match with data
+    String cleanRackName = rackName.split('\n')[0];
+    
+    // Handle specific naming differences
+    if (cleanRackName.contains('Temp. Loc.')) {
+      cleanRackName = cleanRackName.replaceAll('Temp. Loc.', 'Temporary Location');
+    }
+    
     final rack = WarehouseData.rackData['racks'].firstWhere(
-      (r) => r['id'].contains(rackName.split('\n')[0]),
+      (r) => r['id'].toString().toLowerCase().contains(cleanRackName.toLowerCase()) ||
+             cleanRackName.toLowerCase().contains(r['id'].toString().toLowerCase()),
       orElse: () => {'items': 0},
     );
-    return rack['items'];
+    return rack['items'] ?? 0;
   }
 }
