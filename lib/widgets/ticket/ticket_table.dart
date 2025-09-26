@@ -151,7 +151,7 @@ class TicketTable extends StatelessWidget {
                                     child: Text(
                                       cellData,
                                       style: TextStyle(
-                                        fontSize: cellIndex == 0 ? 14 : 12, // First column slightly larger
+                                        fontSize: cellIndex == 0 ? 14 : 12,
                                         fontWeight: cellIndex == 0 ? FontWeight.w700 : FontWeight.w400,
                                         color: cellIndex == 0 ? const Color(0xFF111827) : const Color(0xFF6B7280),
                                         height: 1.3,
@@ -210,171 +210,185 @@ class _PaginationBar extends StatefulWidget {
 }
 
 class _PaginationBarState extends State<_PaginationBar> {
-  final ScrollController _controller = ScrollController();
-  final Map<int, GlobalKey> _pageKeys = {};
-
-  List<int> _visiblePages(int current, int total) {
-    const window = 5;
-    if (total <= window + 2) {
-      return List<int>.generate(total, (i) => i + 1);
+  
+  List<int> _getVisiblePages() {
+    List<int> pages = [];
+    int total = widget.totalPages;
+    int current = widget.currentPage;
+    
+    if (total <= 3) {
+      // Show all pages if total is 3 or less
+      for (int i = 1; i <= total; i++) {
+        pages.add(i);
+      }
+    } else {
+      // Show only 3 pages maximum to prevent overflow
+      int start = current - 1;
+      int end = current + 1;
+      
+      // Adjust window to stay within bounds
+      if (start < 1) {
+        start = 1;
+        end = 3;
+      }
+      if (end > total) {
+        end = total;
+        start = total - 2;
+      }
+      
+      // Add first page if not in range
+      if (start > 1) {
+        pages.add(1);
+        if (start > 2) {
+          pages.add(-1); // dots
+        }
+      }
+      
+      // Add visible pages (max 3)
+      for (int i = start; i <= end; i++) {
+        pages.add(i);
+      }
+      
+      // Add last page if not in range
+      if (end < total) {
+        if (end < total - 1) {
+          pages.add(-1); // dots
+        }
+        pages.add(total);
+      }
     }
-    final start = (current - 2).clamp(2, total - window - 1);
-    final end = (start + window).clamp(1, total - 1);
-    final list = <int>[1, ...List<int>.generate(end - start + 1, (i) => start + i), total];
-    return list;
-  }
-
-  @override
-  void didUpdateWidget(covariant _PaginationBar oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.currentPage != widget.currentPage) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToCurrent());
-    }
-  }
-
-  void _scrollToCurrent() {
-    final key = _pageKeys[widget.currentPage];
-    final ctx = key?.currentContext;
-    if (ctx != null) {
-      Scrollable.ensureVisible(ctx, duration: const Duration(milliseconds: 250), alignment: 0.5, curve: Curves.easeOut);
-    }
+    
+    return pages;
   }
 
   @override
   Widget build(BuildContext context) {
-    final pages = _visiblePages(widget.currentPage, widget.totalPages);
+    final pages = _getVisiblePages();
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: SingleChildScrollView(
-        controller: _controller,
-        scrollDirection: Axis.horizontal,
-        child: IntrinsicWidth(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Prev Button
-              _NavButton(
-                label: 'Prev',
-                icon: Icons.arrow_back,
-                enabled: widget.currentPage > 1,
-                onTap: () => widget.onPageChange?.call(widget.currentPage - 1),
-              ),
-              
-              const SizedBox(width: 12),
-              
-              // Page Numbers
-              ...pages.asMap().entries.map((entry) {
-                final i = entry.key;
-                final page = entry.value;
-                final widgets = <Widget>[
-                  _PageChip(
-                    key: _pageKeys.putIfAbsent(page, () => GlobalKey()),
-                    page: page,
-                    active: page == widget.currentPage,
-                    onTap: () => widget.onPageChange?.call(page),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+            // Prev Button
+            _SimpleNavButton(
+              label: 'Prev',
+              enabled: widget.currentPage > 1,
+              isPrev: true,
+              onTap: () => widget.onPageChange?.call(widget.currentPage - 1),
+            ),
+            
+            const SizedBox(width: 4),
+            
+            // Page Numbers
+            ...pages.map((page) {
+              if (page == -1) {
+                return const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 2),
+                  child: Text(
+                    '...',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Color(0xFF6B7280),
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ];
-                
-                if (i < pages.length - 1) {
-                  if (pages[i + 1] - page > 1) {
-                    widgets.add(const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 6), 
-                      child: Text('...', style: TextStyle(color: Color(0xFF6B7280)))
-                    ));
-                  } else {
-                    widgets.add(const SizedBox(width: 6));
-                  }
-                }
-                
-                return widgets;
-              }).expand((widgets) => widgets),
+                );
+              }
               
-              const SizedBox(width: 12),
-              
-              // Next Button
-              _NavButton(
-                label: 'Next',
-                icon: Icons.arrow_forward,
-                enabled: widget.currentPage < widget.totalPages,
-                onTap: () => widget.onPageChange?.call(widget.currentPage + 1),
-              ),
-            ],
-          ),
-        ),
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 1),
+                child: _SimplePageButton(
+                  page: page,
+                  active: page == widget.currentPage,
+                  onTap: () => widget.onPageChange?.call(page),
+                ),
+              );
+            }),
+            
+            const SizedBox(width: 4),
+            
+            // Next Button
+            _SimpleNavButton(
+              label: 'Next',
+              enabled: widget.currentPage < widget.totalPages,
+              isPrev: false,
+              onTap: () => widget.onPageChange?.call(widget.currentPage + 1),
+            ),
+          ],
       ),
     );
   }
 }
 
-class _NavButton extends StatelessWidget {
+class _SimpleNavButton extends StatelessWidget {
   final String label;
-  final IconData icon;
   final bool enabled;
   final VoidCallback? onTap;
+  final bool isPrev;
 
-  const _NavButton({required this.label, required this.icon, required this.enabled, this.onTap});
+  const _SimpleNavButton({
+    required this.label, 
+    required this.enabled, 
+    required this.isPrev,
+    this.onTap
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: enabled ? onTap : null,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (label == 'Prev') ...[
-              Icon(
-                Icons.arrow_back_ios, 
-                size: 12, 
-                color: enabled ? Color(0xFF374151) : Color(0xFFD1D5DB)
-              ),
-              SizedBox(width: 4),
-            ],
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                color: enabled ? Color(0xFF374151) : Color(0xFFD1D5DB),
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.5,
-              ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (isPrev) ...[
+            Icon(
+              Icons.chevron_left,
+              size: 14,
+              color: enabled ? const Color(0xFF3B82F6) : const Color(0xFFD1D5DB),
             ),
-            if (label == 'Next') ...[
-              SizedBox(width: 4),
-              Icon(
-                Icons.arrow_forward_ios, 
-                size: 12, 
-                color: enabled ? Color(0xFF374151) : Color(0xFFD1D5DB)
-              ),
-            ],
+            const SizedBox(width: 2),
           ],
-        ),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              color: enabled ? const Color(0xFF3B82F6) : const Color(0xFFD1D5DB),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          if (!isPrev) ...[
+            const SizedBox(width: 2),
+            Icon(
+              Icons.chevron_right,
+              size: 14,
+              color: enabled ? const Color(0xFF3B82F6) : const Color(0xFFD1D5DB),
+            ),
+          ],
+        ],
       ),
     );
   }
 }
 
-class _PageChip extends StatelessWidget {
+class _SimplePageButton extends StatelessWidget {
   final int page;
   final bool active;
   final VoidCallback? onTap;
 
-  const _PageChip({Key? key, required this.page, required this.active, this.onTap}) : super(key: key);
+  const _SimplePageButton({required this.page, required this.active, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 32,
-        height: 32,
+        width: 28,
+        height: 28,
         decoration: BoxDecoration(
           border: Border(
             top: BorderSide(
-              color: active ? const Color(0xFF3B82F6) : const Color(0xFFE5E7EB),
+              color: active ? const Color(0xFF3B82F6) : Colors.transparent,
               width: 2,
             ),
           ),
@@ -384,8 +398,8 @@ class _PageChip extends StatelessWidget {
             '$page',
             style: TextStyle(
               fontSize: 12,
-              fontWeight: FontWeight.w500,
               color: active ? const Color(0xFF3B82F6) : const Color(0xFF6B7280),
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),

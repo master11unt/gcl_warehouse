@@ -16,46 +16,27 @@ class ProfilePage extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
           children: [
-            // Profile Card
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: const Color(0xFF1F2937),
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                // Main Profile Card
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(top: 50),
+                  padding: const EdgeInsets.fromLTRB(24, 70, 24, 24),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1F2937),
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  // Profile Picture
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.person,
-                      size: 50,
-                      color: Color(0xFF374151),
-                    ),
-                  ),
-                  
-                  const SizedBox(height: 16),
+                  child: Column(
+                    children: [
                   
                   // Name
                   const Text(
@@ -177,8 +158,43 @@ class ProfilePage extends StatelessWidget {
                       fontStyle: FontStyle.italic,
                     ),
                   ),
-                ],
-              ),
+                    ],
+                  ),
+                ),
+                
+                // Floating Profile Avatar
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Color(0xFF374151),
+                          width: 2,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.person_outline_outlined,
+                        size: 50,
+                        color: Color(0xFF374151),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             
             const SizedBox(height: 24),
@@ -258,6 +274,7 @@ class ProfilePage extends StatelessWidget {
             fontSize: 14,
             fontWeight: FontWeight.w600,
             color: Colors.white,
+            fontStyle: FontStyle.italic,
           ),
         ),
       ],

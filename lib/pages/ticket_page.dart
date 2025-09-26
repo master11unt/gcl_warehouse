@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/home/custom_drawer.dart';
 import '../widgets/ticket/ticket_table.dart';
 import '../widgets/common/common_app_bar.dart';
+import '../widgets/stuffing/stuffing_dialog.dart';
 import '../models/ticket_data.dart';
 import 'ticket_cargo_in_detail_page.dart';
 import 'ticket_stuffing_detail_page.dart';
@@ -55,6 +56,566 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
     _tabController.dispose();
     _searchController.dispose();
     super.dispose();
+  }
+
+  void _showCreateTicketDialog(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
+    
+    // Form controllers
+    final _bookingCodeController = TextEditingController(text: 'WHM-20250925152539');
+    final _shipperNameController = TextEditingController();
+    final _descriptionController = TextEditingController();
+    final _destinationController = TextEditingController();
+    final _descriptionPrintController = TextEditingController();
+    final _quantityController = TextEditingController();
+    final _packageTypeController = TextEditingController();
+    final _volumeController = TextEditingController();
+    final _weightController = TextEditingController();
+    final _markingController = TextEditingController();
+    final _serviceTypeController = TextEditingController();
+    final _containerNumberController = TextEditingController();
+    final _containerSizeController = TextEditingController();
+    final _sealNumberController = TextEditingController();
+    final _vesselController = TextEditingController();
+    final _connectingVesselController = TextEditingController();
+    final _picOrderTicketController = TextEditingController();
+    final _contactNameController = TextEditingController();
+    final _contactEmailController = TextEditingController();
+    
+    // Dropdown values
+    String _selectedCargoOwner = 'GAP LOGISTICS';
+    DateTime? _estimatedTimeDeparture;
+    DateTime? _planCargoInDate;
+    
+    final List<String> _cargoOwnerOptions = [
+      'GAP LOGISTICS',
+      'DANLIRIS', 
+      'SMAS LOGISTICS',
+      'ULTRA PRIMA'
+    ];
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Dialog(
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height * 0.9,
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Header
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(24, 20, 20, 16),
+                        child: Row(
+                          children: [
+                            const Text(
+                              'Create Ticket',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF1F2937),
+                              ),
+                            ),
+                            const Spacer(),
+                            IconButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              icon: const Icon(Icons.close, size: 24),
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      
+                      // Tab indicator with line
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFE5E7EB),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Text(
+                                'Cargo In Ticket',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFF374151),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 1,
+                                margin: const EdgeInsets.only(left: 12),
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFFE5E7EB),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      
+                      const SizedBox(height: 16),
+                      // Form Content
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _buildSpecialFormField(
+                                'Booking Code',
+                                _bookingCodeController.text,
+                                isDropdown: false,
+                              ),
+                              const SizedBox(height: 16),
+                              
+                              _buildWhiteDropdownField(
+                                'Cargo Owner',
+                                _selectedCargoOwner,
+                                _cargoOwnerOptions,
+                                (value) => setState(() => _selectedCargoOwner = value!),
+                              ),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Shipper Name', _shipperNameController),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Description of Goods', _descriptionController),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Destination City', _destinationController),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Description Print (Optional)', _descriptionPrintController, required: false),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Quantity', _quantityController, keyboardType: TextInputType.number),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Package Type', _packageTypeController),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Volume', _volumeController, keyboardType: TextInputType.number),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Weight', _weightController, keyboardType: TextInputType.number),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Marking', _markingController),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Service Type', _serviceTypeController),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Container Number', _containerNumberController),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Container Size', _containerSizeController),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Seal Number', _sealNumberController),
+                              const SizedBox(height: 16),
+                              
+                              _buildDateTimeField(
+                                'Estimated Time Departure',
+                                _estimatedTimeDeparture,
+                                (date) => setState(() => _estimatedTimeDeparture = date),
+                              ),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Vessel', _vesselController),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Connecting Vessel', _connectingVesselController),
+                              const SizedBox(height: 16),
+                              
+                              _buildDateTimeField(
+                                'Plan Cargo In',
+                                _planCargoInDate,
+                                (date) => setState(() => _planCargoInDate = date),
+                              ),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('PIC Order Ticket', _picOrderTicketController),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Contact Name', _contactNameController),
+                              const SizedBox(height: 16),
+                              
+                              _buildFormField('Contact Email', _contactEmailController, keyboardType: TextInputType.emailAddress),
+                              
+                              const SizedBox(height: 32),
+                              
+                              // Footer with line and Create button
+                              Container(
+                                margin: const EdgeInsets.only(bottom: 24),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        height: 1,
+                                        decoration: const BoxDecoration(
+                                          color: Color(0xFFE5E7EB),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          // Handle create ticket logic
+                                          Navigator.pop(context);
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(content: Text('Cargo In ticket created successfully!')),
+                                          );
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: const Color(0xFF6B7280),
+                                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        elevation: 2,
+                                      ),
+                                      child: const Text(
+                                        'Create',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showCreateStuffingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const StuffingDialog();
+      },
+    ).then((result) {
+      if (result != null) {
+        // Handle the result from the dialog
+        print('Stuffing ticket created: $result');
+      }
+    });
+  }
+  
+  Widget _buildFormField(
+    String label,
+    TextEditingController controller, {
+    bool required = true,
+    bool enabled = true,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF6B7280),
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          height: 48,
+          decoration: BoxDecoration(
+            border: Border.all(color: const Color(0xFFE5E7EB)),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: TextFormField(
+            controller: controller,
+            enabled: enabled,
+            keyboardType: keyboardType,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            ),
+            style: const TextStyle(
+              fontSize: 14,
+              color: Color(0xFF374151),
+            ),
+            validator: required ? (value) {
+              if (value == null || value.isEmpty) {
+                return 'This field is required';
+              }
+              return null;
+            } : null,
+          ),
+        ),
+      ],
+    );
+  }
+  
+  Widget _buildDateTimeField(
+    String label,
+    DateTime? value,
+    ValueChanged<DateTime?> onChanged,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF6B7280),
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        const SizedBox(height: 8),
+        InkWell(
+          onTap: () async {
+            final date = await showDatePicker(
+              context: context,
+              initialDate: value ?? DateTime.now(),
+              firstDate: DateTime.now(),
+              lastDate: DateTime.now().add(const Duration(days: 365)),
+            );
+            if (date != null) {
+              final time = await showTimePicker(
+                context: context,
+                initialTime: TimeOfDay.fromDateTime(value ?? DateTime.now()),
+              );
+              if (time != null) {
+                final dateTime = DateTime(
+                  date.year,
+                  date.month,
+                  date.day,
+                  time.hour,
+                  time.minute,
+                );
+                onChanged(dateTime);
+              }
+            }
+          },
+          child: Container(
+            height: 48,
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              border: Border.all(color: const Color(0xFFE5E7EB)),
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  value != null 
+                    ? '${value.day}/${value.month}/${value.year} ${value.hour.toString().padLeft(2, '0')}:${value.minute.toString().padLeft(2, '0')}'
+                    : 'Select date and time',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: value != null ? const Color(0xFF374151) : const Color(0xFF9CA3AF),
+                  ),
+                ),
+                const Icon(Icons.calendar_today, color: Color(0xFF6B7280)),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSpecialFormField(
+    String label,
+    String value, {
+    bool isDropdown = false,
+    List<String>? options,
+    ValueChanged<String?>? onChanged,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF6B7280),
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          height: 48,
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF9FAFB),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: const Color(0xFFE5E7EB)),
+          ),
+          child: isDropdown 
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    value,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF111827),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      if (options != null && onChanged != null) {
+                        _showDropdownMenu(options, value, onChanged);
+                      }
+                    },
+                    child: const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: Color(0xFF6B7280),
+                      size: 20,
+                    ),
+                  ),
+                ],
+              )
+            : Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF374151),
+                ),
+              ),
+        ),
+      ],
+    );
+  }
+
+  void _showDropdownMenu(List<String> options, String currentValue, ValueChanged<String?> onChanged) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Select Cargo Owner',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16),
+              ...options.map((option) {
+                return ListTile(
+                  title: Text(option),
+                  trailing: currentValue == option 
+                    ? const Icon(Icons.check, color: Color(0xFF3B82F6)) 
+                    : null,
+                  onTap: () {
+                    onChanged(option);
+                    Navigator.pop(context);
+                  },
+                );
+              }).toList(),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildWhiteDropdownField(
+    String label,
+    String value,
+    List<String> options,
+    ValueChanged<String?> onChanged,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF9CA3AF),
+          ),
+        ),
+        const SizedBox(height: 8),
+        DropdownButtonFormField<String>(
+          value: value,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: Color(0xFFD1D5DB)),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: Color(0xFFD1D5DB)),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: Color(0xFF3B82F6)),
+            ),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            fillColor: Colors.white,
+            filled: true,
+          ),
+          items: options.map((String option) {
+            return DropdownMenuItem<String>(
+              value: option,
+              child: Text(option),
+            );
+          }).toList(),
+          onChanged: onChanged,
+        ),
+      ],
+    );
   }
 
   @override
@@ -313,6 +874,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
           summaryTitle2: "", // Not used since showSecondSummary is false
           summaryValue2: "",
           showSecondSummary: false,
+          isStuffingTab: true,
           tableColumns: const [
             'Job Number',
             'Stuffing Date',
@@ -447,6 +1009,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
     required Function(int) onPageChange,
     required Function(List<String>) onRowTap,
     bool showSecondSummary = true,
+    bool isStuffingTab = false,
   }) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -532,21 +1095,24 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
             ],
           ),
           const SizedBox(height: 16),
-          Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              color: const Color(0xFF6B7280),
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.15),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                ),
-              ],
+          GestureDetector(
+            onTap: () => isStuffingTab ? _showCreateStuffingDialog(context) : _showCreateTicketDialog(context),
+            child: Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                color: const Color(0xFF6B7280),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.15),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: const Icon(Icons.add, color: Colors.white, size: 28),
             ),
-            child: const Icon(Icons.add, color: Colors.white, size: 28),
           ),
           
           const SizedBox(height: 32),

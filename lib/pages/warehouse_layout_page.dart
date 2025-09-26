@@ -466,12 +466,12 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
 
   Widget _buildInteractiveLayout() {
     return SizedBox(
-      height: 950, // Height yang cukup untuk menampilkan semua elemen
+      height: 950,
       child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal, // Hanya scroll horizontal
+        scrollDirection: Axis.horizontal,
         child: Container(
-          width: 950, // Lebar yang cukup untuk seluruh layout
-          height: 950, // Height untuk menampilkan semua elemen tanpa terpotong
+          width: 950,
+          height: 950,
           child: Stack(
             children: [
               // Background
@@ -483,7 +483,6 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                 ),
               ),
 
-              // Build warehouse layout exactly like the design
               ..._buildAccurateWarehouseLayout(),
             ],
           ),
@@ -495,11 +494,11 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
   List<Widget> _buildAccurateWarehouseLayout() {
     List<Widget> sections = [];
 
-    // LEFT SIDE - Temp Location Side Floor A (vertikal panjang)
+    // LEFT SIDE
     sections.add(
       _buildRackWidget(
         "Temp. Location Side Floor A\n9", 
-        20, 120, 60, 300, // Adjust height untuk kompak
+        20, 120, 60, 300,
         Colors.blue[300]!
       ),
     );
@@ -508,25 +507,25 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     sections.add(
       _buildRackWidget(
         "Rack Line 9\n0", 
-        90, 120, 80, 300, // Adjust height
+        90, 120, 80, 300,
         const Color(0xFFFFC107)
       ),
     );
 
-    // LEFT SIDE - Temp Location Side Floor B (vertikal) - Sesuaikan untuk match gambar
+    // LEFT SIDE - Temp Location Side Floor B (vertikal)
     sections.add(
       _buildRackWidget(
         "Temp. Location Side Floor B\n32", 
-        20, 450, 60, 200, // Adjust position dan height
+        20, 450, 60, 200,
         Colors.blue[300]!
       ),
     );
 
-    // LEFT SIDE - Rack Line 3 (vertikal) - Sesuaikan posisi untuk match gambar
+    // LEFT SIDE - Rack Line 3 (vertikal)
     sections.add(
       _buildRackWidget(
         "Rack Line 3\n24", 
-        90, 450, 80, 200, // Adjust position dan height
+        90, 450, 80, 200,
         const Color(0xFFFFC107)
       ),
     );
@@ -535,7 +534,7 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     sections.add(
       _buildRackWidget(
         "Quarantine Area\n35", 
-        90, 760, 80, 70, // Adjust position
+        90, 760, 80, 70,
         Colors.green[400]!
       ),
     );
@@ -549,20 +548,20 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
       ),
     );
 
-    // BOTTOM - Temporary Location Front Floor (horizontal panjang)
+    // BOTTOM - Temporary Location Front Floor
     sections.add(
       _buildRackWidget(
         "Temporary Location Front Floor\n270", 
-        190, 850, 400, 60, // Adjust height untuk lebih kompak
+        190, 850, 400, 60,
         Colors.pink[300]!
       ),
     );
 
-    // CENTER-LEFT - Temporary Location Floor 3 (persegi besar)
+    // CENTER-LEFT - Temporary Location Floor 3
     sections.add(
       _buildRackWidget(
         "Temporary Location Floor 3\n174", 
-        200, 500, 150, 200, // Adjust position untuk lebih kompak
+        200, 500, 150, 200,
         Colors.pink[300]!
       ),
     );
@@ -571,7 +570,7 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     sections.add(
       _buildRackWidget(
         "Rack Line 5\n8", 
-        370, 500, 120, 70, // Adjust height
+        370, 500, 120, 70,
         const Color(0xFFFFC107)
       ),
     );
@@ -580,7 +579,7 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     sections.add(
       _buildRackWidget(
         "Temp. Loc. Floor 5\n16", 
-        370, 580, 120, 50, // Adjust position dan height
+        370, 580, 120, 50,
         Colors.pink[300]!
       ),
     );
@@ -589,7 +588,7 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     sections.add(
       _buildRackWidget(
         "Rack Line 4\n14", 
-        370, 640, 120, 50, // Adjust position
+        370, 640, 120, 50,
         const Color(0xFFFFC107)
       ),
     );
@@ -598,7 +597,7 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     sections.add(
       _buildRackWidget(
         "Temp. Loc. Floor 4\n489", 
-        370, 700, 120, 50, // Adjust position
+        370, 700, 120, 50,
         Colors.pink[300]!
       ),
     );
@@ -684,7 +683,7 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
       ),
     );
 
-    // RIGHT SIDE - Rack Line 1 (vertikal panjang di kanan)
+    // RIGHT SIDE - Rack Line 1
     sections.add(
       _buildRackWidget(
         "Rack Line 1\n30", 
@@ -715,55 +714,10 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     sections.add(
       _buildRackWidget(
         "Side Door", 
-        20, 430, 60, 15,
+        20, 423, 60, 25,
         Colors.grey[600]!
       ),
     );
-
-    // Add location label at the top
-    sections.add(
-      Positioned(
-        top: 10,
-        left: 400,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-          // decoration: BoxDecoration(
-          //   color: Colors.white,
-          //   borderRadius: BorderRadius.circular(8),
-          //   border: Border.all(color: Colors.grey[300]!),
-          //   boxShadow: [
-          //     BoxShadow(
-          //       color: Colors.black.withOpacity(0.1),
-          //       blurRadius: 4,
-          //       offset: const Offset(0, 2),
-          //     ),
-          //   ],
-          // ),
-          // child: Column(
-          //   children: [
-          //     const Text(
-          //       "Location",
-          //       style: TextStyle(
-          //         fontSize: 11,
-          //         color: Colors.grey,
-          //         fontWeight: FontWeight.w500,
-          //       ),
-          //     ),
-          //     const SizedBox(height: 2),
-          //     Text(
-          //       selectedLocation,
-          //       style: const TextStyle(
-          //         fontSize: 14,
-          //         fontWeight: FontWeight.bold,
-          //         color: Colors.black,
-          //       ),
-          //     ),
-          //   ],
-          // ),
-        ),
-      ),
-    );
-
     return sections;
   }
 
@@ -827,58 +781,149 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     
     if (isDoor) {
       return Center(
-        child: Text(
-          rackName,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: textColor,
-            fontWeight: FontWeight.bold,
-            fontSize: fontSize - 1,
-          ),
-        ),
-      );
-    }
-    
-    if (isRackLine) {
-      // Format khusus untuk Rack Line seperti di gambar
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (height > 50) ...[
-            Text(
+        child: Container(
+          padding: EdgeInsets.all(height < 30 ? 1 : 2),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
               rackName,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: textColor,
                 fontWeight: FontWeight.bold,
                 fontSize: fontSize,
+                shadows: textColor == Colors.white ? [
+                  Shadow(
+                    offset: const Offset(1, 1),
+                    blurRadius: 3,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ] : [
+                  Shadow(
+                    offset: const Offset(1, 1),
+                    blurRadius: 2,
+                    color: Colors.white.withOpacity(0.8),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 2),
-          ],
-          if (rackNumber.isNotEmpty)
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                rackNumber,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: fontSize + 4,
+          ),
+        ),
+      );
+    }
+    
+    if (isRackLine) {
+      return Container(
+        padding: const EdgeInsets.all(2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (height > 40) ...[
+              Flexible(
+                child: Text(
+                  rackName,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: textColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: fontSize,
+                    shadows: textColor == Colors.white ? [
+                      Shadow(
+                        offset: const Offset(1, 1),
+                        blurRadius: 2,
+                        color: Colors.black.withOpacity(0.5),
+                      ),
+                    ] : null,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-            ),
-        ],
+              const SizedBox(height: 2),
+            ],
+            if (rackNumber.isNotEmpty)
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.95),
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(color: Colors.black.withOpacity(0.2), width: 1),
+                ),
+                child: Text(
+                  rackNumber,
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                    fontSize: fontSize + 1,
+                  ),
+                ),
+              ),
+          ],
+        ),
       );
     }
     
     if (isTempLocation || isQuarantine || isLoading) {
-      // Format untuk temporary location dan area khusus lainnya
-      return Column(
+      return Container(
+        padding: const EdgeInsets.all(2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Flexible(
+              child: Text(
+                rackName,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: textColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: fontSize,
+                  shadows: textColor == Colors.white ? [
+                    Shadow(
+                      offset: const Offset(1, 1),
+                      blurRadius: 2,
+                      color: Colors.black.withOpacity(0.5),
+                    ),
+                  ] : null,
+                ),
+                maxLines: height > 80 ? 3 : 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            if (rackNumber.isNotEmpty && rackNumber != '0') ...[
+              const SizedBox(height: 3),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.95),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: bgColor.withOpacity(0.7), width: 1),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 2,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Text(
+                  rackNumber,
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                    fontSize: fontSize + 1,
+                  ),
+                ),
+              ),
+            ],
+          ],
+        ),
+      );
+    }
+    
+    // Default format
+    return Container(
+      padding: const EdgeInsets.all(2),
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Flexible(
@@ -888,57 +933,34 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
               style: TextStyle(
                 color: textColor,
                 fontWeight: FontWeight.bold,
-                fontSize: fontSize - 1,
+                fontSize: fontSize,
+                shadows: textColor == Colors.white ? [
+                  Shadow(
+                    offset: const Offset(1, 1),
+                    blurRadius: 2,
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                ] : null,
               ),
-              maxLines: height > 100 ? 3 : 2,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          if (rackNumber.isNotEmpty && rackNumber != '0') ...[
-            const SizedBox(height: 4),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.9),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: bgColor, width: 1),
-              ),
-              child: Text(
-                rackNumber,
-                style: TextStyle(
-                  color: bgColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: fontSize + 2,
-                ),
-              ),
-            ),
-          ],
-        ],
-      );
-    }
-    
-    // Default format
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            rackName,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: textColor,
-              fontWeight: FontWeight.bold,
-              fontSize: fontSize,
-            ),
-          ),
           if (rackNumber.isNotEmpty) ...[
-            const SizedBox(height: 4),
+            const SizedBox(height: 2),
             Text(
               rackNumber,
               style: TextStyle(
                 color: textColor,
                 fontWeight: FontWeight.bold,
-                fontSize: fontSize + 2,
+                fontSize: fontSize + 1,
+                shadows: textColor == Colors.white ? [
+                  Shadow(
+                    offset: const Offset(1, 1),
+                    blurRadius: 2,
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                ] : null,
               ),
             ),
           ],
@@ -947,21 +969,35 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     );
   }
 
-  // Helper method to get appropriate text color based on background
   Color _getTextColor(Color backgroundColor) {
-    // Calculate luminance to determine if text should be light or dark
     double luminance = backgroundColor.computeLuminance();
-    return luminance > 0.5 ? Colors.black87 : Colors.white;
+    
+    // Use more contrasting colors for better visibility
+    if (luminance > 0.6) {
+      return Colors.black87;
+    } else if (luminance > 0.4) {
+      return Colors.black87;
+    } else {
+      return Colors.white;
+    }
   }
 
-  // Helper method to get appropriate font size based on widget dimensions
   double _getFontSize(double width, double height) {
     double minDimension = width < height ? width : height;
-    if (minDimension < 60) return 7;
-    if (minDimension < 80) return 8;
-    if (minDimension < 100) return 9;
-    if (minDimension < 120) return 10;
-    if (minDimension < 150) return 11;
+    double area = width * height;
+    
+    // Special handling for very small containers (like doors)
+    if (minDimension < 30) return 7;
+    if (minDimension < 50) return 8;
+    if (minDimension < 70) return 9;
+    if (minDimension < 90) return 10;
+    if (minDimension < 120) return 11;
+    if (minDimension < 150) return 12;
+    
+    // For larger areas, use bigger fonts
+    if (area > 20000) return 14;
+    if (area > 15000) return 13;
+    
     return 12;
   }
 
@@ -1001,10 +1037,8 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
   }
 
   int _getItemCount(String rackName) {
-    // Clean up the rack name to match with data
     String cleanRackName = rackName.split('\n')[0];
     
-    // Handle specific naming differences
     if (cleanRackName.contains('Temp. Loc.')) {
       cleanRackName = cleanRackName.replaceAll('Temp. Loc.', 'Temporary Location');
     }

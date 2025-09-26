@@ -19,7 +19,7 @@ class WelcomeCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: 20,
-          horizontal: 45,
+          horizontal: 30,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,33 +31,33 @@ class WelcomeCard extends StatelessWidget {
                   "Welcome Back,",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 18,
+                    fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(height: 8),
+                SizedBox(height: 4),
                 Row(
                   children: [
                     Icon(
                       Icons.person,
                       color: Colors.white,
-                      size: 32,
+                      size: 28,
                     ),
-                    SizedBox(width: 8),
+                    SizedBox(width: 6),
                     Text(
                       "$username ",
                       style: TextStyle(
                         color: Color(0xFFFFF100),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 24,
                       ),
                     ),
                     Text(
                       "!",
                       style: TextStyle(
                         color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 24,
                       ),
                     ),
                   ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../home/notification_popup.dart';
 import '../home/user_popup.dart';
+import '../../pages/home_page.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CommonAppBar({Key? key}) : super(key: key);
@@ -17,7 +18,16 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       title: Center(
-        child: Image.asset('assets/images/gcl_logo.png', height: 32),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => HomeGCLPage()),
+              (route) => false,
+            );
+          },
+          child: Image.asset('assets/images/gcl_logo.png', height: 40),
+        ),
       ),
       actions: [
         NotificationPopup(),

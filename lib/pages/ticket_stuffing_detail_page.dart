@@ -842,7 +842,7 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
           width: double.infinity,
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: const Color(0xFF10B981),
+            color: const Color(0xFF22C55E),
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
@@ -853,13 +853,13 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
             ],
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
                 'Process Stuffing',
                 style: TextStyle(
                   fontSize: 16,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                   color: Colors.white,
                 ),
               ),

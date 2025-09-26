@@ -1639,9 +1639,13 @@ class _InventoryDetailCargoOutPageState
           const SizedBox(height: 16),
           _buildStatusItem(
             'Documentation Status',
-            'Complete',
-            isIncomplete: false,
+            'Complete', // Status: "Complete" = Green, "Incomplete" = Red
           ),
+          // Example with Incomplete status:
+          // _buildStatusItem(
+          //   'Documentation Status',
+          //   'Incomplete',
+          // ),
 
           const SizedBox(height: 32),
 
@@ -1675,9 +1679,8 @@ class _InventoryDetailCargoOutPageState
 
   Widget _buildStatusItem(
     String label,
-    String value, {
-    bool isIncomplete = false,
-  }) {
+    String value,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -1698,10 +1701,11 @@ class _InventoryDetailCargoOutPageState
             value,
             style: TextStyle(
               fontSize: 14,
-              color:
-                  isIncomplete
-                      ? const Color(0xFFEF4444)
-                      : const Color(0xFF374151),
+              color: value.toLowerCase() == 'complete'
+                  ? const Color(0xFF10B981) // Green for Complete
+                  : value.toLowerCase() == 'incomplete'
+                      ? const Color(0xFFEF4444) // Red for Incomplete
+                      : const Color(0xFF374151), // Default gray
               fontWeight: FontWeight.w600,
             ),
           ),

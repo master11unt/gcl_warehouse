@@ -44,6 +44,7 @@ class TodayStuffings extends StatelessWidget {
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
+                  fontStyle: FontStyle.italic,
                 ),
               ),
             ),

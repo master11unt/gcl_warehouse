@@ -156,11 +156,11 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                     _handleMenuAction(value);
                   },
                   itemBuilder: (BuildContext context) => [
-                    _buildPopupMenuItem('send_email', Icons.email, 'Send Email'),
+                    _buildPopupMenuItem('send_email', Icons.send_outlined, 'Send Email'),
                     _buildPopupMenuItem('call_support', Icons.support_agent, 'Call Support'),
-                    _buildPopupMenuItem('data', Icons.data_usage, 'Data'),
-                    _buildPopupMenuItem('open_mark', Icons.bookmark_border, 'Open Mark'),
-                    _buildPopupMenuItem('print', Icons.print, 'Print'),
+                    _buildPopupMenuItem('data', Icons.description_outlined, 'Data'),
+                    _buildPopupMenuItem('open_mark', Icons.tag, 'Open Mark'),
+                    _buildPopupMenuItem('print', Icons.print_outlined, 'Print'),
                   ],
                 ),
               ],
@@ -226,12 +226,6 @@ class StuffingOngoingDetailPage extends StatelessWidget {
             ),
           ),
           
-          // Divider line
-          // Container(
-          //   height: 1,
-          //   margin: const EdgeInsets.symmetric(horizontal: 16),
-          //   color: const Color(0xFFE5E7EB),
-          // ),
           
           // Booking Table Section
           Container(
@@ -239,14 +233,6 @@ class StuffingOngoingDetailPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // const Text(
-                //   'Stuffing Details',
-                //   style: TextStyle(
-                //     fontSize: 16,
-                //     fontWeight: FontWeight.w600,
-                //     color: Color(0xFF111827),
-                //   ),
-                // ),
                 
                 const SizedBox(height: 12),
                 

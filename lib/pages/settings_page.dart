@@ -28,6 +28,13 @@ class _SettingsPageState extends State<SettingsPage> {
   // Sample activity data
   final List<Map<String, dynamic>> _activityData = [
     {
+      'date': '2025-09-23 16:38:32',
+      'action': 'Cargo In',
+      'variable': 'GTW-20250922025542',
+      'path': '/cargo-in/GTW-20250922025542',
+      'status': 'Success',
+    },
+    {
       'date': '2025-07-08 10:39:40',
       'action': 'Add User',
       'variable': '-',
@@ -139,6 +146,56 @@ class _SettingsPageState extends State<SettingsPage> {
     }
   }
 
+  List<int> _getVisiblePages() {
+    List<int> pages = [];
+    int total = _totalPages;
+    int current = _currentPage;
+    
+    if (total <= 3) {
+      // Show all pages if total is 3 or less
+      for (int i = 1; i <= total; i++) {
+        pages.add(i);
+      }
+    } else {
+      // Show only 3 pages maximum to prevent overflow
+      int start = current - 1;
+      int end = current + 1;
+      
+      // Adjust window to stay within bounds
+      if (start < 1) {
+        start = 1;
+        end = 3;
+      }
+      if (end > total) {
+        end = total;
+        start = total - 2;
+      }
+      
+      // Add first page if not in range
+      if (start > 1) {
+        pages.add(1);
+        if (start > 2) {
+          pages.add(-1); // dots
+        }
+      }
+      
+      // Add visible pages (max 3)
+      for (int i = start; i <= end; i++) {
+        pages.add(i);
+      }
+      
+      // Add last page if not in range
+      if (end < total) {
+        if (end < total - 1) {
+          pages.add(-1); // dots
+        }
+        pages.add(total);
+      }
+    }
+    
+    return pages;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -189,7 +246,6 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                           ),
                           onChanged: (value) {
-                            // Search functionality can be implemented here
                           },
                         ),
                       ),
@@ -336,107 +392,54 @@ class _SettingsPageState extends State<SettingsPage> {
             // Pagination
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Prev Button
-                  Flexible(
-                    flex: 0,
-                    child: GestureDetector(
-                      onTap: _goToPreviousPage,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                        // decoration: BoxDecoration(
-                        //   color: _currentPage > 1 ? Color(0xFFF9FAFB) : Color(0xFFF3F4F6),
-                        //   border: Border.all(color: Color(0xFFE5E7EB), width: 1),
-                        //   borderRadius: BorderRadius.circular(4),
-                        // ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.arrow_back_ios, 
-                              size: 12, 
-                              color: _currentPage > 1 ? Color(0xFF374151) : Color(0xFFD1D5DB)
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              'Prev',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: _currentPage > 1 ? Color(0xFF374151) : Color(0xFFD1D5DB),
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 0.5,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                  _buildSimpleNavButton(
+                    label: 'Prev',
+                    enabled: _currentPage > 1,
+                    isPrev: true,
+                    onTap: _goToPreviousPage,
                   ),
                   
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 4),
                   
                   // Page Numbers
-                  Flexible(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        GestureDetector(
-                          onTap: () => _goToPage(1),
-                          child: _buildPaginationNumber('1', _currentPage == 1),
+                  ..._getVisiblePages().map((page) {
+                    if (page == -1) {
+                      return const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 2),
+                        child: Text(
+                          '...',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Color(0xFF6B7280),
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                        const SizedBox(width: 6),
-                        GestureDetector(
-                          onTap: () => _goToPage(2),
-                          child: _buildPaginationNumber('2', _currentPage == 2),
-                        ),
-                        const SizedBox(width: 6),
-                        GestureDetector(
-                          onTap: () => _goToPage(3),
-                          child: _buildPaginationNumber('3', _currentPage == 3),
-                        ),
-                      ],
-                    ),
-                  ),
+                      );
+                    }
+                    
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 1),
+                      child: _buildSimplePageButton(
+                        page: page,
+                        active: _currentPage == page,
+                        onTap: () => _goToPage(page),
+                      ),
+                    );
+                  }),
                   
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 4),
                   
                   // Next Button
-                  Flexible(
-                    flex: 0,
-                    child: GestureDetector(
-                      onTap: _goToNextPage,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                        // decoration: BoxDecoration(
-                        //   color: _currentPage < _totalPages ? Color(0xFFF9FAFB) : Color(0xFFF3F4F6),
-                        //   border: Border.all(color: Color(0xFFE5E7EB), width: 1),
-                        //   borderRadius: BorderRadius.circular(4),
-                        // ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Next',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: _currentPage < _totalPages ? Color(0xFF374151) : Color(0xFFD1D5DB),
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 0.5,
-                              ),
-                            ),
-                            SizedBox(width: 4),
-                            Icon(
-                              Icons.arrow_forward_ios, 
-                              size: 12, 
-                              color: _currentPage < _totalPages ? Color(0xFF374151) : Color(0xFFD1D5DB)
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                  _buildSimpleNavButton(
+                    label: 'Next',
+                    enabled: _currentPage < _totalPages,
+                    isPrev: false,
+                    onTap: _goToNextPage,
                   ),
                 ],
               ),
@@ -496,7 +499,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     color: Color(0xFF6B7280),
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 16),
                 Text(
                   activity['action'],
                   style: const TextStyle(
@@ -505,19 +508,50 @@ class _SettingsPageState extends State<SettingsPage> {
                     color: Color(0xFF374151),
                   ),
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  'Variable: ${activity['variable']}',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF6B7280),
+                const SizedBox(height: 8),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      const TextSpan(
+                        text: 'Variable: ',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF6B7280),
+                        ),
+                      ),
+                      TextSpan(
+                        text: activity['variable'],
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.normal,
+                          color: Color(0xFF6B7280),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Text(
-                  'Path: ${activity['path']}',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF6B7280),
+                const SizedBox(height: 8),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      const TextSpan(
+                        text: 'Path: ',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF6B7280),
+                        ),
+                      ),
+                      TextSpan(
+                        text: activity['path'],
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.normal,
+                          color: Color(0xFF6B7280),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -525,19 +559,19 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           Container(
             padding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 4,
+              horizontal: 16,
+              vertical: 6,
             ),
             decoration: BoxDecoration(
-              color: const Color(0xFF10B981),
-              borderRadius: BorderRadius.circular(12),
+              color: const Color(0xFFDCFCE7), // Light green background
+              borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
               activity['status'],
               style: const TextStyle(
                 fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF16A34A), // Green text
               ),
             ),
           ),
@@ -584,25 +618,72 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget _buildPaginationNumber(String number, bool isActive) {
-    return Container(
-      width: 32,
-      height: 32,
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: isActive ? const Color(0xFF3B82F6) : const Color(0xFFE5E7EB),
-            width: 2,
+  Widget _buildSimpleNavButton({
+    required String label,
+    required bool enabled,
+    required bool isPrev,
+    VoidCallback? onTap,
+  }) {
+    return GestureDetector(
+      onTap: enabled ? onTap : null,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (isPrev) ...[
+            Icon(
+              Icons.chevron_left,
+              size: 14,
+              color: enabled ? const Color(0xFF3B82F6) : const Color(0xFFD1D5DB),
+            ),
+            const SizedBox(width: 2),
+          ],
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              color: enabled ? const Color(0xFF3B82F6) : const Color(0xFFD1D5DB),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          if (!isPrev) ...[
+            const SizedBox(width: 2),
+            Icon(
+              Icons.chevron_right,
+              size: 14,
+              color: enabled ? const Color(0xFF3B82F6) : const Color(0xFFD1D5DB),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSimplePageButton({
+    required int page,
+    required bool active,
+    VoidCallback? onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 28,
+        height: 28,
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: active ? const Color(0xFF3B82F6) : Colors.transparent,
+              width: 2,
+            ),
           ),
         ),
-      ),
-      child: Center(
-        child: Text(
-          number,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-            color: isActive ? const Color(0xFF3B82F6) : const Color(0xFF6B7280),
+        child: Center(
+          child: Text(
+            '$page',
+            style: TextStyle(
+              fontSize: 12,
+              color: active ? const Color(0xFF3B82F6) : const Color(0xFF6B7280),
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
       ),
