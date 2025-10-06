@@ -1,5 +1,75 @@
 import 'package:flutter/material.dart';
 
+// Data untuk rackItems dan dropdownData agar bisa diakses dari page/widget
+final List<Map<String, dynamic>> warehouseRackItems = [
+  {'name': 'Rack Line 1', 'items': '30 Items'},
+  {'name': 'Rack Line 2', 'items': '88 Items'},
+  {'name': 'Rack Line 3', 'items': '24 Items'},
+  {'name': 'Rack Line 4', 'items': '14 Items'},
+  {'name': 'Rack Line 5', 'items': '8 Items'},
+  {'name': 'Rack Line 6', 'items': '7 Items'},
+  {'name': 'Rack Line 7', 'items': '0 Items'},
+  {'name': 'Rack Line 8', 'items': '2 Items'},
+  {'name': 'Rack Line 9', 'items': '0 Items'},
+  {'name': 'Rack Line 10', 'items': '1 Items'},
+  {'name': 'Temporary Location Floor 3', 'items': '174 Items'},
+  {'name': 'Temporary Location Floor 4', 'items': '489 Items'},
+  {'name': 'Temporary Location Floor 5', 'items': '16 Items'},
+  {'name': 'Temporary Location Floor 6', 'items': '39 Items'},
+  {'name': 'Temporary Location Floor 7', 'items': '0 Items'},
+  {'name': 'Temporary Location Floor 10', 'items': '35 Items'},
+  {'name': 'Temporary Location Front Floor', 'items': '270 Items'},
+  {'name': 'Temporary Location Side Floor A', 'items': '9 Items'},
+  {'name': 'Temporary Location Side Floor B', 'items': '32 Items'},
+  {'name': 'Quarantine Area', 'items': '35 Items'},
+  {'name': 'Not In Rack', 'items': '59 Items'},
+];
+
+final List<Map<String, String>> warehouseDropdownData = [
+  {
+    'gtwCode': 'GTW-20250207052451',
+    'company': 'UNIAIR INDOTAMA CARGO, PT',
+    'quantity': '2 PALLETS',
+    'destination': 'KEELUNG (CHILUNG)'
+  },
+  {
+    'gtwCode': 'GTW-20250211030718',
+    'company': 'NARUMI INDONESIA, PT',
+    'quantity': '5 PALLETS',
+    'destination': 'LOS ANGELES'
+  },
+  {
+    'gtwCode': 'GTW-20250212032324',
+    'company': 'NARUMI INDONESIA, PT',
+    'quantity': '2 PALLETS',
+    'destination': 'SHANGHAI'
+  },
+  {
+    'gtwCode': 'GTW-20250207032804',
+    'company': 'NARUMI INDONESIA, PT',
+    'quantity': '23 CARTONS',
+    'destination': 'HONG KONG'
+  },
+  {
+    'gtwCode': 'GTW-20250210044929',
+    'company': 'YAMATO INDONESIA FORWARDING, PT',
+    'quantity': '2 PALLETS',
+    'destination': 'MANZANILLO'
+  },
+  {
+    'gtwCode': 'GTW-20250213040108',
+    'company': 'YAMATO INDONESIA FORWARDING, PT',
+    'quantity': '3 PACKAGES',
+    'destination': 'LAEM CHABANG'
+  },
+  {
+    'gtwCode': 'GTW-20250212015407',
+    'company': 'YAMATO INDONESIA FORWARDING, PT',
+    'quantity': '2 PALLETS',
+    'destination': 'BANGKOK'
+  },
+];
+
 class WarehouseData {
   static final Map<String, dynamic> rackData = {
     'Not In Rack': 59,

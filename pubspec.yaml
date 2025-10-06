@@ -38,6 +38,8 @@ dependencies:
   pie_chart: ^5.4.0
   google_fonts: ^6.3.1
   qr_flutter: ^4.1.0
+  mobile_scanner: ^7.1.2
+  flutter_svg: ^2.2.1
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +67,30 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Roboto-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Roboto-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Roboto-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Roboto-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Roboto-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Roboto-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Roboto-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Roboto-SemiBold.ttf
+          weight: 600
+        # Tambahkan style lain jika diperlukan
 
   
   

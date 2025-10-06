@@ -14,18 +14,17 @@ class _SettingsPageState extends State<SettingsPage> {
   int _currentPage = 1;
   final int _totalPages = 3;
   final TextEditingController _searchController = TextEditingController();
-  
+
   final List<String> _tabs = [
-    'Activity', 
-    'Notification', 
-    'Language', 
-    'Appearance', 
-    'Documentation', 
-    'Help Center', 
+    'Activity',
+    'Notification',
+    'Language',
+    'Appearance',
+    'Documentation',
+    'Help Center',
     'About Us',
   ];
-  
-  // Sample activity data
+
   final List<Map<String, dynamic>> _activityData = [
     {
       'date': '2025-09-23 16:38:32',
@@ -105,8 +104,7 @@ class _SettingsPageState extends State<SettingsPage> {
       'status': 'Success',
     },
   ];
-  
-  // Sample login history data
+
   final List<Map<String, String>> _loginHistory = [
     {'type': 'Login', 'date': '2025-09-19 19:07:57'},
     {'type': 'Login', 'date': '2025-09-19 14:53:49'},
@@ -121,7 +119,6 @@ class _SettingsPageState extends State<SettingsPage> {
     super.dispose();
   }
 
-  // Pagination navigation functions
   void _goToPreviousPage() {
     if (_currentPage > 1) {
       setState(() {
@@ -150,18 +147,15 @@ class _SettingsPageState extends State<SettingsPage> {
     List<int> pages = [];
     int total = _totalPages;
     int current = _currentPage;
-    
+
     if (total <= 3) {
-      // Show all pages if total is 3 or less
       for (int i = 1; i <= total; i++) {
         pages.add(i);
       }
     } else {
-      // Show only 3 pages maximum to prevent overflow
       int start = current - 1;
       int end = current + 1;
-      
-      // Adjust window to stay within bounds
+
       if (start < 1) {
         start = 1;
         end = 3;
@@ -170,29 +164,26 @@ class _SettingsPageState extends State<SettingsPage> {
         end = total;
         start = total - 2;
       }
-      
-      // Add first page if not in range
+
       if (start > 1) {
         pages.add(1);
         if (start > 2) {
-          pages.add(-1); // dots
+          pages.add(-1);
         }
       }
-      
-      // Add visible pages (max 3)
+
       for (int i = start; i <= end; i++) {
         pages.add(i);
       }
-      
-      // Add last page if not in range
+
       if (end < total) {
         if (end < total - 1) {
-          pages.add(-1); // dots
+          pages.add(-1);
         }
         pages.add(total);
       }
     }
-    
+
     return pages;
   }
 
@@ -245,8 +236,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               vertical: 8,
                             ),
                           ),
-                          onChanged: (value) {
-                          },
+                          onChanged: (value) {},
                         ),
                       ),
                     ],
@@ -279,9 +269,10 @@ class _SettingsPageState extends State<SettingsPage> {
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: isSelected 
-                                    ? const Color(0xFF214098) 
-                                    : Colors.transparent,
+                                  color:
+                                      isSelected
+                                          ? const Color(0xFF214098)
+                                          : Colors.transparent,
                                   width: 2,
                                 ),
                               ),
@@ -290,12 +281,14 @@ class _SettingsPageState extends State<SettingsPage> {
                               _tabs[index],
                               style: TextStyle(
                                 fontSize: 14,
-                                fontWeight: isSelected 
-                                  ? FontWeight.w600 
-                                  : FontWeight.normal,
-                                color: isSelected 
-                                  ? const Color(0xFF214098) 
-                                  : const Color(0xFF6B7280),
+                                fontWeight:
+                                    isSelected
+                                        ? FontWeight.w600
+                                        : FontWeight.normal,
+                                color:
+                                    isSelected
+                                        ? const Color(0xFF214098)
+                                        : const Color(0xFF6B7280),
                               ),
                             ),
                           ),
@@ -315,19 +308,19 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget _buildTabContent() {
     switch (_selectedTabIndex) {
-      case 0: // Activity
+      case 0:
         return _buildActivityTab();
-      case 1: // Notification
+      case 1:
         return _buildNotificationTab();
-      case 2: // Language
+      case 2:
         return _buildLanguageTab();
-      case 3: // Appearance
+      case 3:
         return _buildAppearanceTab();
-      case 4: // Documentation
+      case 4:
         return _buildDocumentationTab();
-      case 5: // Help Center
+      case 5:
         return _buildHelpCenterTab();
-      case 6: // About Us
+      case 6:
         return _buildAboutUsTab();
       default:
         return _buildActivityTab();
@@ -338,7 +331,6 @@ class _SettingsPageState extends State<SettingsPage> {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        // My Activity Section
         const Text(
           'My Activity',
           style: TextStyle(
@@ -348,23 +340,23 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ),
         const SizedBox(height: 16),
-        
+
         // Activity List
         Column(
           children: [
-            // Activity Items - each in separate container
-            ..._activityData.take(10).map((activity) => Container(
-              margin: const EdgeInsets.only(bottom: 12),
-              child: _buildActivityItem(activity),
-            )),
-            
+            ..._activityData
+                .take(10)
+                .map(
+                  (activity) => Container(
+                    margin: const EdgeInsets.only(bottom: 12),
+                    child: _buildActivityItem(activity),
+                  ),
+                ),
+
             const SizedBox(height: 16),
-            
-            
-            
+
             const SizedBox(height: 8),
-            
-            // Showing Results Text
+
             Align(
               alignment: Alignment.center,
               child: Text(
@@ -382,13 +374,9 @@ class _SettingsPageState extends State<SettingsPage> {
             // Divider
             Container(
               margin: const EdgeInsets.symmetric(vertical: 8),
-              child: Divider(
-                color: Colors.grey[300],
-                thickness: 1,
-                height: 1,
-              ),
+              child: Divider(color: Colors.grey[300], thickness: 1, height: 1),
             ),
-            
+
             // Pagination
             Container(
               width: double.infinity,
@@ -396,17 +384,15 @@ class _SettingsPageState extends State<SettingsPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Prev Button
                   _buildSimpleNavButton(
                     label: 'Prev',
                     enabled: _currentPage > 1,
                     isPrev: true,
                     onTap: _goToPreviousPage,
                   ),
-                  
+
                   const SizedBox(width: 4),
-                  
-                  // Page Numbers
+
                   ..._getVisiblePages().map((page) {
                     if (page == -1) {
                       return const Padding(
@@ -421,7 +407,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         ),
                       );
                     }
-                    
+
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 1),
                       child: _buildSimplePageButton(
@@ -431,10 +417,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     );
                   }),
-                  
+
                   const SizedBox(width: 4),
-                  
-                  // Next Button
+
                   _buildSimpleNavButton(
                     label: 'Next',
                     enabled: _currentPage < _totalPages,
@@ -446,10 +431,9 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ],
         ),
-        
+
         const SizedBox(height: 24),
-        
-        // Last Login History Section
+
         const Text(
           'Last Login History',
           style: TextStyle(
@@ -459,13 +443,17 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ),
         const SizedBox(height: 16),
-        
-        // Login History List
+
         Column(
-          children: _loginHistory.map((login) => Container(
-            margin: const EdgeInsets.only(bottom: 12),
-            child: _buildLoginHistoryItem(login),
-          )).toList(),
+          children:
+              _loginHistory
+                  .map(
+                    (login) => Container(
+                      margin: const EdgeInsets.only(bottom: 12),
+                      child: _buildLoginHistoryItem(login),
+                    ),
+                  )
+                  .toList(),
         ),
       ],
     );
@@ -558,12 +546,9 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 6,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             decoration: BoxDecoration(
-              color: const Color(0xFFDCFCE7), // Light green background
+              color: const Color(0xFFDCFCE7), 
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
@@ -571,7 +556,7 @@ class _SettingsPageState extends State<SettingsPage> {
               style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF16A34A), // Green text
+                color: Color(0xFF16A34A),
               ),
             ),
           ),
@@ -608,10 +593,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           Text(
             login['date']!,
-            style: const TextStyle(
-              fontSize: 12,
-              color: Color(0xFF6B7280),
-            ),
+            style: const TextStyle(fontSize: 12, color: Color(0xFF6B7280)),
           ),
         ],
       ),
@@ -633,7 +615,8 @@ class _SettingsPageState extends State<SettingsPage> {
             Icon(
               Icons.chevron_left,
               size: 14,
-              color: enabled ? const Color(0xFF3B82F6) : const Color(0xFFD1D5DB),
+              color:
+                  enabled ? const Color(0xFF3B82F6) : const Color(0xFFD1D5DB),
             ),
             const SizedBox(width: 2),
           ],
@@ -641,7 +624,8 @@ class _SettingsPageState extends State<SettingsPage> {
             label,
             style: TextStyle(
               fontSize: 12,
-              color: enabled ? const Color(0xFF3B82F6) : const Color(0xFFD1D5DB),
+              color:
+                  enabled ? const Color(0xFF3B82F6) : const Color(0xFFD1D5DB),
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -650,7 +634,8 @@ class _SettingsPageState extends State<SettingsPage> {
             Icon(
               Icons.chevron_right,
               size: 14,
-              color: enabled ? const Color(0xFF3B82F6) : const Color(0xFFD1D5DB),
+              color:
+                  enabled ? const Color(0xFF3B82F6) : const Color(0xFFD1D5DB),
             ),
           ],
         ],
@@ -740,7 +725,6 @@ class _SettingsPageState extends State<SettingsPage> {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        // Header with actions
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -756,7 +740,6 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 TextButton(
                   onPressed: () {
-                    // Mark all as read functionality
                   },
                   child: const Text(
                     'Mark all as read',
@@ -770,7 +753,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(width: 8),
                 IconButton(
                   onPressed: () {
-                    // Clear all notifications
                   },
                   icon: const Icon(
                     Icons.clear_all,
@@ -782,15 +764,20 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ],
         ),
-        
+
         const SizedBox(height: 16),
-        
+
         // Notification List
         Column(
-          children: _notificationData.map((notification) => Container(
-            margin: const EdgeInsets.only(bottom: 12),
-            child: _buildNotificationItem(notification),
-          )).toList(),
+          children:
+              _notificationData
+                  .map(
+                    (notification) => Container(
+                      margin: const EdgeInsets.only(bottom: 12),
+                      child: _buildNotificationItem(notification),
+                    ),
+                  )
+                  .toList(),
         ),
       ],
     );
@@ -810,17 +797,17 @@ class _SettingsPageState extends State<SettingsPage> {
             offset: const Offset(0, 2),
           ),
         ],
-        border: notification['isRead'] 
-          ? null 
-          : Border.all(
-              color: Color(0xFF3B82F6).withOpacity(0.2),
-              width: 1,
-            ),
+        border:
+            notification['isRead']
+                ? null
+                : Border.all(
+                  color: Color(0xFF3B82F6).withOpacity(0.2),
+                  width: 1,
+                ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Notification Icon
           Container(
             width: 40,
             height: 40,
@@ -834,10 +821,9 @@ class _SettingsPageState extends State<SettingsPage> {
               size: 20,
             ),
           ),
-          
+
           const SizedBox(width: 12),
-          
-          // Notification Content
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -849,9 +835,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         notification['title'],
                         style: TextStyle(
                           fontSize: 14,
-                          fontWeight: notification['isRead'] 
-                            ? FontWeight.w500 
-                            : FontWeight.w600,
+                          fontWeight:
+                              notification['isRead']
+                                  ? FontWeight.w500
+                                  : FontWeight.w600,
                           color: const Color(0xFF374151),
                         ),
                       ),
@@ -887,8 +874,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ],
             ),
           ),
-          
-          // Action Menu
+
           PopupMenuButton<String>(
             icon: const Icon(
               Icons.more_vert,
@@ -896,30 +882,30 @@ class _SettingsPageState extends State<SettingsPage> {
               size: 16,
             ),
             onSelected: (value) {
-              // Handle notification actions
             },
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: 'mark_read',
-                child: Row(
-                  children: [
-                    Icon(Icons.mark_email_read, size: 16),
-                    SizedBox(width: 8),
-                    Text('Mark as read'),
-                  ],
-                ),
-              ),
-              const PopupMenuItem(
-                value: 'delete',
-                child: Row(
-                  children: [
-                    Icon(Icons.delete, size: 16),
-                    SizedBox(width: 8),
-                    Text('Delete'),
-                  ],
-                ),
-              ),
-            ],
+            itemBuilder:
+                (context) => [
+                  const PopupMenuItem(
+                    value: 'mark_read',
+                    child: Row(
+                      children: [
+                        Icon(Icons.mark_email_read, size: 16),
+                        SizedBox(width: 8),
+                        Text('Mark as read'),
+                      ],
+                    ),
+                  ),
+                  const PopupMenuItem(
+                    value: 'delete',
+                    child: Row(
+                      children: [
+                        Icon(Icons.delete, size: 16),
+                        SizedBox(width: 8),
+                        Text('Delete'),
+                      ],
+                    ),
+                  ),
+                ],
           ),
         ],
       ),
@@ -969,10 +955,7 @@ class _SettingsPageState extends State<SettingsPage> {
       child: Text(
         'Language Settings\nComing Soon',
         textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 16,
-          color: Color(0xFF6B7280),
-        ),
+        style: TextStyle(fontSize: 16, color: Color(0xFF6B7280)),
       ),
     );
   }
@@ -982,10 +965,7 @@ class _SettingsPageState extends State<SettingsPage> {
       child: Text(
         'Appearance Settings\nComing Soon',
         textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 16,
-          color: Color(0xFF6B7280),
-        ),
+        style: TextStyle(fontSize: 16, color: Color(0xFF6B7280)),
       ),
     );
   }
@@ -995,10 +975,7 @@ class _SettingsPageState extends State<SettingsPage> {
       child: Text(
         'Documentation\nComing Soon',
         textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 16,
-          color: Color(0xFF6B7280),
-        ),
+        style: TextStyle(fontSize: 16, color: Color(0xFF6B7280)),
       ),
     );
   }
@@ -1008,10 +985,7 @@ class _SettingsPageState extends State<SettingsPage> {
       child: Text(
         'Help Center\nComing Soon',
         textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 16,
-          color: Color(0xFF6B7280),
-        ),
+        style: TextStyle(fontSize: 16, color: Color(0xFF6B7280)),
       ),
     );
   }
@@ -1021,10 +995,7 @@ class _SettingsPageState extends State<SettingsPage> {
       child: Text(
         'About Us\nComing Soon',
         textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 16,
-          color: Color(0xFF6B7280),
-        ),
+        style: TextStyle(fontSize: 16, color: Color(0xFF6B7280)),
       ),
     );
   }

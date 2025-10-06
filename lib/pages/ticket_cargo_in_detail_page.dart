@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/home/custom_drawer.dart';
+import '../models/ticket_data.dart';
 
 class TicketCargoInDetailPage extends StatefulWidget {
   final Map<String, dynamic> ticketData;
 
-  const TicketCargoInDetailPage({super.key, required this.ticketData});
+  const TicketCargoInDetailPage({super.key, Map<String, dynamic>? ticketData})
+      : ticketData = ticketData ?? const {};
+
+  factory TicketCargoInDetailPage.withDummy({Key? key}) {
+    return TicketCargoInDetailPage(key: key, ticketData: TicketData.getDummyCargoInDetail());
+  }
 
   @override
   State<TicketCargoInDetailPage> createState() =>
@@ -26,23 +32,18 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumb Navigation
               _buildBreadcrumb(),
               const SizedBox(height: 16),
 
-              // Main Content Card
               _buildMainContentCard(),
               const SizedBox(height: 16),
 
-              // QR Code Section
               _buildQRCodeSection(),
               const SizedBox(height: 16),
 
-              // Footer info
               _buildFooterInfo(),
               const SizedBox(height: 16),
 
-              // Rules Section
               _buildRulesSection(),
               const SizedBox(height: 20),
             ],
@@ -101,13 +102,12 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                 ),
               ),
               const SizedBox(width: 16),
-              // Action buttons
               Row(
                 children: [
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF1F2937),
+                      color: const Color(0xFF0F172A),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: const Icon(
@@ -120,7 +120,7 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF1F2937),
+                      color: const Color(0xFF0F172A),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: const Icon(
@@ -136,10 +136,8 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
 
           const SizedBox(height: 24),
 
-          // Two Column Layout with equal height rows
           Column(
             children: [
-              // Row 1: Shipper - Status Ticket
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -161,7 +159,6 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                 ],
               ),
 
-              // Row 2: Description of Goods - Cargo Owner
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -182,7 +179,6 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                 ],
               ),
 
-              // Row 3: Destination - Estimated Time Departure
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -202,7 +198,6 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                 ],
               ),
 
-              // Row 4: Container Number - Container Size
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -222,7 +217,6 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                 ],
               ),
 
-              // Row 5: Vessel - Connecting Vessel
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -242,7 +236,6 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                 ],
               ),
 
-              // Row 6: Marking - Estimated Cargo In
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -283,7 +276,6 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
               ),
               const SizedBox(height: 16),
 
-              // Grid Layout for cargo details
               Row(
                 children: [
                   // Quantity
@@ -388,7 +380,6 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
 
               const SizedBox(height: 12),
 
-              // Weight and Volume Row
               Row(
                 children: [
                   // Weight
@@ -570,12 +561,10 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
 
           const SizedBox(height: 20),
 
-          // Download Button
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
               onPressed: () {
-                // Handle download action
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Download started')),
                 );
@@ -689,60 +678,6 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
     );
   }
 
-  // Widget _buildDetailItem(
-  //   String label,
-  //   String value, {
-  //   bool isStatus = false,
-  //   bool isInvalid = false,
-  // }) {
-  //   return Container(
-  //     margin: const EdgeInsets.only(bottom: 16),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Text(
-  //           label,
-  //           style: const TextStyle(
-  //             fontSize: 12,
-  //             color: Color(0xFF9CA3AF),
-  //             fontWeight: FontWeight.w400,
-  //             fontStyle: FontStyle.italic,
-  //           ),
-  //         ),
-  //         const SizedBox(height: 6),
-  //         isStatus
-  //             ? Container(
-  //               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-  //               decoration: BoxDecoration(
-  //                 color:
-  //                     isInvalid
-  //                         ? const Color(0xFFDC2626)
-  //                         : const Color(0xFF10B981),
-  //                 borderRadius: BorderRadius.circular(4),
-  //               ),
-  //               child: Text(
-  //                 value,
-  //                 style: const TextStyle(
-  //                   fontSize: 12,
-  //                   fontWeight: FontWeight.w600,
-  //                   color: Colors.white,
-  //                 ),
-  //               ),
-  //             )
-  //             : Text(
-  //               value,
-  //               style: const TextStyle(
-  //                 fontSize: 14,
-  //                 fontWeight: FontWeight.w600,
-  //                 color: Color(0xFF111827),
-  //                 height: 1.3,
-  //               ),
-  //             ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   Widget _buildDetailItemWithHeight(
     String label,
     String value, {
@@ -750,13 +685,12 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
     bool isInvalid = false,
   }) {
     if (isStatus) {
-      // Untuk status ticket,
       return Container(
         height: 60,
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: const Color(0xFFF3F4F6), // Abu-abu terang untuk background
+          color: const Color(0xFFF3F4F6),
           borderRadius: BorderRadius.circular(4),
         ),
         child: Column(
@@ -797,8 +731,8 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
     }
 
     return Container(
-      height: 60, // Reduced from 80 to 60 for smaller vertical spacing
-      margin: const EdgeInsets.only(bottom: 12), // Reduced from 16 to 12
+      height: 60,
+      margin: const EdgeInsets.only(bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -812,7 +746,7 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
               fontStyle: FontStyle.italic,
             ),
           ),
-          const SizedBox(height: 4), // Reduced from 6 to 4
+          const SizedBox(height: 4),
           Expanded(
             child: Align(
               alignment: Alignment.topLeft,
@@ -850,7 +784,6 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
       ),
       child: Row(
         children: [
-          // Back button
           Container(
             width: 4,
             height: 40,
@@ -861,7 +794,6 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
           ),
           const SizedBox(width: 16),
 
-          // Breadcrumb navigation
           Expanded(
             child: Row(
               children: [

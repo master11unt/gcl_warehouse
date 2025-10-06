@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gcl_warehouse/pages/index.dart';
+import 'package:gcl_warehouse/pages/inventory_page.dart';
+// import 'package:gcl_warehouse/widgets/stuffing/stuffing_table.dart';
 import '../widgets/home/index.dart';
 
 class HomeGCLPage extends StatefulWidget {
@@ -7,6 +10,75 @@ class HomeGCLPage extends StatefulWidget {
 }
 
 class _HomeGCLPageState extends State<HomeGCLPage> {
+
+  void _handleMenuTap(String route) {
+    switch (route) {
+      case '/list_cargo_in':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => InventoryPage(),
+          ),
+        );
+        break;
+      // case '/inventory':
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => InventoryPage(),
+      //     ),
+      //   );
+      //   break;
+      // case '/list_cargo_out':
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => InventoryPage(),
+      //     ),
+      //   );
+      //   break;
+      case '/stuffing':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => StuffingPage(),
+          ),
+        );
+        break;
+      // case '/suffing_result':
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => StuffingPage(),
+      //     ),
+      //   );
+      //   break;
+      case '/rack':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => WarehouseLayoutPage(),
+          ),
+        );
+        break;
+      case '/report':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => WarehouseReportPage(),
+          ),
+        );
+        break;
+      case '/user':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => UserPage(),
+          ),
+        );
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +96,7 @@ class _HomeGCLPageState extends State<HomeGCLPage> {
                 WelcomeCard(),
                 SizedBox(height: 16),
                 
-                MenuSection(),
+                MenuSection(onMenuTap: _handleMenuTap),
                 SizedBox(height: 16),
                 
                 SummaryCards(),

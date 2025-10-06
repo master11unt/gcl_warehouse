@@ -1,4 +1,3 @@
-// Pages Index
 
 export 'home_page.dart';
 export 'inventory_page.dart' hide CustomDatePicker;

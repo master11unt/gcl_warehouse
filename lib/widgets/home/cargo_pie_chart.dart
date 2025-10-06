@@ -112,8 +112,7 @@ class _CargoPieChartState extends State<CargoPieChart> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Color(0xFF1F2937),
-                    // color: Colors.grey[800],
+                    color: Color(0xFF0F172A),
                   ),
                 ),
               ],
@@ -143,7 +142,6 @@ class _CargoPieChartState extends State<CargoPieChart> {
                               touchedIndex = pieTouchResponse
                                   .touchedSection!.touchedSectionIndex;
 
-                              // Update selected values based on touched section
                               final labels = HomeData.cargoSummary.keys.toList();
                               if (touchedIndex >= 0 &&
                                   touchedIndex < labels.length) {

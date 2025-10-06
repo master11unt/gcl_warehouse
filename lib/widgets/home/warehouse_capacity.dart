@@ -30,7 +30,7 @@ class WarehouseCapacity extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
-                    color: Color(0xFF1F2937),
+                    color: Color(0xFF0F172A),
                   ),
                 ),
               ],
@@ -49,9 +49,8 @@ class WarehouseCapacity extends StatelessWidget {
                   child: Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
-                      // Filled portion (green)
                       Container(
-                        height: 180 * (1091.2194 / 2500), // Calculate percentage
+                        height: 180 * (1091.2194 / 2500),
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: Color(0xFF22C55E),
@@ -61,9 +60,7 @@ class WarehouseCapacity extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Value text on the bar
                       Positioned(
-                        // left: 15,
                         bottom: 180 * (1091.2194 / 2500) + 5,
                         child: Text(
                           "3.6487769",
@@ -88,7 +85,7 @@ class WarehouseCapacity extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF1F2937),
+                          color: Color(0xFF0F172A),
                         ),
                       ),
                       SizedBox(height: 16),

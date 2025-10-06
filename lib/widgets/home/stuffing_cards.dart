@@ -27,7 +27,7 @@ class StuffingCards extends StatelessWidget {
                     "Total Stuffing\nPlan",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Color(0xFF1F2937),
+                      color: Color(0xFF0F172A),
                       fontWeight: FontWeight.w600,
                       fontSize: 16,
                     ),

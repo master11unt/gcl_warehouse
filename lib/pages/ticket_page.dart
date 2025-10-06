@@ -21,13 +21,12 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
   int _stuffingPage = 1;
   late final List<List<String>> _stuffingAllRows;
   
-  // Filter variables
   bool _isFilterExpanded = false;
-  // Cargo In filters
+
   String _selectedCategory = 'None';
   String _selectedStatus = 'All';
   DateTime? _selectedDate;
-  // Stuffing filters
+
   String _selectedCategoryStuffing = 'None';
   String _selectedStatusStuffing = 'All';
   DateTime? _selectedDateStuffing;
@@ -61,7 +60,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
   void _showCreateTicketDialog(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
     
-    // Form controllers
     final _bookingCodeController = TextEditingController(text: 'WHM-20250925152539');
     final _shipperNameController = TextEditingController();
     final _descriptionController = TextEditingController();
@@ -82,7 +80,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
     final _contactNameController = TextEditingController();
     final _contactEmailController = TextEditingController();
     
-    // Dropdown values
     String _selectedCargoOwner = 'GAP LOGISTICS';
     DateTime? _estimatedTimeDeparture;
     DateTime? _planCargoInDate;
@@ -124,7 +121,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                               style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF0F172A),
                               ),
                             ),
                             const Spacer(),
@@ -138,7 +135,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                         ),
                       ),
                       
-                      // Tab indicator with line
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 24),
                         child: Row(
@@ -172,7 +168,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                       ),
                       
                       const SizedBox(height: 16),
-                      // Form Content
                       Padding(
                         padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
                         child: Form(
@@ -264,7 +259,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                               
                               const SizedBox(height: 32),
                               
-                              // Footer with line and Create button
                               Container(
                                 margin: const EdgeInsets.only(bottom: 24),
                                 child: Row(
@@ -281,7 +275,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                                     ElevatedButton(
                                       onPressed: () {
                                         if (_formKey.currentState!.validate()) {
-                                          // Handle create ticket logic
                                           Navigator.pop(context);
                                           ScaffoldMessenger.of(context).showSnackBar(
                                             const SnackBar(content: Text('Cargo In ticket created successfully!')),
@@ -332,7 +325,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
       },
     ).then((result) {
       if (result != null) {
-        // Handle the result from the dialog
         print('Stuffing ticket created: $result');
       }
     });
@@ -668,7 +660,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
               ),
             ),
 
-            // Tab Section
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
               padding: const EdgeInsets.all(4),
@@ -731,7 +722,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
   }
 
   Widget _buildTicketCargoInTab() {
-    // Apply filters to the data
     final filteredRows = _getFilteredRows(_cargoInAllRows, isCargoInTab: true);
     final totalItems = filteredRows.length;
     final totalPages = (totalItems + TicketData.cargoInPageSize - 1) ~/ TicketData.cargoInPageSize;
@@ -775,7 +765,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
           pageSize: TicketData.cargoInPageSize,
           onPageChange: (p) => setState(() => _cargoInPage = p.clamp(1, totalPages)),
           onRowTap: (row) {
-            // Navigate to detail page with row data
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -789,7 +778,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                     'cargoOwner': row[5],
                     'cargoServiceType': row[6],
                     'status': row[7],
-                    // Add additional sample data for the detail page
                     'description': '15 BALES 2/32NM ACRYLIC 65% AND WOOL 35% YARN UNDYED',
                     'etd': '2025-01-25',
                     'containerNumber': '-',
@@ -854,7 +842,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
   }
 
   Widget _buildTicketStuffingTab() {
-    // Apply filters to the data
     final filteredRows = _getFilteredRows(_stuffingAllRows, isCargoInTab: false);
     final totalItems = filteredRows.length;
     final totalPages = (totalItems + TicketData.stuffingPageSize - 1) ~/ TicketData.stuffingPageSize;
@@ -871,7 +858,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
         _buildCombinedSummaryOptionsTable(
           summaryTitle1: "Stuffing Ticket",
           summaryValue1: "342",
-          summaryTitle2: "", // Not used since showSecondSummary is false
+          summaryTitle2: "",
           summaryValue2: "",
           showSecondSummary: false,
           isStuffingTab: true,
@@ -901,15 +888,14 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
           pageSize: TicketData.stuffingPageSize,
           onPageChange: (p) => setState(() => _stuffingPage = p.clamp(1, totalPages)),
           onRowTap: (rowData) {
-            // Navigate to stuffing detail page
             final stuffingData = {
-              'jobNumber': rowData[0], // Job Number
-              'stuffingDate': rowData[1], // Stuffing Date
-              'destination': rowData[2], // Destination
-              'etd': rowData[3], // ETD
-              'closingDate': rowData[4], // Closing Date
-              'stuffingOwner': rowData[5], // Stuffing Owner
-              'totalContainerFill': rowData[6], // Total Container Fill
+              'jobNumber': rowData[0], 
+              'stuffingDate': rowData[1], 
+              'destination': rowData[2],
+             'etd': rowData[3],
+              'closingDate': rowData[4], 
+              'stuffingOwner': rowData[5],
+              'totalContainerFill': rowData[6],
               'containerNumber': 'KOCU5009373 / 24H0102212',
               'containerSize': '40HC',
               'vessel': 'HMM MIRACLE V 009N',
@@ -1143,7 +1129,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
 
           Row(
             children: [
-              // Filter icon button
               GestureDetector(
                 onTap: () {
                   setState(() {
@@ -1157,7 +1142,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                   ),
               ),
               const SizedBox(width: 16),
-              // Search field
               Expanded(
                 child: SizedBox(
                   height: 40,
@@ -1190,7 +1174,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
             ],
           ),
           
-          // Filter expandable section - only shows when expanded
           if (_isFilterExpanded)
             Container(
               width: double.infinity,
@@ -1205,7 +1188,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Time Filter Section
                     const Text(
                       'Time Filter',
                       style: TextStyle(
@@ -1219,7 +1201,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                       width: double.infinity,
                       height: 48,
                       decoration: BoxDecoration(
-                        color: Color(0xFF1F2937),
+                        color: Color(0xFF0F172A),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(color: Color(0xFFE5E7EB)),
                       ),
@@ -1281,7 +1263,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
 
                     const SizedBox(height: 20),
 
-                    // Category Filter
                     const Text(
                       'Category Filter',
                       style: TextStyle(
@@ -1323,7 +1304,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
 
                     const SizedBox(height: 20),
 
-                    // Status Filter
                     const Text(
                       'Status Filter',
                       style: TextStyle(
@@ -1384,7 +1364,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
     );
   }
 
-  // Helper method to filter table rows based on selected filters
   List<List<String>> _getFilteredRows(List<List<String>> allRows, {bool isCargoInTab = true}) {
     final String selectedCategory = isCargoInTab ? _selectedCategory : _selectedCategoryStuffing;
     final String selectedStatus = isCargoInTab ? _selectedStatus : _selectedStatusStuffing;
@@ -1395,24 +1374,19 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
       bool statusMatch = true;
       bool dateMatch = true;
       
-      // Category filter logic (assuming category is in a specific column - adjust index as needed)
       if (selectedCategory != 'None') {
-        // For cargo in, you might want to check shipper (column 2) or cargo service type (column 6)
         categoryMatch = row.length > 6 && 
             (row[2].toLowerCase().contains(selectedCategory.toLowerCase()) ||
              row[6].toLowerCase().contains(selectedCategory.toLowerCase()));
       }
       
-      // Status filter logic (assuming status is in the last column)
       if (selectedStatus != 'All') {
         statusMatch = row.length > 7 && 
             row[7].toLowerCase().contains(selectedStatus.toLowerCase());
       }
       
-      // Date filter logic (assuming date is in column 1 - Plan Date In)
       if (selectedDate != null && row.length > 1) {
         try {
-          // Parse the date from the row (assuming format like "2024-01-01")
           final rowDateParts = row[1].split('-');
           if (rowDateParts.length == 3) {
             final rowDate = DateTime(
@@ -1439,7 +1413,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF1F2937) : Colors.white,
+          color: isSelected ? const Color(0xFF0F172A) : Colors.white,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: isSelected ? const Color(0xFF374151) : const Color(0xFFE5E7EB),
@@ -1459,7 +1433,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
   }
 }
 
-// Custom Date Picker Widget
 class CustomDatePicker extends StatefulWidget {
   final DateTime? initialDate;
   final Function(DateTime) onDateSelected;
@@ -1562,7 +1535,6 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Quick select options
             GridView.count(
               shrinkWrap: true,
               crossAxisCount: 2,
@@ -1629,7 +1601,6 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             
             const SizedBox(height: 8),
             
-            // Calendar grid
             _buildCalendarGrid(),
           ],
         ),

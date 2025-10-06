@@ -1,4 +1,31 @@
 class InventoryData {
+  static Map<String, dynamic> getDummyCargoOutDetail() {
+    return {
+      'bookingCode': '20250822034402',
+      'bookingCodeDisplay': 'GWT-\n20250904104757',
+      'cargoOwner': 'GCL-\nJAKARTA',
+      'date': '2025-09-08T19:19',
+      'shipper': 'ZEBRA ASABA INDUSTRIES, PT',
+      'descriptionOfGoods': '4 CARTONS OF: 2,152 PIECES OF "ZEBRA" BRAND BALLPOINT PEN 1,864 PIECES OF "ZEBRA" BRAND REFILL FOB JAKARTA',
+      'destination': 'HONG KONG',
+      'etd': '2025-09-12',
+      'vessel': 'KMTC SURABAYA V.2507N',
+      'connectingVessel': '',
+      'godownLocation': 'GCLMarunda',
+      'quantity': '22',
+      'package': 'CARTONS',
+      'weight': '1236.8 KGs',
+      'volume': '6.16 M³',
+      'warehouseMeas': '4.2858 Cbm',
+      'marking': 'ZBP HONG KONG\nC/NO.1-ZA-HK-7-25',
+      'remark': 'Total',
+      'meas': '0.014',
+      'dimension': {'W': '22', 'L': '30', 'H': '22'},
+      'pkbeAju': {'number': '-', 'date': '-'},
+      'pkbe': {'number': '-', 'date': '-'},
+      'rules': 'RULES : GTW/SOP/JKT/122331',
+    };
+  }
   static List<List<String>> generateInventoryRows(int count, String type) {
     final shippers = [
       'FUJI PALAPA TEXTILE INDUSTRY, PT',
@@ -57,11 +84,7 @@ class InventoryData {
     
     final statuses = [
       'Deliver To Destination',
-      'In Transit',
-      'Pending Delivery',
-      'Ready for Pickup',
-      'Received In Warehouse',
-      'Cleared Customs',
+      'Received In Warehouse'
     ];
     
     return List<List<String>>.generate(count, (i) {
@@ -76,7 +99,10 @@ class InventoryData {
       final npeDate = idx % 4 == 0 ? '2025-09-${(idx % 28 + 1).toString().padLeft(2, '0')}' : '-';
       final value = idx % 5 == 0 ? '${(10000 + idx * 100)}' : '-';
       final currency = idx % 5 == 0 ? 'USD' : '-';
-      
+      final etd = '2025-09-${(idx % 30 + 1).toString().padLeft(2, '0')}';
+      final vessel = 'KMTC SURABAYA V.${2500 + idx}N';
+      final connectingVessel = idx % 2 == 0 ? 'KMTC JAKARTA V.${2500 + idx}S' : '';
+      final godownLocation = 'GCLMarunda';
       return [
         code,
         dateIn,
@@ -94,6 +120,10 @@ class InventoryData {
         value,
         currency,
         statuses[idx % statuses.length],
+        etd,
+        vessel,
+        connectingVessel,
+        godownLocation,
       ];
     });
   }

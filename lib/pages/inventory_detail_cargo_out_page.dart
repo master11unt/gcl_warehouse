@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/home/custom_drawer.dart';
+import '../models/inventory_data.dart';
 
 class InventoryDetailCargoOutPage extends StatefulWidget {
   final Map<String, dynamic> inventoryData;
 
-  const InventoryDetailCargoOutPage({super.key, required this.inventoryData});
+  const InventoryDetailCargoOutPage({super.key, Map<String, dynamic>? inventoryData})
+      : inventoryData = inventoryData ?? const {};
+
+  factory InventoryDetailCargoOutPage.withDummy({Key? key}) {
+    return InventoryDetailCargoOutPage(key: key, inventoryData: InventoryData.getDummyCargoOutDetail());
+  }
 
   @override
   State<InventoryDetailCargoOutPage> createState() =>
@@ -98,6 +104,9 @@ class _InventoryDetailCargoOutPageState
   }
 
   Widget _buildHeaderSection() {
+    final data = widget.inventoryData.isNotEmpty
+        ? widget.inventoryData
+        : InventoryData.getDummyCargoOutDetail();
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -134,7 +143,7 @@ class _InventoryDetailCargoOutPageState
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1F2937),
+                      color: Color(0xFF0F172A),
                     ),
                   ),
                 ),
@@ -147,10 +156,10 @@ class _InventoryDetailCargoOutPageState
                 const SizedBox(width: 6),
                 Flexible(
                   child: Text(
-                    widget.inventoryData['bookingCode'] ?? '20250822034402',
+                    data['bookingCode'] ?? '',
                     style: const TextStyle(
                       fontSize: 18,
-                      color: Color(0xFF1F2937),
+                      color: Color(0xFF0F172A),
                       fontWeight: FontWeight.bold,
                     ),
                     overflow: TextOverflow.ellipsis,
@@ -217,7 +226,7 @@ class _InventoryDetailCargoOutPageState
                     width: 140,
                     height: 100,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF1F2937),
+                      color: const Color(0xFF0F172A),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Icon(
@@ -262,7 +271,7 @@ class _InventoryDetailCargoOutPageState
                     width: 40,
                     height: 20,
                     decoration: const BoxDecoration(
-                      color: Color(0xFF1F2937),
+                      color: Color(0xFF0F172A),
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20),
@@ -275,7 +284,7 @@ class _InventoryDetailCargoOutPageState
                   child: Container(
                     width: 2,
                     height: 40,
-                    color: const Color(0xFF1F2937),
+                    color: const Color(0xFF0F172A),
                   ),
                 ),
               ],
@@ -323,6 +332,9 @@ class _InventoryDetailCargoOutPageState
   }
 
   Widget _buildCombinedDataSection() {
+    final data = widget.inventoryData.isNotEmpty
+        ? widget.inventoryData
+        : InventoryData.getDummyCargoOutDetail();
     return Container(
       padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
@@ -351,7 +363,7 @@ class _InventoryDetailCargoOutPageState
                   horizontal: 20,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF1F2937),
+                  color: const Color(0xFF0F172A),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Text(
@@ -375,7 +387,7 @@ class _InventoryDetailCargoOutPageState
             width: double.infinity,
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: const Color(0xFF1F2937),
+              color: const Color(0xFF0F172A),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -393,13 +405,32 @@ class _InventoryDetailCargoOutPageState
                         ),
                       ),
                       const SizedBox(height: 4),
-                      const Text(
-                        'GWT-\n20250904104757',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
+                      Builder(
+                        builder: (context) {
+                          final bookingCode = (data['bookingCodeDisplay'] ?? '') as String;
+                          final parts = bookingCode.split('-');
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                parts.isNotEmpty ? (parts[0] + '-') : '',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                parts.length > 1 ? parts[1] : '',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -419,14 +450,34 @@ class _InventoryDetailCargoOutPageState
                         ),
                       ),
                       const SizedBox(height: 4),
-                      const Text(
-                        'GCL-\nJAKARTA',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
+                      Builder(
+                        builder: (context) {
+                          final cargoOwner = (data['cargoOwner'] ?? '') as String;
+                          final parts = cargoOwner.split('-');
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                parts.isNotEmpty ? (parts[0] + '-') : '',
+                                textAlign: TextAlign.right,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                parts.length > 1 ? parts[1] : '',
+                                textAlign: TextAlign.right,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -455,17 +506,14 @@ class _InventoryDetailCargoOutPageState
           ),
           const SizedBox(height: 16),
 
-          _buildDetailItem('Date', '2025-09-08T19:19'),
-          _buildDetailItem('Shipper', 'ZEBRA ASABA INDUSTRIES, PT'),
-          _buildDetailItem(
-            'Description of goods',
-            '4 CARTONS OF: 2,152 PIECES OF "ZEBRA" BRAND BALLPOINT PEN 1,864 PIECES OF "ZEBRA" BRAND REFILL FOB JAKARTA',
-          ),
-          _buildDetailItem('Destination', 'HONG KONG'),
-          _buildDetailItem('Estimated Time Departure', '2025-09-12'),
-          _buildDetailItem('Vessel', 'KMTC SURABAYA V.2507N'),
-          _buildDetailItem('Connecting Vessel', ''),
-          _buildDetailItem('Godownlocation', 'GCLMarunda'),
+          _buildDetailItem('Date', data['date'] ?? ''),
+          _buildDetailItem('Shipper', data['shipper'] ?? ''),
+          _buildDetailItem('Description of goods', data['descriptionOfGoods'] ?? ''),
+          _buildDetailItem('Destination', data['destination'] ?? ''),
+          _buildDetailItem('Estimated Time Departure', data['etd'] ?? ''),
+          _buildDetailItem('Vessel', data['vessel'] ?? ''),
+          _buildDetailItem('Connecting Vessel', data['connectingVessel'] ?? ''),
+          _buildDetailItem('Godownlocation', data['godownLocation'] ?? ''),
 
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),
@@ -493,9 +541,9 @@ class _InventoryDetailCargoOutPageState
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Total',
-                        style: TextStyle(
+                      Text(
+                        data['remark'] ?? '',
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF374151),
@@ -506,10 +554,10 @@ class _InventoryDetailCargoOutPageState
                       const SizedBox(height: 16),
 
                       // Quantity / Package row
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             'Quantity',
                             style: TextStyle(
                               fontSize: 14,
@@ -517,7 +565,7 @@ class _InventoryDetailCargoOutPageState
                               fontStyle: FontStyle.italic,
                             ),
                           ),
-                          Text(
+                          const Text(
                             'Package',
                             style: TextStyle(
                               fontSize: 14,
@@ -528,20 +576,20 @@ class _InventoryDetailCargoOutPageState
                         ],
                       ),
                       const SizedBox(height: 4),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '22',
-                            style: TextStyle(
+                            data['quantity'] ?? '',
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF374151),
                             ),
                           ),
                           Text(
-                            'CARTONS',
-                            style: TextStyle(
+                            data['package'] ?? '',
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF374151),
@@ -551,11 +599,11 @@ class _InventoryDetailCargoOutPageState
                       ),
                       const SizedBox(height: 16),
 
-                      // Weight / Volume row
-                      const Row(
+                      // Weight / Volume 
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             'Weight',
                             style: TextStyle(
                               fontSize: 14,
@@ -563,7 +611,7 @@ class _InventoryDetailCargoOutPageState
                               fontStyle: FontStyle.italic,
                             ),
                           ),
-                          Text(
+                          const Text(
                             'Volume',
                             style: TextStyle(
                               fontSize: 14,
@@ -574,20 +622,20 @@ class _InventoryDetailCargoOutPageState
                         ],
                       ),
                       const SizedBox(height: 4),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '1236.8 KGs',
-                            style: TextStyle(
+                            data['weight'] ?? '',
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF374151),
                             ),
                           ),
                           Text(
-                            '6.16 M³',
-                            style: TextStyle(
+                            data['volume'] ?? '',
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF374151),
@@ -610,9 +658,9 @@ class _InventoryDetailCargoOutPageState
                             ),
                           ),
                           const SizedBox(height: 4),
-                          const Text(
-                            '4.2858 Cbm',
-                            style: TextStyle(
+                          Text(
+                            data['warehouseMeas'] ?? '',
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF374151),
@@ -1006,10 +1054,10 @@ class _InventoryDetailCargoOutPageState
                               ),
                             ),
                           ),
-                          child: const Center(
+                          child: Center(
                             child: Text(
-                              'ZBP HONG KONG\nC/NO.1-ZA-HK-7-25',
-                              style: TextStyle(
+                              data['marking'] ?? '',
+                              style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF374151),
@@ -1031,10 +1079,10 @@ class _InventoryDetailCargoOutPageState
                               ),
                             ),
                           ),
-                          child: const Center(
+                          child: Center(
                             child: Text(
-                              '1',
-                              style: TextStyle(
+                              data['quantity'] ?? '',
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF374151),
@@ -1055,10 +1103,10 @@ class _InventoryDetailCargoOutPageState
                               ),
                             ),
                           ),
-                          child: const Center(
+                          child: Center(
                             child: Text(
-                              '-',
-                              style: TextStyle(
+                              data['package'] ?? '',
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF374151),
@@ -1079,10 +1127,10 @@ class _InventoryDetailCargoOutPageState
                               ),
                             ),
                           ),
-                          child: const Center(
+                          child: Center(
                             child: Text(
-                              '0',
-                              style: TextStyle(
+                              data['weight'] ?? '',
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF374151),
@@ -1103,10 +1151,10 @@ class _InventoryDetailCargoOutPageState
                               ),
                             ),
                           ),
-                          child: const Center(
+                          child: Center(
                             child: Text(
-                              '22',
-                              style: TextStyle(
+                              data['dimension']?['W'] ?? '',
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF374151),
@@ -1127,10 +1175,10 @@ class _InventoryDetailCargoOutPageState
                               ),
                             ),
                           ),
-                          child: const Center(
+                          child: Center(
                             child: Text(
-                              '30',
-                              style: TextStyle(
+                              data['dimension']?['L'] ?? '',
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF374151),
@@ -1151,10 +1199,10 @@ class _InventoryDetailCargoOutPageState
                               ),
                             ),
                           ),
-                          child: const Center(
+                          child: Center(
                             child: Text(
-                              '22',
-                              style: TextStyle(
+                              data['dimension']?['H'] ?? '',
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF374151),
@@ -1167,10 +1215,10 @@ class _InventoryDetailCargoOutPageState
                         Container(
                           width: 100,
                           height: 60,
-                          child: const Center(
+                          child: Center(
                             child: Text(
-                              '0.014',
-                              style: TextStyle(
+                              data['meas'] ?? '',
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF374151),
@@ -1469,7 +1517,7 @@ class _InventoryDetailCargoOutPageState
             value.isEmpty ? '-' : value,
             style: const TextStyle(
               fontSize: 14,
-              color: Color(0xFF1F2937),
+              color: Color(0xFF0F172A),
               fontWeight: FontWeight.w600, 
             ),
           ),
@@ -1500,7 +1548,7 @@ class _InventoryDetailCargoOutPageState
             padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
             decoration: const BoxDecoration(
               border: Border(
-                left: BorderSide(color: Color(0xFF1F2937), width: 6),
+                left: BorderSide(color: Color(0xFF0F172A), width: 6),
               ),
             ),
             child: const Text(
@@ -1508,13 +1556,12 @@ class _InventoryDetailCargoOutPageState
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF0F172A),
               ),
             ),
           ),
           const SizedBox(height: 16),
 
-          // Options buttons
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             controller: _optionsScrollController,
@@ -1536,7 +1583,6 @@ class _InventoryDetailCargoOutPageState
           ),
           const SizedBox(height: 16),
           
-          // Scroll indicator
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -1576,7 +1622,7 @@ class _InventoryDetailCargoOutPageState
       width: 50,
       height: 50,
       decoration: BoxDecoration(
-        color: isEnabled ? const Color(0xFF1F2937) : const Color(0xFF9CA3AF),
+        color: isEnabled ? const Color(0xFF0F172A) : const Color(0xFF9CA3AF),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -1639,13 +1685,8 @@ class _InventoryDetailCargoOutPageState
           const SizedBox(height: 16),
           _buildStatusItem(
             'Documentation Status',
-            'Complete', // Status: "Complete" = Green, "Incomplete" = Red
+            'Complete',
           ),
-          // Example with Incomplete status:
-          // _buildStatusItem(
-          //   'Documentation Status',
-          //   'Incomplete',
-          // ),
 
           const SizedBox(height: 32),
 
@@ -1702,10 +1743,10 @@ class _InventoryDetailCargoOutPageState
             style: TextStyle(
               fontSize: 14,
               color: value.toLowerCase() == 'complete'
-                  ? const Color(0xFF10B981) // Green for Complete
+                  ? const Color(0xFF10B981)
                   : value.toLowerCase() == 'incomplete'
-                      ? const Color(0xFFEF4444) // Red for Incomplete
-                      : const Color(0xFF374151), // Default gray
+                      ? const Color(0xFFEF4444)
+                      : const Color(0xFF374151),
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -1987,7 +2028,6 @@ class _InventoryDetailCargoOutPageState
     bool isExpandable = false,
     bool isExpanded = false,
     VoidCallback? onTap,
-    // Parameters for dropdown states
     bool isSenderIdentityExpanded = false,
     bool isDocumentationExpanded = false,
     VoidCallback? onSenderIdentityTap,
@@ -1997,7 +2037,6 @@ class _InventoryDetailCargoOutPageState
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Timeline column (circle + connector)
           Column(
             children: [
               // Timeline indicator
@@ -2014,7 +2053,6 @@ class _InventoryDetailCargoOutPageState
                 ),
               ),
 
-              // Timeline connector line
               if (hasConnector)
                 Expanded(
                   child: Container(
@@ -2026,7 +2064,6 @@ class _InventoryDetailCargoOutPageState
             ],
           ),
           const SizedBox(width: 16),
-          // Content card
           Expanded(
             child: GestureDetector(
               onTap: isExpandable ? onTap : null,
@@ -2316,7 +2353,6 @@ class _InventoryDetailCargoOutPageState
                       ),
                       const SizedBox(height: 8),
 
-                      // Expandable sections
                       GestureDetector(
                         onTap: onSenderIdentityTap,
                         child: Container(
@@ -2447,7 +2483,6 @@ class _InventoryDetailCargoOutPageState
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      // Received status badge - full width gray bar
                                       Container(
                                         width: double.infinity,
                                         padding: EdgeInsets.symmetric(vertical: 2),
@@ -2520,7 +2555,6 @@ class _InventoryDetailCargoOutPageState
                         ),
                       ),
                       const SizedBox(height: 8),
-                      // Notes content - different for Stuffed vs Arrival
                       Text(
                         title == 'Stuffed'
                             ? 'Stuffed with job number : GCL-1002509172'
@@ -2621,7 +2655,6 @@ class _InventoryDetailCargoOutPageState
           // Timeline container
           Column(
             children: [
-              // Received in warehouse
               _buildHistoryTimelineItem(
                 isCompleted: true,
                 hasConnector: true,
@@ -2629,7 +2662,6 @@ class _InventoryDetailCargoOutPageState
                 time: '2025-09-09 13:54:10',
               ),
 
-              // Stuffing
               _buildHistoryTimelineItem(
                 isCompleted: true,
                 hasConnector: true,
@@ -2637,7 +2669,6 @@ class _InventoryDetailCargoOutPageState
                 time: '2025-09-09 13:56:35',
               ),
 
-              // Deliver to destination
               _buildHistoryTimelineItem(
                 isCompleted: true,
                 hasConnector: false,
@@ -2661,7 +2692,6 @@ class _InventoryDetailCargoOutPageState
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Timeline column (circle + connector)
           SizedBox(
             width: 20,
             child: Column(
@@ -2680,7 +2710,6 @@ class _InventoryDetailCargoOutPageState
                   ),
                 ),
 
-                // Timeline connector line
                 if (hasConnector)
                   Expanded(
                     child: Container(

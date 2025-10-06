@@ -29,7 +29,7 @@ class _UserPopupState extends State<UserPopup> {
         padding: const EdgeInsets.all(8),
         decoration: _isPopupOpen 
           ? BoxDecoration(
-              color: const Color(0xFF1F2937),
+              color: const Color(0xFF0F172A),
               shape: BoxShape.circle,
             )
           : null,
@@ -100,12 +100,11 @@ class _UserPopupState extends State<UserPopup> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const ProfilePage(),
+                                  builder: (context) => ProfilePage(),
                                 ),
                               );
                             },
                           ),
-                          // _buildDivider(),
                           _buildUserMenuItem(
                             icon: Icons.settings_outlined,
                             text: "Settings",
@@ -119,13 +118,11 @@ class _UserPopupState extends State<UserPopup> {
                               );
                             },
                           ),
-                          // _buildDivider(),
                           _buildUserMenuItem(
                             icon: Icons.logout,
                             text: "Sign out",
                             onTap: () {
                               _hidePopup();
-                              // Handle sign out
                             },
                           ),
                         ],
@@ -180,7 +177,7 @@ class _UserPopupState extends State<UserPopup> {
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF1F2937),
+                  color: Color(0xFF6B7280),
                 ),
               ),
             ],
@@ -189,12 +186,4 @@ class _UserPopupState extends State<UserPopup> {
       ),
     );
   }
-
-  // Widget _buildDivider() {
-  //   return Container(
-  //     height: 1,
-  //     margin: const EdgeInsets.symmetric(horizontal: 12),
-  //     color: const Color(0xFFE5E7EB),
-  //   );
-  // }
 }

@@ -10,7 +10,7 @@ class StuffingTableHeader extends StatelessWidget {
       children: columns.map((col) => Expanded(
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 14),
-          color: const Color(0xFF1F2937),
+          color: const Color(0xFF0F172A),
           child: Text(
             col,
             style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 16),

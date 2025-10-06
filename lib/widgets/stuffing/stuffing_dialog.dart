@@ -39,7 +39,6 @@ class _StuffingDialogState extends State<StuffingDialog> {
     '45FT'
   ];
 
-  // Stuffing Fill Table data
   List<Map<String, String>> _stuffingFillRows = [
     {
       'num': '',
@@ -104,7 +103,7 @@ class _StuffingDialogState extends State<StuffingDialog> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF1F2937),
+                        color: Color(0xFF0F172A),
                       ),
                     ),
                     const Spacer(),
@@ -118,7 +117,6 @@ class _StuffingDialogState extends State<StuffingDialog> {
                 ),
               ),
               
-              // Tab indicator with line
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 24),
                 child: Row(
@@ -153,7 +151,6 @@ class _StuffingDialogState extends State<StuffingDialog> {
               
               const SizedBox(height: 16),
 
-              // Form Content
               Form(
                 key: _formKey,
                 child: Padding(
@@ -161,7 +158,6 @@ class _StuffingDialogState extends State<StuffingDialog> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Stuffing Owner
                       _buildFormField2(
                         'Stuffing Owner',
                         child: _buildDropdownField2(
@@ -172,7 +168,6 @@ class _StuffingDialogState extends State<StuffingDialog> {
                       ),
                       const SizedBox(height: 20),
                       
-                      // Stuffing Date
                       _buildFormField2(
                         'Stuffing Date',
                         child: _buildDateTimeField2(
@@ -182,14 +177,12 @@ class _StuffingDialogState extends State<StuffingDialog> {
                       ),
                       const SizedBox(height: 20),
                       
-                      // Container Number
                       _buildFormField2(
                         'Container Number',
                         child: _buildTextFormField2(_containerNumberController),
                       ),
                       const SizedBox(height: 20),
                       
-                      // Estimated Time Departure
                       _buildFormField2(
                         'Estimated Time Departure',
                         child: _buildDateTimeField2(
@@ -199,14 +192,12 @@ class _StuffingDialogState extends State<StuffingDialog> {
                       ),
                       const SizedBox(height: 20),
                       
-                      // Destination
                       _buildFormField2(
                         'Destination',
                         child: _buildTextFormField2(_destinationController),
                       ),
                       const SizedBox(height: 20),
                       
-                      // Container Size
                       _buildFormField2(
                         'Container Size',
                         child: _buildDropdownField2(
@@ -217,7 +208,6 @@ class _StuffingDialogState extends State<StuffingDialog> {
                       ),
                       const SizedBox(height: 20),
                       
-                      // Closing Date
                       _buildFormField2(
                         'Closing Date',
                         child: _buildDateTimeField2(
@@ -227,28 +217,24 @@ class _StuffingDialogState extends State<StuffingDialog> {
                       ),
                       const SizedBox(height: 20),
                       
-                      // Vessel
                       _buildFormField2(
                         'Vessel',
                         child: _buildTextFormField2(_vesselController),
                       ),
                       const SizedBox(height: 20),
                       
-                      // Agent
                       _buildFormField2(
                         'Agent',
                         child: _buildTextFormField2(_agentController),
                       ),
                       const SizedBox(height: 32),
                       
-                      // Stuffing Fill Section
                       _buildFormField2(
                         'Stuffing Fill',
                         child: _buildStuffingFillTable(),
                       ),
                       const SizedBox(height: 16),
                      
-                     // Add Row Button (aligned to right)
                       Align(
                         alignment: Alignment.centerRight,
                         child: ElevatedButton(
@@ -278,7 +264,6 @@ class _StuffingDialogState extends State<StuffingDialog> {
                       
                       const SizedBox(height: 32),
                       
-                      // Footer with line and Create button
                       Container(
                         margin: const EdgeInsets.only(bottom: 24),
                         child: Row(
@@ -489,10 +474,6 @@ class _StuffingDialogState extends State<StuffingDialog> {
             Container(
               decoration: const BoxDecoration(
                 color: Color(0xFF6B7280),
-                // borderRadius: BorderRadius.only(
-                //   topLeft: Radius.circular(8),
-                //   topRight: Radius.circular(8),
-                // ),
               ),
               child: Row(
                 children: [
@@ -519,11 +500,7 @@ class _StuffingDialogState extends State<StuffingDialog> {
               constraints: const BoxConstraints(maxHeight: 200),
               decoration: const BoxDecoration(
                 color: Colors.white,
-                // borderRadius: BorderRadius.only(
-                //   bottomLeft: Radius.circular(8),
-                //   bottomRight: Radius.circular(8),
-                // ),
-              ),
+                ),
               child: SingleChildScrollView(
                 child: Column(
                   children: _stuffingFillRows.asMap().entries.map((entry) {
@@ -719,7 +696,6 @@ class _StuffingDialogState extends State<StuffingDialog> {
 
   void _handleCreate() {
     if (_formKey.currentState!.validate()) {
-      // Validate required dates
       if (_stuffingDate == null || _estimatedTimeDeparture == null || _closingDate == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -730,7 +706,6 @@ class _StuffingDialogState extends State<StuffingDialog> {
         return;
       }
 
-      // Process the form data
       final stuffingData = {
         'stuffingOwner': _selectedStuffingOwner,
         'stuffingDate': _stuffingDate,
@@ -745,7 +720,6 @@ class _StuffingDialogState extends State<StuffingDialog> {
         'stuffingInstruction': _stuffingInstructionController.text,
       };
 
-      // Handle success
       Navigator.pop(context, stuffingData);
       
       ScaffoldMessenger.of(context).showSnackBar(

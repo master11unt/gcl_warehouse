@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gcl_warehouse/pages/inventory_detail_cargo_out_page.dart';
 import '../widgets/home/custom_drawer.dart';
+import 'input_cargo_in_page.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/ticket/ticket_table.dart';
 import '../models/inventory_data.dart';
-import 'warehouse_layout_page.dart';
+import '../dialogs/scan_dialog.dart';
 import 'inventory_detail_page.dart';
 
 class InventoryPage extends StatefulWidget {
@@ -13,6 +14,12 @@ class InventoryPage extends StatefulWidget {
 }
 
 class _InventoryPageState extends State<InventoryPage> with TickerProviderStateMixin {
+  void _showScanDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => const ScanDialog(),
+    );
+  }
   late TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
   String searchQuery = "";
@@ -20,20 +27,16 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
   int _currentPageStock = 1;
   int _currentPageCargoOut = 1;
 
-  // Filter variables
   bool _isFilterExpandedCargoIn = false;
   bool _isFilterExpandedStock = false;
   bool _isFilterExpandedCargoOut = false;
   
-  // Cargo In filters
   String _selectedCategoryCargoIn = 'None';
   DateTime? _selectedDateCargoIn;
   
-  // Stock Inventory filters
   String _selectedCategoryStock = 'None';
   DateTime? _selectedDateStock;
   
-  // Cargo Out filters
   String _selectedCategoryCargoOut = 'None';
   DateTime? _selectedDateCargoOut;
 
@@ -82,7 +85,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
             Container(
               margin: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFF1F2937),
+                color: const Color(0xFF0F172A),
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
@@ -97,28 +100,25 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                 padding: const EdgeInsets.all(8),
                 child: Row(
                   children: [
-                    // QR Code Icon
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      child: const Icon(
-                        Icons.qr_code_2,
-                        color: Colors.white,
-                        size: 40, 
+                    GestureDetector(
+                      onTap: _showScanDialog,
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: const Icon(
+                          Icons.qr_code_rounded,
+                          color: Colors.white,
+                          size: 40,
+                        ),
                       ),
                     ),
-                    
                     const SizedBox(width: 16),
-                    
                     // Vertical Divider
                     Container(
                       width: 2,
-                      height: 50, 
+                      height: 50,
                       color: Colors.white.withOpacity(0.3),
                     ),
-                    
                     const SizedBox(width: 10),
-                    
-                    // Scrollable Tabs
                     Expanded(
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
@@ -130,7 +130,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                             const SizedBox(width: 12),
                             _buildTabItem(Icons.local_shipping_outlined, "Cargo Out", 2),
                             const SizedBox(width: 12),
-                            _buildCustomLayoutTab(3),
+                            _buildAddTab(3),
                           ],
                         ),
                       ),
@@ -149,7 +149,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                   _buildCargoInTab(),
                   _buildStockInventoryTab(),
                   _buildCargoOutTab(),
-                  _buildWarehouseLayoutTab(),
+                  Container(),
                 ],
               ),
             ),
@@ -211,7 +211,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
 
               Row(
                 children: [
-                  // Filter icon button
                   GestureDetector(
                     onTap: () {
                       setState(() {
@@ -257,7 +256,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                 ],
               ),
 
-              // Filter expandable section - only shows when expanded
               if (_getFilterExpanded())
                 Container(
                   width: double.infinity,
@@ -272,7 +270,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Time Filter Section
                         const Text(
                           'Time Filter',
                           style: TextStyle(
@@ -286,7 +283,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                           width: double.infinity,
                           height: 48,
                           decoration: BoxDecoration(
-                            color: Color(0xFF1F2937),
+                            color: Color(0xFF0F172A),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: Color(0xFFE5E7EB)),
                           ),
@@ -372,7 +369,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
 
                         const SizedBox(height: 20),
 
-                        // Action Filter
                         const Text(
                           'Action',
                           style: TextStyle(
@@ -385,12 +381,10 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                         
                         Row(
                           children: [
-                            // Generate Report Button
                             Expanded(
                               flex: 3,
                               child: GestureDetector(
                                 onTap: () {
-                                  // Handle generate report action
                                   print('Generate Report tapped');
                                 },
                                 child: Container(
@@ -431,12 +425,10 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                             
                             const SizedBox(width: 6),
                             
-                            // Send Button
                             Expanded(
                               flex: 2,
                               child: GestureDetector(
                                 onTap: () {
-                                  // Handle send action
                                   print('Send tapped');
                                 },
                                 child: Container(
@@ -505,7 +497,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                 columnWidths: const [
                   120, // Booking Code
                   130, // Date In
-                  200, // Shipper - tetap panjang karena data panjang
+                  200, // Shipper
                   100, // Destination
                   80,  // Quantity
                   80,  // Marking
@@ -518,7 +510,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                   80,  // NPE Date
                   60,  // Value
                   50,  // Currency
-                  220, // Status - tetap panjang karena data panjang
+                  220, // Status
                 ],
                 rows: InventoryData.cargoInTableData,
                 emptyMessage: 'Showing Result',
@@ -528,29 +520,37 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                 pageSize: InventoryData.pageSize,
                 onPageChange: (p) => setState(() => _currentPage = p.clamp(1, totalPages)),
                 onRowTap: (rowData) {
-                  // Navigate to inventory detail page
+                  final rowMap = {
+                    'bookingCode': rowData[0],
+                    'bookingCodeDisplay': rowData[0],
+                    'date': rowData[1],
+                    'shipper': rowData[2],
+                    'cargoOwner': 'GCL-JAKARTA',
+                    'destination': rowData[3],
+                    'quantity': rowData[4],
+                    'package': rowData[4].split(' ').last,
+                    'marking': rowData[5],
+                    'descriptionOfGoods': rowData[6],
+                    'warehouseMeas': rowData[7],
+                    'weight': rowData[8],
+                    'volume': rowData[7],
+                    'pebNumber': rowData[9],
+                    'pebDate': rowData[10],
+                    'npeNumber': rowData[11],
+                    'npeDate': rowData[12],
+                    'value': rowData[13],
+                    'currency': rowData[14],
+                    'status': rowData[15],
+                    'etd': rowData[16],
+                    'vessel': rowData[17],
+                    'connectingVessel': rowData[18],
+                    'godownLocation': rowData[19],
+                  };
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => InventoryDetailPage(
-                        inventoryData: {
-                          'bookingCode': rowData[0],
-                          'dateIn': rowData[1],
-                          'shipper': rowData[2],
-                          'destination': rowData[3],
-                          'quantity': rowData[4],
-                          'marking': rowData[5],
-                          'description': rowData[6],
-                          'warehouseMeas': rowData[7],
-                          'weight': rowData[8],
-                          'pebNumber': rowData[9],
-                          'pebDate': rowData[10],
-                          'npeNumber': rowData[11],
-                          'npeDate': rowData[12],
-                          'value': rowData[13],
-                          'currency': rowData[14],
-                          'status': rowData[15],
-                        },
+                        inventoryData: rowMap,
                       ),
                     ),
                   );
@@ -611,7 +611,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
 
               Row(
                 children: [
-                  // Filter icon button
                   GestureDetector(
                     onTap: () {
                       setState(() {
@@ -657,7 +656,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                 ],
               ),
 
-              // Filter expandable section - only shows when expanded
               if (_getFilterExpanded())
                 Container(
                   width: double.infinity,
@@ -686,7 +684,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                           width: double.infinity,
                           height: 48,
                           decoration: BoxDecoration(
-                            color: Color(0xFF1F2937),
+                            color: Color(0xFF0F172A),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: Color(0xFFE5E7EB)),
                           ),
@@ -742,7 +740,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
 
                         const SizedBox(height: 20),
 
-                        // Category Filter
                         const Text(
                           'Category Filter',
                           style: TextStyle(
@@ -772,7 +769,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
 
                         const SizedBox(height: 20),
 
-                        // Action Filter
                         const Text(
                           'Action',
                           style: TextStyle(
@@ -785,12 +781,10 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                         
                         Row(
                           children: [
-                            // Generate Report Button
                             Expanded(
                               flex: 3,
                               child: GestureDetector(
                                 onTap: () {
-                                  // Handle generate report action
                                   print('Generate Report tapped');
                                 },
                                 child: Container(
@@ -836,7 +830,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                               flex: 2,
                               child: GestureDetector(
                                 onTap: () {
-                                  // Handle send action
                                   print('Send tapped');
                                 },
                                 child: Container(
@@ -905,7 +898,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                 columnWidths: const [
                   120, // Booking Code
                   130, // Date In
-                  200, // Shipper - tetap panjang karena data panjang
+                  200, // Shipper
                   100, // Destination
                   80,  // Quantity
                   80,  // Marking
@@ -918,7 +911,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                   80,  // NPE Date
                   60,  // Value
                   50,  // Currency
-                  220, // Status - tetap panjang karena data panjang
+                  220, // Status
                 ],
                 rows: InventoryData.stockInventoryTableData,
                 emptyMessage: 'Showing Result',
@@ -928,29 +921,37 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                 pageSize: InventoryData.pageSize,
                 onPageChange: (p) => setState(() => _currentPageStock = p),
                 onRowTap: (rowData) {
-                  // Navigate to inventory detail page
+                  final rowMap = {
+                    'bookingCode': rowData[0],
+                    'bookingCodeDisplay': rowData[0],
+                    'date': rowData[1],
+                    'shipper': rowData[2],
+                    'cargoOwner': 'GCL-JAKARTA',
+                    'destination': rowData[3],
+                    'quantity': rowData[4],
+                    'package': rowData[4].split(' ').last,
+                    'marking': rowData[5],
+                    'descriptionOfGoods': rowData[6],
+                    'warehouseMeas': rowData[7],
+                    'weight': rowData[8],
+                    'volume': rowData[7],
+                    'pebNumber': rowData[9],
+                    'pebDate': rowData[10],
+                    'npeNumber': rowData[11],
+                    'npeDate': rowData[12],
+                    'value': rowData[13],
+                    'currency': rowData[14],
+                    'status': rowData[15],
+                    'etd': rowData.length > 16 ? rowData[16] : '',
+                    'vessel': rowData.length > 17 ? rowData[17] : '',
+                    'connectingVessel': rowData.length > 18 ? rowData[18] : '',
+                    'godownLocation': rowData.length > 19 ? rowData[19] : '',
+                  };
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => InventoryDetailPage(
-                        inventoryData: {
-                          'bookingCode': rowData[0],
-                          'dateIn': rowData[1],
-                          'shipper': rowData[2],
-                          'destination': rowData[3],
-                          'quantity': rowData[4],
-                          'marking': rowData[5],
-                          'description': rowData[6],
-                          'warehouseMeas': rowData[7],
-                          'weight': rowData[8],
-                          'pebNumber': rowData[9],
-                          'pebDate': rowData[10],
-                          'npeNumber': rowData[11],
-                          'npeDate': rowData[12],
-                          'value': rowData[13],
-                          'currency': rowData[14],
-                          'status': rowData[15],
-                        },
+                        inventoryData: rowMap,
                       ),
                     ),
                   );
@@ -1011,7 +1012,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
 
               Row(
                 children: [
-                  // Filter icon button
                   GestureDetector(
                     onTap: () {
                       setState(() {
@@ -1057,7 +1057,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                 ],
               ),
 
-              // Filter expandable section - only shows when expanded
               if (_getFilterExpanded())
                 Container(
                   width: double.infinity,
@@ -1072,7 +1071,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Time Filter Section
                         const Text(
                           'Time Filter',
                           style: TextStyle(
@@ -1086,7 +1084,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                           width: double.infinity,
                           height: 48,
                           decoration: BoxDecoration(
-                            color: Color(0xFF1F2937),
+                            color: Color(0xFF0F172A),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: Color(0xFFE5E7EB)),
                           ),
@@ -1142,7 +1140,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
 
                         const SizedBox(height: 20),
 
-                        // Category Filter
                         const Text(
                           'Category Filter',
                           style: TextStyle(
@@ -1172,7 +1169,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
 
                         const SizedBox(height: 20),
 
-                        // Action Filter
                         const Text(
                           'Action',
                           style: TextStyle(
@@ -1185,12 +1181,10 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                         
                         Row(
                           children: [
-                            // Generate Report Button
                             Expanded(
                               flex: 3,
                               child: GestureDetector(
                                 onTap: () {
-                                  // Handle generate report action
                                   print('Generate Report tapped');
                                 },
                                 child: Container(
@@ -1231,12 +1225,10 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                             
                             const SizedBox(width: 6),
                             
-                            // Send Button
                             Expanded(
                               flex: 2,
                               child: GestureDetector(
                                 onTap: () {
-                                  // Handle send action
                                   print('Send tapped');
                                 },
                                 child: Container(
@@ -1305,7 +1297,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                 columnWidths: const [
                   120, // Booking Code
                   130, // Date In
-                  200, // Shipper - tetap panjang karena data panjang
+                  200, // Shipper
                   100, // Destination
                   80,  // Quantity
                   80,  // Marking
@@ -1318,7 +1310,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                   80,  // NPE Date
                   60,  // Value
                   50,  // Currency
-                  220, // Status - tetap panjang karena data panjang
+                  220, // Status
                 ],
                 rows: InventoryData.cargoOutTableData,
                 emptyMessage: 'Showing Result',
@@ -1328,29 +1320,40 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                 pageSize: InventoryData.pageSize,
                 onPageChange: (p) => setState(() => _currentPageCargoOut = p),
                 onRowTap: (rowData) {
-                  // Navigate to inventory detail page
+                  // Gabungkan data row dengan dummy agar semua key ada
+                  final dummy = InventoryData.getDummyCargoOutDetail();
+                  final rowMap = {
+                    'bookingCode': rowData[0],
+                    'bookingCodeDisplay': rowData[0],
+                    'date': rowData[1],
+                    'shipper': rowData[2],
+                    'cargoOwner': 'GCL-JAKARTA',
+                    'destination': rowData[3],
+                    'quantity': rowData[4],
+                    'package': rowData[4].split(' ').last,
+                    'marking': rowData[5],
+                    'descriptionOfGoods': rowData[6],
+                    'warehouseMeas': rowData[7],
+                    'weight': rowData[8],
+                    'volume': rowData[7],
+                    'pebNumber': rowData[9],
+                    'pebDate': rowData[10],
+                    'npeNumber': rowData[11],
+                    'npeDate': rowData[12],
+                    'value': rowData[13],
+                    'currency': rowData[14],
+                    'status': rowData[15],
+                    'etd': rowData.length > 16 ? rowData[16] : '',
+                    'vessel': rowData.length > 17 ? rowData[17] : '',
+                    'connectingVessel': rowData.length > 18 ? rowData[18] : '',
+                    'godownLocation': rowData.length > 19 ? rowData[19] : '',
+                  };
+                  final merged = {...dummy, ...rowMap};
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => InventoryDetailCargoOutPage(
-                        inventoryData: {
-                          'bookingCode': rowData[0],
-                          'dateIn': rowData[1],
-                          'shipper': rowData[2],
-                          'destination': rowData[3],
-                          'quantity': rowData[4],
-                          'marking': rowData[5],
-                          'description': rowData[6],
-                          'warehouseMeas': rowData[7],
-                          'weight': rowData[8],
-                          'pebNumber': rowData[9],
-                          'pebDate': rowData[10],
-                          'npeNumber': rowData[11],
-                          'npeDate': rowData[12],
-                          'value': rowData[13],
-                          'currency': rowData[14],
-                          'status': rowData[15],
-                        },
+                        inventoryData: merged,
                       ),
                     ),
                   );
@@ -1363,96 +1366,9 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
     );
   }
 
-  Widget _buildWarehouseLayoutTab() {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 6,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Icon with background similar to the image
-          Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-              color: const Color(0xFF374151), // Dark background like in the image
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Icon(
-              Icons.add,
-              size: 40,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 20),
-          Text(
-            "Warehouse Layout",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[700],
-            ),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            "View the detailed warehouse rack layout",
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey[600],
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 30),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => WarehouseLayoutPage(),
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF4A5568),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: const Text(
-                "Open Warehouse Layout",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildTabItem(IconData icon, String text, int index) {
     final bool isSelected = _tabController.index == index;
     
-    // Determine the icon based on selection state
     IconData displayIcon;
     switch (index) {
       case 0: // Cargo In
@@ -1511,15 +1427,18 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
     );
   }
 
-  Widget _buildCustomLayoutTab(int index) {
+  Widget _buildAddTab(int index) {
     final bool isSelected = _tabController.index == index;
     
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          _tabController.animateTo(index);
-        });
-      },
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => InputCargoInPage(),
+            ),
+          );
+        },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -1532,7 +1451,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Custom icon container like in the image
             Container(
               width: 32,
               height: 32,
@@ -1550,23 +1468,12 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                 size: 20,
               ),
             ),
-            // const SizedBox(width: 8),
-            // Text(
-            //   "Layout",
-            //   style: TextStyle(
-            //     color: Colors.white,
-            //     fontSize: 14,
-            //     fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-            //   ),
-            //   textAlign: TextAlign.left,
-            // ),
           ],
         ),
       ),
     );
   }
 
-  // Helper methods for tab-based filter management
   bool _getFilterExpanded() {
     switch (_tabController.index) {
       case 0: return _isFilterExpandedCargoIn;
@@ -1633,7 +1540,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF1F2937) : Colors.white,
+          color: isSelected ? const Color(0xFF0F172A) : Colors.white,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: isSelected ? const Color(0xFF374151) : const Color(0xFFE5E7EB),
@@ -1655,7 +1562,6 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
   }
 }
 
-// Custom Date Picker Widget (copied from ticket_page.dart)
 class CustomDatePicker extends StatefulWidget {
   final DateTime? initialDate;
   final Function(DateTime) onDateSelected;
@@ -1758,7 +1664,6 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Quick select options
             GridView.count(
               shrinkWrap: true,
               crossAxisCount: 2,

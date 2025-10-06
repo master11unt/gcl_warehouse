@@ -26,7 +26,6 @@ class TodayStuffings extends StatelessWidget {
               ),
             ),
             SizedBox(height: 12),
-            // Unloaded Status Header
             Container(
               width: double.infinity,
               padding: EdgeInsets.symmetric(
@@ -34,7 +33,7 @@ class TodayStuffings extends StatelessWidget {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: Color(0xFF1F2937),
+                color: Color(0xFF0F172A),
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Text(
@@ -49,9 +48,8 @@ class TodayStuffings extends StatelessWidget {
               ),
             ),
             SizedBox(height: 8),
-            // Scrollable Content
             Container(
-              height: 180, // Fixed height for scrolling
+              height: 180,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -97,7 +95,6 @@ class TodayStuffings extends StatelessWidget {
   Widget _todayStuffingItem(BuildContext context, String jobNumber, String destination) {
     return GestureDetector(
       onTap: () {
-        // Navigate to stuffing detail page with the selected data
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -106,7 +103,6 @@ class TodayStuffings extends StatelessWidget {
                 'jobNumber': jobNumber,
                 'destination': destination,
                 'status': 'Unloaded',
-                // Add more data as needed
               },
             ),
           ),
@@ -136,7 +132,7 @@ class TodayStuffings extends StatelessWidget {
                 Text(
                   jobNumber,
                   style: TextStyle(
-                    color: Color(0xFF1F2937),
+                    color: Color(0xFF0F172A),
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
                   ),

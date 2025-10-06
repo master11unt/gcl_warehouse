@@ -56,7 +56,7 @@ class TicketTable extends StatelessWidget {
                   // Table Header
                   Container(
                     decoration: const BoxDecoration(
-                      color: Color(0xFF1F2937),
+                      color: Color(0xFF0F172A),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(8),
                         topRight: Radius.circular(8),
@@ -217,16 +217,13 @@ class _PaginationBarState extends State<_PaginationBar> {
     int current = widget.currentPage;
     
     if (total <= 3) {
-      // Show all pages if total is 3 or less
       for (int i = 1; i <= total; i++) {
         pages.add(i);
       }
     } else {
-      // Show only 3 pages maximum to prevent overflow
       int start = current - 1;
       int end = current + 1;
       
-      // Adjust window to stay within bounds
       if (start < 1) {
         start = 1;
         end = 3;
@@ -236,23 +233,20 @@ class _PaginationBarState extends State<_PaginationBar> {
         start = total - 2;
       }
       
-      // Add first page if not in range
       if (start > 1) {
         pages.add(1);
         if (start > 2) {
-          pages.add(-1); // dots
+          pages.add(-1);
         }
       }
       
-      // Add visible pages (max 3)
       for (int i = start; i <= end; i++) {
         pages.add(i);
       }
       
-      // Add last page if not in range
       if (end < total) {
         if (end < total - 1) {
-          pages.add(-1); // dots
+          pages.add(-1);
         }
         pages.add(total);
       }
@@ -270,7 +264,6 @@ class _PaginationBarState extends State<_PaginationBar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-            // Prev Button
             _SimpleNavButton(
               label: 'Prev',
               enabled: widget.currentPage > 1,
@@ -280,7 +273,6 @@ class _PaginationBarState extends State<_PaginationBar> {
             
             const SizedBox(width: 4),
             
-            // Page Numbers
             ...pages.map((page) {
               if (page == -1) {
                 return const Padding(
@@ -308,7 +300,6 @@ class _PaginationBarState extends State<_PaginationBar> {
             
             const SizedBox(width: 4),
             
-            // Next Button
             _SimpleNavButton(
               label: 'Next',
               enabled: widget.currentPage < widget.totalPages,

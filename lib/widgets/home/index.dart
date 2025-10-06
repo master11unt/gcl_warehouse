@@ -1,4 +1,3 @@
-// Home Widgets Index
 // This file exports all home widgets for easier importing
 
 export 'welcome_card.dart';

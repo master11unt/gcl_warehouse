@@ -51,7 +51,7 @@ class GuideSection extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
-                  color: Color(0xFF1F2937),
+                  color: Color(0xFF0F172A),
                 ),
               ),
               trailing: Icon(
@@ -113,9 +113,7 @@ class GuideSection extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton.icon(
-                    onPressed: () {
-                      // TODO: Open full diagram in new page
-                    },
+                    onPressed: () {},
                     icon: Icon(
                       Icons.open_in_full,
                       size: 16,

@@ -8,7 +8,7 @@ import '../../pages/warehouse_report_page.dart';
 import '../../pages/user_page.dart';
 
 class CustomDrawer extends StatefulWidget {
-  final String? currentPage; // Tambahkan parameter untuk halaman aktif
+  final String? currentPage;
   
   const CustomDrawer({Key? key, this.currentPage}) : super(key: key);
 
@@ -103,20 +103,20 @@ class _CustomDrawerState extends State<CustomDrawer> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: isActive
-                ? const Color(0xFF1F2937) 
+                ? const Color(0xFF0F172A) 
                 : isHovered 
-                    ? const Color(0xFF1F2937)
+                    ? const Color(0xFF0F172A)
                     : Colors.transparent,
             border: Border.all(
               color: (isActive || isHovered)
-                  ? const Color(0xFF1F2937) 
+                  ? const Color(0xFF0F172A) 
                   : Colors.transparent,
-              width: isActive ? 2 : 1, // Thicker border for active state
+              width: isActive ? 2 : 1,
             ),
             boxShadow: (isHovered || isActive)
                 ? [
                     BoxShadow(
-                      color: const Color(0xFF1F2937).withOpacity(0.2),
+                      color: const Color(0xFF0F172A).withOpacity(0.2),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),

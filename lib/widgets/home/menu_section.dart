@@ -1,7 +1,14 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:gcl_warehouse/models/home_data.dart';
 
 class MenuSection extends StatelessWidget {
-  const MenuSection({Key? key}) : super(key: key);
+  final Function(String route)? onMenuTap;
+
+  const MenuSection({
+    Key? key,
+    this.onMenuTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +33,16 @@ class MenuSection extends StatelessWidget {
           height: 150,
           child: ListView(
             scrollDirection: Axis.horizontal,
-            children: [
-              _menuCard(Icons.note_add, "List Cargo in"),
-              _menuCard(Icons.description, "Stock Inventory"),
-              _menuCard(Icons.description, "List Cargo Out"),
-              _menuCard(Icons.inventory, "Stuffing"),
-              _menuCard(Icons.layers, "Rack"),
-              _menuCard(Icons.menu_book, "Report"),
-              _menuCard(Icons.people, "User"),
-            ],
+            children: HomeDummyData.menuItems.map((item) {
+              return GestureDetector(
+                onTap: () {
+                  if (onMenuTap != null && item.route != null) {
+                    onMenuTap!(item.route!);
+                  }
+                },
+                child: _menuCard(_getIconData(item.icon), item.label),
+              );
+            }).toList(),
           ),
         ),
       ],
@@ -56,7 +64,7 @@ class MenuSection extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Icon(icon, color: Color(0xFF1F2937), size: 36),
+                child: Icon(icon, color: Color(0xFF0F172A), size: 36),
               ),
             ),
           ),
@@ -76,5 +84,28 @@ class MenuSection extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  IconData _getIconData(String iconName) {
+    switch (iconName) {
+      case 'note_add':
+        return Icons.note_add;
+      case 'inventory_2':
+        return Icons.inventory_2;
+      case 'description':
+        return Icons.description;
+      case 'pallet':
+        return Icons.pallet;
+      case 'all_inbox':
+        return Icons.all_inbox;
+      case 'layers':
+        return Icons.layers;
+      case 'menu_book':
+        return Icons.menu_book;
+      case 'people':
+        return Icons.people;
+      default:
+        return Icons.help_outline;
+    }
   }
 }

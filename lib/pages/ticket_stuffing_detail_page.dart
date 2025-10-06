@@ -28,7 +28,6 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumb Navigation
               _buildBreadcrumb(),
               const SizedBox(height: 16),
               
@@ -36,15 +35,12 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
               _buildCombinedContentCard(),
               const SizedBox(height: 16),
               
-              // Rules Section
               _buildRulesSection(),
               const SizedBox(height: 16),
               
-              // QR Code Section
               _buildQRCodeSection(),
               const SizedBox(height: 16),
               
-              // Footer Section
               _buildFooterSection(),
               const SizedBox(height: 20),
             ],
@@ -70,7 +66,6 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
       ),
       child: Row(
         children: [
-          // Back button
           Container(
             width: 4,
             height: 40,
@@ -306,7 +301,6 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Main Content Section
           // Job Number Section
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -338,13 +332,12 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
                 ),
               ),
               const SizedBox(width: 16),
-              // Action buttons
               Row(
                 children: [
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF1F2937),
+                      color: const Color(0xFF0F172A),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: const Icon(
@@ -357,7 +350,7 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF1F2937),
+                      color: const Color(0xFF0F172A),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: const Icon(
@@ -373,7 +366,6 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
           
           const SizedBox(height: 24),
           
-          // Two Column Layout with equal height rows
           Column(
             children: [
               // Row 1: Destination - Stuffing Date
@@ -441,7 +433,7 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
                   ),
                   const SizedBox(width: 32),
                   const Expanded(
-                    child: SizedBox(), // Empty space for balance
+                    child: SizedBox(),
                   ),
                 ],
               ),
@@ -463,7 +455,6 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
           
           const SizedBox(height: 16),
           
-          // Horizontal Scrollable Table
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
@@ -476,11 +467,7 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
                   // Table Header
                   Container(
                     decoration: const BoxDecoration(
-                      color: Color(0xFF1F2937),
-                      // borderRadius: BorderRadius.only(
-                      //   topLeft: Radius.circular(8),
-                      //   topRight: Radius.circular(8),
-                      // ),
+                      color: Color(0xFF0F172A),
                     ),
                     child: Row(
                       children: columnHeaders.asMap().entries.map((entry) {
@@ -575,12 +562,12 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
                               child: Text(
                                 cellData,
                                 style: TextStyle(
-                                  fontSize: cellIndex == 0 ? 14 : 12, // Num column slightly larger
+                                  fontSize: cellIndex == 0 ? 14 : 12,
                                   fontWeight: cellIndex == 0 ? FontWeight.w700 : FontWeight.w500,
                                   color: cellIndex == 0 ? const Color(0xFF111827) : const Color(0xFF374151),
                                   height: 1.3,
                                 ),
-                                textAlign: TextAlign.center, // All text center aligned
+                                textAlign: TextAlign.center,
                                 overflow: TextOverflow.visible,
                               ),
                             );
@@ -596,7 +583,6 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
           
           const SizedBox(height: 32),
           
-          // Stuffing Instruction Section
           const Text(
             'Stuffing Instruction',
             style: TextStyle(
@@ -705,11 +691,6 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
           // QR Code
           Container(
             padding: const EdgeInsets.all(16),
-            // decoration: BoxDecoration(
-            //   color: Colors.white,
-            //   borderRadius: BorderRadius.circular(8),
-            //   border: Border.all(color: const Color(0xFFE5E7EB)),
-            // ),
             child: QrImageView(
               data: widget.ticketData['jobNumber'] ?? 'GCL-1002507096',
               version: QrVersions.auto,
@@ -748,9 +729,7 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
-              onPressed: () {
-                // TODO: Implement download functionality
-              },
+              onPressed: () {},
               icon: const Icon(
                 Icons.download,
                 color: Color(0xFF374151),
@@ -782,7 +761,6 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
   Widget _buildFooterSection() {
     return Column(
       children: [
-        // Requested By Section
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(20),
@@ -837,7 +815,6 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
         
         const SizedBox(height: 16),
         
-        // Process Stuffing Button Section
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -878,13 +855,12 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
 
   Widget _buildDetailItemWithHeight(String label, String value, {bool isStuffingDate = false}) {
     if (isStuffingDate) {
-      // Untuk stuffing date, background melingkupi seluruh area
       return Container(
         height: 60,
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: const Color(0xFFF3F4F6), // Abu-abu terang untuk background
+          color: const Color(0xFFF3F4F6),
           borderRadius: BorderRadius.circular(4),
         ),
         child: Column(
@@ -922,10 +898,9 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
       );
     }
     
-    // Untuk item lainnya, tetap menggunakan struktur lama
     return Container(
-      height: 60, // Reduced from 80 to 60 for smaller vertical spacing
-      margin: const EdgeInsets.only(bottom: 12), // Reduced from 16 to 12
+      height: 60,
+      margin: const EdgeInsets.only(bottom: 12), 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -939,7 +914,7 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
               fontStyle: FontStyle.italic,
             ),
           ),
-          const SizedBox(height: 4), // Reduced from 6 to 4
+          const SizedBox(height: 4),
           Expanded(
             child: Align(
               alignment: Alignment.topLeft,
@@ -961,10 +936,8 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
     );
   }
 
-  // Helper function to format dates
   String _formatDate(String? dateString, {required String type}) {
     if (dateString == null || dateString.isEmpty) {
-      // Return default values based on type
       switch (type) {
         case 'stuffingDate':
           return '2025-07-31';
@@ -980,10 +953,8 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
     switch (type) {
       case 'stuffingDate':
       case 'etd':
-        // Remove T00:00:00 and Z for stuffing date and estimated time departure
         return dateString.replaceAll('T00:00:00', '').replaceAll('Z', '');
       case 'closingDate':
-        // Only remove T and Z for closing date
         return dateString.replaceAll('T', ' ').replaceAll('Z', '');
       default:
         return dateString;

@@ -57,7 +57,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Main Report Container
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -74,58 +73,45 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Header Section
                     _buildHeaderSection(),
                     const SizedBox(height: 20),
 
-                    // Total Cargo Section
                     _buildTotalCargoSection(),
                     const SizedBox(height: 20),
 
-                    // Detail Quantity Cargo Chart
                     _buildDetailQuantityCargo(),
                     const SizedBox(height: 20),
 
-                    // Detail Status Cargo Chart
                     _buildDetailStatusCargo(),
                     const SizedBox(height: 20),
 
-                    // Value Cargo Section
                     _buildValueCargo(),
                     const SizedBox(height: 20),
 
-                    // Cargo Flow Chart
                     _buildCargoFlowChart(),
                     const SizedBox(height: 20),
 
-                    // Top Shipper Table
                     _buildTopShipper(),
                     const SizedBox(height: 20),
 
-                    // Stuffing Section
                     _buildStuffingSection(),
                     const SizedBox(height: 20),
 
-                    // Top Destination Section
                     _buildTopDestination(),
                     const SizedBox(height: 20),
 
-                    // Detail Destination Chart
                     _buildDetailDestination(),
                   ],
                 ),
               ),
               const SizedBox(height: 20),
 
-              // Index Performance
               _buildPerformanceSection(),
               const SizedBox(height: 20),
 
-              // Options and Download Section
               _buildOptionsSection(),
               const SizedBox(height: 20),
 
-              // Rules Section
               _buildRulesSection(),
             ],
           ),
@@ -138,7 +124,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Title with gray bar
+        // Title
         Row(
           children: [
             Container(
@@ -155,14 +141,13 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF0F172A),
               ),
             ),
           ],
         ),
         const SizedBox(height: 20),
 
-        // Note section with gray background
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(16),
@@ -195,12 +180,11 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: const Color(0xFF1F2937),
+            color: const Color(0xFF0F172A),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
             children: [
-              // Filter header - always visible
               GestureDetector(
                 onTap: () {
                   setState(() {
@@ -237,7 +221,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                 ),
               ),
               
-              // Expanded filter content - unified with header
               if (_isFilterExpanded)
                 Container(
                   width: double.infinity,
@@ -264,9 +247,9 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                       const SizedBox(height: 12),
                       
                       SizedBox(
-                        height: 50, // Reduced height for horizontal scroll
+                        height: 50,
                         child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal, // Changed to horizontal
+                          scrollDirection: Axis.horizontal,
                           child: Row(
                             children: _ownerOptions.map((owner) => Padding(
                               padding: const EdgeInsets.only(right: 8),
@@ -294,9 +277,9 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                       const SizedBox(height: 12),
                       
                       SizedBox(
-                        height: 50, // Reduced height for horizontal scroll
+                        height: 50,
                         child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal, // Changed to horizontal
+                          scrollDirection: Axis.horizontal,
                           child: Row(
                             children: _periodeOptions.map((periode) => Padding(
                               padding: const EdgeInsets.only(right: 8),
@@ -323,11 +306,10 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Header "Cargo" dengan background dark
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           decoration: BoxDecoration(
-            color: const Color(0xFF1F2937),
+            color: const Color(0xFF0F172A),
             borderRadius: BorderRadius.circular(4),
           ),
           child: const Text(
@@ -342,7 +324,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
 
         const SizedBox(height: 16),
 
-        // Cards section dengan background terpisah
         Row(
           children: [
             Expanded(
@@ -381,7 +362,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
             style: const TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1F2937),
+              color: Color(0xFF0F172A),
             ),
           ),
         ],
@@ -393,11 +374,10 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Header dengan background dark
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           decoration: BoxDecoration(
-            color: const Color(0xFF1F2937),
+            color: const Color(0xFF0F172A),
             borderRadius: BorderRadius.circular(4),
           ),
           child: const Text(
@@ -412,7 +392,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
 
         const SizedBox(height: 16),
 
-        // Chart dan Legend dalam satu container
         Container(
           padding: const EdgeInsets.all(16),
           child: LayoutBuilder(
@@ -426,7 +405,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Pie Chart with interactive touch functionality
                   SizedBox(
                     width: chartSize,
                     height: chartSize,
@@ -458,20 +436,20 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                             ),
                             sections: [
                               PieChartSectionData(
-                                value: 95.8, // Match 6061
-                                color: const Color(0xFF1E3888), // Blue
+                                value: 95.8,
+                                color: const Color(0xFF1E3888),
                                 title: '',
                                 radius: radius,
                               ),
                               PieChartSectionData(
                                 value: 4.1, // Over 262
-                                color: const Color(0xFFEC4899), // Pink/Red
+                                color: const Color(0xFFEC4899),
                                 title: '',
                                 radius: radius,
                               ),
                               PieChartSectionData(
                                 value: 0.1, // Short 0
-                                color: const Color(0xFFFBBF24), // Yellow
+                                color: const Color(0xFFFBBF24), 
                                 title: '',
                                 radius: radius,
                               ),
@@ -480,7 +458,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                             sectionsSpace: 1,
                           ),
                         ),
-                        // Center content overlay
                         if (_showCenterContent)
                           Builder(
                             builder: (context) {
@@ -493,7 +470,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                                   vertical: 8,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: const Color(0xFF1F2937),
+                                  color: const Color(0xFF0F172A),
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                                 child: Column(
@@ -586,7 +563,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
     );
   }
 
-  // Helper function untuk mendapatkan data section berdasarkan index
   Map<String, dynamic> _getSectionData(int index) {
     switch (index) {
       case 0:
@@ -663,7 +639,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFF1F2937),
+              color: const Color(0xFF0F172A),
               borderRadius: BorderRadius.circular(4),
             ),
             child: const Text(
@@ -753,7 +729,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                           return Padding(
                             padding: const EdgeInsets.only(top: 8),
                             child: Transform.rotate(
-                              angle: -0.3, // Slight rotation for angled text
+                              angle: -0.3,
                               child: Text(
                                 titles[value.toInt()],
                                 style: const TextStyle(
@@ -815,7 +791,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                     barRods: [
                       BarChartRodData(
                         toY: 0,
-                        color: const Color(0xFFEC4899), // Pink for Exited
+                        color: const Color(0xFFEC4899),
                         width: 25,
                         borderRadius: BorderRadius.circular(2),
                       ),
@@ -826,7 +802,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                     barRods: [
                       BarChartRodData(
                         toY: 0,
-                        color: const Color(0xFF6B7280), // Gray for Coloaded
+                        color: const Color(0xFF6B7280), 
                         width: 25,
                         borderRadius: BorderRadius.circular(2),
                       ),
@@ -837,7 +813,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                     barRods: [
                       BarChartRodData(
                         toY: 0,
-                        color: const Color(0xFFEF4444), // Red for Canceled
+                        color: const Color(0xFFEF4444),
                         width: 25,
                         borderRadius: BorderRadius.circular(2),
                       ),
@@ -851,10 +827,9 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
 
           const SizedBox(height: 20),
 
-          // Legend - 3 rows with 2 items each (aligned)
+          // Legend - 3
           Column(
             children: [
-              // First row
               Row(
                 children: [
                   Expanded(
@@ -875,7 +850,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                 ],
               ),
               const SizedBox(height: 16),
-              // Second row
               Row(
                 children: [
                   Expanded(
@@ -896,7 +870,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                 ],
               ),
               const SizedBox(height: 16),
-              // Third row
               Row(
                 children: [
                   Expanded(
@@ -933,7 +906,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFF1F2937),
+              color: const Color(0xFF0F172A),
               borderRadius: BorderRadius.circular(4),
             ),
             child: const Text(
@@ -947,7 +920,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
           ),
           const SizedBox(height: 20),
 
-          // Counted Document
           const Text(
             'Counted Document',
             style: TextStyle(
@@ -967,7 +939,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
           ),
           const SizedBox(height: 20),
 
-          // Incomplete Document
           const Text(
             'Incomplete Document',
             style: TextStyle(
@@ -987,7 +958,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
           ),
           const SizedBox(height: 20),
 
-          // Total Value Cargo
           const Text(
             'Total Value Cargo',
             style: TextStyle(
@@ -1045,7 +1015,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                     ],
                   ),
                 ),
-                // Data row
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -1100,7 +1069,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFF1F2937),
+              color: const Color(0xFF0F172A),
               borderRadius: BorderRadius.circular(4),
             ),
             child: const Text(
@@ -1114,7 +1083,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
           ),
           const SizedBox(height: 16),
 
-          // Legend
           Row(
             children: [
               Row(
@@ -1267,7 +1235,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                 minY: 0,
                 maxY: 6000,
                 lineBarsData: [
-                  // Volume line (blue)
                   LineChartBarData(
                     spots: const [
                       FlSpot(1, 500), // January
@@ -1292,7 +1259,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                     ),
                     belowBarData: BarAreaData(show: false),
                   ),
-                  // Transaction line (green)
                   LineChartBarData(
                     spots: const [
                       FlSpot(1, 200), // January
@@ -1336,7 +1302,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFF1F2937),
+              color: const Color(0xFF0F172A),
               borderRadius: BorderRadius.circular(4),
             ),
             child: const Text(
@@ -1401,9 +1367,8 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
             ),
           ),
 
-          // Scrollable Table Body
           Container(
-            height: 180, // Fixed height untuk scrollable area
+            height: 180,
             decoration: BoxDecoration(
               border: Border.all(color: const Color(0xFFE5E7EB)),
               borderRadius: const BorderRadius.only(
@@ -1429,7 +1394,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
 
           const SizedBox(height: 16),
 
-          // Total Shipper
           Center(
             child: Column(
               children: [
@@ -1468,7 +1432,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFF1F2937),
+              color: const Color(0xFF0F172A),
               borderRadius: BorderRadius.circular(4),
             ),
             child: const Text(
@@ -1482,7 +1446,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
           ),
           const SizedBox(height: 20),
 
-          // Cards Layout - Two rows: 2 cards on top, 1 card on bottom, all equal size
           Column(
             children: [
               // First row - Two cards
@@ -1510,7 +1473,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                   const SizedBox(width: 12),
                   Expanded(
                     flex: 1,
-                    child: Container(), // Empty space to center the card below
+                    child: Container(),
                   ),
                 ],
               ),
@@ -1523,8 +1486,8 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
 
   Widget _buildStuffingCardNew(String title, String value) {
     return Container(
-      height: 120, // Fixed height to ensure all cards are equal size
-      padding: const EdgeInsets.all(12), // Reduced padding to give more space for text
+      height: 120,
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -1546,7 +1509,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
             child: Text(
               title,
               style: const TextStyle(
-                fontSize: 12, // Reduced font size to prevent overflow
+                fontSize: 12,
                 color: Color(0xFF374151),
                 fontWeight: FontWeight.w500,
               ),
@@ -1554,11 +1517,11 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          const SizedBox(height: 8), // Reduced spacing
+          const SizedBox(height: 8),
           Text(
             value,
             style: const TextStyle(
-              fontSize: 28, // Slightly reduced from 32 to fit better
+              fontSize: 28,
               fontWeight: FontWeight.bold,
               color: Color(0xFF111827),
             ),
@@ -1578,7 +1541,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFF1F2937),
+              color: const Color(0xFF0F172A),
               borderRadius: BorderRadius.circular(4),
             ),
             child: const Text(
@@ -1592,9 +1555,8 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
           ),
           const SizedBox(height: 20),
 
-          // Scrollable Destination List
           Container(
-            height: 200, // Fixed height untuk scrollable area
+            height: 200,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1672,7 +1634,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFF1F2937),
+              color: const Color(0xFF0F172A),
               borderRadius: BorderRadius.circular(4),
             ),
             child: const Text(
@@ -1785,7 +1747,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                 ),
                 borderData: FlBorderData(show: false),
                 barGroups: [
-                  // TOKYO - Multiple bars with varying heights
                   BarChartGroupData(
                     x: 1,
                     barRods: [
@@ -1793,45 +1754,44 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                         toY: 3200,
                         color: const Color(0xFFFBBF24),
                         width: 8,
-                      ), // Tallest yellow
+                      ),
                       BarChartRodData(
                         toY: 1800,
                         color: const Color(0xFF1E3888),
                         width: 8,
-                      ), // Blue
+                      ),
                       BarChartRodData(
                         toY: 900,
                         color: const Color(0xFFFBBF24),
                         width: 8,
-                      ), // Yellow
+                      ),
                       BarChartRodData(
                         toY: 400,
                         color: const Color(0xFF1E3888),
                         width: 8,
-                      ), // Blue
+                      ),
                       BarChartRodData(
                         toY: 1400,
                         color: const Color(0xFFFBBF24),
                         width: 8,
-                      ), // Yellow
+                      ),
                       BarChartRodData(
                         toY: 600,
                         color: const Color(0xFF1E3888),
                         width: 8,
-                      ), // Blue
+                      ),
                       BarChartRodData(
                         toY: 300,
                         color: const Color(0xFFFBBF24),
                         width: 8,
-                      ), // Yellow
+                      ),
                       BarChartRodData(
                         toY: 800,
                         color: const Color(0xFF1E3888),
                         width: 8,
-                      ), // Blue
+                      ),
                     ],
                   ),
-                  // FLORIDA
                   BarChartGroupData(
                     x: 2,
                     barRods: [
@@ -1857,7 +1817,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                       ),
                     ],
                   ),
-                  // AQABA
                   BarChartGroupData(
                     x: 3,
                     barRods: [
@@ -1873,7 +1832,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                       ),
                     ],
                   ),
-                  // PUERTO CORTES
                   BarChartGroupData(
                     x: 4,
                     barRods: [
@@ -1898,7 +1856,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
   Widget _buildPerformanceSection() {
     return Row(
       children: [
-        // Index Performance Card
         Expanded(
           child: Container(
             height: 280,
@@ -1935,7 +1892,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                       width: 120,
                       height: 120,
                       child: CircularProgressIndicator(
-                        value: 1.0, // 100%
+                        value: 1.0,
                         strokeWidth: 12,
                         backgroundColor: Colors.grey[200],
                         valueColor: const AlwaysStoppedAnimation<Color>(
@@ -2004,7 +1961,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                   ),
                   const SizedBox(height: 8),
 
-                  // Percentage Box
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
@@ -2030,7 +1986,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
 
                   const SizedBox(height: 10),
 
-                  // GCLMarunda
                   const Text(
                     'GCLMarunda',
                     style: TextStyle(
@@ -2062,7 +2017,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
 
                   const SizedBox(height: 8),
 
-                  // Max Capacity Info
                   const Text(
                     'Max Capacity',
                     style: TextStyle(fontSize: 10, color: Color(0xFF9CA3AF)),

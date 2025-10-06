@@ -28,7 +28,7 @@ class _NotificationPopupState extends State<NotificationPopup> {
         padding: const EdgeInsets.all(8),
         decoration: _isPopupOpen 
           ? BoxDecoration(
-              color: const Color(0xFF1F2937),
+              color: const Color(0xFF0F172A),
               shape: BoxShape.circle,
             )
           : null,
@@ -72,7 +72,7 @@ class _NotificationPopupState extends State<NotificationPopup> {
                 top: buttonPosition.dy + buttonSize.height + 5,
                 right: MediaQuery.of(context).size.width - buttonPosition.dx - buttonSize.width,
                 child: GestureDetector(
-                  onTap: () {}, // Prevent popup from closing when tapping inside
+                  onTap: () {},
                   child: Material(
                     color: Colors.transparent,
                     child: StatefulBuilder(
@@ -157,7 +157,6 @@ class _NotificationPopupState extends State<NotificationPopup> {
                       ),
                     ),
 
-                    // Bottom action buttons
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: const BoxDecoration(
@@ -173,7 +172,6 @@ class _NotificationPopupState extends State<NotificationPopup> {
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
-                                // Mark all as read functionality
                                 _hidePopup();
                               },
                               child: Container(
@@ -208,7 +206,6 @@ class _NotificationPopupState extends State<NotificationPopup> {
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
-                                // See all functionality
                                 _hidePopup();
                               },
                               child: Container(
@@ -284,10 +281,10 @@ class _NotificationPopupState extends State<NotificationPopup> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF1F2937) : const Color(0xFFF9FAFB),
+          color: isSelected ? const Color(0xFF0F172A) : const Color(0xFFF9FAFB),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isSelected ? const Color(0xFF1F2937) : const Color(0xFFE5E7EB),
+            color: isSelected ? const Color(0xFF0F172A) : const Color(0xFFE5E7EB),
             width: 1,
           ),
         ),
@@ -304,7 +301,7 @@ class _NotificationPopupState extends State<NotificationPopup> {
             Text(
               label,
               style: TextStyle(
-                color: isSelected ? Colors.white : const Color(0xFF1F2937),
+                color: isSelected ? Colors.white : const Color(0xFF0F172A),
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
               ),

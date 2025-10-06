@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/home/custom_drawer.dart';
+import '../models/stuffing_data.dart';
 
 class StuffingOngoingDetailPage extends StatelessWidget {
   final Map<String, dynamic> stuffingData;
@@ -20,9 +21,8 @@ class StuffingOngoingDetailPage extends StatelessWidget {
               _buildMainContentSection(context),
               const SizedBox(height: 16),
               
-              // Status Section
               _buildStatusSection(),
-              const SizedBox(height: 20), // Extra bottom spacing
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -60,23 +60,18 @@ class StuffingOngoingDetailPage extends StatelessWidget {
   void _handleMenuAction(String action) {
     switch (action) {
       case 'send_email':
-        // Handle send email action
         print('Send Email selected');
         break;
       case 'call_support':
-        // Handle call support action
         print('Call Support selected');
         break;
       case 'data':
-        // Handle data action
         print('Data selected');
         break;
       case 'open_mark':
-        // Handle open mark action
         print('Open Mark selected');
         break;
       case 'print':
-        // Handle print action
         print('Print selected');
         break;
       default:
@@ -113,14 +108,13 @@ class StuffingOngoingDetailPage extends StatelessWidget {
             ),
             child: Row(
               children: [
-                // Back Button
                 GestureDetector(
                   onTap: () => Navigator.of(context).pop(),
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     child: const Icon(
                       Icons.arrow_back_ios,
-                      color: Color(0xFF1F2937),
+                      color: Color(0xFF0F172A),
                       size: 24,
                     ),
                   ),
@@ -128,26 +122,24 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                 
                 const SizedBox(width: 16),
                 
-                // Title
                 const Expanded(
                   child: Text(
                     'Stuffing Plan Detail',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF1F2937),
+                      color: Color(0xFF0F172A),
                     ),
                   ),
                 ),
                 
-                // Three dots menu
                 PopupMenuButton<String>(
                   icon: const Icon(
                     Icons.more_vert,
-                    color: Color(0xFF1F2937),
+                    color: Color(0xFF0F172A),
                     size: 24,
                   ),
-                  color: const Color(0xFF1F2937),
+                  color: const Color(0xFF0F172A),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -180,7 +172,6 @@ class StuffingOngoingDetailPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Row 1: Job No and Container Number
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -191,7 +182,6 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 
-                // Row 2: Container Size and Stuffing Date
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -202,7 +192,6 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 
-                // Row 3: Estimated Time Departure and Closing Date
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -213,7 +202,6 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 
-                // Row 4: Destination and Agent
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -236,7 +224,6 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                 
                 const SizedBox(height: 12),
                 
-                // Horizontal Scrollable Table
                 SizedBox(
                   width: double.infinity,
                   child: SingleChildScrollView(
@@ -259,110 +246,7 @@ class StuffingOngoingDetailPage extends StatelessWidget {
   }
 
   Widget _buildTableContent() {
-    final stuffingList = [
-      {
-        'num': 'A',
-        'bookingNumber': 'GTW-20250810113423',
-        'shipper': 'OCEAN SKY I',
-        'marking': 'OCEAN SKY I',
-        'destination': 'HONG KONG',
-        'cargoReadiness': 'READY',
-        'quantity': '8',
-        'packages': 'PALLETS',
-        'description': 'MARINE EQUIPMENT & SPARE PARTS',
-        'grossWeight': '3,240.120',
-        'nettWeight': '3,150.000',
-        'shipperMeas': '7.8000',
-        'warehouseMeas': '7.5000',
-        'chargedMeas': '9.1200',
-        'pebNumber': 'PEB-HK-08/2025/2456',
-      },
-      {
-        'num': 'B',
-        'bookingNumber': 'GTW-20250809142035',
-        'shipper': 'LAVA TEXTIL BVBA INDON PT',
-        'marking': 'LAVA TEXTIL BVBA INDON PT',
-        'destination': 'HONG KONG',
-        'cargoReadiness': 'READY',
-        'quantity': '12',
-        'packages': 'BALES',
-        'description': 'TEXTILE MATERIALS & FABRIC ROLLS',
-        'grossWeight': '4,580.350',
-        'nettWeight': '4,420.000',
-        'shipperMeas': '11.2000',
-        'warehouseMeas': '10.8000',
-        'chargedMeas': '12.9600',
-        'pebNumber': 'PEB-HK-08/2025/2457',
-      },
-      {
-        'num': 'C',
-        'bookingNumber': 'GTW-20250808091247',
-        'shipper': 'KLINE LOGIST PT',
-        'marking': 'KLINE LOGIST PT',
-        'destination': 'HONG KONG',
-        'cargoReadiness': 'READY',
-        'quantity': '6',
-        'packages': 'PALLETS',
-        'description': 'INDUSTRIAL MACHINERY COMPONENTS',
-        'grossWeight': '2,890.000',
-        'nettWeight': '2,750.000',
-        'shipperMeas': '6.5000',
-        'warehouseMeas': '6.2000',
-        'chargedMeas': '7.8000',
-        'pebNumber': 'PEB-HK-08/2025/2458',
-      },
-      {
-        'num': 'D',
-        'bookingNumber': 'GTW-20250807154512',
-        'shipper': 'WINFASTSHIP INDONESIA',
-        'marking': 'WINFASTSHIP INDONESIA',
-        'destination': 'HONG KONG',
-        'cargoReadiness': 'READY',
-        'quantity': '15',
-        'packages': 'BOXES',
-        'description': 'ELECTRONIC COMPONENTS & DEVICES',
-        'grossWeight': '1,875.500',
-        'nettWeight': '1,800.000',
-        'shipperMeas': '5.2000',
-        'warehouseMeas': '5.0000',
-        'chargedMeas': '6.2400',
-        'pebNumber': 'PEB-HK-08/2025/2459',
-      },
-      {
-        'num': 'E',
-        'bookingNumber': 'GTW-20250806083316',
-        'shipper': 'NIDEC INSTRUMENT INDONESIA',
-        'marking': 'NIDEC INSTRUMENT INDONESIA',
-        'destination': 'HONG KONG',
-        'cargoReadiness': 'READY',
-        'quantity': '4',
-        'packages': 'CARTONS',
-        'description': 'SERVO MOTORS & AUTOMATION EQUIPMENT',
-        'grossWeight': '1,290.750',
-        'nettWeight': '1,200.000',
-        'shipperMeas': '3.8000',
-        'warehouseMeas': '3.6000',
-        'chargedMeas': '4.5600',
-        'pebNumber': 'PEB-HK-08/2025/2460',
-      },
-      {
-        'num': 'F',
-        'bookingNumber': 'GTW-20250805162144',
-        'shipper': 'GLOBAL TECH SOLUTIONS PT',
-        'marking': 'GLOBAL TECH SOLUTIONS PT',
-        'destination': 'HONG KONG',
-        'cargoReadiness': 'READY',
-        'quantity': '10',
-        'packages': 'CARTONS',
-        'description': 'COMPUTER HARDWARE & ACCESSORIES',
-        'grossWeight': '2,150.300',
-        'nettWeight': '2,050.000',
-        'shipperMeas': '4.2000',
-        'warehouseMeas': '4.0000',
-        'chargedMeas': '5.0400',
-        'pebNumber': 'PEB-HK-08/2025/2461',
-      },
-    ];
+    final stuffingList = StuffingData.getDummyOngoingTable();
 
     final columnHeaders = [
       'Num',
@@ -405,7 +289,7 @@ class StuffingOngoingDetailPage extends StatelessWidget {
         // Table Header
         Container(
           decoration: const BoxDecoration(
-            color: Color(0xFF1F2937),
+            color: Color(0xFF0F172A),
           ),
           child: Row(
             children: columnHeaders.asMap().entries.map((entry) {
@@ -514,7 +398,6 @@ class StuffingOngoingDetailPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            // height: 32, // Fixed height untuk meratakan tinggi label
             child: Text(
               label,
               style: const TextStyle(
@@ -726,11 +609,7 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                   // Table Header
                   Container(
                     decoration: const BoxDecoration(
-                      color: Color(0xFF1F2937),
-                      // borderRadius: BorderRadius.only(
-                      //   topLeft: Radius.circular(8),
-                      //   topRight: Radius.circular(8),
-                      // ),
+                      color: Color(0xFF0F172A),
                     ),
                     child: Row(
                       children: columnHeaders.asMap().entries.map((entry) {

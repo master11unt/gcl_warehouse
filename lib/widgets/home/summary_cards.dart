@@ -62,7 +62,7 @@ class SummaryCards extends StatelessWidget {
                 color:
                     textColor == Colors.white
                         ? Colors.white
-                        : Color(0xFF1F2937),
+                        : Color(0xFF0F172A),
                 fontWeight: FontWeight.w600,
                 fontSize: 16,
               ),

@@ -11,7 +11,7 @@ class WarehouseLayoutPage extends StatefulWidget {
 class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
   String selectedLocation = 'Marunda';
   String selectedFilter = 'All';
-  Set<int> expandedRackItems = {}; // Track which rack items are expanded
+  Set<int> expandedRackItems = {};
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +82,7 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                         child: Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF1F2937),
+                            color: const Color(0xFF0F172A),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Column(
@@ -118,30 +118,8 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Row(
-                          //   children: [
-                          //     Container(
-                          //       width: 4,
-                          //       height: 24,
-                          //       decoration: BoxDecoration(
-                          //         color: const Color(0xFF6B7280),
-                          //         borderRadius: BorderRadius.circular(2),
-                          //       ),
-                          //     ),
-                          //     const SizedBox(width: 16),
-                          //     const Text(
-                          //       "Layout Overview",
-                          //       style: TextStyle(
-                          //         fontSize: 18,
-                          //         fontWeight: FontWeight.bold,
-                          //         color: Colors.black,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
                           const SizedBox(height: 20),
 
-                          // Interactive Layout Grid
                           _buildInteractiveLayout(),
                         ],
                       ),
@@ -154,12 +132,11 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF1F2937),
+                  color: const Color(0xFF0F172A),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
                   children: [
-                    // Options Header with Search
                     Container(
                       padding: const EdgeInsets.all(20),
                       child: Column(
@@ -175,7 +152,6 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                           ),
                           const SizedBox(height: 12),
                           
-                          // Horizontal line
                           Container(
                             height: 1,
                             color: Colors.white.withOpacity(0.3),
@@ -183,7 +159,6 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                           
                           const SizedBox(height: 20),
 
-                          // Search Field
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -218,7 +193,6 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
                       ),
                     ),
 
-                    // Rack List
                     Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                       child: _buildModernRackList(),
@@ -235,53 +209,10 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     );
   }
 
-  // Generate sample dropdown data based on the provided image
+  // Ambil data dropdown dari models
   List<Map<String, String>> _getDropdownDataForRack(String rackName) {
-    // Sample data matching the image format
-    return [
-      {
-        'gtwCode': 'GTW-20250207052451',
-        'company': 'UNIAIR INDOTAMA CARGO, PT',
-        'quantity': '2 PALLETS',
-        'destination': 'KEELUNG (CHILUNG)'
-      },
-      {
-        'gtwCode': 'GTW-20250211030718',
-        'company': 'NARUMI INDONESIA, PT',
-        'quantity': '5 PALLETS',
-        'destination': 'LOS ANGELES'
-      },
-      {
-        'gtwCode': 'GTW-20250212032324',
-        'company': 'NARUMI INDONESIA, PT',
-        'quantity': '2 PALLETS',
-        'destination': 'SHANGHAI'
-      },
-      {
-        'gtwCode': 'GTW-20250207032804',
-        'company': 'NARUMI INDONESIA, PT',
-        'quantity': '23 CARTONS',
-        'destination': 'HONG KONG'
-      },
-      {
-        'gtwCode': 'GTW-20250210044929',
-        'company': 'YAMATO INDONESIA FORWARDING, PT',
-        'quantity': '2 PALLETS',
-        'destination': 'MANZANILLO'
-      },
-      {
-        'gtwCode': 'GTW-20250213040108',
-        'company': 'YAMATO INDONESIA FORWARDING, PT',
-        'quantity': '3 PACKAGES',
-        'destination': 'LAEM CHABANG'
-      },
-      {
-        'gtwCode': 'GTW-20250212015407',
-        'company': 'YAMATO INDONESIA FORWARDING, PT',
-        'quantity': '2 PALLETS',
-        'destination': 'BANGKOK'
-      },
-    ];
+    // Jika ingin filter, bisa modifikasi di warehouse_data.dart
+    return warehouseDropdownData;
   }
 
   Widget _buildDropdownContent(String rackName) {
@@ -289,7 +220,7 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     
     return Container(
       decoration: const BoxDecoration(
-        color: Color(0xFF1F2937), // Dark background like in the image
+        color: Color(0xFF0F172A),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(8),
           bottomRight: Radius.circular(8),
@@ -311,7 +242,6 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
               children: [
                 Row(
                   children: [
-                    // GTW Code
                     Expanded(
                       flex: 3,
                       child: Text(
@@ -374,36 +304,12 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
   }
 
   Widget _buildModernRackList() {
-    final List<Map<String, dynamic>> rackItems = [
-      {'name': 'Rack Line 1', 'items': '30 Items'},
-      {'name': 'Rack Line 2', 'items': '88 Items'},
-      {'name': 'Rack Line 3', 'items': '24 Items'},
-      {'name': 'Rack Line 4', 'items': '14 Items'},
-      {'name': 'Rack Line 5', 'items': '8 Items'},
-      {'name': 'Rack Line 6', 'items': '7 Items'},
-      {'name': 'Rack Line 7', 'items': '0 Items'},
-      {'name': 'Rack Line 8', 'items': '2 Items'},
-      {'name': 'Rack Line 9', 'items': '0 Items'},
-      {'name': 'Rack Line 10', 'items': '1 Items'},
-      {'name': 'Temporary Location Floor 3', 'items': '174 Items'},
-      {'name': 'Temporary Location Floor 4', 'items': '489 Items'},
-      {'name': 'Temporary Location Floor 5', 'items': '16 Items'},
-      {'name': 'Temporary Location Floor 6', 'items': '39 Items'},
-      {'name': 'Temporary Location Floor 7', 'items': '0 Items'},
-      {'name': 'Temporary Location Floor 10', 'items': '35 Items'},
-      {'name': 'Temporary Location Front Floor', 'items': '270 Items'},
-      {'name': 'Temporary Location Side Floor A', 'items': '9 Items'},
-      {'name': 'Temporary Location Side Floor B', 'items': '32 Items'},
-      {'name': 'Quarantine Area', 'items': '35 Items'},
-      {'name': 'Not In Rack', 'items': '59 Items'},
-    ];
-
+    // Ambil rackItems dari models
     return Column(
-      children: rackItems.asMap().entries.map((entry) {
+      children: warehouseRackItems.asMap().entries.map((entry) {
         int index = entry.key;
         Map<String, dynamic> item = entry.value;
         bool isExpanded = expandedRackItems.contains(index);
-        
         return Container(
           margin: const EdgeInsets.only(bottom: 8),
           decoration: BoxDecoration(
@@ -729,12 +635,10 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     double height,
     Color color,
   ) {
-    // Extract rack name and number from label
     List<String> parts = label.split('\n');
     String rackName = parts[0];
     String rackNumber = parts.length > 1 ? parts[1] : '';
     
-    // Determine if this is a special area (door, etc.)
     bool isDoor = rackName.toLowerCase().contains('door');
     bool isRackLine = rackName.toLowerCase().contains('rack line');
     bool isTempLocation = rackName.toLowerCase().contains('temp');
@@ -972,7 +876,6 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
   Color _getTextColor(Color backgroundColor) {
     double luminance = backgroundColor.computeLuminance();
     
-    // Use more contrasting colors for better visibility
     if (luminance > 0.6) {
       return Colors.black87;
     } else if (luminance > 0.4) {
@@ -986,7 +889,6 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     double minDimension = width < height ? width : height;
     double area = width * height;
     
-    // Special handling for very small containers (like doors)
     if (minDimension < 30) return 7;
     if (minDimension < 50) return 8;
     if (minDimension < 70) return 9;
@@ -994,7 +896,6 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
     if (minDimension < 120) return 11;
     if (minDimension < 150) return 12;
     
-    // For larger areas, use bigger fonts
     if (area > 20000) return 14;
     if (area > 15000) return 13;
     
@@ -1026,7 +927,6 @@ class _WarehouseLayoutPageState extends State<WarehouseLayoutPage> {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                // Navigate to detailed inventory
               },
               child: const Text("View Details"),
             ),

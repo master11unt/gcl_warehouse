@@ -15,9 +15,8 @@ class StuffingPage extends StatefulWidget {
 class _StuffingPageState extends State<StuffingPage> {
   String searchQuery = '';
   int currentPage = 1;
-  String selectedFilter = 'all'; // 'all', 'ongoing', 'cleared'
+  String selectedFilter = 'all';
 
-  // Sample stuffing data berdasarkan filter dan search
   List<Map<String, dynamic>> get filteredStuffingData {
     return StuffingData.searchData(searchQuery, selectedFilter);
   }
@@ -37,67 +36,9 @@ class _StuffingPageState extends State<StuffingPage> {
     );
   }
 
-  // Get table columns based on selected filter
-  List<String> get currentTableColumns {
-    switch (selectedFilter) {
-      case 'all':
-        return [
-          'Job Number',
-          'Stuffing Date',
-          'Destination',
-          'ETD',
-          'Closing Date',
-          'Stuffing Owner',
-          'Total Container Fill',
-        ];
-      case 'ongoing':
-        return [
-          'Job Number',
-          'Stuffing Date',
-          'Destination',
-          'ETD',
-          'Closing Date',
-          'Total Container Fill',
-          'Status',
-        ];
-      case 'cleared':
-        return [
-          'Job Number',
-          'Stuffing Date',
-          'Destination',
-          'ETD',
-          'Closing Date',
-          'Total Container Fill',
-          'Status',
-        ];
-      default:
-        return [
-          'Job Number',
-          'Stuffing Date',
-          'Destination',
-          'ETD',
-          'Closing Date',
-          'Stuffing Owner',
-          'Total Container Fill',
-        ];
-    }
-  }
+  List<String> get currentTableColumns => StuffingData.getTableColumns(selectedFilter);
+  List<double> get currentColumnWidths => StuffingData.getColumnWidths(selectedFilter);
 
-  // Get table column widths based on selected filter
-  List<double> get currentColumnWidths {
-    switch (selectedFilter) {
-      case 'all':
-        return [150, 150, 150, 100, 150, 150, 150];
-      case 'ongoing':
-        return [150, 150, 120, 100, 150, 150, 120];
-      case 'cleared':
-        return [150, 150, 120, 100, 150, 150, 120];
-      default:
-        return [150, 150, 150, 100, 150, 150, 150];
-    }
-  }
-
-  // Handle row tap based on selected filter
   void _handleRowTap(Map<String, dynamic> stuffingData) {
     switch (selectedFilter) {
       case 'all':
@@ -143,7 +84,6 @@ class _StuffingPageState extends State<StuffingPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Combined Section - Title, Statistics Cards and List
               Container(
                 margin: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -186,15 +126,12 @@ class _StuffingPageState extends State<StuffingPage> {
                         ],
                       ),
                     ),
-                    // Statistics Cards Section
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: Column(
                         children: [
-                          // Top row - 2 cards
                           Row(
                             children: [
-                              // Ticket Stuffing Card
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () {
@@ -207,18 +144,9 @@ class _StuffingPageState extends State<StuffingPage> {
                                     height: 100,
                                     padding: const EdgeInsets.all(16),
                                     decoration: BoxDecoration(
-                                      color:
-                                          selectedFilter == 'all'
-                                              ? const Color(0xFF4A5568)
-                                              : Colors.white,
+                                      color: selectedFilter == 'all' ? const Color(0xFF4A5568) : Colors.white,
                                       borderRadius: BorderRadius.circular(12),
-                                      border:
-                                          selectedFilter == 'all'
-                                              ? null
-                                              : Border.all(
-                                                color: Colors.grey[200]!,
-                                                width: 1,
-                                              ),
+                                      border: selectedFilter == 'all' ? null : Border.all(color: Colors.grey[200]!, width: 1),
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.grey.withOpacity(0.1),
@@ -229,18 +157,13 @@ class _StuffingPageState extends State<StuffingPage> {
                                       ],
                                     ),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "361",
+                                          StuffingData.getCount('all').toString(),
                                           style: TextStyle(
-                                            color:
-                                                selectedFilter == 'all'
-                                                    ? Colors.white
-                                                    : Colors.black,
+                                            color: selectedFilter == 'all' ? Colors.white : Colors.black,
                                             fontSize: 28,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -249,12 +172,7 @@ class _StuffingPageState extends State<StuffingPage> {
                                         Text(
                                           "Ticket Stuffing",
                                           style: TextStyle(
-                                            color:
-                                                selectedFilter == 'all'
-                                                    ? Colors.white.withOpacity(
-                                                      0.8,
-                                                    )
-                                                    : Colors.grey[600],
+                                            color: selectedFilter == 'all' ? Colors.white.withOpacity(0.8) : Colors.grey[600],
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -280,18 +198,9 @@ class _StuffingPageState extends State<StuffingPage> {
                                     height: 100,
                                     padding: const EdgeInsets.all(16),
                                     decoration: BoxDecoration(
-                                      color:
-                                          selectedFilter == 'ongoing'
-                                              ? const Color(0xFF4A5568)
-                                              : Colors.white,
+                                      color: selectedFilter == 'ongoing' ? const Color(0xFF4A5568) : Colors.white,
                                       borderRadius: BorderRadius.circular(12),
-                                      border:
-                                          selectedFilter == 'ongoing'
-                                              ? null
-                                              : Border.all(
-                                                color: Colors.grey[200]!,
-                                                width: 1,
-                                              ),
+                                      border: selectedFilter == 'ongoing' ? null : Border.all(color: Colors.grey[200]!, width: 1),
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.grey.withOpacity(0.1),
@@ -302,18 +211,13 @@ class _StuffingPageState extends State<StuffingPage> {
                                       ],
                                     ),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "10",
+                                          StuffingData.getCount('ongoing').toString(),
                                           style: TextStyle(
-                                            color:
-                                                selectedFilter == 'ongoing'
-                                                    ? Colors.white
-                                                    : Colors.black,
+                                            color: selectedFilter == 'ongoing' ? Colors.white : Colors.black,
                                             fontSize: 28,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -322,12 +226,7 @@ class _StuffingPageState extends State<StuffingPage> {
                                         Text(
                                           "On Going",
                                           style: TextStyle(
-                                            color:
-                                                selectedFilter == 'ongoing'
-                                                    ? Colors.white.withOpacity(
-                                                      0.8,
-                                                    )
-                                                    : Colors.grey[600],
+                                            color: selectedFilter == 'ongoing' ? Colors.white.withOpacity(0.8) : Colors.grey[600],
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -342,7 +241,6 @@ class _StuffingPageState extends State<StuffingPage> {
 
                           const SizedBox(height: 12),
 
-                          // Bottom row - 1 card
                           Row(
                             children: [
                               // Cleared Card
@@ -358,18 +256,9 @@ class _StuffingPageState extends State<StuffingPage> {
                                     height: 100,
                                     padding: const EdgeInsets.all(16),
                                     decoration: BoxDecoration(
-                                      color:
-                                          selectedFilter == 'cleared'
-                                              ? const Color(0xFF4A5568)
-                                              : Colors.white,
+                                      color: selectedFilter == 'cleared' ? const Color(0xFF4A5568) : Colors.white,
                                       borderRadius: BorderRadius.circular(12),
-                                      border:
-                                          selectedFilter == 'cleared'
-                                              ? null
-                                              : Border.all(
-                                                color: Colors.grey[200]!,
-                                                width: 1,
-                                              ),
+                                      border: selectedFilter == 'cleared' ? null : Border.all(color: Colors.grey[200]!, width: 1),
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.grey.withOpacity(0.1),
@@ -380,18 +269,13 @@ class _StuffingPageState extends State<StuffingPage> {
                                       ],
                                     ),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "967",
+                                          StuffingData.getCount('cleared').toString(),
                                           style: TextStyle(
-                                            color:
-                                                selectedFilter == 'cleared'
-                                                    ? Colors.white
-                                                    : Colors.black,
+                                            color: selectedFilter == 'cleared' ? Colors.white : Colors.black,
                                             fontSize: 28,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -400,12 +284,7 @@ class _StuffingPageState extends State<StuffingPage> {
                                         Text(
                                           "Cleared",
                                           style: TextStyle(
-                                            color:
-                                                selectedFilter == 'cleared'
-                                                    ? Colors.white.withOpacity(
-                                                      0.8,
-                                                    )
-                                                    : Colors.grey[600],
+                                            color: selectedFilter == 'cleared' ? Colors.white.withOpacity(0.8) : Colors.grey[600],
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -415,7 +294,6 @@ class _StuffingPageState extends State<StuffingPage> {
                                   ),
                                 ),
                               ),
-                              // Empty space to maintain symmetry
                               const SizedBox(width: 12),
                               Expanded(child: Container()),
                             ],
@@ -426,7 +304,7 @@ class _StuffingPageState extends State<StuffingPage> {
 
                     // Divider
                     Divider(height: 1, color: Colors.grey[200]),
-                    // Section Header
+
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: Column(
@@ -442,7 +320,6 @@ class _StuffingPageState extends State<StuffingPage> {
                           ),
                           const SizedBox(height: 16),
 
-                          // Search Field
                           Row(
                             children: [
                               Icon(Icons.tune, color: Colors.grey[600]),

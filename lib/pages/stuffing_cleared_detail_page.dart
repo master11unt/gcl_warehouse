@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/home/custom_drawer.dart';
+import '../models/stuffing_data.dart';
 
 class StuffingClearedDetailPage extends StatelessWidget {
   final Map<String, dynamic> stuffingData;
@@ -20,9 +21,8 @@ class StuffingClearedDetailPage extends StatelessWidget {
               _buildMainContentSection(context),
               const SizedBox(height: 16),
               
-              // Status Section
               _buildStatusSection(),
-              const SizedBox(height: 20), // Extra bottom spacing
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -60,23 +60,18 @@ class StuffingClearedDetailPage extends StatelessWidget {
   void _handleMenuAction(String action) {
     switch (action) {
       case 'send_email':
-        // Handle send email action
         print('Send Email selected');
         break;
       case 'call_support':
-        // Handle call support action
         print('Call Support selected');
         break;
       case 'data':
-        // Handle data action
         print('Data selected');
         break;
       case 'open_mark':
-        // Handle open mark action
         print('Open Mark selected');
         break;
       case 'print':
-        // Handle print action
         print('Print selected');
         break;
       default:
@@ -113,25 +108,23 @@ class StuffingClearedDetailPage extends StatelessWidget {
             ),
             child: Row(
               children: [
-                // Back arrow icon
                 GestureDetector(
                   onTap: () => Navigator.of(context).pop(),
                   child: const Icon(
                     Icons.arrow_back_ios,
-                    color: Color(0xFF1F2937),
+                    color: Color(0xFF0F172A),
                     size: 24,
                   ),
                 ),
                 const SizedBox(width: 16),
                 
-                // Title - Make it flexible to prevent overflow
                 Expanded(
                   child: Text(
                     "Stuffing Plan Detail",
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width < 400 ? 18 : 20,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xFF1F2937),
+                      color: const Color(0xFF0F172A),
                     ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -139,8 +132,8 @@ class StuffingClearedDetailPage extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 PopupMenuButton<String>(
-                  icon: const Icon(Icons.more_vert, color: Color(0xFF1F2937)),
-                  color: const Color(0xFF1F2937),
+                  icon: const Icon(Icons.more_vert, color: Color(0xFF0F172A)),
+                  color: const Color(0xFF0F172A),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -149,11 +142,11 @@ class StuffingClearedDetailPage extends StatelessWidget {
                     _handleMenuAction(value);
                   },
                   itemBuilder: (BuildContext context) => [
-                    _buildPopupMenuItem('send_email', Icons.email, 'Send Email'),
+                    _buildPopupMenuItem('send_email', Icons.send_outlined, 'Send Email'),
                     _buildPopupMenuItem('call_support', Icons.support_agent, 'Call Support'),
-                    _buildPopupMenuItem('data', Icons.data_usage, 'Data'),
-                    _buildPopupMenuItem('open_mark', Icons.bookmark_border, 'Open Mark'),
-                    _buildPopupMenuItem('print', Icons.print, 'Print'),
+                    _buildPopupMenuItem('data', Icons.description_outlined, 'Data'),
+                    _buildPopupMenuItem('open_mark', Icons.tag, 'Open Mark'),
+                    _buildPopupMenuItem('print', Icons.print_outlined, 'Print'),
                   ],
                 ),
               ],
@@ -173,7 +166,6 @@ class StuffingClearedDetailPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Row 1: Job No and Container Number
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -184,7 +176,6 @@ class StuffingClearedDetailPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 
-                // Row 2: Container Size and Stuffing Date
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -195,7 +186,6 @@ class StuffingClearedDetailPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 
-                // Row 3: Estimated Time Departure and Closing Date
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -206,7 +196,6 @@ class StuffingClearedDetailPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 
-                // Row 4: Destination and Agent
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -219,31 +208,14 @@ class StuffingClearedDetailPage extends StatelessWidget {
             ),
           ),
           
-          // Another divider line
-          // Container(
-          //   height: 1,
-          //   margin: const EdgeInsets.symmetric(horizontal: 16),
-          //   color: const Color(0xFFE5E7EB),
-          // ),
-          
-          // Booking Table Section
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // const Text(
-                //   'Stuffing Details',
-                //   style: TextStyle(
-                //     fontSize: 16,
-                //     fontWeight: FontWeight.w600,
-                //     color: Color(0xFF111827),
-                //   ),
-                // ),
                 
                 const SizedBox(height: 12),
                 
-                // Horizontal Scrollable Table
                 SizedBox(
                   width: double.infinity,
                   child: SingleChildScrollView(
@@ -266,76 +238,7 @@ class StuffingClearedDetailPage extends StatelessWidget {
   }
 
   Widget _buildTableContent() {
-    final stuffingList = [
-      {
-        'num': 'A',
-        'bookingNumber': 'GTW-20250901113423',
-        'shipper': 'OCEAN SKY INDONESIA',
-        'marking': 'OCEAN SKY INDONESIA',
-        'destination': 'PORT KELANG',
-        'cargoReadiness': 'CLEARED',
-        'quantity': '10',
-        'packages': 'PALLETS',
-        'description': 'MARINE EQUIPMENT & SPARE PARTS',
-        'grossWeight': '3,540.120',
-        'nettWeight': '3,350.000',
-        'shipperMeas': '8.2000',
-        'warehouseMeas': '7.8000',
-        'chargedMeas': '9.8400',
-        'pebNumber': 'PEB-MY-09/2025/2456',
-      },
-      {
-        'num': 'B',
-        'bookingNumber': 'GTW-20250830142035',
-        'shipper': 'LAVA TEXTIL BVBA INDON PT',
-        'marking': 'LAVA TEXTIL BVBA INDON PT',
-        'destination': 'PORT KELANG',
-        'cargoReadiness': 'CLEARED',
-        'quantity': '15',
-        'packages': 'BALES',
-        'description': 'TEXTILE MATERIALS & FABRIC ROLLS',
-        'grossWeight': '4,980.350',
-        'nettWeight': '4,720.000',
-        'shipperMeas': '12.2000',
-        'warehouseMeas': '11.8000',
-        'chargedMeas': '14.1600',
-        'pebNumber': 'PEB-MY-09/2025/2457',
-      },
-      {
-        'num': 'C',
-        'bookingNumber': 'GTW-20250829091247',
-        'shipper': 'KLINE LOGIST PT',
-        'marking': 'KLINE LOGIST PT',
-        'destination': 'PORT KELANG',
-        'cargoReadiness': 'CLEARED',
-        'quantity': '8',
-        'packages': 'PALLETS',
-        'description': 'INDUSTRIAL MACHINERY COMPONENTS',
-        'grossWeight': '3,190.000',
-        'nettWeight': '2,950.000',
-        'shipperMeas': '7.5000',
-        'warehouseMeas': '7.2000',
-        'chargedMeas': '8.6400',
-        'pebNumber': 'PEB-MY-09/2025/2458',
-      },
-      {
-        'num': 'D',
-        'bookingNumber': 'GTW-20250828154512',
-        'shipper': 'WINFASTSHIP INDONESIA',
-        'marking': 'WINFASTSHIP INDONESIA',
-        'destination': 'PORT KELANG',
-        'cargoReadiness': 'CLEARED',
-        'quantity': '18',
-        'packages': 'BOXES',
-        'description': 'ELECTRONIC COMPONENTS & DEVICES',
-        'grossWeight': '2,175.500',
-        'nettWeight': '2,000.000',
-        'shipperMeas': '6.2000',
-        'warehouseMeas': '5.8000',
-        'chargedMeas': '7.4400',
-        'pebNumber': 'PEB-MY-09/2025/2459',
-      },
-    ];
+    final stuffingList = StuffingData.getDummyClearedTable();
 
     final columnHeaders = [
       'Num',
@@ -378,7 +281,7 @@ class StuffingClearedDetailPage extends StatelessWidget {
         // Table Header
         Container(
           decoration: const BoxDecoration(
-            color: Color(0xFF1F2937),
+            color: Color(0xFF0F172A),
           ),
           child: Row(
             children: columnHeaders.asMap().entries.map((entry) {
@@ -487,7 +390,6 @@ class StuffingClearedDetailPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            // height: 32, // Fixed height untuk meratakan tinggi label
             child: Text(
               label,
               style: const TextStyle(

@@ -1,5 +1,28 @@
 class TicketData {
-  // Generate data untuk Cargo In
+  static Map<String, dynamic> getDummyCargoInDetail() {
+    return {
+      'bookingCode': 'GTW-20250001000001',
+      'shipper': 'GIMUDAN INDONESIA, PT',
+      'status': 'Invalid',
+      'description': '15 BALES 2/32NM ACRYLIC 65% AND WOOL 35% YARN UNDYED',
+      'cargoOwner': 'GCL-SURABAYA',
+      'destination': 'HO CHI MINH',
+      'etd': '2025-01-25',
+      'containerNumber': '-',
+      'containerSize': '-',
+      'vessel': 'WAR HAI 377 V.W004',
+      'connectingVessel': '-',
+      'marking': 'SHINGORA B/NO. NHAVA SHEVA PT. ACHEM MADE IN INDONESIA',
+      'estimatedCargoIn': '2024-01-01 00:00:00',
+      'quantity': '15',
+      'package': 'BALES',
+      'weight': '1530',
+      'volume': '3.14',
+      'requestedBy': 'HERI',
+      'requestDate': '2025-01-22',
+      'rulesReference': 'GTW/SOP/JKT/122331',
+    };
+  }
   static List<List<String>> generateCargoInRows(int count) {
     final shippers = [
       'ACRYL TEXTILE MILLS, PT',
@@ -51,7 +74,6 @@ class TicketData {
     });
   }
 
-  // Generate data untuk Stuffing
   static List<List<String>> generateStuffingRows(int count) {
     final destinations = [
       'SHANGHAI',
@@ -91,7 +113,6 @@ class TicketData {
     });
   }
 
-  // Utility function untuk pagination
   static List<List<String>> paginateRows(List<List<String>> all, int page, int size) {
     if (all.isEmpty) return const [];
     final start = (page - 1) * size;
@@ -100,7 +121,6 @@ class TicketData {
     return all.sublist(start, end);
   }
 
-  // Constants
   static const int cargoInPageSize = 10;
   static const int stuffingPageSize = 10;
   static const int cargoInTotalCount = 1912;

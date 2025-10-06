@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/home/custom_drawer.dart';
+import '../models/inventory_data.dart';
 
 class InventoryDetailPage extends StatefulWidget {
   final Map<String, dynamic> inventoryData;
 
-  const InventoryDetailPage({super.key, required this.inventoryData});
- 
+  const InventoryDetailPage({super.key, Map<String, dynamic>? inventoryData})
+      : inventoryData = inventoryData ?? const {};
+
+  factory InventoryDetailPage.withDummy({Key? key}) {
+    return InventoryDetailPage(key: key, inventoryData: InventoryData.getDummyCargoOutDetail());
+  }
+
   @override
   State<InventoryDetailPage> createState() => _InventoryDetailPageState();
 }
@@ -18,35 +24,32 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
   bool _isLocationExpanded = false;
   late ScrollController _optionsScrollController;
   double _scrollIndicatorPosition = 0.0;
-  
+
   @override
   void initState() {
     super.initState();
     _optionsScrollController = ScrollController();
     _optionsScrollController.addListener(_updateScrollIndicator);
   }
-  
+
   @override
   void dispose() {
     _optionsScrollController.removeListener(_updateScrollIndicator);
     _optionsScrollController.dispose();
     super.dispose();
   }
-  
+
   void _updateScrollIndicator() {
     if (_optionsScrollController.hasClients) {
       final maxScroll = _optionsScrollController.position.maxScrollExtent;
       final currentScroll = _optionsScrollController.offset;
       if (maxScroll > 0) {
         setState(() {
-          // Calculate position: 0 to 40 (60 - 20 = 40 is the range the thumb can move)
           _scrollIndicatorPosition = (currentScroll / maxScroll) * 40;
         });
       }
     }
   }
-  // bool _isStuffedExpanded = false;
-  // bool _isDeliveredExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +63,6 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header Section
               _buildHeaderSection(),
               const SizedBox(height: 20),
 
@@ -68,11 +70,9 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
               _buildCombinedDataSection(),
               const SizedBox(height: 20),
 
-              // Location
               _buildLocationSection(),
               const SizedBox(height: 20),
 
-              // Options Section
               _buildOptionsSection(),
               const SizedBox(height: 20),
 
@@ -80,15 +80,12 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
               _buildCombinedStatusCargoSection(),
               const SizedBox(height: 20),
 
-              // Items Received Section
               _buildItemsReceivedSection(),
               const SizedBox(height: 20),
 
-              // Cargo Transaction Section
               _buildCargoTransactionSection(),
               const SizedBox(height: 20),
 
-              // Cargo History Section
               _buildCargoHistorySection(),
             ],
           ),
@@ -98,6 +95,9 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
   }
 
   Widget _buildHeaderSection() {
+    final data = widget.inventoryData.isNotEmpty
+        ? widget.inventoryData
+        : InventoryData.getDummyCargoOutDetail();
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -113,7 +113,6 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
       ),
       child: Row(
         children: [
-          // Gray vertical bar
           Container(
             width: 4,
             height: 40,
@@ -135,23 +134,23 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1F2937),
+                      color: Color(0xFF0F172A),
                     ),
                   ),
                 ),
                 const SizedBox(width: 6),
                 const Icon(
                   Icons.chevron_right,
-                  color: Color(0xFF1F2937),
+                  color: Color(0xFF0F172A),
                   size: 20,
                 ),
                 const SizedBox(width: 6),
                 Flexible(
                   child: Text(
-                    widget.inventoryData['bookingCode'] ?? '20250822034402',
+                    data['bookingCode'] ?? '',
                     style: const TextStyle(
                       fontSize: 18,
-                      color: Color(0xFF1F2937),
+                      color: Color(0xFF0F172A),
                       fontWeight: FontWeight.bold,
                     ),
                     overflow: TextOverflow.ellipsis,
@@ -166,6 +165,9 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
   }
 
   Widget _buildCombinedDataSection() {
+    final data = widget.inventoryData.isNotEmpty
+        ? widget.inventoryData
+        : InventoryData.getDummyCargoOutDetail();
     return Container(
       padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
@@ -194,7 +196,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                   horizontal: 20,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF1F2937),
+                  color: const Color(0xFF0F172A),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Text(
@@ -213,12 +215,11 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
           ),
           const SizedBox(height: 16),
 
-          // Tallysheet content
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: const Color(0xFF1F2937),
+              color: const Color(0xFF0F172A),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -236,13 +237,32 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      const Text(
-                        'GWT-\n20250904104757',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
+                      Builder(
+                        builder: (context) {
+                          final bookingCode = (data['bookingCodeDisplay'] ?? '') as String;
+                          final parts = bookingCode.split('-');
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                parts.isNotEmpty ? (parts[0] + '-') : '',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                parts.length > 1 ? parts[1] : '',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -262,14 +282,34 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      const Text(
-                        'GCL-\nJAKARTA',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
+                      Builder(
+                        builder: (context) {
+                          final cargoOwner = (data['cargoOwner'] ?? '') as String;
+                          final parts = cargoOwner.split('-');
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                parts.isNotEmpty ? (parts[0] + '-') : '',
+                                textAlign: TextAlign.right,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                parts.length > 1 ? parts[1] : '',
+                                textAlign: TextAlign.right,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -298,17 +338,14 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
           ),
           const SizedBox(height: 16),
 
-          _buildDetailItem('Date', '2025-09-08T19:19'),
-          _buildDetailItem('Shipper', 'ZEBRA ASABA INDUSTRIES, PT'),
-          _buildDetailItem(
-            'Description of goods',
-            '4 CARTONS OF: 2,152 PIECES OF "ZEBRA" BRAND BALLPOINT PEN 1,864 PIECES OF "ZEBRA" BRAND REFILL FOB JAKARTA',
-          ),
-          _buildDetailItem('Destination', 'HONG KONG'),
-          _buildDetailItem('Estimated Time Departure', '2025-09-12'),
-          _buildDetailItem('Vessel', 'KMTC SURABAYA V.2507N'),
-          _buildDetailItem('Connecting Vessel', ''),
-          _buildDetailItem('Godownlocation', 'GCLMarunda'),
+          _buildDetailItem('Date', data['date'] ?? ''),
+          _buildDetailItem('Shipper', data['shipper'] ?? ''),
+          _buildDetailItem('Description of goods', data['descriptionOfGoods'] ?? ''),
+          _buildDetailItem('Destination', data['destination'] ?? ''),
+          _buildDetailItem('Estimated Time Departure', data['etd'] ?? ''),
+          _buildDetailItem('Vessel', data['vessel'] ?? ''),
+          _buildDetailItem('Connecting Vessel', data['connectingVessel'] ?? ''),
+          _buildDetailItem('Godownlocation', data['godownLocation'] ?? ''),
 
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),
@@ -425,7 +462,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF1F2937),
+                              color: Color(0xFF0F172A),
                             ),
                           ),
                           Text(
@@ -458,7 +495,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF374151)
                             ),
                           ),
                         ],
@@ -491,7 +528,6 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
           ),
           const SizedBox(height: 16),
 
-          // Horizontal Scrollable Table
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
@@ -501,20 +537,21 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
               ),
               child: Column(
                 children: [
-                  // Header Row with merged cells
+                  // Header Row
                   Stack(
                     children: [
-                      // Background row with full height for merged columns
                       Row(
                         children: [
-                          // No Column (merged - full height)
                           Container(
                             width: 70,
                             height: 90,
                             decoration: const BoxDecoration(
                               color: Color(0xFF6B7280),
                               border: Border(
-                                right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                right: BorderSide(
+                                  color: Color(0xFFD1D5DB),
+                                  width: 1,
+                                ),
                               ),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(7),
@@ -532,14 +569,17 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               ),
                             ),
                           ),
-                          // Marking Column (merged - full height)
+                          // Marking Column
                           Container(
                             width: 180,
                             height: 90,
                             decoration: const BoxDecoration(
                               color: Color(0xFF6B7280),
                               border: Border(
-                                right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                right: BorderSide(
+                                  color: Color(0xFFD1D5DB),
+                                  width: 1,
+                                ),
                               ),
                             ),
                             child: const Center(
@@ -554,10 +594,8 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               ),
                             ),
                           ),
-                          // Tally Detail and Dimension area
                           Column(
                             children: [
-                              // Top row: Tally Detail and Dimension headers
                               Row(
                                 children: [
                                   Container(
@@ -566,8 +604,14 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF6B7280),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
-                                        bottom: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFD1D5DB),
+                                          width: 1,
+                                        ),
+                                        bottom: BorderSide(
+                                          color: Color(0xFFD1D5DB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -588,8 +632,14 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF6B7280),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
-                                        bottom: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFD1D5DB),
+                                          width: 1,
+                                        ),
+                                        bottom: BorderSide(
+                                          color: Color(0xFFD1D5DB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -606,17 +656,18 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                   ),
                                 ],
                               ),
-                              // Bottom row: Sub headers
                               Row(
                                 children: [
-                                  // Tally Detail sub headers
                                   Container(
                                     width: 70,
                                     height: 45,
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF6B7280),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFD1D5DB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -637,7 +688,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF6B7280),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFD1D5DB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -659,7 +713,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF6B7280),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFD1D5DB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -674,14 +731,16 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                       ),
                                     ),
                                   ),
-                                  // Dimension sub headers
                                   Container(
                                     width: 70,
                                     height: 45,
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF6B7280),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFD1D5DB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -702,7 +761,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF6B7280),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFD1D5DB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -723,7 +785,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF6B7280),
                                       border: Border(
-                                        right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                                        right: BorderSide(
+                                          color: Color(0xFFD1D5DB),
+                                          width: 1,
+                                        ),
                                       ),
                                     ),
                                     child: const Center(
@@ -742,7 +807,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               ),
                             ],
                           ),
-                          // Meas Column (merged - full height)
+                          // Meas Column
                           Container(
                             width: 100,
                             height: 90,
@@ -769,7 +834,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                       ),
                     ],
                   ),
-                  
+
                   // Data Row
                   Container(
                     decoration: const BoxDecoration(
@@ -784,13 +849,15 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                     ),
                     child: Row(
                       children: [
-                        // No Data
                         Container(
                           width: 70,
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFD1D5DB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -799,7 +866,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -809,10 +876,16 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         Container(
                           width: 180,
                           height: 60,
-                          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 8,
+                          ),
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFD1D5DB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -821,20 +894,22 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF0F172A),
                                 height: 1.3,
                               ),
                               textAlign: TextAlign.center,
                             ),
                           ),
                         ),
-                        // Quantity Data
                         Container(
                           width: 70,
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFD1D5DB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -843,19 +918,21 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
                           ),
                         ),
-                        // Package Type Data
                         Container(
                           width: 70,
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFD1D5DB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -864,19 +941,21 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
                           ),
                         ),
-                        // Weight Data
                         Container(
                           width: 70,
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFD1D5DB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -885,19 +964,21 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
                           ),
                         ),
-                        // W Data
                         Container(
                           width: 70,
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFD1D5DB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -906,19 +987,21 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
                           ),
                         ),
-                        // L Data
                         Container(
                           width: 70,
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFD1D5DB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -927,19 +1010,21 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
                           ),
                         ),
-                        // H Data
                         Container(
                           width: 70,
                           height: 60,
                           decoration: const BoxDecoration(
                             border: Border(
-                              right: BorderSide(color: Color(0xFFD1D5DB), width: 1),
+                              right: BorderSide(
+                                color: Color(0xFFD1D5DB),
+                                width: 1,
+                              ),
                             ),
                           ),
                           child: const Center(
@@ -948,13 +1033,12 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
                           ),
                         ),
-                        // Meas Data
                         Container(
                           width: 100,
                           height: 60,
@@ -964,7 +1048,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1F2937),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -988,7 +1072,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1F2937),
+                  color: Color(0xFF0F172A),
                 ),
               ),
               const SizedBox(width: 16),
@@ -1053,7 +1137,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         '-',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF1F2937),
+                          color: Color(0xFF0F172A),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1104,7 +1188,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         '-',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF1F2937),
+                          color: Color(0xFF0F172A),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1171,7 +1255,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         '-',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF1F2937),
+                          color: Color(0xFF0F172A),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1222,7 +1306,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         '-',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF1F2937),
+                          color: Color(0xFF0F172A),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1260,7 +1344,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
             value.isEmpty ? '-' : value,
             style: const TextStyle(
               fontSize: 14,
-              color: Color(0xFF1F2937),
+              color: Color(0xFF0F172A),
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -1299,7 +1383,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF0F172A),
               ),
             ),
           ),
@@ -1325,8 +1409,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
               ],
             ),
           ),
-          
-          // Scroll indicator bar
+
           const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -1362,7 +1445,11 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
     );
   }
 
-  Widget _buildOptionButton(IconData icon, String label, {bool isDisabled = false}) {
+  Widget _buildOptionButton(
+    IconData icon,
+    String label, {
+    bool isDisabled = false,
+  }) {
     return Container(
       width: 50,
       height: 50,
@@ -1372,9 +1459,9 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
       ),
       child: Center(
         child: Icon(
-          icon, 
-          color: isDisabled ? const Color(0xFF9CA3AF) : Colors.white, 
-          size: 24
+          icon,
+          color: isDisabled ? const Color(0xFF9CA3AF) : Colors.white,
+          size: 24,
         ),
       ),
     );
@@ -1411,7 +1498,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF0F172A),
               ),
             ),
           ),
@@ -1424,14 +1511,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
           const SizedBox(height: 5),
           const Divider(color: Color(0xFFE5E7EB), thickness: 1),
           const SizedBox(height: 16),
-          _buildStatusItem(
-            'Documentation Status',
-            'Incomplete',
-          ),
+          _buildStatusItem('Documentation Status', 'Incomplete'),
 
           const SizedBox(height: 32),
 
-          // Cargo Properties Section
           Container(
             padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
             decoration: const BoxDecoration(
@@ -1444,7 +1527,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF0F172A),
               ),
             ),
           ),
@@ -1459,18 +1542,14 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
     );
   }
 
-  Widget _buildStatusItem(
-    String label,
-    String value,
-  ) {
-    // Tentukan warna berdasarkan value
+  Widget _buildStatusItem(String label, String value) {
     Color textColor;
     if (value.toLowerCase() == 'complete') {
-      textColor = const Color(0xFF10B981); // Hijau
+      textColor = const Color(0xFF10B981);
     } else if (value.toLowerCase() == 'incomplete') {
-      textColor = const Color(0xFFEF4444); // Merah
+      textColor = const Color(0xFFEF4444);
     } else {
-      textColor = const Color(0xFF1F2937); // Default
+      textColor = const Color(0xFF0F172A);
     }
 
     return Row(
@@ -1521,7 +1600,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
               value.isEmpty ? '-' : value,
               style: const TextStyle(
                 fontSize: 14,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF0F172A),
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -1568,13 +1647,12 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF0F172A),
               ),
             ),
           ),
           const SizedBox(height: 16),
 
-          // Circular progress indicator
           Center(
             child: SizedBox(
               width: 120,
@@ -1665,13 +1743,12 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF0F172A),
               ),
             ),
           ),
           const SizedBox(height: 16),
 
-          // Timeline container
           Column(
             children: [
               // Arrival
@@ -1711,7 +1788,6 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Timeline column (circle + connector)
           SizedBox(
             width: 20,
             child: Column(
@@ -1725,13 +1801,12 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                     shape: BoxShape.circle,
                     color: isCompleted ? const Color(0xFF6B7280) : Colors.white,
                     border: Border.all(
-                      color: const Color(0xFF6B7280), 
-                      width: isCompleted ? 0 : 3
+                      color: const Color(0xFF6B7280),
+                      width: isCompleted ? 0 : 3,
                     ),
                   ),
                 ),
-                
-                // Timeline connector line - panjang dinamis berdasarkan content
+
                 if (hasConnector)
                   Container(
                     width: 2,
@@ -1769,7 +1844,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF1F2937),
+                        color: Color(0xFF0F172A),
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -1780,8 +1855,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         color: Color(0xFF6B7280),
                       ),
                     ),
-                    
-                    // Expandable content for Arrival or Stuffed
+
                     if (isExpandable && isExpanded) ...[
                       const SizedBox(height: 16),
                       const Text(
@@ -1793,8 +1867,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      
-                      // Condition grid
+
                       Row(
                         children: [
                           Expanded(
@@ -1802,7 +1875,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               children: [
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: const BoxDecoration(
                                     color: Color(0xFFE5E7EB),
                                     borderRadius: BorderRadius.only(
@@ -1812,23 +1888,40 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                   ),
                                   child: const Text(
                                     'Good',
-                                    style: TextStyle(fontSize: 14, color: Color(0xFF6B7280), fontWeight: FontWeight.w500),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xFF6B7280),
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: const Color(0xFFE5E7EB)),
+                                    border: Border.all(
+                                      color: const Color(0xFFE5E7EB),
+                                    ),
                                     borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(6),
                                       bottomRight: Radius.circular(6),
                                     ),
                                   ),
                                   child: Text(
-                                    title == 'Stuffed' ? '115' : title == 'Delivered' ? '4' : '32',
-                                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF6B7280)),
+                                    title == 'Stuffed'
+                                        ? '115'
+                                        : title == 'Delivered'
+                                        ? '4'
+                                        : '32',
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF6B7280),
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -1841,7 +1934,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               children: [
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: const BoxDecoration(
                                     color: Color(0xFFE5E7EB),
                                     borderRadius: BorderRadius.only(
@@ -1851,15 +1947,24 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                   ),
                                   child: const Text(
                                     'Damaged',
-                                    style: TextStyle(fontSize: 14, color: Color(0xFF6B7280), fontWeight: FontWeight.w500),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xFF6B7280),
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: const Color(0xFFE5E7EB)),
+                                    border: Border.all(
+                                      color: const Color(0xFFE5E7EB),
+                                    ),
                                     borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(6),
                                       bottomRight: Radius.circular(6),
@@ -1867,7 +1972,11 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                   ),
                                   child: const Text(
                                     '0',
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF6B7280)),
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF6B7280),
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -1876,7 +1985,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                           ),
                         ],
                       ),
-                      
+
                       const SizedBox(height: 8),
                       Row(
                         children: [
@@ -1885,7 +1994,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               children: [
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: const BoxDecoration(
                                     color: Color(0xFFE5E7EB),
                                     borderRadius: BorderRadius.only(
@@ -1895,15 +2007,24 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                   ),
                                   child: const Text(
                                     'Short',
-                                    style: TextStyle(fontSize: 14, color: Color(0xFF6B7280), fontWeight: FontWeight.w500),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xFF6B7280),
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: const Color(0xFFE5E7EB)),
+                                    border: Border.all(
+                                      color: const Color(0xFFE5E7EB),
+                                    ),
                                     borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(6),
                                       bottomRight: Radius.circular(6),
@@ -1911,7 +2032,11 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                   ),
                                   child: const Text(
                                     '0',
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF6B7280)),
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF6B7280),
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -1924,7 +2049,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                               children: [
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: const BoxDecoration(
                                     color: Color(0xFFE5E7EB),
                                     borderRadius: BorderRadius.only(
@@ -1934,15 +2062,24 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                   ),
                                   child: const Text(
                                     'Over',
-                                    style: TextStyle(fontSize: 14, color: Color(0xFF6B7280), fontWeight: FontWeight.w500),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xFF6B7280),
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 12,
+                                  ),
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: const Color(0xFFE5E7EB)),
+                                    border: Border.all(
+                                      color: const Color(0xFFE5E7EB),
+                                    ),
                                     borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(6),
                                       bottomRight: Radius.circular(6),
@@ -1950,7 +2087,11 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                   ),
                                   child: const Text(
                                     '0',
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF6B7280)),
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF6B7280),
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -1959,7 +2100,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                           ),
                         ],
                       ),
-                      
+
                       const SizedBox(height: 16),
                       const Text(
                         'Package',
@@ -1970,35 +2111,47 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      
-                      // Expandable sections
+
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            _isSenderIdentityExpanded = !_isSenderIdentityExpanded;
+                            _isSenderIdentityExpanded =
+                                !_isSenderIdentityExpanded;
                           });
                         },
                         child: Container(
                           width: double.infinity,
                           margin: const EdgeInsets.only(bottom: 8),
                           decoration: BoxDecoration(
-                            border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
+                            border: Border.all(
+                              color: const Color(0xFFE5E7EB),
+                              width: 1,
+                            ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12,
+                                  horizontal: 16,
+                                ),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     const Text(
                                       'Sender Identity',
-                                      style: TextStyle(color: Color(0xFF6B7280), fontWeight: FontWeight.w600),
+                                      style: TextStyle(
+                                        color: Color(0xFF6B7280),
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                     Icon(
-                                      _isSenderIdentityExpanded ? Icons.expand_less : Icons.chevron_right, 
-                                      color: const Color(0xFF9CA3AF)
+                                      _isSenderIdentityExpanded
+                                          ? Icons.expand_less
+                                          : Icons.chevron_right,
+                                      color: const Color(0xFF9CA3AF),
                                     ),
                                   ],
                                 ),
@@ -2008,7 +2161,8 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(16),
                                   child: const Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Truck Number',
@@ -2071,34 +2225,47 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                           ),
                         ),
                       ),
-                      
+
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            _isDocumentationExpanded = !_isDocumentationExpanded;
+                            _isDocumentationExpanded =
+                                !_isDocumentationExpanded;
                           });
                         },
                         child: Container(
                           width: double.infinity,
                           margin: const EdgeInsets.only(bottom: 8),
                           decoration: BoxDecoration(
-                            border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
+                            border: Border.all(
+                              color: const Color(0xFFE5E7EB),
+                              width: 1,
+                            ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12,
+                                  horizontal: 16,
+                                ),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     const Text(
                                       'Documentation',
-                                      style: TextStyle(color: Color(0xFF6B7280), fontWeight: FontWeight.w600),
+                                      style: TextStyle(
+                                        color: Color(0xFF6B7280),
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                     Icon(
-                                      _isDocumentationExpanded ? Icons.expand_less : Icons.chevron_right,
-                                      color: const Color(0xFF9CA3AF)
+                                      _isDocumentationExpanded
+                                          ? Icons.expand_less
+                                          : Icons.chevron_right,
+                                      color: const Color(0xFF9CA3AF),
                                     ),
                                   ],
                                 ),
@@ -2108,12 +2275,14 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(16),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      // Received status badge - full width gray bar
                                       Container(
                                         width: double.infinity,
-                                        padding: const EdgeInsets.symmetric(vertical: 2),
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 2,
+                                        ),
                                         decoration: const BoxDecoration(
                                           color: Color(0xFFE5E7EB),
                                         ),
@@ -2172,7 +2341,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                           ),
                         ),
                       ),
-                      
+
                       const SizedBox(height: 16),
                       const Text(
                         'Notes',
@@ -2183,37 +2352,61 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      // Notes content - different for each status
                       Text(
-                        title == 'Stuffed' 
-                          ? 'Stuffed with job number : GCL-1002509172'
-                          : title == 'Delivered'
-                          ? 'Delivered with job number GCL-1002509171'
-                          : '',
-                        style: const TextStyle(fontSize: 14, color: Color(0xFF6B7280)),
+                        title == 'Stuffed'
+                            ? 'Stuffed with job number : GCL-1002509172'
+                            : title == 'Delivered'
+                            ? 'Delivered with job number GCL-1002509171'
+                            : '',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF6B7280),
+                        ),
                       ),
                       const SizedBox(height: 12),
                       const Text(
                         'In Charge',
-                        style: TextStyle(fontSize: 13, color: Color(0xFF9CA3AF), fontStyle: FontStyle.italic),
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Color(0xFF9CA3AF),
+                          fontStyle: FontStyle.italic,
+                        ),
                       ),
                       Text(
-                        title == 'Stuffed' || title == 'Delivered' ? 'NaN' : 'User',
-                        style: const TextStyle(fontSize: 14, color: Color(0xFF6B7280)),
+                        title == 'Stuffed' || title == 'Delivered'
+                            ? 'NaN'
+                            : 'User',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF6B7280),
+                        ),
                       ),
                       const SizedBox(height: 12),
                       const Text(
                         'Last Updated At',
-                        style: TextStyle(fontSize: 13, color: Color(0xFF9CA3AF), fontStyle: FontStyle.italic),
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Color(0xFF9CA3AF),
+                          fontStyle: FontStyle.italic,
+                        ),
                       ),
                       Text(
-                        title == 'Delivered' ? '2025-09-09 11:42:58' : '2025-09-09 12:26:41',
-                        style: const TextStyle(fontSize: 14, color: Color(0xFF6B7280)),
+                        title == 'Delivered'
+                            ? '2025-09-09 11:42:58'
+                            : '2025-09-09 12:26:41',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF6B7280),
+                        ),
                       ),
                       const SizedBox(height: 12),
                       const Text(
                         'Photo Cargo',
-                        style: TextStyle(fontSize: 13, color: Color(0xFF9CA3AF), fontStyle: FontStyle.italic),
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Color(0xFF9CA3AF),
+                          fontStyle: FontStyle.italic,
+                        ),
                       ),
                     ],
                   ],
@@ -2226,9 +2419,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
     );
   }
 
-  //location
-
-Widget _buildLocationSection() {
+  Widget _buildLocationSection() {
     return Container(
       padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
@@ -2250,14 +2441,13 @@ Widget _buildLocationSection() {
               Expanded(
                 child: Container(height: 1, color: const Color(0xFFE5E7EB)),
               ),
-              // const SizedBox(width: 16),
               Container(
                 padding: const EdgeInsets.symmetric(
                   vertical: 8,
                   horizontal: 20,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF1F2937),
+                  color: const Color(0xFF0F172A),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Text(
@@ -2269,7 +2459,6 @@ Widget _buildLocationSection() {
                   ),
                 ),
               ),
-              // const SizedBox(width: 16),
               Expanded(
                 child: Container(height: 1, color: const Color(0xFFE5E7EB)),
               ),
@@ -2277,11 +2466,10 @@ Widget _buildLocationSection() {
           ),
           const SizedBox(height: 20),
 
-          // Rack status with divider
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: const Color(0xFF1F2937),
+              color: const Color(0xFF0F172A),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
@@ -2312,7 +2500,6 @@ Widget _buildLocationSection() {
                   width: 1,
                   color: Colors.white.withOpacity(0.3),
                 ),
-                // Not In Rack
                 Expanded(
                   child: Column(
                     children: [
@@ -2337,7 +2524,6 @@ Widget _buildLocationSection() {
           ),
           const SizedBox(height: 24),
 
-          // Warehouse and Telp info
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -2360,7 +2546,7 @@ Widget _buildLocationSection() {
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF1F2937),
+                        color: Color(0xFF0F172A),
                       ),
                     ),
                   ],
@@ -2386,7 +2572,7 @@ Widget _buildLocationSection() {
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF1F2937),
+                        color: Color(0xFF0F172A),
                       ),
                     ),
                   ],
@@ -2416,7 +2602,7 @@ Widget _buildLocationSection() {
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xFF1F2937),
+                    color: Color(0xFF0F172A),
                     height: 1.5,
                   ),
                 ),
@@ -2445,7 +2631,7 @@ Widget _buildLocationSection() {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1F2937),
+                      color: Color(0xFF0F172A),
                     ),
                   ),
                 ),
@@ -2474,11 +2660,6 @@ Widget _buildLocationSection() {
                               horizontal: 12,
                               vertical: 12,
                             ),
-                            // decoration: BoxDecoration(
-                            //   border: Border.all(color: const Color(0xFFE5E7EB)),
-                            //   borderRadius: BorderRadius.circular(6),
-                            //   color: Colors.white,
-                            // ),
                             alignment: Alignment.centerLeft,
                             child: const Text(
                               '',
@@ -2530,17 +2711,17 @@ Widget _buildLocationSection() {
               ],
             ),
           ),
-          // const SizedBox(height: 20),
 
-          // Warehouse Layout Dropdown
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
             height: _isLocationExpanded ? 970 : 0,
-            child: _isLocationExpanded ? _buildWarehouseLayoutDropdown() : const SizedBox(),
+            child:
+                _isLocationExpanded
+                    ? _buildWarehouseLayoutDropdown()
+                    : const SizedBox(),
           ),
-          
-          // Bottom arrow
+
           Container(
             margin: const EdgeInsets.only(top: 20),
             child: Row(
@@ -2550,29 +2731,31 @@ Widget _buildLocationSection() {
                 ),
                 const SizedBox(width: 16),
                 GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _isLocationExpanded = !_isLocationExpanded;
-                  });
-                },
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0xFF1F2937)),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Icon(
-                    _isLocationExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                    color: Color(0xFF1F2937),
+                  onTap: () {
+                    setState(() {
+                      _isLocationExpanded = !_isLocationExpanded;
+                    });
+                  },
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: const Color(0xFF0F172A)),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Icon(
+                      _isLocationExpanded
+                          ? Icons.keyboard_arrow_up
+                          : Icons.keyboard_arrow_down,
+                      color: Color(0xFF0F172A),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Container(height: 1, color: const Color(0xFFE5E7EB)),
-              ),
-            ],
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Container(height: 1, color: const Color(0xFFE5E7EB)),
+                ),
+              ],
             ),
           ),
         ],
@@ -2610,16 +2793,14 @@ Widget _buildLocationSection() {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1F2937),
+                color: Color(0xFF0F172A),
               ),
             ),
           ),
           const SizedBox(height: 16),
 
-          // Timeline container
           Column(
             children: [
-              // Received in warehouse
               _buildHistoryTimelineItem(
                 isCompleted: false,
                 hasConnector: false,
@@ -2640,18 +2821,15 @@ Widget _buildLocationSection() {
     required String time,
   }) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 0), // Jarak antar item
+      padding: const EdgeInsets.only(bottom: 0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Timeline column (circle + connector)
           SizedBox(
             width: 20,
             child: Column(
               children: [
-                // Spacer untuk menurunkan lingkaran ke tengah
                 const SizedBox(height: 15),
-                // Timeline indicator
                 Container(
                   width: 20,
                   height: 20,
@@ -2659,24 +2837,23 @@ Widget _buildLocationSection() {
                     shape: BoxShape.circle,
                     color: isCompleted ? const Color(0xFF6B7280) : Colors.white,
                     border: Border.all(
-                      color: const Color(0xFF6B7280), 
-                      width: isCompleted ? 0 : 3
+                      color: const Color(0xFF6B7280),
+                      width: isCompleted ? 0 : 3,
                     ),
                   ),
                 ),
-                
+
                 // Timeline connector line
                 if (hasConnector)
                   Container(
                     width: 2,
-                    height: 80, // Tinggi penuh sampai item berikutnya
+                    height: 80,
                     color: const Color(0xFF6B7280),
                   ),
               ],
             ),
           ),
           const SizedBox(width: 16),
-          // Content
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -2686,7 +2863,7 @@ Widget _buildLocationSection() {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF1F2937),
+                    color: Color(0xFF0F172A),
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -2717,7 +2894,6 @@ Widget _buildLocationSection() {
             height: 950,
             child: Stack(
               children: [
-                // Background
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.grey[100],
@@ -2741,45 +2917,60 @@ Widget _buildLocationSection() {
     // LEFT SIDE
     sections.add(
       _buildRackWidget(
-        "Temp. Location Side Floor A\n9", 
-        20, 120, 60, 300,
-        Colors.blue[300]!
+        "Temp. Location Side Floor A\n9",
+        20,
+        120,
+        60,
+        300,
+        Colors.blue[300]!,
       ),
     );
 
     // LEFT SIDE - Rack Line 9 (vertikal)
     sections.add(
       _buildRackWidget(
-        "Rack Line 9\n0", 
-        90, 120, 80, 300,
-        const Color(0xFFFFC107)
+        "Rack Line 9\n0",
+        90,
+        120,
+        80,
+        300,
+        const Color(0xFFFFC107),
       ),
     );
 
     // LEFT SIDE - Temp Location Side Floor B (vertikal)
     sections.add(
       _buildRackWidget(
-        "Temp. Location Side Floor B\n32", 
-        20, 450, 60, 200,
-        Colors.blue[300]!
+        "Temp. Location Side Floor B\n32",
+        20,
+        450,
+        60,
+        200,
+        Colors.blue[300]!,
       ),
     );
 
     // LEFT SIDE - Rack Line 3 (vertikal)
     sections.add(
       _buildRackWidget(
-        "Rack Line 3\n24", 
-        90, 450, 80, 200,
-        const Color(0xFFFFC107)
+        "Rack Line 3\n24",
+        90,
+        450,
+        80,
+        200,
+        const Color(0xFFFFC107),
       ),
     );
 
     // BOTTOM LEFT - Quarantine Area
     sections.add(
       _buildRackWidget(
-        "Quarantine Area\n35", 
-        90, 760, 80, 70,
-        Colors.green[400]!
+        "Quarantine Area\n35",
+        90,
+        760,
+        80,
+        70,
+        Colors.green[400]!,
       ),
     );
 
@@ -2787,180 +2978,212 @@ Widget _buildLocationSection() {
     sections.add(
       _buildRackWidget(
         "Rack Line 2\n88",
-        190, 780, 120, 50,
-        const Color(0xFFFFC107)
+        190,
+        780,
+        120,
+        50,
+        const Color(0xFFFFC107),
       ),
     );
 
     // BOTTOM - Temporary Location Front Floor
     sections.add(
       _buildRackWidget(
-        "Temporary Location Front Floor\n270", 
-        190, 850, 400, 60,
-        Colors.pink[300]!
+        "Temporary Location Front Floor\n270",
+        190,
+        850,
+        400,
+        60,
+        Colors.pink[300]!,
       ),
     );
 
     // CENTER-LEFT - Temporary Location Floor 3
     sections.add(
       _buildRackWidget(
-        "Temporary Location Floor 3\n174", 
-        200, 500, 150, 200,
-        Colors.pink[300]!
+        "Temporary Location Floor 3\n174",
+        200,
+        500,
+        150,
+        200,
+        Colors.pink[300]!,
       ),
     );
 
     // CENTER - Rack Line 5
     sections.add(
       _buildRackWidget(
-        "Rack Line 5\n8", 
-        370, 500, 120, 70,
-        const Color(0xFFFFC107)
+        "Rack Line 5\n8",
+        370,
+        500,
+        120,
+        70,
+        const Color(0xFFFFC107),
       ),
     );
 
     // CENTER - Temp. Loc. Floor 5
     sections.add(
       _buildRackWidget(
-        "Temp. Loc. Floor 5\n16", 
-        370, 580, 120, 50,
-        Colors.pink[300]!
+        "Temp. Loc. Floor 5\n16",
+        370,
+        580,
+        120,
+        50,
+        Colors.pink[300]!,
       ),
     );
 
     // CENTER - Rack Line 4
     sections.add(
       _buildRackWidget(
-        "Rack Line 4\n14", 
-        370, 640, 120, 50,
-        const Color(0xFFFFC107)
+        "Rack Line 4\n14",
+        370,
+        640,
+        120,
+        50,
+        const Color(0xFFFFC107),
       ),
     );
 
     // CENTER - Temp. Loc. Floor 4
     sections.add(
       _buildRackWidget(
-        "Temp. Loc. Floor 4\n489", 
-        370, 700, 120, 50,
-        Colors.pink[300]!
+        "Temp. Loc. Floor 4\n489",
+        370,
+        700,
+        120,
+        50,
+        Colors.pink[300]!,
       ),
     );
 
     // CENTER-UPPER - Temporary Location Floor 6
     sections.add(
       _buildRackWidget(
-        "Temporary Location Floor 6\n39", 
-        200, 330, 150, 60,
-        Colors.pink[300]!
+        "Temporary Location Floor 6\n39",
+        200,
+        330,
+        150,
+        60,
+        Colors.pink[300]!,
       ),
     );
 
     // CENTER-UPPER - Rack Line 6
     sections.add(
       _buildRackWidget(
-        "Rack Line 6\n7", 
-        370, 330, 120, 60,
-        const Color(0xFFFFC107)
+        "Rack Line 6\n7",
+        370,
+        330,
+        120,
+        60,
+        const Color(0xFFFFC107),
       ),
     );
 
     // UPPER - Rack Line 7
     sections.add(
       _buildRackWidget(
-        "Rack Line 7\n0", 
-        200, 270, 150, 50, 
-        const Color(0xFFFFC107)
+        "Rack Line 7\n0",
+        200,
+        270,
+        150,
+        50,
+        const Color(0xFFFFC107),
       ),
     );
 
     // UPPER - Rack Line 8
     sections.add(
       _buildRackWidget(
-        "Rack Line 8\n2", 
-        200, 210, 150, 50,
-        const Color(0xFFFFC107)
+        "Rack Line 8\n2",
+        200,
+        210,
+        150,
+        50,
+        const Color(0xFFFFC107),
       ),
     );
 
     // UPPER - Temp. Loc. Floor 7
     sections.add(
       _buildRackWidget(
-        "Temp. Loc. Floor 7\n0", 
-        370, 210, 120, 50,
-        Colors.pink[300]!
+        "Temp. Loc. Floor 7\n0",
+        370,
+        210,
+        120,
+        50,
+        Colors.pink[300]!,
       ),
     );
 
     // TOP - Temporary Location Floor 10
     sections.add(
       _buildRackWidget(
-        "Temporary Location Floor 10\n35", 
-        200, 120, 290, 50,
-        Colors.pink[300]!
+        "Temporary Location Floor 10\n35",
+        200,
+        120,
+        290,
+        50,
+        Colors.pink[300]!,
       ),
     );
 
     // TOP - Rack Line 10
     sections.add(
       _buildRackWidget(
-        "Rack Line 10\n1", 
-        200, 60, 180, 50, 
-        const Color(0xFFFFC107)
+        "Rack Line 10\n1",
+        200,
+        60,
+        180,
+        50,
+        const Color(0xFFFFC107),
       ),
     );
 
     // TOP RIGHT - Loading Area
     sections.add(
       _buildRackWidget(
-        "Loading Area\n0", 
-        520, 40, 100, 140,
-        Colors.orange[400]!
+        "Loading Area\n0",
+        520,
+        40,
+        100,
+        140,
+        Colors.orange[400]!,
       ),
     );
 
     // TOP RIGHT - Back Door
     sections.add(
-      _buildRackWidget(
-        "Back Door", 
-        640, 40, 80, 100,
-        Colors.grey[400]!
-      ),
+      _buildRackWidget("Back Door", 640, 40, 80, 100, Colors.grey[400]!),
     );
 
     // RIGHT SIDE - Rack Line 1
     sections.add(
       _buildRackWidget(
-        "Rack Line 1\n30", 
-        750, 300, 120, 350,
-        const Color(0xFFFFC107)
+        "Rack Line 1\n30",
+        750,
+        300,
+        120,
+        350,
+        const Color(0xFFFFC107),
       ),
     );
 
     // BOTTOM RIGHT - Front Door
     sections.add(
-      _buildRackWidget(
-        "Front Door", 
-        640, 850, 120, 60,
-        Colors.grey[600]!
-      ),
+      _buildRackWidget("Front Door", 640, 850, 120, 60, Colors.grey[600]!),
     );
 
     // BOTTOM CENTER - Pedestrian Door
     sections.add(
-      _buildRackWidget(
-        "Pedestrian Door", 
-        320, 920, 150, 25,
-        Colors.grey[600]!
-      ),
+      _buildRackWidget("Pedestrian Door", 320, 920, 150, 25, Colors.grey[600]!),
     );
 
     // LEFT SIDE - Side Door
     sections.add(
-      _buildRackWidget(
-        "Side Door", 
-        20, 423, 60, 25,
-        Colors.grey[600]!
-      ),
+      _buildRackWidget("Side Door", 20, 423, 60, 25, Colors.grey[600]!),
     );
     return sections;
   }
@@ -2973,18 +3196,16 @@ Widget _buildLocationSection() {
     double height,
     Color color,
   ) {
-    // Extract rack name and number from label
     List<String> parts = label.split('\n');
     String rackName = parts[0];
     String rackNumber = parts.length > 1 ? parts[1] : '';
-    
-    // Determine if this is a special area (door, etc.)
+
     bool isDoor = rackName.toLowerCase().contains('door');
     bool isRackLine = rackName.toLowerCase().contains('rack line');
     bool isTempLocation = rackName.toLowerCase().contains('temp');
     bool isQuarantine = rackName.toLowerCase().contains('quarantine');
     bool isLoading = rackName.toLowerCase().contains('loading');
-    
+
     return Positioned(
       left: left,
       top: top,
@@ -2999,8 +3220,8 @@ Widget _buildLocationSection() {
             color: color,
             borderRadius: BorderRadius.circular(4),
             border: Border.all(
-              color: isDoor ? Colors.black54 : Colors.white, 
-              width: isDoor ? 1 : 2
+              color: isDoor ? Colors.black54 : Colors.white,
+              width: isDoor ? 1 : 2,
             ),
             boxShadow: [
               BoxShadow(
@@ -3012,17 +3233,39 @@ Widget _buildLocationSection() {
           ),
           child: Container(
             padding: const EdgeInsets.all(4),
-            child: _buildRackContent(rackName, rackNumber, width, height, color, isRackLine, isTempLocation, isDoor, isQuarantine, isLoading),
+            child: _buildRackContent(
+              rackName,
+              rackNumber,
+              width,
+              height,
+              color,
+              isRackLine,
+              isTempLocation,
+              isDoor,
+              isQuarantine,
+              isLoading,
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildRackContent(String rackName, String rackNumber, double width, double height, Color bgColor, bool isRackLine, bool isTempLocation, bool isDoor, bool isQuarantine, bool isLoading) {
+  Widget _buildRackContent(
+    String rackName,
+    String rackNumber,
+    double width,
+    double height,
+    Color bgColor,
+    bool isRackLine,
+    bool isTempLocation,
+    bool isDoor,
+    bool isQuarantine,
+    bool isLoading,
+  ) {
     Color textColor = _getTextColor(bgColor);
     double fontSize = _getFontSize(width, height);
-    
+
     if (isDoor) {
       return Center(
         child: Container(
@@ -3036,26 +3279,29 @@ Widget _buildLocationSection() {
                 color: textColor,
                 fontWeight: FontWeight.bold,
                 fontSize: fontSize,
-                shadows: textColor == Colors.white ? [
-                  Shadow(
-                    offset: const Offset(1, 1),
-                    blurRadius: 3,
-                    color: Colors.black.withOpacity(0.8),
-                  ),
-                ] : [
-                  Shadow(
-                    offset: const Offset(1, 1),
-                    blurRadius: 2,
-                    color: Colors.white.withOpacity(0.8),
-                  ),
-                ],
+                shadows:
+                    textColor == Colors.white
+                        ? [
+                          Shadow(
+                            offset: const Offset(1, 1),
+                            blurRadius: 3,
+                            color: Colors.black.withOpacity(0.8),
+                          ),
+                        ]
+                        : [
+                          Shadow(
+                            offset: const Offset(1, 1),
+                            blurRadius: 2,
+                            color: Colors.white.withOpacity(0.8),
+                          ),
+                        ],
               ),
             ),
           ),
         ),
       );
     }
-    
+
     if (isRackLine) {
       return Container(
         padding: const EdgeInsets.all(2),
@@ -3071,13 +3317,16 @@ Widget _buildLocationSection() {
                     color: textColor,
                     fontWeight: FontWeight.bold,
                     fontSize: fontSize,
-                    shadows: textColor == Colors.white ? [
-                      Shadow(
-                        offset: const Offset(1, 1),
-                        blurRadius: 2,
-                        color: Colors.black.withOpacity(0.5),
-                      ),
-                    ] : null,
+                    shadows:
+                        textColor == Colors.white
+                            ? [
+                              Shadow(
+                                offset: const Offset(1, 1),
+                                blurRadius: 2,
+                                color: Colors.black.withOpacity(0.5),
+                              ),
+                            ]
+                            : null,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -3091,7 +3340,10 @@ Widget _buildLocationSection() {
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.95),
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: Colors.black.withOpacity(0.2), width: 1),
+                  border: Border.all(
+                    color: Colors.black.withOpacity(0.2),
+                    width: 1,
+                  ),
                 ),
                 child: Text(
                   rackNumber,
@@ -3106,7 +3358,7 @@ Widget _buildLocationSection() {
         ),
       );
     }
-    
+
     if (isTempLocation || isQuarantine || isLoading) {
       return Container(
         padding: const EdgeInsets.all(2),
@@ -3121,13 +3373,16 @@ Widget _buildLocationSection() {
                   color: textColor,
                   fontWeight: FontWeight.bold,
                   fontSize: fontSize,
-                  shadows: textColor == Colors.white ? [
-                    Shadow(
-                      offset: const Offset(1, 1),
-                      blurRadius: 2,
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                  ] : null,
+                  shadows:
+                      textColor == Colors.white
+                          ? [
+                            Shadow(
+                              offset: const Offset(1, 1),
+                              blurRadius: 2,
+                              color: Colors.black.withOpacity(0.5),
+                            ),
+                          ]
+                          : null,
                 ),
                 maxLines: height > 80 ? 3 : 2,
                 overflow: TextOverflow.ellipsis,
@@ -3163,7 +3418,7 @@ Widget _buildLocationSection() {
         ),
       );
     }
-    
+
     // Default format
     return Container(
       padding: const EdgeInsets.all(2),
@@ -3178,13 +3433,16 @@ Widget _buildLocationSection() {
                 color: textColor,
                 fontWeight: FontWeight.bold,
                 fontSize: fontSize,
-                shadows: textColor == Colors.white ? [
-                  Shadow(
-                    offset: const Offset(1, 1),
-                    blurRadius: 2,
-                    color: Colors.black.withOpacity(0.5),
-                  ),
-                ] : null,
+                shadows:
+                    textColor == Colors.white
+                        ? [
+                          Shadow(
+                            offset: const Offset(1, 1),
+                            blurRadius: 2,
+                            color: Colors.black.withOpacity(0.5),
+                          ),
+                        ]
+                        : null,
               ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -3198,13 +3456,16 @@ Widget _buildLocationSection() {
                 color: textColor,
                 fontWeight: FontWeight.bold,
                 fontSize: fontSize + 1,
-                shadows: textColor == Colors.white ? [
-                  Shadow(
-                    offset: const Offset(1, 1),
-                    blurRadius: 2,
-                    color: Colors.black.withOpacity(0.5),
-                  ),
-                ] : null,
+                shadows:
+                    textColor == Colors.white
+                        ? [
+                          Shadow(
+                            offset: const Offset(1, 1),
+                            blurRadius: 2,
+                            color: Colors.black.withOpacity(0.5),
+                          ),
+                        ]
+                        : null,
               ),
             ),
           ],
@@ -3215,8 +3476,7 @@ Widget _buildLocationSection() {
 
   Color _getTextColor(Color backgroundColor) {
     double luminance = backgroundColor.computeLuminance();
-    
-    // Use more contrasting colors for better visibility
+
     if (luminance > 0.6) {
       return Colors.black87;
     } else if (luminance > 0.4) {
@@ -3229,19 +3489,17 @@ Widget _buildLocationSection() {
   double _getFontSize(double width, double height) {
     double minDimension = width < height ? width : height;
     double area = width * height;
-    
-    // Special handling for very small containers (like doors)
+
     if (minDimension < 30) return 7;
     if (minDimension < 50) return 8;
     if (minDimension < 70) return 9;
     if (minDimension < 90) return 10;
     if (minDimension < 120) return 11;
     if (minDimension < 150) return 12;
-    
-    // For larger areas, use bigger fonts
+
     if (area > 20000) return 14;
     if (area > 15000) return 13;
-    
+
     return 12;
   }
 
@@ -3271,4 +3529,3 @@ Widget _buildLocationSection() {
     );
   }
 }
-

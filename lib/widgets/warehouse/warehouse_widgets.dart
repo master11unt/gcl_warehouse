@@ -90,7 +90,6 @@ class WarehouseRackCard extends StatelessWidget {
               ),
             ),
             
-            // Arrow indicator
             const SizedBox(width: 8),
             Icon(
               Icons.arrow_forward_ios,
