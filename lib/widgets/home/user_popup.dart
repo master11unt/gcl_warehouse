@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../pages/profile_page.dart';
-import '../../pages/settings_page.dart';
+import 'package:gcl_warehouse/pages/profile_page.dart';
+import 'package:gcl_warehouse/pages/settings_page.dart';
+import '../common/svg_icon.dart';
 
 class UserPopup extends StatefulWidget {
   const UserPopup({Key? key}) : super(key: key);
@@ -27,16 +28,16 @@ class _UserPopupState extends State<UserPopup> {
       onTap: () => _showUserPopup(context),
       child: Container(
         padding: const EdgeInsets.all(8),
-        decoration: _isPopupOpen 
-          ? BoxDecoration(
-              color: const Color(0xFF0F172A),
-              shape: BoxShape.circle,
-            )
-          : null,
-        child: Icon(
-          Icons.person_outline, 
-          color: _isPopupOpen ? Colors.white : Colors.black, 
-          size: 24
+        decoration: _isPopupOpen
+            ? BoxDecoration(
+                color: const Color(0xFF0F172A),
+                shape: BoxShape.circle,
+              )
+            : null,
+        child: SvgIcon(
+          assetPath: 'assets/icons/user_outline.svg',
+          color: _isPopupOpen ? Colors.white : Colors.black,
+          size: 24,
         ),
       ),
     );
@@ -56,9 +57,10 @@ class _UserPopupState extends State<UserPopup> {
       _isPopupOpen = true;
     });
 
-    final RenderBox? renderBox = _buttonKey.currentContext?.findRenderObject() as RenderBox?;
+    final RenderBox? renderBox =
+        _buttonKey.currentContext?.findRenderObject() as RenderBox?;
     if (renderBox == null) return;
-    
+
     final Offset buttonPosition = renderBox.localToGlobal(Offset.zero);
     final Size buttonSize = renderBox.size;
 
@@ -71,7 +73,9 @@ class _UserPopupState extends State<UserPopup> {
             children: [
               Positioned(
                 top: buttonPosition.dy + buttonSize.height + 5,
-                right: MediaQuery.of(context).size.width - buttonPosition.dx - buttonSize.width,
+                right: MediaQuery.of(context).size.width -
+                    buttonPosition.dx -
+                    buttonSize.width,
                 child: GestureDetector(
                   onTap: () {},
                   child: Material(
@@ -93,7 +97,7 @@ class _UserPopupState extends State<UserPopup> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           _buildUserMenuItem(
-                            icon: Icons.person_outline,
+                            iconPath: 'assets/icons/user_outline.svg',
                             text: "Your Profile",
                             onTap: () {
                               _hidePopup();
@@ -106,7 +110,7 @@ class _UserPopupState extends State<UserPopup> {
                             },
                           ),
                           _buildUserMenuItem(
-                            icon: Icons.settings_outlined,
+                            iconPath: 'assets/icons/setting.svg',
                             text: "Settings",
                             onTap: () {
                               _hidePopup();
@@ -119,7 +123,7 @@ class _UserPopupState extends State<UserPopup> {
                             },
                           ),
                           _buildUserMenuItem(
-                            icon: Icons.logout,
+                            iconPath: 'assets/icons/logout.svg',
                             text: "Sign out",
                             onTap: () {
                               _hidePopup();
@@ -149,7 +153,7 @@ class _UserPopupState extends State<UserPopup> {
   }
 
   Widget _buildUserMenuItem({
-    required IconData icon,
+    required String iconPath,
     required String text,
     required VoidCallback onTap,
   }) {
@@ -166,8 +170,8 @@ class _UserPopupState extends State<UserPopup> {
           ),
           child: Row(
             children: [
-              Icon(
-                icon,
+              SvgIcon(
+                assetPath: iconPath,
                 size: 18,
                 color: const Color(0xFF6B7280),
               ),

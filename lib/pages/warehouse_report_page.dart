@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/home/custom_drawer.dart';
 
@@ -30,7 +31,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
     'GAP LOGISTICS',
     'DANLIRIS',
     'SMAS LOGISTIC',
-    'ULTRA PRIMA'
+    'ULTRA PRIMA',
   ];
 
   final List<String> _periodeOptions = [
@@ -42,8 +43,26 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
     'yesterday',
     'last-week',
     'last-month',
-    'last-year'
+    'last-year',
   ];
+
+  Widget _buildSvgIcon({
+    required String assetPath,
+    Color? color,
+    double size = 24,
+    BoxFit fit = BoxFit.contain,
+  }) {
+    return SizedBox(
+      width: size,
+      height: size,
+      child: SvgPicture.asset(
+        assetPath,
+        colorFilter:
+            color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+        fit: fit,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +195,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
         ),
         const SizedBox(height: 16),
 
-        // Filter button - expandable
+        // Filter button
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -193,15 +212,22 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                 },
                 child: Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Row(
+                      Row(
                         children: [
-                          Icon(Icons.tune, color: Colors.white, size: 18),
-                          SizedBox(width: 8),
-                          Text(
+                          _buildSvgIcon(
+                            assetPath: 'assets/icons/filter_outline.svg',
+                            color: Colors.white,
+                            size: 18,
+                          ),
+                          const SizedBox(width: 8),
+                          const Text(
                             'Filter',
                             style: TextStyle(
                               color: Colors.white,
@@ -211,16 +237,19 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                           ),
                         ],
                       ),
-                      Icon(
-                        _isFilterExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                      _buildSvgIcon(
+                        assetPath:
+                            _isFilterExpanded
+                                ? 'assets/icons/chevron_up.svg'
+                                : 'assets/icons/arrow_down.svg',
                         color: Colors.white,
-                        size: 20,
+                        size: 14,
                       ),
                     ],
                   ),
                 ),
               ),
-              
+
               if (_isFilterExpanded)
                 Container(
                   width: double.infinity,
@@ -245,20 +274,29 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      
+
                       SizedBox(
                         height: 50,
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
-                            children: _ownerOptions.map((owner) => Padding(
-                              padding: const EdgeInsets.only(right: 8),
-                              child: _buildFilterChip(
-                                owner, 
-                                _selectedOwner == owner,
-                                () => setState(() => _selectedOwner = owner),
-                              ),
-                            )).toList(),
+                            children:
+                                _ownerOptions
+                                    .map(
+                                      (owner) => Padding(
+                                        padding: const EdgeInsets.only(
+                                          right: 8,
+                                        ),
+                                        child: _buildFilterChip(
+                                          owner,
+                                          _selectedOwner == owner,
+                                          () => setState(
+                                            () => _selectedOwner = owner,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
                           ),
                         ),
                       ),
@@ -275,20 +313,29 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      
+
                       SizedBox(
                         height: 50,
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
-                            children: _periodeOptions.map((periode) => Padding(
-                              padding: const EdgeInsets.only(right: 8),
-                              child: _buildFilterChip(
-                                periode, 
-                                _selectedPeriode == periode,
-                                () => setState(() => _selectedPeriode = periode),
-                              ),
-                            )).toList(),
+                            children:
+                                _periodeOptions
+                                    .map(
+                                      (periode) => Padding(
+                                        padding: const EdgeInsets.only(
+                                          right: 8,
+                                        ),
+                                        child: _buildFilterChip(
+                                          periode,
+                                          _selectedPeriode == periode,
+                                          () => setState(
+                                            () => _selectedPeriode = periode,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
                           ),
                         ),
                       ),
@@ -396,7 +443,6 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
           padding: const EdgeInsets.all(16),
           child: LayoutBuilder(
             builder: (context, constraints) {
-              // Responsive sizing based on screen width
               double chartSize = constraints.maxWidth < 400 ? 140 : 200;
               double centerRadius = constraints.maxWidth < 400 ? 40 : 60;
               double radius = constraints.maxWidth < 400 ? 35 : 50;
@@ -442,14 +488,14 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                                 radius: radius,
                               ),
                               PieChartSectionData(
-                                value: 4.1, // Over 262
+                                value: 4.1,
                                 color: const Color(0xFFEC4899),
                                 title: '',
                                 radius: radius,
                               ),
                               PieChartSectionData(
-                                value: 0.1, // Short 0
-                                color: const Color(0xFFFBBF24), 
+                                value: 0.1,
+                                color: const Color(0xFFFBBF24),
                                 title: '',
                                 radius: radius,
                               ),
@@ -500,8 +546,8 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                                               2,
                                             ),
                                           ),
-                                          child: Icon(
-                                            sectionData['icon'],
+                                          child: _buildSvgIcon(
+                                            assetPath: sectionData['iconPath'],
                                             color: Colors.white,
                                             size: 8,
                                           ),
@@ -569,28 +615,28 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
         return {
           'title': 'Match',
           'value': '6.061',
-          'icon': Icons.check,
+          'iconPath': 'assets/icons/check.svg',
           'color': const Color(0xFF1E3888),
         };
       case 1:
         return {
           'title': 'Over',
           'value': '262',
-          'icon': Icons.arrow_upward,
+          'iconPath': 'assets/icons/arrow_up.svg',
           'color': const Color(0xFFEC4899),
         };
       case 2:
         return {
           'title': 'Short',
           'value': '0',
-          'icon': Icons.arrow_downward,
+          'iconPath': 'assets/icons/arrow_down.svg',
           'color': const Color(0xFFFBBF24),
         };
       default:
         return {
           'title': 'Match',
           'value': '6.061',
-          'icon': Icons.check,
+          'iconPath': 'assets/icons/check.svg',
           'color': const Color(0xFF1E3888),
         };
     }
@@ -802,7 +848,7 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                     barRods: [
                       BarChartRodData(
                         toY: 0,
-                        color: const Color(0xFF6B7280), 
+                        color: const Color(0xFF6B7280),
                         width: 25,
                         borderRadius: BorderRadius.circular(2),
                       ),
@@ -1468,13 +1514,13 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: _buildStuffingCardNew('Cleared Stuffing Plan', '968'),
+                    child: _buildStuffingCardNew(
+                      'Cleared Stuffing Plan',
+                      '968',
+                    ),
                   ),
                   const SizedBox(width: 12),
-                  Expanded(
-                    flex: 1,
-                    child: Container(),
-                  ),
+                  Expanded(flex: 1, child: Container()),
                 ],
               ),
             ],
@@ -2197,7 +2243,11 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
               color: const Color(0xFF6B7280),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: const Icon(Icons.download, size: 12, color: Colors.white),
+            child: _buildSvgIcon(
+              assetPath: 'assets/icons/download.svg',
+              color: Colors.white,
+              size: 12,
+            ),
           ),
         ],
       ),

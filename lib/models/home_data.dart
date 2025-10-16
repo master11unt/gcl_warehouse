@@ -52,13 +52,13 @@ class HomeData {
 
 class HomeDummyData {
   static List<MenuItemData> menuItems = [
-    MenuItemData(label: 'List Cargo\nIn', icon: 'note_add', route: '/list_cargo_in'),
-    MenuItemData(label: 'Stock\nInventory', icon: 'inventory_2', route: '/inventory'),
-    MenuItemData(label: 'List Cargo\nOut', icon: 'description', route: '/list_cargo_out'),
-    MenuItemData(label: 'Stuffing', icon: 'pallet', route: '/stuffing'),
-    MenuItemData(label: 'Stuffing', icon: 'all_inbox', route: '/suffing_result'),
-    MenuItemData(label: 'Rack', icon: 'layers', route: '/rack'),
-    MenuItemData(label: 'Report', icon: 'menu_book', route: '/report'),
-    MenuItemData(label: 'User', icon: 'people', route: '/user'),
+    MenuItemData(label: 'List Cargo\nIn', icon: 'assets/icons/list_cargo_in.svg', route: '/list_cargo_in'),
+    MenuItemData(label: 'Stock\nInventory', icon: 'assets/icons/inventory.svg', route: '/inventory'),
+    MenuItemData(label: 'List Cargo\nOut', icon: 'assets/icons/list_cargo_out.svg', route: '/list_cargo_out'),
+    MenuItemData(label: 'Stuffing', icon: 'assets/icons/stuffing.svg', route: '/stuffing'),
+    MenuItemData(label: 'Stuffing', icon: 'assets/icons/stuffing_result.svg', route: '/stuffing_result'),
+    MenuItemData(label: 'Rack', icon: 'assets/icons/rack.svg', route: '/rack'),
+    MenuItemData(label: 'Report', icon: 'assets/icons/report.svg', route: '/report'),
+    MenuItemData(label: 'User', icon: 'assets/icons/user_group.svg', route: '/user'),
   ];
 }

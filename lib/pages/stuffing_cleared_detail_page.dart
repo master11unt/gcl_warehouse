@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import '../widgets/home/custom_drawer.dart';
-import '../models/stuffing_data.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class StuffingClearedDetailPage extends StatelessWidget {
   final Map<String, dynamic> stuffingData;
-  const StuffingClearedDetailPage({Key? key, required this.stuffingData}) : super(key: key);
+  const StuffingClearedDetailPage({Key? key, required this.stuffingData})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
-      drawer: CustomDrawer(currentPage: "stuffing"),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -20,9 +19,9 @@ class StuffingClearedDetailPage extends StatelessWidget {
               // Combined Header, Job Details and Table Section
               _buildMainContentSection(context),
               const SizedBox(height: 16),
-              
+
               _buildStatusSection(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
             ],
           ),
         ),
@@ -30,17 +29,26 @@ class StuffingClearedDetailPage extends StatelessWidget {
     );
   }
 
-  PopupMenuItem<String> _buildPopupMenuItem(String value, IconData icon, String text) {
+  PopupMenuItem<String> _buildPopupMenuItem(
+    String value,
+    String svgPath,
+    String text,
+  ) {
     return PopupMenuItem<String>(
       value: value,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 4),
         child: Row(
           children: [
-            Icon(
-              icon,
-              color: Colors.white,
-              size: 20,
+            SvgPicture.asset(
+              svgPath,
+              width: 20,
+              height: 20,
+              fit: BoxFit.contain,
+              colorFilter: const ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcIn,
+              ),
             ),
             const SizedBox(width: 12),
             Text(
@@ -65,6 +73,9 @@ class StuffingClearedDetailPage extends StatelessWidget {
       case 'call_support':
         print('Call Support selected');
         break;
+      case 'edit':
+        print('Edit selected');
+        break;
       case 'data':
         print('Data selected');
         break;
@@ -73,6 +84,9 @@ class StuffingClearedDetailPage extends StatelessWidget {
         break;
       case 'print':
         print('Print selected');
+        break;
+      case 'photo':
+        print('Photo selected');
         break;
       default:
         break;
@@ -110,19 +124,26 @@ class StuffingClearedDetailPage extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () => Navigator.of(context).pop(),
-                  child: const Icon(
-                    Icons.arrow_back_ios,
-                    color: Color(0xFF0F172A),
-                    size: 24,
+                  child: 
+                      SvgPicture.asset(
+                    'assets/icons/chevron_left.svg',
+                    width: 20,
+                    height: 20,
+                    fit: BoxFit.contain,
+                    colorFilter: const ColorFilter.mode(
+                      Color(0xFF0F172A),
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 16),
-                
+
                 Expanded(
                   child: Text(
                     "Stuffing Plan Detail",
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width < 400 ? 18 : 20,
+                      fontSize:
+                          MediaQuery.of(context).size.width < 400 ? 18 : 20,
                       fontWeight: FontWeight.w600,
                       color: const Color(0xFF0F172A),
                     ),
@@ -132,7 +153,16 @@ class StuffingClearedDetailPage extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 PopupMenuButton<String>(
-                  icon: const Icon(Icons.more_vert, color: Color(0xFF0F172A)),
+                  icon: SvgPicture.asset(
+                    'assets/icons/menu_stuffing.svg',
+                    width: 20,
+                    height: 20,
+                    fit: BoxFit.contain,
+                    colorFilter: const ColorFilter.mode(
+                      Color(0xFF0F172A),
+                      BlendMode.srcIn,
+                    ),
+                  ),
                   color: const Color(0xFF0F172A),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -141,65 +171,114 @@ class StuffingClearedDetailPage extends StatelessWidget {
                   onSelected: (String value) {
                     _handleMenuAction(value);
                   },
-                  itemBuilder: (BuildContext context) => [
-                    _buildPopupMenuItem('send_email', Icons.send_outlined, 'Send Email'),
-                    _buildPopupMenuItem('call_support', Icons.support_agent, 'Call Support'),
-                    _buildPopupMenuItem('data', Icons.description_outlined, 'Data'),
-                    _buildPopupMenuItem('open_mark', Icons.tag, 'Open Mark'),
-                    _buildPopupMenuItem('print', Icons.print_outlined, 'Print'),
-                  ],
+                  itemBuilder:
+                      (BuildContext context) => [
+                        _buildPopupMenuItem(
+                          'send_email',
+                          'assets/icons/send.svg',
+                          'Send Email',
+                        ),
+                        _buildPopupMenuItem(
+                          'call_support',
+                          'assets/icons/microphone.svg',
+                          'Call Support',
+                        ),
+                        _buildPopupMenuItem(
+                          'edit',
+                          'assets/icons/edit.svg',
+                          'Edit',
+                        ),
+                        _buildPopupMenuItem(
+                          'data',
+                          'assets/icons/inventory_outline.svg',
+                          'Data',
+                        ),
+                        _buildPopupMenuItem(
+                          'open_mark',
+                          'assets/icons/tag.svg',
+                          'Open Mark',
+                        ),
+                        _buildPopupMenuItem(
+                          'print',
+                          'assets/icons/print.svg',
+                          'Print',
+                        ),
+                        _buildPopupMenuItem(
+                          'photo',
+                          'assets/icons/camera.svg',
+                          'Photo',
+                        ),
+                      ],
                 ),
               ],
             ),
           ),
-          
+
           // Divider line
           Container(
             height: 1,
             margin: const EdgeInsets.symmetric(horizontal: 16),
             color: const Color(0xFFE5E7EB),
           ),
-          
+
           // Job Details Section
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.all(28),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(child: _buildDetailRow('Job No', 'GCL-10025091142')),
+                    Expanded(
+                      child: _buildDetailRow('Job No', 'GCL-10025091142'),
+                    ),
                     const SizedBox(width: 24),
-                    Expanded(child: _buildDetailRow('Container Number', 'SIKU2243145 / 0059574')),
+                    Expanded(
+                      child: _buildDetailRow(
+                        'Container Number',
+                        'SIKU2243145 / 0059574',
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 20),
-                
+
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(child: _buildDetailRow('Container Size', '20FT')),
                     const SizedBox(width: 24),
-                    Expanded(child: _buildDetailRow('Stuffing Date', '2025-09-01')),
+                    Expanded(
+                      child: _buildDetailRow('Stuffing Date', '2025-09-01'),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 20),
-                
+
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(child: _buildDetailRow('Estimated Time\nDeparture', '2025-09-04')),
+                    Expanded(
+                      child: _buildDetailRow(
+                        'Estimated Time\nDeparture',
+                        '2025-09-04',
+                      ),
+                    ),
                     const SizedBox(width: 24),
-                    Expanded(child: _buildDetailRow('Closing Date', '2025-09-02')),
+                    Expanded(
+                      child: _buildDetailRow('Closing Date', '2025-09-02'),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 20),
-                
+
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(child: _buildDetailRow('Destination', 'PORT KELANG')),
+                    Expanded(
+                      child: _buildDetailRow('Destination', 'PORT KELANG'),
+                    ),
                     const SizedBox(width: 24),
                     Expanded(child: _buildDetailRow('Agent', 'ASTSIN')),
                   ],
@@ -207,15 +286,13 @@ class StuffingClearedDetailPage extends StatelessWidget {
               ],
             ),
           ),
-          
+
+          // Booking Table Section
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.all(28),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                
-                const SizedBox(height: 12),
-                
                 SizedBox(
                   width: double.infinity,
                   child: SingleChildScrollView(
@@ -238,7 +315,76 @@ class StuffingClearedDetailPage extends StatelessWidget {
   }
 
   Widget _buildTableContent() {
-    final stuffingList = StuffingData.getDummyClearedTable();
+    final stuffingList = [
+      {
+        'num': 'A',
+        'bookingNumber': 'GTW-20250901113423',
+        'shipper': 'OCEAN SKY INDONESIA',
+        'marking': 'OCEAN SKY INDONESIA',
+        'destination': 'PORT KELANG',
+        'cargoReadiness': 'CLEARED',
+        'quantity': '10',
+        'packages': 'PALLETS',
+        'description': 'MARINE EQUIPMENT & SPARE PARTS',
+        'grossWeight': '3,540.120',
+        'nettWeight': '3,350.000',
+        'shipperMeas': '8.2000',
+        'warehouseMeas': '7.8000',
+        'chargedMeas': '9.8400',
+        'pebNumber': 'PEB-MY-09/2025/2456',
+      },
+      {
+        'num': 'B',
+        'bookingNumber': 'GTW-20250830142035',
+        'shipper': 'LAVA TEXTIL BVBA INDON PT',
+        'marking': 'LAVA TEXTIL BVBA INDON PT',
+        'destination': 'PORT KELANG',
+        'cargoReadiness': 'CLEARED',
+        'quantity': '15',
+        'packages': 'BALES',
+        'description': 'TEXTILE MATERIALS & FABRIC ROLLS',
+        'grossWeight': '4,980.350',
+        'nettWeight': '4,720.000',
+        'shipperMeas': '12.2000',
+        'warehouseMeas': '11.8000',
+        'chargedMeas': '14.1600',
+        'pebNumber': 'PEB-MY-09/2025/2457',
+      },
+      {
+        'num': 'C',
+        'bookingNumber': 'GTW-20250829091247',
+        'shipper': 'KLINE LOGIST PT',
+        'marking': 'KLINE LOGIST PT',
+        'destination': 'PORT KELANG',
+        'cargoReadiness': 'CLEARED',
+        'quantity': '8',
+        'packages': 'PALLETS',
+        'description': 'INDUSTRIAL MACHINERY COMPONENTS',
+        'grossWeight': '3,190.000',
+        'nettWeight': '2,950.000',
+        'shipperMeas': '7.5000',
+        'warehouseMeas': '7.2000',
+        'chargedMeas': '8.6400',
+        'pebNumber': 'PEB-MY-09/2025/2458',
+      },
+      {
+        'num': 'D',
+        'bookingNumber': 'GTW-20250828154512',
+        'shipper': 'WINFASTSHIP INDONESIA',
+        'marking': 'WINFASTSHIP INDONESIA',
+        'destination': 'PORT KELANG',
+        'cargoReadiness': 'CLEARED',
+        'quantity': '18',
+        'packages': 'BOXES',
+        'description': 'ELECTRONIC COMPONENTS & DEVICES',
+        'grossWeight': '2,175.500',
+        'nettWeight': '2,000.000',
+        'shipperMeas': '6.2000',
+        'warehouseMeas': '5.8000',
+        'chargedMeas': '7.4400',
+        'pebNumber': 'PEB-MY-09/2025/2459',
+      },
+    ];
 
     final columnHeaders = [
       'Num',
@@ -259,69 +405,72 @@ class StuffingClearedDetailPage extends StatelessWidget {
     ];
 
     const columnWidths = [
-      60.0,   // Num
-      180.0,  // Booking Number
-      150.0,  // Shipper
-      250.0,  // Marking
-      120.0,  // Destination
-      130.0,  // Cargo Readiness
-      80.0,   // Quantity
-      100.0,  // Packages
-      300.0,  // Description of Goods
-      120.0,  // Gross Weight
-      120.0,  // Nett Weight
-      120.0,  // Shipper Meas
-      150.0,  // Warehouse Meas
-      120.0,  // Charged Meas
-      150.0,  // PEB Number
+      60.0, // Num
+      180.0, // Booking Number
+      150.0, // Shipper
+      250.0, // Marking
+      120.0, // Destination
+      130.0, // Cargo Readiness
+      80.0, // Quantity
+      100.0, // Packages
+      300.0, // Description of Goods
+      120.0, // Gross Weight
+      120.0, // Nett Weight
+      120.0, // Shipper Meas
+      150.0, // Warehouse Meas
+      120.0, // Charged Meas
+      150.0, // PEB Number
     ];
 
     return Column(
       children: [
         // Table Header
         Container(
-          decoration: const BoxDecoration(
-            color: Color(0xFF0F172A),
-          ),
+          decoration: const BoxDecoration(color: Color(0xFF0F172A)),
           child: Row(
-            children: columnHeaders.asMap().entries.map((entry) {
-              final index = entry.key;
-              final header = entry.value;
-              final width = columnWidths[index];
-              
-              return Container(
-                width: width,
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-                decoration: BoxDecoration(
-                  border: index < columnHeaders.length - 1
-                      ? const Border(
-                          right: BorderSide(
-                            color: Color(0xFF4B5563),
-                            width: 1,
-                          ),
-                        )
-                      : null,
-                ),
-                child: Text(
-                  header,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              );
-            }).toList(),
+            children:
+                columnHeaders.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final header = entry.value;
+                  final width = columnWidths[index];
+
+                  return Container(
+                    width: width,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 14,
+                    ),
+                    decoration: BoxDecoration(
+                      border:
+                          index < columnHeaders.length - 1
+                              ? const Border(
+                                right: BorderSide(
+                                  color: Color(0xFF4B5563),
+                                  width: 1,
+                                ),
+                              )
+                              : null,
+                    ),
+                    child: Text(
+                      header,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                }).toList(),
           ),
         ),
-        
+
         // Table Rows
         ...stuffingList.asMap().entries.map((entry) {
           final index = entry.key;
           final item = entry.value;
           final isEven = index % 2 == 0;
-          
+
           final rowData = [
             item['num']!,
             item['bookingNumber']!,
@@ -345,37 +494,48 @@ class StuffingClearedDetailPage extends StatelessWidget {
               color: isEven ? const Color(0xFFF9FAFB) : Colors.white,
             ),
             child: Row(
-              children: rowData.asMap().entries.map((cellEntry) {
-                final cellIndex = cellEntry.key;
-                final cellData = cellEntry.value;
-                final width = columnWidths[cellIndex];
+              children:
+                  rowData.asMap().entries.map((cellEntry) {
+                    final cellIndex = cellEntry.key;
+                    final cellData = cellEntry.value;
+                    final width = columnWidths[cellIndex];
 
-                return Container(
-                  width: width,
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                  decoration: BoxDecoration(
-                    border: cellIndex < rowData.length - 1
-                        ? const Border(
-                            right: BorderSide(
-                              color: Color(0xFFE5E7EB),
-                              width: 1,
-                            ),
-                          )
-                        : null,
-                  ),
-                  child: Text(
-                    cellData,
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: cellIndex == 0 ? FontWeight.w700 : FontWeight.w500,
-                      color: cellIndex == 0 ? const Color(0xFF111827) : const Color(0xFF374151),
-                      height: 1.3,
-                    ),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.visible,
-                  ),
-                );
-              }).toList(),
+                    return Container(
+                      width: width,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        border:
+                            cellIndex < rowData.length - 1
+                                ? const Border(
+                                  right: BorderSide(
+                                    color: Color(0xFFE5E7EB),
+                                    width: 1,
+                                  ),
+                                )
+                                : null,
+                      ),
+                      child: Text(
+                        cellData,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight:
+                              cellIndex == 0
+                                  ? FontWeight.w700
+                                  : FontWeight.w500,
+                          color:
+                              cellIndex == 0
+                                  ? const Color(0xFF111827)
+                                  : const Color(0xFF374151),
+                          height: 1.3,
+                        ),
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.visible,
+                      ),
+                    );
+                  }).toList(),
             ),
           );
         }).toList(),
@@ -418,7 +578,7 @@ class StuffingClearedDetailPage extends StatelessWidget {
   Widget _buildStatusSection() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -450,11 +610,17 @@ class StuffingClearedDetailPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xFFF0FDF4),
                         borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: const Color(0xFF22C55E), width: 1),
+                        border: Border.all(
+                          color: const Color(0xFF22C55E),
+                          width: 1,
+                        ),
                       ),
                       child: const Text(
                         'Completed',
@@ -486,7 +652,7 @@ class StuffingClearedDetailPage extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 24),
+              const SizedBox(width: 48),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -45,7 +45,7 @@ class _HomeGCLPageState extends State<HomeGCLPage> {
           ),
         );
         break;
-      // case '/suffing_result':
+      // case '/stuffing_result':
       //   Navigator.push(
       //     context,
       //     MaterialPageRoute(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../common/svg_icon.dart';
 
 class NotificationPopup extends StatefulWidget {
   const NotificationPopup({Key? key}) : super(key: key);
@@ -26,16 +27,16 @@ class _NotificationPopupState extends State<NotificationPopup> {
       onTap: () => _showNotificationPopup(context),
       child: Container(
         padding: const EdgeInsets.all(8),
-        decoration: _isPopupOpen 
-          ? BoxDecoration(
-              color: const Color(0xFF0F172A),
-              shape: BoxShape.circle,
-            )
-          : null,
-        child: Icon(
-          Icons.notifications_none,
-          color: _isPopupOpen ? Colors.white : Colors.black, 
-          size: 24
+        decoration: _isPopupOpen
+            ? BoxDecoration(
+                color: const Color(0xFF0F172A),
+                shape: BoxShape.circle,
+              )
+            : null,
+        child: SvgIcon(
+          assetPath: 'assets/icons/bell_outline.svg',
+          color: _isPopupOpen ? Colors.white : Colors.black,
+          size: 22,
         ),
       ),
     );
@@ -55,9 +56,10 @@ class _NotificationPopupState extends State<NotificationPopup> {
       _isPopupOpen = true;
     });
 
-    final RenderBox? renderBox = _buttonKey.currentContext?.findRenderObject() as RenderBox?;
+    final RenderBox? renderBox =
+        _buttonKey.currentContext?.findRenderObject() as RenderBox?;
     if (renderBox == null) return;
-    
+
     final Offset buttonPosition = renderBox.localToGlobal(Offset.zero);
     final Size buttonSize = renderBox.size;
 
@@ -70,173 +72,184 @@ class _NotificationPopupState extends State<NotificationPopup> {
             children: [
               Positioned(
                 top: buttonPosition.dy + buttonSize.height + 5,
-                right: MediaQuery.of(context).size.width - buttonPosition.dx - buttonSize.width,
+                right: MediaQuery.of(context).size.width -
+                    buttonPosition.dx -
+                    buttonSize.width,
                 child: GestureDetector(
                   onTap: () {},
                   child: Material(
                     color: Colors.transparent,
                     child: StatefulBuilder(
                       builder: (context, setPopupState) {
-              return Container(
-                width: 280, 
-                constraints: const BoxConstraints(maxHeight: 180),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 20,
-                      offset: const Offset(0, 8),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Header with tabs
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _buildNotificationTab(
-                            "All",
-                            selectedNotificationTab == "All",
-                            () {
-                              setPopupState(() {
-                                selectedNotificationTab = "All";
-                              });
-                            },
+                        return Container(
+                          width: 280,
+                          constraints: const BoxConstraints(maxHeight: 180),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 20,
+                                offset: const Offset(0, 8),
+                              ),
+                            ],
                           ),
-                          const SizedBox(width: 4),
-                          _buildNotificationTab(
-                            "Info",
-                            selectedNotificationTab == "Info",
-                            () {
-                              setPopupState(() {
-                                selectedNotificationTab = "Info";
-                              });
-                            },
-                          ),
-                          const SizedBox(width: 4),
-                          _buildNotificationTab(
-                            "Transaction",
-                            selectedNotificationTab == "Transaction",
-                            () {
-                              setPopupState(() {
-                                selectedNotificationTab = "Transaction";
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Divider
-                    Container(
-                      height: 1,
-                      margin: const EdgeInsets.symmetric(horizontal: 8),
-                      color: const Color(0xFFE5E7EB),
-                    ),
-
-                    // Content area
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        child: const Center(
-                          child: Text(
-                            "No notifications found.",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Color(0xFF9CA3AF),
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          top: BorderSide(
-                            color: Color(0xFFE5E7EB),
-                            width: 1,
-                          ),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                _hidePopup();
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(vertical: 6),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(12),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    const Icon(
-                                      Icons.check_circle_outline,
-                                      color: Color(0xFF6B7280),
-                                      size: 16,
+                                    _buildNotificationTab(
+                                      "All",
+                                      "assets/icons/bell_outline.svg",
+                                      selectedNotificationTab == "All",
+                                      () {
+                                        setPopupState(() {
+                                          selectedNotificationTab = "All";
+                                        });
+                                      },
                                     ),
                                     const SizedBox(width: 4),
-                                    const Text(
-                                      "Mark all as read",
+                                    _buildNotificationTab(
+                                      "Info",
+                                      "assets/icons/info_outline.svg",
+                                      selectedNotificationTab == "Info",
+                                      () {
+                                        setPopupState(() {
+                                          selectedNotificationTab = "Info";
+                                        });
+                                      },
+                                    ),
+                                    const SizedBox(width: 4),
+                                    _buildNotificationTab(
+                                      "Transaction",
+                                      "assets/icons/cargo_out_outline.svg",
+                                      selectedNotificationTab == "Transaction",
+                                      () {
+                                        setPopupState(() {
+                                          selectedNotificationTab =
+                                              "Transaction";
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 1,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                ),
+                                color: const Color(0xFFE5E7EB),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  child: const Center(
+                                    child: Text(
+                                      "No notifications found.",
                                       style: TextStyle(
-                                        color: Color(0xFF6B7280),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16,
+                                        color: Color(0xFF9CA3AF),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: const BoxDecoration(
+                                  border: Border(
+                                    top: BorderSide(
+                                      color: Color(0xFFE5E7EB),
+                                      width: 1,
+                                    ),
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          _hidePopup();
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 6,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SvgIcon(
+                                                assetPath:
+                                                    'assets/icons/check_circle.svg',
+                                                color: Color(0xFF6B7280),
+                                                size: 16,
+                                              ),
+                                              const SizedBox(width: 4),
+                                              const Text(
+                                                "Mark all as read",
+                                                style: TextStyle(
+                                                  color: Color(0xFF6B7280),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 1,
+                                      height: 16,
+                                      color: const Color(0xFFE5E7EB),
+                                    ),
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          _hidePopup();
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 6,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SvgIcon(
+                                                assetPath:
+                                                    'assets/icons/visibility.svg',
+                                                color: Color(0xFF6B7280),
+                                                size: 16,
+                                              ),
+                                              const SizedBox(width: 4),
+                                              const Text(
+                                                "See all",
+                                                style: TextStyle(
+                                                  color: Color(0xFF6B7280),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                          Container(
-                            width: 1,
-                            height: 16,
-                            color: const Color(0xFFE5E7EB),
-                          ),
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                _hidePopup();
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(vertical: 6),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(
-                                      Icons.visibility_outlined,
-                                      color: Color(0xFF6B7280),
-                                      size: 16,
-                                    ),
-                                    const SizedBox(width: 4),
-                                    const Text(
-                                      "See all",
-                                      style: TextStyle(
-                                        color: Color(0xFF6B7280),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
                         );
                       },
                     ),
@@ -260,22 +273,12 @@ class _NotificationPopupState extends State<NotificationPopup> {
     });
   }
 
-  Widget _buildNotificationTab(String label, bool isSelected, VoidCallback onTap) {
-    IconData icon;
-    switch (label) {
-      case "All":
-        icon = Icons.notifications_outlined;
-        break;
-      case "Info":
-        icon = Icons.info_outline;
-        break;
-      case "Transaction":
-        icon = Icons.receipt_long_outlined;
-        break;
-      default:
-        icon = Icons.notifications_outlined;
-    }
-
+  Widget _buildNotificationTab(
+    String label,
+    String iconPath,
+    bool isSelected,
+    VoidCallback onTap,
+  ) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -284,7 +287,8 @@ class _NotificationPopupState extends State<NotificationPopup> {
           color: isSelected ? const Color(0xFF0F172A) : const Color(0xFFF9FAFB),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isSelected ? const Color(0xFF0F172A) : const Color(0xFFE5E7EB),
+            color:
+                isSelected ? const Color(0xFF0F172A) : const Color(0xFFE5E7EB),
             width: 1,
           ),
         ),
@@ -292,8 +296,8 @@ class _NotificationPopupState extends State<NotificationPopup> {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              icon,
+            SvgIcon(
+              assetPath: iconPath,
               size: 14,
               color: isSelected ? Colors.white : const Color(0xFF6B7280),
             ),

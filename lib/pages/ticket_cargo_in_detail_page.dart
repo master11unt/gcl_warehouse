@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/home/custom_drawer.dart';
 import '../models/ticket_data.dart';
@@ -8,10 +9,13 @@ class TicketCargoInDetailPage extends StatefulWidget {
   final Map<String, dynamic> ticketData;
 
   const TicketCargoInDetailPage({super.key, Map<String, dynamic>? ticketData})
-      : ticketData = ticketData ?? const {};
+    : ticketData = ticketData ?? const {};
 
   factory TicketCargoInDetailPage.withDummy({Key? key}) {
-    return TicketCargoInDetailPage(key: key, ticketData: TicketData.getDummyCargoInDetail());
+    return TicketCargoInDetailPage(
+      key: key,
+      ticketData: TicketData.getDummyCargoInDetail(),
+    );
   }
 
   @override
@@ -105,28 +109,35 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(8),
+                    width: 32,
+                    height: 32,
                     decoration: BoxDecoration(
                       color: const Color(0xFF0F172A),
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: const Icon(
-                      Icons.send_rounded,
-                      color: Colors.white,
-                      size: 16,
+                    child: const Center(
+                      child: SvgIcon(
+                        assetPath: 'assets/icons/send.svg',
+                        color: Colors.white,
+                        size: 16,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8),
                   Container(
-                    padding: const EdgeInsets.all(8),
+                    width: 32,
+                    height: 32,
                     decoration: BoxDecoration(
                       color: const Color(0xFF0F172A),
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: const Icon(
-                      Icons.headset_mic,
-                      color: Colors.white,
-                      size: 16,
+                    child: const Center(
+                      // Center icon di dalam container
+                      child: SvgIcon(
+                        assetPath: 'assets/icons/microphone.svg',
+                        color: Colors.white,
+                        size: 16,
+                      ),
                     ),
                   ),
                 ],
@@ -569,7 +580,11 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                   const SnackBar(content: Text('Download started')),
                 );
               },
-              icon: const Icon(Icons.download, size: 18),
+              icon: const SvgIcon(
+                assetPath: 'assets/icons/download.svg',
+                size: 18,
+                color: Color(0xFF374151),
+              ),
               label: const Text('Download'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
@@ -718,9 +733,7 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                     color:
                         isInvalid
                             ? const Color(0xFFDC2626)
-                            : const Color(
-                              0xFF10B981,
-                            ),
+                            : const Color(0xFF10B981),
                   ),
                 ),
               ),
@@ -811,10 +824,10 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                const Icon(
-                  Icons.chevron_right,
+                const SvgIcon(
+                  assetPath: 'assets/icons/chevron_right.svg',
                   color: Color(0xFF9CA3AF),
-                  size: 20,
+                  size: 14,
                 ),
                 const SizedBox(width: 8),
                 const Text(
@@ -826,10 +839,10 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                const Icon(
-                  Icons.chevron_right,
+                const SvgIcon(
+                  assetPath: 'assets/icons/chevron_right.svg',
                   color: Color(0xFF9CA3AF),
-                  size: 20,
+                  size: 14,
                 ),
                 const SizedBox(width: 8),
                 Flexible(

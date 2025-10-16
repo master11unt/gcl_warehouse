@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/home/custom_drawer.dart';
 import '../models/user_data.dart';
@@ -12,6 +13,24 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   final TextEditingController _searchController = TextEditingController();
+
+  Widget _buildSvgIcon({
+    required String assetPath,
+    Color? color,
+    double size = 24,
+    BoxFit fit = BoxFit.contain,
+  }) {
+    return SizedBox(
+      width: size,
+      height: size,
+      child: SvgPicture.asset(
+        assetPath,
+        colorFilter:
+            color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+        fit: fit,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +186,7 @@ class _UserPageState extends State<UserPage> {
                   fontWeight: FontWeight.w600,
                   color: Color(0xFF0F172A),
                 ),
-              ),
+              ), 
               GestureDetector(
                 onTap: () {
                   _showAddUserDialog();
@@ -178,8 +197,8 @@ class _UserPageState extends State<UserPage> {
                     color: const Color(0xFF0F172A),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Icon(
-                    Icons.person_add,
+                  child: _buildSvgIcon(
+                    assetPath: 'assets/icons/user_add.svg',
                     color: Colors.white,
                     size: 20,
                   ),
@@ -199,7 +218,11 @@ class _UserPageState extends State<UserPage> {
             ),
             child: Row(
               children: [
-                const Icon(Icons.search, color: Color(0xFF9CA3AF), size: 18),
+                _buildSvgIcon(
+                  assetPath: 'assets/icons/search.svg',
+                  color: const Color(0xFF9CA3AF),
+                  size: 18,
+                ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: TextField(
@@ -414,10 +437,10 @@ class _UserPageState extends State<UserPage> {
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.all(6),
-                                    child: const Icon(
-                                      Icons.lock_open,
+                                    child: _buildSvgIcon(
+                                      assetPath: 'assets/icons/lock_open.svg',
+                                      color: const Color(0xFF6C757D),
                                       size: 20,
-                                      color: Color(0xFF6C757D),
                                     ),
                                   ),
                                 ),
@@ -473,7 +496,10 @@ class _UserPageState extends State<UserPage> {
                       ),
                       IconButton(
                         onPressed: () => Navigator.of(context).pop(),
-                        icon: const Icon(Icons.close, size: 24),
+                        icon: _buildSvgIcon(
+                          assetPath: 'assets/icons/close.svg',
+                          size: 14,
+                        ),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
                       ),
@@ -543,10 +569,10 @@ class _UserPageState extends State<UserPage> {
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  child: const Icon(
-                                    Icons.edit_outlined,
+                                  child: _buildSvgIcon(
+                                    assetPath: 'assets/icons/edit.svg',
+                                    color: const Color(0xFF6B7280),
                                     size: 20,
-                                    color: Color(0xFF6B7280),
                                   ),
                                 ),
                                 const SizedBox(width: 8),
@@ -558,10 +584,10 @@ class _UserPageState extends State<UserPage> {
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  child: const Icon(
-                                    Icons.delete_outline,
+                                  child: _buildSvgIcon(
+                                    assetPath: 'assets/icons/delete.svg',
+                                    color: const Color(0xFFEF4444),
                                     size: 20,
-                                    color: Color(0xFFEF4444),
                                   ),
                                 ),
                               ],
@@ -778,7 +804,10 @@ class _UserPageState extends State<UserPage> {
                           ),
                           IconButton(
                             onPressed: () => Navigator.of(context).pop(),
-                            icon: const Icon(Icons.close, size: 24),
+                            icon: _buildSvgIcon(
+                              assetPath: 'assets/icons/close.svg',
+                              size: 14,
+                            ),
                             padding: EdgeInsets.zero,
                             constraints: const BoxConstraints(),
                           ),
@@ -886,11 +915,13 @@ class _UserPageState extends State<UserPage> {
                                           ),
                                         ),
                                         suffixIcon: IconButton(
-                                          icon: Icon(
-                                            _obscurePassword
-                                                ? Icons.visibility_off
-                                                : Icons.visibility,
+                                          icon: _buildSvgIcon(
+                                            assetPath:
+                                                _obscurePassword
+                                                    ? 'assets/icons/visibility_off.svg'
+                                                    : 'assets/icons/visibility.svg',
                                             color: const Color(0xFF6B7280),
+                                            size: 20,
                                           ),
                                           onPressed: () {
                                             setState(() {

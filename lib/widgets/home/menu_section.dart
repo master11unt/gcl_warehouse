@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:gcl_warehouse/models/home_data.dart';
+import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 
 class MenuSection extends StatelessWidget {
   final Function(String route)? onMenuTap;
@@ -17,7 +18,11 @@ class MenuSection extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(Icons.border_all_rounded, color: Colors.black),
+           SvgIcon(
+              assetPath: 'assets/icons/menu.svg',
+              color: Colors.black,
+              size: 20,
+            ),
             SizedBox(width: 8),
             Text(
               "Menu",
@@ -40,7 +45,7 @@ class MenuSection extends StatelessWidget {
                     onMenuTap!(item.route!);
                   }
                 },
-                child: _menuCard(_getIconData(item.icon), item.label),
+                child: _menuCard(item.icon, item.label),
               );
             }).toList(),
           ),
@@ -49,7 +54,7 @@ class MenuSection extends StatelessWidget {
     );
   }
 
-  Widget _menuCard(IconData icon, String label) {
+  Widget _menuCard(String svgPath, String label) {
     return Padding(
       padding: const EdgeInsets.only(right: 12),
       child: Column(
@@ -64,7 +69,11 @@ class MenuSection extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Icon(icon, color: Color(0xFF0F172A), size: 36),
+                child: SvgIcon(
+                  assetPath: svgPath,
+                  size: 36,
+                  color: Color(0xFF0F172A), 
+                ),
               ),
             ),
           ),
@@ -84,28 +93,5 @@ class MenuSection extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  IconData _getIconData(String iconName) {
-    switch (iconName) {
-      case 'note_add':
-        return Icons.note_add;
-      case 'inventory_2':
-        return Icons.inventory_2;
-      case 'description':
-        return Icons.description;
-      case 'pallet':
-        return Icons.pallet;
-      case 'all_inbox':
-        return Icons.all_inbox;
-      case 'layers':
-        return Icons.layers;
-      case 'menu_book':
-        return Icons.menu_book;
-      case 'people':
-        return Icons.people;
-      default:
-        return Icons.help_outline;
-    }
   }
 }

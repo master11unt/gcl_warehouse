@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 import '../home/notification_popup.dart';
 import '../home/user_popup.dart';
 import '../../pages/home_page.dart';
@@ -13,7 +14,11 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       leading: Builder(
         builder: (context) => IconButton(
-          icon: Icon(Icons.menu, color: Colors.black),
+          icon: SvgIcon(
+            assetPath: 'assets/icons/drawer.svg',
+            color: Colors.black,
+            size: 14,
+          ),
           onPressed: () => Scaffold.of(context).openDrawer(),
         ),
       ),
@@ -26,7 +31,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               (route) => false,
             );
           },
-          child: Image.asset('assets/images/gcl_logo.png', height: 40),
+          child: Image.asset('assets/images/logo.webp', height: 40),
         ),
       ),
       actions: [

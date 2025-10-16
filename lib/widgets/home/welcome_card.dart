@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 
 class WelcomeCard extends StatelessWidget {
   final String username;
@@ -38,12 +39,12 @@ class WelcomeCard extends StatelessWidget {
                 SizedBox(height: 4),
                 Row(
                   children: [
-                    Icon(
-                      Icons.person,
-                      color: Colors.white,
-                      size: 28,
-                    ),
-                    SizedBox(width: 6),
+                    SvgIcon(
+                          assetPath: 'assets/icons/user.svg',
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                    SizedBox(width: 8),
                     Text(
                       "$username ",
                       style: TextStyle(

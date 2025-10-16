@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/home/custom_drawer.dart';
 import '../models/profile_data.dart';
@@ -59,11 +60,17 @@ class ProfilePage extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(
-                              child: _buildInfoItem('NIP', profile['nip'] ?? ''),
+                              child: _buildInfoItem(
+                                'NIP',
+                                profile['nip'] ?? '',
+                              ),
                             ),
                             const SizedBox(width: 20),
                             Expanded(
-                              child: _buildInfoItem('Division', profile['division'] ?? ''),
+                              child: _buildInfoItem(
+                                'Division',
+                                profile['division'] ?? '',
+                              ),
                             ),
                           ],
                         ),
@@ -71,11 +78,17 @@ class ProfilePage extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(
-                              child: _buildInfoItem('Region', profile['region'] ?? ''),
+                              child: _buildInfoItem(
+                                'Region',
+                                profile['region'] ?? '',
+                              ),
                             ),
                             const SizedBox(width: 20),
                             Expanded(
-                              child: _buildInfoItem('Group', profile['group'] ?? ''),
+                              child: _buildInfoItem(
+                                'Group',
+                                profile['group'] ?? '',
+                              ),
                             ),
                           ],
                         ),
@@ -114,10 +127,19 @@ class ProfilePage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            _buildActionIcon(Icons.bar_chart, () {}),
-                            _buildActionIcon(Icons.edit, () {}),
-                            _buildActionIcon(Icons.calendar_today, () {}),
-                            _buildActionIcon(Icons.school, () {}),
+                            _buildActionIcon(
+                              'assets/icons/chart_outline.svg',
+                              () {},
+                            ),
+                            _buildActionIcon('assets/icons/edit.svg', () {}),
+                            _buildActionIcon(
+                              'assets/icons/personal_detail.svg',
+                              () {},
+                            ),
+                            _buildActionIcon(
+                              'assets/icons/achievement.svg',
+                              () {},
+                            ),
                           ],
                         ),
                         const SizedBox(height: 20),
@@ -138,8 +160,8 @@ class ProfilePage extends StatelessWidget {
                     right: 0,
                     child: Center(
                       child: Container(
-                        width: 100,
-                        height: 100,
+                        width: 120,
+                        height: 120,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
@@ -155,10 +177,12 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: const Icon(
-                          Icons.person_outline_outlined,
-                          size: 50,
-                          color: Color(0xFF374151),
+                        child: const Center(
+                          child: SvgIcon(
+                            assetPath: 'assets/icons/user_outline.svg',
+                            color: Color(0xFF374151),
+                            size: 70,
+                          ),
                         ),
                       ),
                     ),
@@ -187,9 +211,9 @@ class ProfilePage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        const Icon(
-                          Icons.bar_chart,
-                          color: Color(0xFF374151),
+                        const SvgIcon(
+                          assetPath: 'assets/icons/chart.svg',
+                          color: Color(0xFF0F172A),
                           size: 24,
                         ),
                         const SizedBox(width: 12),
@@ -249,7 +273,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildActionIcon(IconData icon, VoidCallback onTap) {
+  Widget _buildActionIcon(String svgPath, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -266,10 +290,8 @@ class ProfilePage extends StatelessWidget {
             ),
           ],
         ),
-        child: Icon(
-          icon,
-          color: Colors.white,
-          size: 24,
+        child: Center(
+          child: SvgIcon(assetPath: svgPath, color: Colors.white, size: 24),
         ),
       ),
     );

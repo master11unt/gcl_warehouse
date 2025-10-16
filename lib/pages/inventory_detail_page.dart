@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/home/custom_drawer.dart';
 import '../models/inventory_data.dart';
@@ -7,10 +8,13 @@ class InventoryDetailPage extends StatefulWidget {
   final Map<String, dynamic> inventoryData;
 
   const InventoryDetailPage({super.key, Map<String, dynamic>? inventoryData})
-      : inventoryData = inventoryData ?? const {};
+    : inventoryData = inventoryData ?? const {};
 
   factory InventoryDetailPage.withDummy({Key? key}) {
-    return InventoryDetailPage(key: key, inventoryData: InventoryData.getDummyCargoOutDetail());
+    return InventoryDetailPage(
+      key: key,
+      inventoryData: InventoryData.getDummyCargoOutDetail(),
+    );
   }
 
   @override
@@ -95,9 +99,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
   }
 
   Widget _buildHeaderSection() {
-    final data = widget.inventoryData.isNotEmpty
-        ? widget.inventoryData
-        : InventoryData.getDummyCargoOutDetail();
+    final data =
+        widget.inventoryData.isNotEmpty
+            ? widget.inventoryData
+            : InventoryData.getDummyCargoOutDetail();
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -138,13 +143,13 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 6),
-                const Icon(
-                  Icons.chevron_right,
+                const SizedBox(width: 10),
+                const SvgIcon(
+                  assetPath: 'assets/icons/chevron_right.svg',
                   color: Color(0xFF0F172A),
-                  size: 20,
+                  size: 12,
                 ),
-                const SizedBox(width: 6),
+                const SizedBox(width: 10),
                 Flexible(
                   child: Text(
                     data['bookingCode'] ?? '',
@@ -165,9 +170,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
   }
 
   Widget _buildCombinedDataSection() {
-    final data = widget.inventoryData.isNotEmpty
-        ? widget.inventoryData
-        : InventoryData.getDummyCargoOutDetail();
+    final data =
+        widget.inventoryData.isNotEmpty
+            ? widget.inventoryData
+            : InventoryData.getDummyCargoOutDetail();
     return Container(
       padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
@@ -239,7 +245,8 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                       const SizedBox(height: 4),
                       Builder(
                         builder: (context) {
-                          final bookingCode = (data['bookingCodeDisplay'] ?? '') as String;
+                          final bookingCode =
+                              (data['bookingCodeDisplay'] ?? '') as String;
                           final parts = bookingCode.split('-');
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -284,7 +291,8 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                       const SizedBox(height: 4),
                       Builder(
                         builder: (context) {
-                          final cargoOwner = (data['cargoOwner'] ?? '') as String;
+                          final cargoOwner =
+                              (data['cargoOwner'] ?? '') as String;
                           final parts = cargoOwner.split('-');
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -340,7 +348,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
 
           _buildDetailItem('Date', data['date'] ?? ''),
           _buildDetailItem('Shipper', data['shipper'] ?? ''),
-          _buildDetailItem('Description of goods', data['descriptionOfGoods'] ?? ''),
+          _buildDetailItem(
+            'Description of goods',
+            data['descriptionOfGoods'] ?? '',
+          ),
           _buildDetailItem('Destination', data['destination'] ?? ''),
           _buildDetailItem('Estimated Time Departure', data['etd'] ?? ''),
           _buildDetailItem('Vessel', data['vessel'] ?? ''),
@@ -495,7 +506,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF374151)
+                              color: Color(0xFF374151),
                             ),
                           ),
                         ],
@@ -1316,6 +1327,124 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
               ),
             ],
           ),
+
+          const SizedBox(height: 20),
+
+          // PKBE Section
+          const Text(
+            'PKBE',
+            style: TextStyle(
+              fontSize: 14,
+              color: Color(0xFF6B7280),
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 12,
+                      ),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFE5E7EB),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(6),
+                          topRight: Radius.circular(6),
+                        ),
+                      ),
+                      child: const Text(
+                        'Number',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF6B7280),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 16,
+                        horizontal: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: const Color(0xFFE5E7EB)),
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(6),
+                          bottomRight: Radius.circular(6),
+                        ),
+                      ),
+                      child: const Text(
+                        '-',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF0F172A),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 12,
+                      ),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFE5E7EB),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(6),
+                          topRight: Radius.circular(6),
+                        ),
+                      ),
+                      child: const Text(
+                        'Date',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF6B7280),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 16,
+                        horizontal: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: const Color(0xFFE5E7EB)),
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(6),
+                          bottomRight: Radius.circular(6),
+                        ),
+                      ),
+                      child: const Text(
+                        '-',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF0F172A),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -1395,17 +1524,20 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                _buildOptionButton(Icons.ads_click, 'Action'),
+                _buildOptionButton('assets/icons/option1.svg', 'Action'),
                 const SizedBox(width: 21),
-                _buildOptionButton(Icons.edit_square, 'Edit'),
+                _buildOptionButton('assets/icons/edit.svg', 'Edit'),
                 const SizedBox(width: 21),
-                _buildOptionButton(Icons.share_outlined, 'Share'),
+                _buildOptionButton('assets/icons/share.svg', 'Share'),
                 const SizedBox(width: 21),
-                _buildOptionButton(Icons.print_outlined, 'Print'),
+                _buildOptionButton('assets/icons/print.svg', 'Print'),
                 const SizedBox(width: 21),
-                _buildOptionButton(Icons.headset_mic_rounded, 'Call Support'),
+                _buildOptionButton(
+                  'assets/icons/microphone.svg',
+                  'Call Support',
+                ),
                 const SizedBox(width: 21),
-                _buildOptionButton(Icons.send, 'Send Tallysheet'),
+                _buildOptionButton('assets/icons/send.svg', 'Send Tallysheet'),
               ],
             ),
           ),
@@ -1446,7 +1578,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
   }
 
   Widget _buildOptionButton(
-    IconData icon,
+    String assetPath,
     String label, {
     bool isDisabled = false,
   }) {
@@ -1458,8 +1590,8 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Center(
-        child: Icon(
-          icon,
+        child: SvgIcon(
+          assetPath: assetPath,
           color: isDisabled ? const Color(0xFF9CA3AF) : Colors.white,
           size: 24,
         ),
@@ -2147,11 +2279,16 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                    Icon(
-                                      _isSenderIdentityExpanded
-                                          ? Icons.expand_less
-                                          : Icons.chevron_right,
+                                    SvgIcon(
+                                      assetPath:
+                                          _isSenderIdentityExpanded
+                                              ? 'assets/icons/chevron_up.svg'
+                                              : 'assets/icons/chevron_right.svg',
                                       color: const Color(0xFF9CA3AF),
+                                      size:
+                                          _isSenderIdentityExpanded
+                                              ? 8
+                                              : 12,
                                     ),
                                   ],
                                 ),
@@ -2261,11 +2398,16 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                    Icon(
-                                      _isDocumentationExpanded
-                                          ? Icons.expand_less
-                                          : Icons.chevron_right,
+                                    SvgIcon(
+                                      assetPath:
+                                          _isDocumentationExpanded
+                                              ? 'assets/icons/chevron_up.svg'
+                                              : 'assets/icons/chevron_right.svg',
                                       color: const Color(0xFF9CA3AF),
+                                      size:
+                                          _isDocumentationExpanded
+                                              ? 8
+                                              : 12,
                                     ),
                                   ],
                                 ),
@@ -2743,11 +2885,15 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                       border: Border.all(color: const Color(0xFF0F172A)),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Icon(
-                      _isLocationExpanded
-                          ? Icons.keyboard_arrow_up
-                          : Icons.keyboard_arrow_down,
-                      color: Color(0xFF0F172A),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: SvgIcon(
+                        assetPath:
+                            _isLocationExpanded
+                                ? 'assets/icons/chevron_up.svg'
+                                : 'assets/icons/arrow_down.svg',
+                        color: const Color(0xFF0F172A),
+                      ),
                     ),
                   ),
                 ),

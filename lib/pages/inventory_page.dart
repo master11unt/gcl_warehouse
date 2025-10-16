@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 import 'package:gcl_warehouse/pages/inventory_detail_cargo_out_page.dart';
 import '../widgets/home/custom_drawer.dart';
 import 'input_cargo_in_page.dart';
@@ -13,13 +14,12 @@ class InventoryPage extends StatefulWidget {
   _InventoryPageState createState() => _InventoryPageState();
 }
 
-class _InventoryPageState extends State<InventoryPage> with TickerProviderStateMixin {
+class _InventoryPageState extends State<InventoryPage>
+    with TickerProviderStateMixin {
   void _showScanDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => const ScanDialog(),
-    );
+    showDialog(context: context, builder: (context) => const ScanDialog());
   }
+
   late TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
   String searchQuery = "";
@@ -30,30 +30,63 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
   bool _isFilterExpandedCargoIn = false;
   bool _isFilterExpandedStock = false;
   bool _isFilterExpandedCargoOut = false;
-  
+
   String _selectedCategoryCargoIn = 'None';
   DateTime? _selectedDateCargoIn;
-  
+
   String _selectedCategoryStock = 'None';
   DateTime? _selectedDateStock;
-  
+
   String _selectedCategoryCargoOut = 'None';
   DateTime? _selectedDateCargoOut;
 
   // Filter options
   final List<String> _categoryOptionsCargoIn = [
-    'None', 'Cargo In', 'Demaged', 'Short', 'Over', 'Coload', 'Cenceled', 
-    'In Delivery', 'Stuffing', 'BC 3.0', 'BC 3.1', 'IDR', 'USD'
+    'None',
+    'Cargo In',
+    'Demaged',
+    'Short',
+    'Over',
+    'Coload',
+    'Cenceled',
+    'In Delivery',
+    'Stuffing',
+    'BC 3.0',
+    'BC 3.1',
+    'IDR',
+    'USD',
   ];
-  
+
   final List<String> _categoryOptionsStock = [
-    'None', 'Cargo In', 'Demaged', 'Short', 'Over', 'Coload', 'Cenceled', 
-    'In Delivery', 'Stuffing', 'BC 3.0', 'BC 3.1', 'IDR', 'USD'
+    'None',
+    'Cargo In',
+    'Demaged',
+    'Short',
+    'Over',
+    'Coload',
+    'Cenceled',
+    'In Delivery',
+    'Stuffing',
+    'BC 3.0',
+    'BC 3.1',
+    'IDR',
+    'USD',
   ];
-  
+
   final List<String> _categoryOptionsCargoOut = [
-    'None', 'Cargo In', 'Demaged', 'Short', 'Over', 'Coload', 'Cenceled', 
-    'In Delivery', 'Stuffing', 'BC 3.0', 'BC 3.1', 'IDR', 'USD'
+    'None',
+    'Cargo In',
+    'Demaged',
+    'Short',
+    'Over',
+    'Coload',
+    'Cenceled',
+    'In Delivery',
+    'Stuffing',
+    'BC 3.0',
+    'BC 3.1',
+    'IDR',
+    'USD',
   ];
 
   @override
@@ -104,8 +137,8 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                       onTap: _showScanDialog,
                       child: Container(
                         padding: const EdgeInsets.all(10),
-                        child: const Icon(
-                          Icons.qr_code_rounded,
+                        child: const SvgIcon(
+                          assetPath: 'assets/icons/qr.svg',
                           color: Colors.white,
                           size: 40,
                         ),
@@ -124,11 +157,23 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            _buildTabItem(Icons.description_outlined, "Cargo In", 0),
+                            _buildTabItem(
+                              Icons.description_outlined,
+                              "Cargo In",
+                              0,
+                            ),
                             const SizedBox(width: 12),
-                            _buildTabItem(Icons.home_work_outlined, "Stock Inventory", 1),
+                            _buildTabItem(
+                              Icons.home_work_outlined,
+                              "Stock Inventory",
+                              1,
+                            ),
                             const SizedBox(width: 12),
-                            _buildTabItem(Icons.local_shipping_outlined, "Cargo Out", 2),
+                            _buildTabItem(
+                              Icons.local_shipping_outlined,
+                              "Cargo Out",
+                              2,
+                            ),
                             const SizedBox(width: 12),
                             _buildAddTab(3),
                           ],
@@ -160,7 +205,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
   }
 
   Widget _buildCargoInTab() {
-    final totalItems = InventoryData.cargoInTableData.length; 
+    final totalItems = InventoryData.cargoInTableData.length;
     final totalPages = InventoryData.totalPages;
     final page = _currentPage.clamp(1, totalPages);
 
@@ -217,11 +262,11 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                         _toggleFilterExpanded();
                       });
                     },
-                    child: const Icon(
-                        Icons.tune,
-                        color: Color(0xFF6B7280),
-                        size: 24,
-                      ),
+                    child: const SvgIcon(
+                      assetPath: 'assets/icons/filter_outline.svg',
+                      color: Color(0xFF6B7280),
+                      size: 24,
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -232,9 +277,13 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                         decoration: const InputDecoration(
                           hintText: "Search",
                           hintStyle: TextStyle(color: Color(0xFF9CA3AF)),
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Color(0xFF6B7280),
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.all(6.0),
+                            child: SvgIcon(
+                              assetPath: 'assets/icons/search.svg',
+                              color: Color(0xFF6B7280),
+                              size: 18,
+                            ),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -249,7 +298,8 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                             ),
                           ),
                         ),
-                        onChanged: (value) => setState(() => searchQuery = value),
+                        onChanged:
+                            (value) => setState(() => searchQuery = value),
                       ),
                     ),
                   ),
@@ -307,13 +357,16 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                                 );
                               },
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
                                 child: Row(
                                   children: [
                                     Expanded(
                                       child: Text(
                                         () {
-                                          final DateTime? currentDate = _getSelectedDate();
+                                          final DateTime? currentDate =
+                                              _getSelectedDate();
                                           return currentDate != null
                                               ? '${currentDate.day}/${currentDate.month}/${currentDate.year}'
                                               : 'Select Date';
@@ -325,8 +378,8 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                                         ),
                                       ),
                                     ),
-                                    const Icon(
-                                      Icons.calendar_today,
+                                    const SvgIcon(
+                                      assetPath: 'assets/icons/calendar.svg',
                                       color: Color(0xFF6B7280),
                                       size: 20,
                                     ),
@@ -349,20 +402,31 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                           ),
                         ),
                         const SizedBox(height: 12),
-                        
+
                         SizedBox(
                           height: 50,
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
-                              children: _getCategoryOptions().map((category) => Padding(
-                                padding: const EdgeInsets.only(right: 8),
-                                child: _buildFilterChip(
-                                  category, 
-                                  _getSelectedCategory() == category,
-                                  () => setState(() => _setSelectedCategory(category)),
-                                ),
-                              )).toList(),
+                              children:
+                                  _getCategoryOptions()
+                                      .map(
+                                        (category) => Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: 8,
+                                          ),
+                                          child: _buildFilterChip(
+                                            category,
+                                            _getSelectedCategory() == category,
+                                            () => setState(
+                                              () => _setSelectedCategory(
+                                                category,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                      .toList(),
                             ),
                           ),
                         ),
@@ -378,7 +442,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                           ),
                         ),
                         const SizedBox(height: 12),
-                        
+
                         Row(
                           children: [
                             Expanded(
@@ -389,18 +453,23 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                                 },
                                 child: Container(
                                   height: 40,
-                                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(color: Color(0xFFE5E7EB)),
+                                    border: Border.all(
+                                      color: Color(0xFFE5E7EB),
+                                    ),
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      const Icon(
-                                        Icons.table_chart_outlined,
+                                      const SvgIcon(
+                                        assetPath:
+                                            'assets/icons/table_chart.svg',
                                         color: Color(0xFF374151),
                                         size: 16,
                                       ),
@@ -422,9 +491,9 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                                 ),
                               ),
                             ),
-                            
+
                             const SizedBox(width: 6),
-                            
+
                             Expanded(
                               flex: 2,
                               child: GestureDetector(
@@ -433,18 +502,22 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                                 },
                                 child: Container(
                                   height: 40,
-                                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 4,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(color: Color(0xFFE5E7EB)),
+                                    border: Border.all(
+                                      color: Color(0xFFE5E7EB),
+                                    ),
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      const Icon(
-                                        Icons.send_outlined,
+                                      const SvgIcon(
+                                        assetPath: 'assets/icons/send.svg',
                                         color: Color(0xFF374151),
                                         size: 16,
                                       ),
@@ -499,17 +572,17 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                   130, // Date In
                   200, // Shipper
                   100, // Destination
-                  80,  // Quantity
-                  80,  // Marking
+                  80, // Quantity
+                  80, // Marking
                   110, // Description of Goods
-                  90,  // Warehouse Meas
-                  80,  // Weight (KGs)
+                  90, // Warehouse Meas
+                  80, // Weight (KGs)
                   100, // PEB Number
-                  80,  // PEB Date
+                  80, // PEB Date
                   100, // NPE Number
-                  80,  // NPE Date
-                  60,  // Value
-                  50,  // Currency
+                  80, // NPE Date
+                  60, // Value
+                  50, // Currency
                   220, // Status
                 ],
                 rows: InventoryData.cargoInTableData,
@@ -518,7 +591,9 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                 totalPages: totalPages,
                 totalItems: totalItems,
                 pageSize: InventoryData.pageSize,
-                onPageChange: (p) => setState(() => _currentPage = p.clamp(1, totalPages)),
+                onPageChange:
+                    (p) =>
+                        setState(() => _currentPage = p.clamp(1, totalPages)),
                 onRowTap: (rowData) {
                   final rowMap = {
                     'bookingCode': rowData[0],
@@ -549,9 +624,9 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => InventoryDetailPage(
-                        inventoryData: rowMap,
-                      ),
+                      builder:
+                          (context) =>
+                              InventoryDetailPage(inventoryData: rowMap),
                     ),
                   );
                 },
@@ -617,11 +692,11 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                         _toggleFilterExpanded();
                       });
                     },
-                    child: const Icon(
-                        Icons.tune,
-                        color: Color(0xFF6B7280),
-                        size: 24,
-                      ),
+                    child: const SvgIcon(
+                      assetPath: 'assets/icons/filter_outline.svg',
+                      color: Color(0xFF6B7280),
+                      size: 24,
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -632,9 +707,13 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                         decoration: const InputDecoration(
                           hintText: "Search",
                           hintStyle: TextStyle(color: Color(0xFF9CA3AF)),
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Color(0xFF6B7280),
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.all(6.0),
+                            child: SvgIcon(
+                              assetPath: 'assets/icons/search.svg',
+                              color: Color(0xFF6B7280),
+                              size: 18,
+                            ),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -649,7 +728,8 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                             ),
                           ),
                         ),
-                        onChanged: (value) => setState(() => searchQuery = value),
+                        onChanged:
+                            (value) => setState(() => searchQuery = value),
                       ),
                     ),
                   ),
@@ -708,13 +788,16 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                                 );
                               },
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
                                 child: Row(
                                   children: [
                                     Expanded(
                                       child: Text(
                                         () {
-                                          final DateTime? currentDate = _getSelectedDate();
+                                          final DateTime? currentDate =
+                                              _getSelectedDate();
                                           return currentDate != null
                                               ? '${currentDate.day}/${currentDate.month}/${currentDate.year}'
                                               : 'Select Date';
@@ -726,8 +809,8 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                                         ),
                                       ),
                                     ),
-                                    const Icon(
-                                      Icons.calendar_today,
+                                    const SvgIcon(
+                                      assetPath: 'assets/icons/calendar.svg',
                                       color: Color(0xFF6B7280),
                                       size: 20,
                                     ),
@@ -749,20 +832,31 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                           ),
                         ),
                         const SizedBox(height: 12),
-                        
+
                         SizedBox(
                           height: 50,
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
-                              children: _getCategoryOptions().map((category) => Padding(
-                                padding: const EdgeInsets.only(right: 8),
-                                child: _buildFilterChip(
-                                  category, 
-                                  _getSelectedCategory() == category,
-                                  () => setState(() => _setSelectedCategory(category)),
-                                ),
-                              )).toList(),
+                              children:
+                                  _getCategoryOptions()
+                                      .map(
+                                        (category) => Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: 8,
+                                          ),
+                                          child: _buildFilterChip(
+                                            category,
+                                            _getSelectedCategory() == category,
+                                            () => setState(
+                                              () => _setSelectedCategory(
+                                                category,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                      .toList(),
                             ),
                           ),
                         ),
@@ -778,7 +872,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                           ),
                         ),
                         const SizedBox(height: 12),
-                        
+
                         Row(
                           children: [
                             Expanded(
@@ -789,18 +883,23 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                                 },
                                 child: Container(
                                   height: 40,
-                                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(color: Color(0xFFE5E7EB)),
+                                    border: Border.all(
+                                      color: Color(0xFFE5E7EB),
+                                    ),
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      const Icon(
-                                        Icons.table_chart_outlined,
+                                      const SvgIcon(
+                                        assetPath:
+                                            'assets/icons/table_chart.svg',
                                         color: Color(0xFF374151),
                                         size: 16,
                                       ),
@@ -822,9 +921,9 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                                 ),
                               ),
                             ),
-                            
+
                             const SizedBox(width: 6),
-                            
+
                             // Send Button
                             Expanded(
                               flex: 2,
@@ -834,18 +933,22 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                                 },
                                 child: Container(
                                   height: 40,
-                                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 4,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(color: Color(0xFFE5E7EB)),
+                                    border: Border.all(
+                                      color: Color(0xFFE5E7EB),
+                                    ),
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      const Icon(
-                                        Icons.send_outlined,
+                                      const SvgIcon(
+                                        assetPath: 'assets/icons/send.svg',
                                         color: Color(0xFF374151),
                                         size: 16,
                                       ),
@@ -900,23 +1003,26 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                   130, // Date In
                   200, // Shipper
                   100, // Destination
-                  80,  // Quantity
-                  80,  // Marking
+                  80, // Quantity
+                  80, // Marking
                   110, // Description of Goods
-                  90,  // Warehouse Meas
-                  80,  // Weight (KGs)
+                  90, // Warehouse Meas
+                  80, // Weight (KGs)
                   100, // PEB Number
-                  80,  // PEB Date
+                  80, // PEB Date
                   100, // NPE Number
-                  80,  // NPE Date
-                  60,  // Value
-                  50,  // Currency
+                  80, // NPE Date
+                  60, // Value
+                  50, // Currency
                   220, // Status
                 ],
                 rows: InventoryData.stockInventoryTableData,
                 emptyMessage: 'Showing Result',
                 currentPage: _currentPageStock,
-                totalPages: (InventoryData.stockInventoryTableData.length / InventoryData.pageSize).ceil(),
+                totalPages:
+                    (InventoryData.stockInventoryTableData.length /
+                            InventoryData.pageSize)
+                        .ceil(),
                 totalItems: InventoryData.stockInventoryTableData.length,
                 pageSize: InventoryData.pageSize,
                 onPageChange: (p) => setState(() => _currentPageStock = p),
@@ -950,9 +1056,9 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => InventoryDetailPage(
-                        inventoryData: rowMap,
-                      ),
+                      builder:
+                          (context) =>
+                              InventoryDetailPage(inventoryData: rowMap),
                     ),
                   );
                 },
@@ -1018,11 +1124,11 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                         _toggleFilterExpanded();
                       });
                     },
-                    child: const Icon(
-                        Icons.tune,
-                        color: Color(0xFF6B7280),
-                        size: 24,
-                      ),
+                    child: const SvgIcon(
+                      assetPath: 'assets/icons/filter_outline.svg',
+                      color: Color(0xFF6B7280),
+                      size: 24,
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -1033,9 +1139,13 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                         decoration: const InputDecoration(
                           hintText: "Search",
                           hintStyle: TextStyle(color: Color(0xFF9CA3AF)),
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Color(0xFF6B7280),
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.all(6.0),
+                            child: SvgIcon(
+                              assetPath: 'assets/icons/search.svg',
+                              color: Color(0xFF6B7280),
+                              size: 18,
+                            ),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -1050,7 +1160,8 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                             ),
                           ),
                         ),
-                        onChanged: (value) => setState(() => searchQuery = value),
+                        onChanged:
+                            (value) => setState(() => searchQuery = value),
                       ),
                     ),
                   ),
@@ -1108,13 +1219,16 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                                 );
                               },
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
                                 child: Row(
                                   children: [
                                     Expanded(
                                       child: Text(
                                         () {
-                                          final DateTime? currentDate = _getSelectedDate();
+                                          final DateTime? currentDate =
+                                              _getSelectedDate();
                                           return currentDate != null
                                               ? '${currentDate.day}/${currentDate.month}/${currentDate.year}'
                                               : 'Select Date';
@@ -1126,8 +1240,8 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                                         ),
                                       ),
                                     ),
-                                    const Icon(
-                                      Icons.calendar_today,
+                                    const SvgIcon(
+                                      assetPath: 'assets/icons/calendar.svg',
                                       color: Color(0xFF6B7280),
                                       size: 20,
                                     ),
@@ -1149,20 +1263,31 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                           ),
                         ),
                         const SizedBox(height: 12),
-                        
+
                         SizedBox(
                           height: 50,
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
-                              children: _getCategoryOptions().map((category) => Padding(
-                                padding: const EdgeInsets.only(right: 8),
-                                child: _buildFilterChip(
-                                  category, 
-                                  _getSelectedCategory() == category,
-                                  () => setState(() => _setSelectedCategory(category)),
-                                ),
-                              )).toList(),
+                              children:
+                                  _getCategoryOptions()
+                                      .map(
+                                        (category) => Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: 8,
+                                          ),
+                                          child: _buildFilterChip(
+                                            category,
+                                            _getSelectedCategory() == category,
+                                            () => setState(
+                                              () => _setSelectedCategory(
+                                                category,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                      .toList(),
                             ),
                           ),
                         ),
@@ -1178,7 +1303,7 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                           ),
                         ),
                         const SizedBox(height: 12),
-                        
+
                         Row(
                           children: [
                             Expanded(
@@ -1189,18 +1314,23 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                                 },
                                 child: Container(
                                   height: 40,
-                                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(color: Color(0xFFE5E7EB)),
+                                    border: Border.all(
+                                      color: Color(0xFFE5E7EB),
+                                    ),
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      const Icon(
-                                        Icons.table_chart_outlined,
+                                      const SvgIcon(
+                                        assetPath:
+                                            'assets/icons/table_chart.svg',
                                         color: Color(0xFF374151),
                                         size: 16,
                                       ),
@@ -1222,9 +1352,9 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                                 ),
                               ),
                             ),
-                            
+
                             const SizedBox(width: 6),
-                            
+
                             Expanded(
                               flex: 2,
                               child: GestureDetector(
@@ -1233,18 +1363,22 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                                 },
                                 child: Container(
                                   height: 40,
-                                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 4,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(color: Color(0xFFE5E7EB)),
+                                    border: Border.all(
+                                      color: Color(0xFFE5E7EB),
+                                    ),
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      const Icon(
-                                        Icons.send_outlined,
+                                      const SvgIcon(
+                                        assetPath: 'assets/icons/send.svg',
                                         color: Color(0xFF374151),
                                         size: 16,
                                       ),
@@ -1299,28 +1433,30 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                   130, // Date In
                   200, // Shipper
                   100, // Destination
-                  80,  // Quantity
-                  80,  // Marking
+                  80, // Quantity
+                  80, // Marking
                   110, // Description of Goods
-                  90,  // Warehouse Meas
-                  80,  // Weight (KGs)
+                  90, // Warehouse Meas
+                  80, // Weight (KGs)
                   100, // PEB Number
-                  80,  // PEB Date
+                  80, // PEB Date
                   100, // NPE Number
-                  80,  // NPE Date
-                  60,  // Value
-                  50,  // Currency
+                  80, // NPE Date
+                  60, // Value
+                  50, // Currency
                   220, // Status
                 ],
                 rows: InventoryData.cargoOutTableData,
                 emptyMessage: 'Showing Result',
                 currentPage: _currentPageCargoOut,
-                totalPages: (InventoryData.cargoOutTableData.length / InventoryData.pageSize).ceil(),
+                totalPages:
+                    (InventoryData.cargoOutTableData.length /
+                            InventoryData.pageSize)
+                        .ceil(),
                 totalItems: InventoryData.cargoOutTableData.length,
                 pageSize: InventoryData.pageSize,
                 onPageChange: (p) => setState(() => _currentPageCargoOut = p),
                 onRowTap: (rowData) {
-                  // Gabungkan data row dengan dummy agar semua key ada
                   final dummy = InventoryData.getDummyCargoOutDetail();
                   final rowMap = {
                     'bookingCode': rowData[0],
@@ -1352,9 +1488,10 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => InventoryDetailCargoOutPage(
-                        inventoryData: merged,
-                      ),
+                      builder:
+                          (context) => InventoryDetailCargoOutPage(
+                            inventoryData: merged,
+                          ),
                     ),
                   );
                 },
@@ -1368,22 +1505,31 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
 
   Widget _buildTabItem(IconData icon, String text, int index) {
     final bool isSelected = _tabController.index == index;
-    
-    IconData displayIcon;
+
+    String assetPath;
     switch (index) {
       case 0: // Cargo In
-        displayIcon = isSelected ? Icons.description : Icons.description_outlined;
+        assetPath =
+            isSelected
+                ? 'assets/icons/inventory.svg'
+                : 'assets/icons/inventory_outline.svg';
         break;
       case 1: // Stock Inventory
-        displayIcon = isSelected ? Icons.home_work : Icons.home_work_outlined;
+        assetPath =
+            isSelected
+                ? 'assets/icons/stock_int.svg'
+                : 'assets/icons/stock_int_outline.svg';
         break;
       case 2: // Cargo Out
-        displayIcon = isSelected ? Icons.local_shipping : Icons.local_shipping_outlined;
+        assetPath =
+            isSelected
+                ? 'assets/icons/cargo_out.svg'
+                : 'assets/icons/cargo_out_outline.svg';
         break;
       default:
-        displayIcon = icon;
+        assetPath = 'assets/icons/inventory_outline.svg';
     }
-    
+
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -1394,19 +1540,14 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected 
-              ? Colors.white.withOpacity(0.2) 
-              : Colors.transparent,
+          color:
+              isSelected ? Colors.white.withOpacity(0.2) : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              displayIcon,
-              color: Colors.white,
-              size: 32,
-            ),
+            SvgIcon(assetPath: assetPath, color: Colors.white, size: 32),
             const SizedBox(width: 8),
             Flexible(
               child: Text(
@@ -1429,43 +1570,49 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
 
   Widget _buildAddTab(int index) {
     final bool isSelected = _tabController.index == index;
-    
+
     return GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => InputCargoInPage(),
-            ),
-          );
-        },
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => InputCargoInPage()),
+        );
+      },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected 
-              ? Colors.white.withOpacity(0.2) 
-              : Colors.transparent,
+          color:
+              isSelected ? Colors.white.withOpacity(0.2) : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 32,
-              height: 32,
+              width: 36,
+              height: 36,
               decoration: BoxDecoration(
-                color: isSelected ? Colors.white.withOpacity(0.1) : Colors.transparent,
+                color:
+                    isSelected
+                        ? Colors.white.withOpacity(0.1)
+                        : Colors.transparent,
                 border: Border.all(
-                  color: Colors.white, 
+                  color: Colors.white,
                   width: isSelected ? 3 : 2,
-                ), 
+                ),
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: Icon(
-                isSelected ? Icons.add_circle : Icons.add,
-                color: Colors.white,
-                size: 20,
+              child: Padding(
+                padding: EdgeInsets.all(6),
+                child: SvgIcon(
+                  assetPath:
+                      isSelected
+                          ? 'assets/icons/add.svg'
+                          : 'assets/icons/add.svg',
+                  color: Colors.white,
+                  size: 14,
+                ),
               ),
             ),
           ],
@@ -1476,61 +1623,95 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
 
   bool _getFilterExpanded() {
     switch (_tabController.index) {
-      case 0: return _isFilterExpandedCargoIn;
-      case 1: return _isFilterExpandedStock;
-      case 2: return _isFilterExpandedCargoOut;
-      default: return false;
+      case 0:
+        return _isFilterExpandedCargoIn;
+      case 1:
+        return _isFilterExpandedStock;
+      case 2:
+        return _isFilterExpandedCargoOut;
+      default:
+        return false;
     }
   }
 
   void _toggleFilterExpanded() {
     switch (_tabController.index) {
-      case 0: _isFilterExpandedCargoIn = !_isFilterExpandedCargoIn; break;
-      case 1: _isFilterExpandedStock = !_isFilterExpandedStock; break;
-      case 2: _isFilterExpandedCargoOut = !_isFilterExpandedCargoOut; break;
+      case 0:
+        _isFilterExpandedCargoIn = !_isFilterExpandedCargoIn;
+        break;
+      case 1:
+        _isFilterExpandedStock = !_isFilterExpandedStock;
+        break;
+      case 2:
+        _isFilterExpandedCargoOut = !_isFilterExpandedCargoOut;
+        break;
     }
   }
 
   DateTime? _getSelectedDate() {
     switch (_tabController.index) {
-      case 0: return _selectedDateCargoIn;
-      case 1: return _selectedDateStock;
-      case 2: return _selectedDateCargoOut;
-      default: return null;
+      case 0:
+        return _selectedDateCargoIn;
+      case 1:
+        return _selectedDateStock;
+      case 2:
+        return _selectedDateCargoOut;
+      default:
+        return null;
     }
   }
 
   void _setSelectedDate(DateTime date) {
     switch (_tabController.index) {
-      case 0: _selectedDateCargoIn = date; break;
-      case 1: _selectedDateStock = date; break;
-      case 2: _selectedDateCargoOut = date; break;
+      case 0:
+        _selectedDateCargoIn = date;
+        break;
+      case 1:
+        _selectedDateStock = date;
+        break;
+      case 2:
+        _selectedDateCargoOut = date;
+        break;
     }
   }
 
   String _getSelectedCategory() {
     switch (_tabController.index) {
-      case 0: return _selectedCategoryCargoIn;
-      case 1: return _selectedCategoryStock;
-      case 2: return _selectedCategoryCargoOut;
-      default: return 'None';
+      case 0:
+        return _selectedCategoryCargoIn;
+      case 1:
+        return _selectedCategoryStock;
+      case 2:
+        return _selectedCategoryCargoOut;
+      default:
+        return 'None';
     }
   }
 
   void _setSelectedCategory(String category) {
     switch (_tabController.index) {
-      case 0: _selectedCategoryCargoIn = category; break;
-      case 1: _selectedCategoryStock = category; break;
-      case 2: _selectedCategoryCargoOut = category; break;
+      case 0:
+        _selectedCategoryCargoIn = category;
+        break;
+      case 1:
+        _selectedCategoryStock = category;
+        break;
+      case 2:
+        _selectedCategoryCargoOut = category;
+        break;
     }
   }
 
   List<String> _getCategoryOptions() {
     switch (_tabController.index) {
-      case 0: return _categoryOptionsCargoIn;
-      case 1: return _categoryOptionsStock;
-      case 2: return _categoryOptionsCargoOut;
-      default: return _categoryOptionsCargoIn;
+      case 0:
+        return _categoryOptionsCargoIn;
+      case 1:
+        return _categoryOptionsStock;
+      case 2:
+        return _categoryOptionsCargoOut;
+      default:
+        return _categoryOptionsCargoIn;
     }
   }
 
@@ -1543,7 +1724,8 @@ class _InventoryPageState extends State<InventoryPage> with TickerProviderStateM
           color: isSelected ? const Color(0xFF0F172A) : Colors.white,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: isSelected ? const Color(0xFF374151) : const Color(0xFFE5E7EB),
+            color:
+                isSelected ? const Color(0xFF374151) : const Color(0xFFE5E7EB),
             width: 1,
           ),
         ),
@@ -1612,7 +1794,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       default:
         selectedDate = DateTime.now();
     }
-    
+
     setState(() {
       _selectedDate = selectedDate;
       _currentMonth = DateTime(selectedDate.year, selectedDate.month, 1);
@@ -1644,8 +1826,18 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
   List<String> _getMonthName() {
     const months = [
-      'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
-      'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+      'JAN',
+      'FEB',
+      'MAR',
+      'APR',
+      'MAY',
+      'JUN',
+      'JUL',
+      'AUG',
+      'SEP',
+      'OCT',
+      'NOV',
+      'DEC',
     ];
     return months;
   }
@@ -1654,7 +1846,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   Widget build(BuildContext context) {
     final monthNames = _getMonthName();
     final currentMonthName = monthNames[_currentMonth.month - 1];
-    
+
     return Dialog(
       backgroundColor: const Color(0xFF2D3748),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -1679,9 +1871,9 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 _buildQuickOption('Last month'),
               ],
             ),
-            
+
             const SizedBox(height: 20),
-            
+
             // Month/Year navigation
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -1694,7 +1886,11 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 children: [
                   GestureDetector(
                     onTap: _previousMonth,
-                    child: const Icon(Icons.chevron_left, color: Colors.white),
+                    child: const SvgIcon(
+                      assetPath: 'assets/icons/chevron_left.svg',
+                      color: Colors.white,
+                      size: 20,
+                    ),
                   ),
                   Text(
                     '$currentMonthName ${_currentMonth.year}',
@@ -1706,30 +1902,55 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   ),
                   GestureDetector(
                     onTap: _nextMonth,
-                    child: const Icon(Icons.chevron_right, color: Colors.white),
+                    child: const SvgIcon(
+                      assetPath: 'assets/icons/chevron_right.svg',
+                      color: Colors.white,
+                      size: 20,
+                    ),
                   ),
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // Day headers
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: const [
-                Text('Sun', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
-                Text('Mon', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
-                Text('Tue', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
-                Text('Wed', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
-                Text('Thu', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
-                Text('Fri', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
-                Text('Sat', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
+                Text(
+                  'Sun',
+                  style: TextStyle(color: Color(0xFF718096), fontSize: 12),
+                ),
+                Text(
+                  'Mon',
+                  style: TextStyle(color: Color(0xFF718096), fontSize: 12),
+                ),
+                Text(
+                  'Tue',
+                  style: TextStyle(color: Color(0xFF718096), fontSize: 12),
+                ),
+                Text(
+                  'Wed',
+                  style: TextStyle(color: Color(0xFF718096), fontSize: 12),
+                ),
+                Text(
+                  'Thu',
+                  style: TextStyle(color: Color(0xFF718096), fontSize: 12),
+                ),
+                Text(
+                  'Fri',
+                  style: TextStyle(color: Color(0xFF718096), fontSize: 12),
+                ),
+                Text(
+                  'Sat',
+                  style: TextStyle(color: Color(0xFF718096), fontSize: 12),
+                ),
               ],
             ),
-            
+
             const SizedBox(height: 8),
-            
+
             // Calendar grid
             _buildCalendarGrid(),
           ],
@@ -1762,22 +1983,30 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   }
 
   Widget _buildCalendarGrid() {
-    final firstDayOfMonth = DateTime(_currentMonth.year, _currentMonth.month, 1);
-    final startOfWeek = firstDayOfMonth.subtract(Duration(days: firstDayOfMonth.weekday % 7));
-    
+    final firstDayOfMonth = DateTime(
+      _currentMonth.year,
+      _currentMonth.month,
+      1,
+    );
+    final startOfWeek = firstDayOfMonth.subtract(
+      Duration(days: firstDayOfMonth.weekday % 7),
+    );
+
     List<Widget> dayWidgets = [];
-    
+
     for (int i = 0; i < 42; i++) {
       final date = startOfWeek.add(Duration(days: i));
       final isCurrentMonth = date.month == _currentMonth.month;
-      final isSelected = _selectedDate != null &&
+      final isSelected =
+          _selectedDate != null &&
           date.year == _selectedDate!.year &&
           date.month == _selectedDate!.month &&
           date.day == _selectedDate!.day;
-      final isToday = date.year == DateTime.now().year &&
+      final isToday =
+          date.year == DateTime.now().year &&
           date.month == DateTime.now().month &&
           date.day == DateTime.now().day;
-      
+
       dayWidgets.add(
         GestureDetector(
           onTap: isCurrentMonth ? () => _onDateTap(date.day) : null,
@@ -1792,9 +2021,12 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               child: Text(
                 '${date.day}',
                 style: TextStyle(
-                  color: isCurrentMonth
-                      ? (isSelected ? Colors.white : Colors.white)
-                      : const Color(0xFF4A5568),
+                  color:
+                      isCurrentMonth
+                          ? (isSelected
+                              ? const Color.fromRGBO(255, 255, 255, 1)
+                              : Colors.white)
+                          : const Color(0xFF4A5568),
                   fontSize: 14,
                   fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
                 ),
@@ -1804,7 +2036,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         ),
       );
     }
-    
+
     return GridView.count(
       shrinkWrap: true,
       crossAxisCount: 7,

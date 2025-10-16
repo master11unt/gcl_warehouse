@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/home/custom_drawer.dart';
 
 class TicketStuffingDetailPage extends StatefulWidget {
   final Map<String, dynamic> ticketData;
 
-  const TicketStuffingDetailPage({
-    super.key,
-    required this.ticketData,
-  });
+  const TicketStuffingDetailPage({super.key, required this.ticketData});
 
   @override
-  State<TicketStuffingDetailPage> createState() => _TicketStuffingDetailPageState();
+  State<TicketStuffingDetailPage> createState() =>
+      _TicketStuffingDetailPageState();
 }
 
 class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
@@ -30,17 +29,17 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
             children: [
               _buildBreadcrumb(),
               const SizedBox(height: 16),
-              
+
               // Combined Content (Main Content + Stuffing List + Stuffing Instruction)
               _buildCombinedContentCard(),
               const SizedBox(height: 16),
-              
+
               _buildRulesSection(),
               const SizedBox(height: 16),
-              
+
               _buildQRCodeSection(),
               const SizedBox(height: 16),
-              
+
               _buildFooterSection(),
               const SizedBox(height: 20),
             ],
@@ -75,7 +74,7 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
             ),
           ),
           const SizedBox(width: 16),
-          
+
           // Breadcrumb navigation
           Expanded(
             child: Row(
@@ -94,10 +93,10 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                const Icon(
-                  Icons.chevron_right,
+                const SvgIcon(
+                  assetPath: 'assets/icons/chevron_right.svg',
                   color: Color(0xFF9CA3AF),
-                  size: 20,
+                  size: 14,
                 ),
                 const SizedBox(width: 8),
                 const Text(
@@ -109,10 +108,10 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                const Icon(
-                  Icons.chevron_right,
+                const SvgIcon(
+                  assetPath: 'assets/icons/chevron_right.svg',
                   color: Color(0xFF9CA3AF),
-                  size: 20,
+                  size: 14,
                 ),
                 const SizedBox(width: 8),
                 Flexible(
@@ -140,7 +139,8 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
         'num': 'A',
         'bookingNumber': 'GTW-20250723043916',
         'shipper': 'VAN AROMA',
-        'description': 'PATCHOULI OIL DECOL, EUGENOL NAT (UN 3082, CLASS 9, PG III)',
+        'description':
+            'PATCHOULI OIL DECOL, EUGENOL NAT (UN 3082, CLASS 9, PG III)',
         'destination': 'SHANGHAI',
         'quantity': '4',
         'packages': 'PALLETS',
@@ -156,7 +156,8 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
         'num': 'B',
         'bookingNumber': 'GTW-20250718083233',
         'shipper': 'VAN AROMA',
-        'description': 'PATCHOULI OIL DECOL, EUGENOL NAT (UN 3082, CLASS 9, PG III)',
+        'description':
+            'PATCHOULI OIL DECOL, EUGENOL NAT (UN 3082, CLASS 9, PG III)',
         'destination': 'SHANGHAI',
         'quantity': '3',
         'packages': 'PALLETS',
@@ -268,20 +269,20 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
     ];
 
     const columnWidths = [
-      60.0,   // Num
-      180.0,  // Booking Number
-      150.0,  // Shipper
-      300.0,  // Description of Goods
-      120.0,  // Destination
-      80.0,   // Quantity
-      100.0,  // Packages
-      250.0,  // Marking
-      120.0,  // Gross Weight
-      120.0,  // Nett Weight
-      120.0,  // Shipper Meas
-      150.0,  // Warehouse Meas
-      120.0,  // Charged Meas
-      100.0,  // PEB Number
+      60.0, // Num
+      180.0, // Booking Number
+      150.0, // Shipper
+      300.0, // Description of Goods
+      120.0, // Destination
+      80.0, // Quantity
+      100.0, // Packages
+      250.0, // Marking
+      120.0, // Gross Weight
+      120.0, // Nett Weight
+      120.0, // Shipper Meas
+      150.0, // Warehouse Meas
+      120.0, // Charged Meas
+      100.0, // PEB Number
     ];
 
     return Container(
@@ -335,37 +336,43 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(8),
+                    width: 32,
+                    height: 32,
                     decoration: BoxDecoration(
                       color: const Color(0xFF0F172A),
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: const Icon(
-                      Icons.send_rounded,
-                      color: Colors.white,
-                      size: 16,
+                    child: const Center(
+                      child: SvgIcon(
+                        assetPath: 'assets/icons/send.svg',
+                        color: Colors.white,
+                        size: 16,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8),
                   Container(
-                    padding: const EdgeInsets.all(8),
+                    width: 32,
+                    height: 32,
                     decoration: BoxDecoration(
                       color: const Color(0xFF0F172A),
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: const Icon(
-                      Icons.headset_mic,
-                      color: Colors.white,
-                      size: 16,
+                    child: const Center(
+                      child: SvgIcon(
+                        assetPath: 'assets/icons/microphone.svg',
+                        color: Colors.white,
+                        size: 16,
+                      ),
                     ),
                   ),
                 ],
               ),
             ],
           ),
-          
+
           const SizedBox(height: 24),
-          
+
           Column(
             children: [
               // Row 1: Destination - Stuffing Date
@@ -373,75 +380,108 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: _buildDetailItemWithHeight('Destination', widget.ticketData['destination'] ?? 'SHANGHAI'),
+                    child: _buildDetailItemWithHeight(
+                      'Destination',
+                      widget.ticketData['destination'] ?? 'SHANGHAI',
+                    ),
                   ),
                   const SizedBox(width: 32),
                   Expanded(
-                    child: _buildDetailItemWithHeight('Stuffing Date', _formatDate(widget.ticketData['stuffingDate'], type: 'stuffingDate'), isStuffingDate: true),
+                    child: _buildDetailItemWithHeight(
+                      'Stuffing Date',
+                      _formatDate(
+                        widget.ticketData['stuffingDate'],
+                        type: 'stuffingDate',
+                      ),
+                      isStuffingDate: true,
+                    ),
                   ),
                 ],
               ),
-              
+
               // Row 2: Container Number - Container Size
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: _buildDetailItemWithHeight('Container Number', widget.ticketData['containerNumber'] ?? 'KOCU5009373 / 24H0102212'),
+                    child: _buildDetailItemWithHeight(
+                      'Container Number',
+                      widget.ticketData['containerNumber'] ??
+                          'KOCU5009373 / 24H0102212',
+                    ),
                   ),
                   const SizedBox(width: 32),
                   Expanded(
-                    child: _buildDetailItemWithHeight('Container Size', widget.ticketData['containerSize'] ?? '40HC'),
+                    child: _buildDetailItemWithHeight(
+                      'Container Size',
+                      widget.ticketData['containerSize'] ?? '40HC',
+                    ),
                   ),
                 ],
               ),
-              
+
               // Row 3: Estimated Time Departure - Closing Date
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: _buildDetailItemWithHeight('Estimated Time Departure', _formatDate(widget.ticketData['etd'], type: 'etd')),
+                    child: _buildDetailItemWithHeight(
+                      'Estimated Time Departure',
+                      _formatDate(widget.ticketData['etd'], type: 'etd'),
+                    ),
                   ),
                   const SizedBox(width: 32),
                   Expanded(
-                    child: _buildDetailItemWithHeight('Closing Date', _formatDate(widget.ticketData['closingDate'], type: 'closingDate')),
+                    child: _buildDetailItemWithHeight(
+                      'Closing Date',
+                      _formatDate(
+                        widget.ticketData['closingDate'],
+                        type: 'closingDate',
+                      ),
+                    ),
                   ),
                 ],
               ),
-              
+
               // Row 4: Vessel - Stuffing Owner
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: _buildDetailItemWithHeight('Vessel', widget.ticketData['vessel'] ?? 'HMM MIRACLE V 009N'),
+                    child: _buildDetailItemWithHeight(
+                      'Vessel',
+                      widget.ticketData['vessel'] ?? 'HMM MIRACLE V 009N',
+                    ),
                   ),
                   const SizedBox(width: 32),
                   Expanded(
-                    child: _buildDetailItemWithHeight('Stuffing Owner', widget.ticketData['stuffingOwner'] ?? 'GCL-JAKARTA'),
+                    child: _buildDetailItemWithHeight(
+                      'Stuffing Owner',
+                      widget.ticketData['stuffingOwner'] ?? 'GCL-JAKARTA',
+                    ),
                   ),
                 ],
               ),
-              
+
               // Row 5: Agent - (empty slot for balance)
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: _buildDetailItemWithHeight('Agent', widget.ticketData['agent'] ?? 'PORTSHA'),
+                    child: _buildDetailItemWithHeight(
+                      'Agent',
+                      widget.ticketData['agent'] ?? 'PORTSHA',
+                    ),
                   ),
                   const SizedBox(width: 32),
-                  const Expanded(
-                    child: SizedBox(),
-                  ),
+                  const Expanded(child: SizedBox()),
                 ],
               ),
             ],
           ),
-          
+
           const SizedBox(height: 32),
-          
+
           // Stuffing List Section
           const Text(
             'Stuffing List',
@@ -452,9 +492,9 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
               fontStyle: FontStyle.italic,
             ),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
@@ -466,123 +506,147 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
                 children: [
                   // Table Header
                   Container(
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF0F172A),
-                    ),
+                    decoration: const BoxDecoration(color: Color(0xFF0F172A)),
                     child: Row(
-                      children: columnHeaders.asMap().entries.map((entry) {
-                        final index = entry.key;
-                        final header = entry.value;
-                        final width = columnWidths[index];
-                        
-                        return Container(
-                          width: width,
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-                          decoration: BoxDecoration(
-                            border: index < columnHeaders.length - 1
-                                ? const Border(
-                                    right: BorderSide(
-                                      color: Color(0xFF4B5563),
-                                      width: 1,
-                                    ),
-                                  )
-                                : null,
-                          ),
-                          child: Text(
-                            header,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  
-                  // Table Rows
-                  Column(
-                    children: stuffingList.asMap().entries.map((entry) {
-                      final rowIndex = entry.key;
-                      final item = entry.value;
-                      final isLastRow = rowIndex == stuffingList.length - 1;
-                      
-                      final rowData = [
-                        item['num']!,
-                        item['bookingNumber']!,
-                        item['shipper']!,
-                        item['description']!,
-                        item['destination']!,
-                        item['quantity']!,
-                        item['packages']!,
-                        item['marking']!,
-                        item['grossWeight']!,
-                        item['nettWeight']!,
-                        item['shipperMeas']!,
-                        item['warehouseMeas']!,
-                        item['chargedMeas']!,
-                        item['pebNumber']!,
-                      ];
-                      
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: rowIndex % 2 == 0 ? Colors.white : const Color(0xFFF9FAFB),
-                          border: isLastRow ? null : const Border(
-                            bottom: BorderSide(
-                              color: Color(0xFFE5E7EB),
-                              width: 1,
-                            ),
-                          ),
-                          borderRadius: isLastRow ? const BorderRadius.only(
-                            bottomLeft: Radius.circular(8),
-                            bottomRight: Radius.circular(8),
-                          ) : null,
-                        ),
-                        child: Row(
-                          children: rowData.asMap().entries.map((cellEntry) {
-                            final cellIndex = cellEntry.key;
-                            final cellData = cellEntry.value;
-                            final width = columnWidths[cellIndex];
-                            
+                      children:
+                          columnHeaders.asMap().entries.map((entry) {
+                            final index = entry.key;
+                            final header = entry.value;
+                            final width = columnWidths[index];
+
                             return Container(
                               width: width,
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 14,
+                              ),
                               decoration: BoxDecoration(
-                                border: cellIndex < rowData.length - 1
-                                    ? const Border(
-                                        right: BorderSide(
-                                          color: Color(0xFFE5E7EB),
-                                          width: 1,
-                                        ),
-                                      )
-                                    : null,
+                                border:
+                                    index < columnHeaders.length - 1
+                                        ? const Border(
+                                          right: BorderSide(
+                                            color: Color(0xFF4B5563),
+                                            width: 1,
+                                          ),
+                                        )
+                                        : null,
                               ),
                               child: Text(
-                                cellData,
-                                style: TextStyle(
-                                  fontSize: cellIndex == 0 ? 14 : 12,
-                                  fontWeight: cellIndex == 0 ? FontWeight.w700 : FontWeight.w500,
-                                  color: cellIndex == 0 ? const Color(0xFF111827) : const Color(0xFF374151),
-                                  height: 1.3,
+                                header,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
                                 ),
                                 textAlign: TextAlign.center,
-                                overflow: TextOverflow.visible,
                               ),
                             );
                           }).toList(),
-                        ),
-                      );
-                    }).toList(),
+                    ),
+                  ),
+
+                  // Table Rows
+                  Column(
+                    children:
+                        stuffingList.asMap().entries.map((entry) {
+                          final rowIndex = entry.key;
+                          final item = entry.value;
+                          final isLastRow = rowIndex == stuffingList.length - 1;
+
+                          final rowData = [
+                            item['num']!,
+                            item['bookingNumber']!,
+                            item['shipper']!,
+                            item['description']!,
+                            item['destination']!,
+                            item['quantity']!,
+                            item['packages']!,
+                            item['marking']!,
+                            item['grossWeight']!,
+                            item['nettWeight']!,
+                            item['shipperMeas']!,
+                            item['warehouseMeas']!,
+                            item['chargedMeas']!,
+                            item['pebNumber']!,
+                          ];
+
+                          return Container(
+                            decoration: BoxDecoration(
+                              color:
+                                  rowIndex % 2 == 0
+                                      ? Colors.white
+                                      : const Color(0xFFF9FAFB),
+                              border:
+                                  isLastRow
+                                      ? null
+                                      : const Border(
+                                        bottom: BorderSide(
+                                          color: Color(0xFFE5E7EB),
+                                          width: 1,
+                                        ),
+                                      ),
+                              borderRadius:
+                                  isLastRow
+                                      ? const BorderRadius.only(
+                                        bottomLeft: Radius.circular(8),
+                                        bottomRight: Radius.circular(8),
+                                      )
+                                      : null,
+                            ),
+                            child: Row(
+                              children:
+                                  rowData.asMap().entries.map((cellEntry) {
+                                    final cellIndex = cellEntry.key;
+                                    final cellData = cellEntry.value;
+                                    final width = columnWidths[cellIndex];
+
+                                    return Container(
+                                      width: width,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                        vertical: 14,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        border:
+                                            cellIndex < rowData.length - 1
+                                                ? const Border(
+                                                  right: BorderSide(
+                                                    color: Color(0xFFE5E7EB),
+                                                    width: 1,
+                                                  ),
+                                                )
+                                                : null,
+                                      ),
+                                      child: Text(
+                                        cellData,
+                                        style: TextStyle(
+                                          fontSize: cellIndex == 0 ? 14 : 12,
+                                          fontWeight:
+                                              cellIndex == 0
+                                                  ? FontWeight.w700
+                                                  : FontWeight.w500,
+                                          color:
+                                              cellIndex == 0
+                                                  ? const Color(0xFF111827)
+                                                  : const Color(0xFF374151),
+                                          height: 1.3,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        overflow: TextOverflow.visible,
+                                      ),
+                                    );
+                                  }).toList(),
+                            ),
+                          );
+                        }).toList(),
                   ),
                 ],
               ),
             ),
           ),
-          
+
           const SizedBox(height: 32),
-          
+
           const Text(
             'Stuffing Instruction',
             style: TextStyle(
@@ -636,10 +700,7 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
           const SizedBox(height: 8),
           Text(
             'Based On : ${widget.ticketData['rulesReference'] ?? 'GTW/SOP/JKT/122331'}',
-            style: const TextStyle(
-              fontSize: 12,
-              color: Color(0xFF6B7280),
-            ),
+            style: const TextStyle(fontSize: 12, color: Color(0xFF6B7280)),
           ),
         ],
       ),
@@ -687,7 +748,7 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
             ),
           ),
           const SizedBox(height: 20),
-          
+
           // QR Code
           Container(
             padding: const EdgeInsets.all(16),
@@ -699,9 +760,9 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
               foregroundColor: Colors.black,
             ),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           Text(
             widget.ticketData['jobNumber'] ?? 'GCL-1002507096',
             style: const TextStyle(
@@ -710,9 +771,9 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
               color: Color(0xFF111827),
             ),
           ),
-          
+
           const SizedBox(height: 8),
-          
+
           Text(
             'Please bring this QR code to our warehouse staff\nThis QR code acts as a stuffing order for our\nwarehouse',
             style: const TextStyle(
@@ -722,16 +783,16 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
             ),
             textAlign: TextAlign.center,
           ),
-          
+
           const SizedBox(height: 20),
-          
+
           // Download Button
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
               onPressed: () {},
-              icon: const Icon(
-                Icons.download,
+              icon: const SvgIcon(
+                assetPath: 'assets/icons/download.svg',
                 color: Color(0xFF374151),
                 size: 20,
               ),
@@ -812,9 +873,9 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
             ],
           ),
         ),
-        
+
         const SizedBox(height: 16),
-        
+
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -841,8 +902,8 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
                 ),
               ),
               const SizedBox(width: 12),
-              const Icon(
-                Icons.rocket_launch,
+              const SvgIcon(
+                assetPath: 'assets/icons/rocket.svg',
                 color: Colors.white,
                 size: 20,
               ),
@@ -853,7 +914,11 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
     );
   }
 
-  Widget _buildDetailItemWithHeight(String label, String value, {bool isStuffingDate = false}) {
+  Widget _buildDetailItemWithHeight(
+    String label,
+    String value, {
+    bool isStuffingDate = false,
+  }) {
     if (isStuffingDate) {
       return Container(
         height: 60,
@@ -897,10 +962,10 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
         ),
       );
     }
-    
+
     return Container(
       height: 60,
-      margin: const EdgeInsets.only(bottom: 12), 
+      margin: const EdgeInsets.only(bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -949,7 +1014,7 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
           return '';
       }
     }
-    
+
     switch (type) {
       case 'stuffingDate':
       case 'etd':

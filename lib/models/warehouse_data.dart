@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// Data untuk rackItems dan dropdownData agar bisa diakses dari page/widget
+// Data untuk rackItems dan dropdownData
 final List<Map<String, dynamic>> warehouseRackItems = [
   {'name': 'Rack Line 1', 'items': '30 Items'},
   {'name': 'Rack Line 2', 'items': '88 Items'},

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 import '../widgets/home/custom_drawer.dart';
 import '../widgets/ticket/ticket_table.dart';
 import '../widgets/common/common_app_bar.dart';
@@ -20,7 +21,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
   late final List<List<String>> _cargoInAllRows;
   int _stuffingPage = 1;
   late final List<List<String>> _stuffingAllRows;
-  
+
   bool _isFilterExpanded = false;
 
   String _selectedCategory = 'None';
@@ -30,15 +31,29 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
   String _selectedCategoryStuffing = 'None';
   String _selectedStatusStuffing = 'All';
   DateTime? _selectedDateStuffing;
-  
+
   // Filter options
   final List<String> _categoryOptions = [
-    'None', 'GCL-JAKARTA', 'GCL-BANDUNG', 'GCL-CIKARANG', 
-    'OSLINE-JAKARTA', 'OSLINE-BANDUNG', 'BPLINE', 'WINFAST', 'LCL', 'FCL'
+    'None',
+    'GCL-JAKARTA',
+    'GCL-BANDUNG',
+    'GCL-CIKARANG',
+    'OSLINE-JAKARTA',
+    'OSLINE-BANDUNG',
+    'BPLINE',
+    'WINFAST',
+    'LCL',
+    'FCL',
   ];
   final List<String> _categoryOptionsStuffing = [
-    'None', 'GCL-JAKARTA', 'GCL-BANDUNG', 'GCL-CIKARANG', 
-    'OSLINE-JAKARTA', 'OSLINE-BANDUNG', 'BPLINE', 'WINFAST'
+    'None',
+    'GCL-JAKARTA',
+    'GCL-BANDUNG',
+    'GCL-CIKARANG',
+    'OSLINE-JAKARTA',
+    'OSLINE-BANDUNG',
+    'BPLINE',
+    'WINFAST',
   ];
   final List<String> _statusOptions = ['Valid', 'Invalid', 'All'];
 
@@ -46,8 +61,12 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    _cargoInAllRows = TicketData.generateCargoInRows(TicketData.cargoInTotalCount);
-    _stuffingAllRows = TicketData.generateStuffingRows(TicketData.stuffingTotalCount);
+    _cargoInAllRows = TicketData.generateCargoInRows(
+      TicketData.cargoInTotalCount,
+    );
+    _stuffingAllRows = TicketData.generateStuffingRows(
+      TicketData.stuffingTotalCount,
+    );
   }
 
   @override
@@ -59,8 +78,10 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
 
   void _showCreateTicketDialog(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
-    
-    final _bookingCodeController = TextEditingController(text: 'WHM-20250925152539');
+
+    final _bookingCodeController = TextEditingController(
+      text: 'WHM-20250925152539',
+    );
     final _shipperNameController = TextEditingController();
     final _descriptionController = TextEditingController();
     final _destinationController = TextEditingController();
@@ -79,16 +100,16 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
     final _picOrderTicketController = TextEditingController();
     final _contactNameController = TextEditingController();
     final _contactEmailController = TextEditingController();
-    
+
     String _selectedCargoOwner = 'GAP LOGISTICS';
     DateTime? _estimatedTimeDeparture;
     DateTime? _planCargoInDate;
-    
+
     final List<String> _cargoOwnerOptions = [
       'GAP LOGISTICS',
-      'DANLIRIS', 
+      'DANLIRIS',
       'SMAS LOGISTICS',
-      'ULTRA PRIMA'
+      'ULTRA PRIMA',
     ];
 
     showDialog(
@@ -127,20 +148,27 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                             const Spacer(),
                             IconButton(
                               onPressed: () => Navigator.of(context).pop(),
-                              icon: const Icon(Icons.close, size: 24),
+                              icon: SvgIcon(
+                                assetPath: 'assets/icons/close.svg',
+                                size: 14,
+                                color: Colors.black87,
+                              ),
                               padding: EdgeInsets.zero,
                               constraints: const BoxConstraints(),
                             ),
                           ],
                         ),
                       ),
-                      
+
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 24),
                         child: Row(
                           children: [
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 8,
+                              ),
                               decoration: BoxDecoration(
                                 color: const Color(0xFFE5E7EB),
                                 borderRadius: BorderRadius.circular(8),
@@ -166,7 +194,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                           ],
                         ),
                       ),
-                      
+
                       const SizedBox(height: 16),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
@@ -181,84 +209,142 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                                 isDropdown: false,
                               ),
                               const SizedBox(height: 16),
-                              
-                              _buildWhiteDropdownField(
+
+                              _buildDropdownField2(
                                 'Cargo Owner',
                                 _selectedCargoOwner,
                                 _cargoOwnerOptions,
-                                (value) => setState(() => _selectedCargoOwner = value!),
+                                (value) => setState(
+                                  () => _selectedCargoOwner = value!,
+                                ),
                               ),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('Shipper Name', _shipperNameController),
+
+                              _buildFormField(
+                                'Shipper Name',
+                                _shipperNameController,
+                              ),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('Description of Goods', _descriptionController),
+
+                              _buildFormField(
+                                'Description of Goods',
+                                _descriptionController,
+                              ),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('Destination City', _destinationController),
+
+                              _buildFormField(
+                                'Destination City',
+                                _destinationController,
+                              ),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('Description Print (Optional)', _descriptionPrintController, required: false),
+
+                              _buildFormField(
+                                'Description Print (Optional)',
+                                _descriptionPrintController,
+                                required: false,
+                              ),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('Quantity', _quantityController, keyboardType: TextInputType.number),
+
+                              _buildFormField(
+                                'Quantity',
+                                _quantityController,
+                                keyboardType: TextInputType.number,
+                              ),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('Package Type', _packageTypeController),
+
+                              _buildFormField(
+                                'Package Type',
+                                _packageTypeController,
+                              ),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('Volume', _volumeController, keyboardType: TextInputType.number),
+
+                              _buildFormField(
+                                'Volume',
+                                _volumeController,
+                                keyboardType: TextInputType.number,
+                              ),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('Weight', _weightController, keyboardType: TextInputType.number),
+
+                              _buildFormField(
+                                'Weight',
+                                _weightController,
+                                keyboardType: TextInputType.number,
+                              ),
                               const SizedBox(height: 16),
-                              
+
                               _buildFormField('Marking', _markingController),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('Service Type', _serviceTypeController),
+
+                              _buildFormField(
+                                'Service Type',
+                                _serviceTypeController,
+                              ),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('Container Number', _containerNumberController),
+
+                              _buildFormField(
+                                'Container Number',
+                                _containerNumberController,
+                              ),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('Container Size', _containerSizeController),
+
+                              _buildFormField(
+                                'Container Size',
+                                _containerSizeController,
+                              ),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('Seal Number', _sealNumberController),
+
+                              _buildFormField(
+                                'Seal Number',
+                                _sealNumberController,
+                              ),
                               const SizedBox(height: 16),
-                              
+
                               _buildDateTimeField(
                                 'Estimated Time Departure',
                                 _estimatedTimeDeparture,
-                                (date) => setState(() => _estimatedTimeDeparture = date),
+                                (date) => setState(
+                                  () => _estimatedTimeDeparture = date,
+                                ),
                               ),
                               const SizedBox(height: 16),
-                              
+
                               _buildFormField('Vessel', _vesselController),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('Connecting Vessel', _connectingVesselController),
+
+                              _buildFormField(
+                                'Connecting Vessel',
+                                _connectingVesselController,
+                              ),
                               const SizedBox(height: 16),
-                              
+
                               _buildDateTimeField(
                                 'Plan Cargo In',
                                 _planCargoInDate,
-                                (date) => setState(() => _planCargoInDate = date),
+                                (date) =>
+                                    setState(() => _planCargoInDate = date),
                               ),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('PIC Order Ticket', _picOrderTicketController),
+
+                              _buildFormField(
+                                'PIC Order Ticket',
+                                _picOrderTicketController,
+                              ),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('Contact Name', _contactNameController),
+
+                              _buildFormField(
+                                'Contact Name',
+                                _contactNameController,
+                              ),
                               const SizedBox(height: 16),
-                              
-                              _buildFormField('Contact Email', _contactEmailController, keyboardType: TextInputType.emailAddress),
-                              
+
+                              _buildFormField(
+                                'Contact Email',
+                                _contactEmailController,
+                                keyboardType: TextInputType.emailAddress,
+                              ),
+
                               const SizedBox(height: 32),
-                              
+
                               Container(
                                 margin: const EdgeInsets.only(bottom: 24),
                                 child: Row(
@@ -276,16 +362,29 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                                       onPressed: () {
                                         if (_formKey.currentState!.validate()) {
                                           Navigator.pop(context);
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            const SnackBar(content: Text('Cargo In ticket created successfully!')),
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                'Cargo In ticket created successfully!',
+                                              ),
+                                            ),
                                           );
                                         }
                                       },
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color(0xFF6B7280),
-                                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                                        backgroundColor: const Color(
+                                          0xFF6B7280,
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 32,
+                                          vertical: 12,
+                                        ),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
                                         ),
                                         elevation: 2,
                                       ),
@@ -329,7 +428,61 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
       }
     });
   }
-  
+
+  Widget _buildDropdownField2(
+    String label,
+    String value,
+    List<String> options,
+    Function(String?) onChanged,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF6B7280),
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          height: 48,
+          decoration: BoxDecoration(
+            border: Border.all(color: const Color(0xFFE5E7EB)),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: DropdownButtonFormField<String>(
+            value: value,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 12,
+              ),
+            ),
+            style: const TextStyle(fontSize: 14, color: Color(0xFF374151)),
+            items:
+                options
+                    .map(
+                      (option) =>
+                          DropdownMenuItem(value: option, child: Text(option)),
+                    )
+                    .toList(),
+            onChanged: onChanged,
+            icon: SvgIcon(
+              assetPath: 'assets/icons/arrow_down.svg',
+              size: 8,
+              color: Color(0xFF6B7280),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildFormField(
     String label,
     TextEditingController controller, {
@@ -362,24 +515,27 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
             keyboardType: keyboardType,
             decoration: const InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 12,
+              ),
             ),
-            style: const TextStyle(
-              fontSize: 14,
-              color: Color(0xFF374151),
-            ),
-            validator: required ? (value) {
-              if (value == null || value.isEmpty) {
-                return 'This field is required';
-              }
-              return null;
-            } : null,
+            style: const TextStyle(fontSize: 14, color: Color(0xFF374151)),
+            validator:
+                required
+                    ? (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'This field is required';
+                      }
+                      return null;
+                    }
+                    : null,
           ),
         ),
       ],
     );
   }
-  
+
   Widget _buildDateTimeField(
     String label,
     DateTime? value,
@@ -435,16 +591,26 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  value != null 
-                    ? '${value.day}/${value.month}/${value.year} ${value.hour.toString().padLeft(2, '0')}:${value.minute.toString().padLeft(2, '0')}'
-                    : 'Select date and time',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: value != null ? const Color(0xFF374151) : const Color(0xFF9CA3AF),
+                Expanded(
+                  child: Text(
+                    value != null
+                        ? '${value.day}/${value.month}/${value.year} ${value.hour.toString().padLeft(2, '0')}:${value.minute.toString().padLeft(2, '0')}'
+                        : 'Select date and time',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color:
+                          value != null
+                              ? const Color(0xFF374151)
+                              : const Color(0xFF9CA3AF),
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                const Icon(Icons.calendar_today, color: Color(0xFF6B7280)),
+                SvgIcon(
+                  assetPath: 'assets/icons/calendar.svg',
+                  color: const Color(0xFF6B7280),
+                  size: 20,
+                ),
               ],
             ),
           ),
@@ -482,46 +648,54 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: const Color(0xFFE5E7EB)),
           ),
-          child: isDropdown 
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
+          child:
+              isDropdown
+                  ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          value,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF111827),
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          if (options != null && onChanged != null) {
+                            _showDropdownMenu(options, value, onChanged);
+                          }
+                        },
+                        child: SvgIcon(
+                          assetPath: 'assets/icons/arrow_down.svg',
+                          color: const Color(0xFF6B7280),
+                          size: 8,
+                        ),
+                      ),
+                    ],
+                  )
+                  : Text(
                     value,
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xFF111827),
+                      color: Color(0xFF374151),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      if (options != null && onChanged != null) {
-                        _showDropdownMenu(options, value, onChanged);
-                      }
-                    },
-                    child: const Icon(
-                      Icons.keyboard_arrow_down,
-                      color: Color(0xFF6B7280),
-                      size: 20,
-                    ),
-                  ),
-                ],
-              )
-            : Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF374151),
-                ),
-              ),
         ),
       ],
     );
   }
 
-  void _showDropdownMenu(List<String> options, String currentValue, ValueChanged<String?> onChanged) {
+  void _showDropdownMenu(
+    List<String> options,
+    String currentValue,
+    ValueChanged<String?> onChanged,
+  ) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -535,18 +709,20 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
             children: [
               const Text(
                 'Select Cargo Owner',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
               ...options.map((option) {
                 return ListTile(
                   title: Text(option),
-                  trailing: currentValue == option 
-                    ? const Icon(Icons.check, color: Color(0xFF3B82F6)) 
-                    : null,
+                  trailing:
+                      currentValue == option
+                          ? SvgIcon(
+                            assetPath: 'assets/icons/check.svg',
+                            color: const Color(0xFF3B82F6),
+                            size: 20,
+                          )
+                          : null,
                   onTap: () {
                     onChanged(option);
                     Navigator.pop(context);
@@ -560,55 +736,59 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildWhiteDropdownField(
-    String label,
-    String value,
-    List<String> options,
-    ValueChanged<String?> onChanged,
-  ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            fontStyle: FontStyle.italic,
-            color: Color(0xFF9CA3AF),
-          ),
-        ),
-        const SizedBox(height: 8),
-        DropdownButtonFormField<String>(
-          value: value,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Color(0xFFD1D5DB)),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Color(0xFFD1D5DB)),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Color(0xFF3B82F6)),
-            ),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-            fillColor: Colors.white,
-            filled: true,
-          ),
-          items: options.map((String option) {
-            return DropdownMenuItem<String>(
-              value: option,
-              child: Text(option),
-            );
-          }).toList(),
-          onChanged: onChanged,
-        ),
-      ],
-    );
-  }
+  // Widget _buildWhiteDropdownField(
+  //   String label,
+  //   String value,
+  //   List<String> options,
+  //   ValueChanged<String?> onChanged,
+  // ) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Text(
+  //         label,
+  //         style: const TextStyle(
+  //           fontSize: 14,
+  //           fontWeight: FontWeight.w500,
+  //           fontStyle: FontStyle.italic,
+  //           color: Color(0xFF9CA3AF),
+  //         ),
+  //       ),
+  //       const SizedBox(height: 8),
+  //       DropdownButtonFormField<String>(
+  //         value: value,
+  //         decoration: InputDecoration(
+  //           border: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(8),
+  //             borderSide: const BorderSide(color: Color(0xFFD1D5DB)),
+  //           ),
+  //           enabledBorder: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(8),
+  //             borderSide: const BorderSide(color: Color(0xFFD1D5DB)),
+  //           ),
+  //           focusedBorder: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(8),
+  //             borderSide: const BorderSide(color: Color(0xFF3B82F6)),
+  //           ),
+  //           contentPadding: const EdgeInsets.symmetric(
+  //             horizontal: 12,
+  //             vertical: 12,
+  //           ),
+  //           fillColor: Colors.white,
+  //           filled: true,
+  //         ),
+  //         items:
+  //             options.map((String option) {
+  //               return DropdownMenuItem<String>(
+  //                 value: option,
+  //                 child: Text(option),
+  //               );
+  //             }).toList(),
+  //         onChanged: onChanged,
+  //       ),
+  //     ],
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -724,9 +904,15 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
   Widget _buildTicketCargoInTab() {
     final filteredRows = _getFilteredRows(_cargoInAllRows, isCargoInTab: true);
     final totalItems = filteredRows.length;
-    final totalPages = (totalItems + TicketData.cargoInPageSize - 1) ~/ TicketData.cargoInPageSize;
+    final totalPages =
+        (totalItems + TicketData.cargoInPageSize - 1) ~/
+        TicketData.cargoInPageSize;
     final page = _cargoInPage.clamp(1, totalPages == 0 ? 1 : totalPages);
-    final visibleRows = TicketData.paginateRows(filteredRows, page, TicketData.cargoInPageSize);
+    final visibleRows = TicketData.paginateRows(
+      filteredRows,
+      page,
+      TicketData.cargoInPageSize,
+    );
 
     return ListView(
       padding: const EdgeInsets.only(bottom: 16),
@@ -734,7 +920,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
         _buildCombinedSummaryOptionsTable(
           summaryTitle1: "Scheduled\nTicket",
           summaryValue1: "1904",
-          summaryTitle2: "Checked-In\nTicket", 
+          summaryTitle2: "Checked-In\nTicket",
           summaryValue2: "5938",
           showSecondSummary: true,
           tableColumns: const [
@@ -751,11 +937,11 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
             160, // Booking Code
             150, // Plan Date In
             140, // Shipper
-            100,  // Total
+            100, // Total
             150, // Destination
             120, // Cargo Owner
             150, // Cargo Service Type
-            100,  // Status
+            100, // Status
           ],
           tableRows: visibleRows,
           emptyMessage: 'Showing Result',
@@ -763,38 +949,42 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
           totalPages: totalPages,
           totalItems: totalItems,
           pageSize: TicketData.cargoInPageSize,
-          onPageChange: (p) => setState(() => _cargoInPage = p.clamp(1, totalPages)),
+          onPageChange:
+              (p) => setState(() => _cargoInPage = p.clamp(1, totalPages)),
           onRowTap: (row) {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => TicketCargoInDetailPage(
-                  ticketData: {
-                    'bookingCode': row[0],
-                    'planDateIn': row[1],
-                    'shipper': row[2],
-                    'total': row[3],
-                    'destination': row[4],
-                    'cargoOwner': row[5],
-                    'cargoServiceType': row[6],
-                    'status': row[7],
-                    'description': '15 BALES 2/32NM ACRYLIC 65% AND WOOL 35% YARN UNDYED',
-                    'etd': '2025-01-25',
-                    'containerNumber': '-',
-                    'containerSize': '-',
-                    'vessel': 'WAR HAI 377 V.W004',
-                    'connectingVessel': '-',
-                    'marking': 'SHINGORA B/NO. NHAVA SHEVA PT. ACHEM MADE IN INDONESIA',
-                    'estimatedCargoIn': '2024-01-01 00:00:00',
-                    'quantity': '15',
-                    'package': 'BALES',
-                    'weight': '1530',
-                    'volume': '3.14',
-                    'requestedBy': 'HERI',
-                    'requestDate': '2025-01-22',
-                    'rulesReference': 'GTW/SOP/JKT/122331',
-                  },
-                ),
+                builder:
+                    (context) => TicketCargoInDetailPage(
+                      ticketData: {
+                        'bookingCode': row[0],
+                        'planDateIn': row[1],
+                        'shipper': row[2],
+                        'total': row[3],
+                        'destination': row[4],
+                        'cargoOwner': row[5],
+                        'cargoServiceType': row[6],
+                        'status': row[7],
+                        'description':
+                            '15 BALES 2/32NM ACRYLIC 65% AND WOOL 35% YARN UNDYED',
+                        'etd': '2025-01-25',
+                        'containerNumber': '-',
+                        'containerSize': '-',
+                        'vessel': 'WAR HAI 377 V.W004',
+                        'connectingVessel': '-',
+                        'marking':
+                            'SHINGORA B/NO. NHAVA SHEVA PT. ACHEM MADE IN INDONESIA',
+                        'estimatedCargoIn': '2024-01-01 00:00:00',
+                        'quantity': '15',
+                        'package': 'BALES',
+                        'weight': '1530',
+                        'volume': '3.14',
+                        'requestedBy': 'HERI',
+                        'requestDate': '2025-01-22',
+                        'rulesReference': 'GTW/SOP/JKT/122331',
+                      },
+                    ),
               ),
             );
           },
@@ -842,9 +1032,14 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
   }
 
   Widget _buildTicketStuffingTab() {
-    final filteredRows = _getFilteredRows(_stuffingAllRows, isCargoInTab: false);
+    final filteredRows = _getFilteredRows(
+      _stuffingAllRows,
+      isCargoInTab: false,
+    );
     final totalItems = filteredRows.length;
-    final totalPages = (totalItems + TicketData.stuffingPageSize - 1) ~/ TicketData.stuffingPageSize;
+    final totalPages =
+        (totalItems + TicketData.stuffingPageSize - 1) ~/
+        TicketData.stuffingPageSize;
     final page = _stuffingPage.clamp(1, totalPages == 0 ? 1 : totalPages);
     final visibleRows = TicketData.paginateRows(
       filteredRows,
@@ -886,14 +1081,15 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
           totalPages: totalPages,
           totalItems: totalItems,
           pageSize: TicketData.stuffingPageSize,
-          onPageChange: (p) => setState(() => _stuffingPage = p.clamp(1, totalPages)),
+          onPageChange:
+              (p) => setState(() => _stuffingPage = p.clamp(1, totalPages)),
           onRowTap: (rowData) {
             final stuffingData = {
-              'jobNumber': rowData[0], 
-              'stuffingDate': rowData[1], 
+              'jobNumber': rowData[0],
+              'stuffingDate': rowData[1],
               'destination': rowData[2],
-             'etd': rowData[3],
-              'closingDate': rowData[4], 
+              'etd': rowData[3],
+              'closingDate': rowData[4],
               'stuffingOwner': rowData[5],
               'totalContainerFill': rowData[6],
               'containerNumber': 'KOCU5009373 / 24H0102212',
@@ -904,13 +1100,13 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
               'requestDate': '2025-07-24',
               'rulesReference': 'GTW/SOP/JKT/122331',
             };
-            
+
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => TicketStuffingDetailPage(
-                  ticketData: stuffingData,
-                ),
+                builder:
+                    (context) =>
+                        TicketStuffingDetailPage(ticketData: stuffingData),
               ),
             );
           },
@@ -1040,24 +1236,18 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
           const SizedBox(height: 20),
           Row(
             children: [
-              Expanded(
-                child: _buildSummaryItem(summaryValue1, summaryTitle1),
-              ),
+              Expanded(child: _buildSummaryItem(summaryValue1, summaryTitle1)),
               if (showSecondSummary) ...[
-                Container(
-                  width: 1,
-                  height: 72,
-                  color: const Color(0xFFE5E7EB),
-                ),
+                Container(width: 1, height: 72, color: const Color(0xFFE5E7EB)),
                 Expanded(
                   child: _buildSummaryItem(summaryValue2, summaryTitle2),
                 ),
               ],
             ],
           ),
-          
+
           const SizedBox(height: 32),
-          
+
           // Options Section
           Row(
             children: [
@@ -1082,7 +1272,11 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
           ),
           const SizedBox(height: 16),
           GestureDetector(
-            onTap: () => isStuffingTab ? _showCreateStuffingDialog(context) : _showCreateTicketDialog(context),
+            onTap:
+                () =>
+                    isStuffingTab
+                        ? _showCreateStuffingDialog(context)
+                        : _showCreateTicketDialog(context),
             child: Container(
               width: 60,
               height: 60,
@@ -1097,12 +1291,18 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-              child: const Icon(Icons.add, color: Colors.white, size: 28),
+              child: Padding(
+                padding: EdgeInsets.all(14),
+                child: SvgIcon(
+                  assetPath: 'assets/icons/add.svg',
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
-          
+
           const SizedBox(height: 32),
-          
+
           // Table Section
           Row(
             children: [
@@ -1135,11 +1335,11 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                     _isFilterExpanded = !_isFilterExpanded;
                   });
                 },
-                child: const Icon(
-                    Icons.tune,
-                    color: Color(0xFF6B7280),
-                    size: 24,
-                  ),
+                child: const SvgIcon(
+                  assetPath: 'assets/icons/filter_outline.svg',
+                  color: Color(0xFF6B7280),
+                  size: 24,
+                ),
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -1150,9 +1350,13 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                     decoration: const InputDecoration(
                       hintText: "Search",
                       hintStyle: TextStyle(color: Color(0xFF9CA3AF)),
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: Color(0xFF6B7280),
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.all(6.0),
+                        child: SvgIcon(
+                          assetPath: 'assets/icons/search.svg',
+                          color: Color(0xFF6B7280),
+                          size: 18,
+                        ),
                       ),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
@@ -1160,11 +1364,8 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                           width: 2,
                         ),
                       ),
-                      focusedBorder: UnderlineInputBorder( 
-                        borderSide: BorderSide(
-                          color: Colors.black,
-                          width: 2,
-                        ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 2),
                       ),
                     ),
                     onChanged: (value) => setState(() => searchQuery = value),
@@ -1173,7 +1374,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
               ),
             ],
           ),
-          
+
           if (_isFilterExpanded)
             Container(
               width: double.infinity,
@@ -1215,7 +1416,10 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                               context: context,
                               builder: (BuildContext context) {
                                 return CustomDatePicker(
-                                  initialDate: isCargoInTab ? _selectedDate : _selectedDateStuffing,
+                                  initialDate:
+                                      isCargoInTab
+                                          ? _selectedDate
+                                          : _selectedDateStuffing,
                                   onDateSelected: (DateTime selectedDate) {
                                     setState(() {
                                       if (isCargoInTab) {
@@ -1236,8 +1440,12 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                                 Expanded(
                                   child: Text(
                                     () {
-                                      final bool isCargoInTab = _tabController.index == 0;
-                                      final DateTime? currentDate = isCargoInTab ? _selectedDate : _selectedDateStuffing;
+                                      final bool isCargoInTab =
+                                          _tabController.index == 0;
+                                      final DateTime? currentDate =
+                                          isCargoInTab
+                                              ? _selectedDate
+                                              : _selectedDateStuffing;
                                       return currentDate != null
                                           ? '${currentDate.day}/${currentDate.month}/${currentDate.year}'
                                           : 'Select Date';
@@ -1249,8 +1457,8 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                                     ),
                                   ),
                                 ),
-                                const Icon(
-                                  Icons.calendar_today,
+                                const SvgIcon(
+                                  assetPath: 'assets/icons/calendar.svg',
                                   color: Color(0xFF6B7280),
                                   size: 20,
                                 ),
@@ -1272,7 +1480,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    
+
                     SizedBox(
                       height: 50,
                       child: SingleChildScrollView(
@@ -1280,23 +1488,33 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                         child: Row(
                           children: () {
                             final bool isCargoInTab = _tabController.index == 0;
-                            final List<String> currentCategoryOptions = isCargoInTab ? _categoryOptions : _categoryOptionsStuffing;
-                            final String currentSelectedCategory = isCargoInTab ? _selectedCategory : _selectedCategoryStuffing;
-                            
-                            return currentCategoryOptions.map((category) => Padding(
-                              padding: const EdgeInsets.only(right: 8),
-                              child: _buildFilterChip(
-                                category, 
-                                currentSelectedCategory == category,
-                                () => setState(() {
-                                  if (isCargoInTab) {
-                                    _selectedCategory = category;
-                                  } else {
-                                    _selectedCategoryStuffing = category;
-                                  }
-                                }),
-                              ),
-                            )).toList();
+                            final List<String> currentCategoryOptions =
+                                isCargoInTab
+                                    ? _categoryOptions
+                                    : _categoryOptionsStuffing;
+                            final String currentSelectedCategory =
+                                isCargoInTab
+                                    ? _selectedCategory
+                                    : _selectedCategoryStuffing;
+
+                            return currentCategoryOptions
+                                .map(
+                                  (category) => Padding(
+                                    padding: const EdgeInsets.only(right: 8),
+                                    child: _buildFilterChip(
+                                      category,
+                                      currentSelectedCategory == category,
+                                      () => setState(() {
+                                        if (isCargoInTab) {
+                                          _selectedCategory = category;
+                                        } else {
+                                          _selectedCategoryStuffing = category;
+                                        }
+                                      }),
+                                    ),
+                                  ),
+                                )
+                                .toList();
                           }(),
                         ),
                       ),
@@ -1313,30 +1531,40 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    
+
                     SizedBox(
                       height: 50,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
-                          children: _statusOptions.map((status) => Padding(
-                            padding: const EdgeInsets.only(right: 8),
-                            child: _buildFilterChip(
-                              status, 
-                              () {
-                                final bool isCargoInTab = _tabController.index == 0;
-                                return isCargoInTab ? _selectedStatus == status : _selectedStatusStuffing == status;
-                              }(),
-                              () => setState(() {
-                                final bool isCargoInTab = _tabController.index == 0;
-                                if (isCargoInTab) {
-                                  _selectedStatus = status;
-                                } else {
-                                  _selectedStatusStuffing = status;
-                                }
-                              }),
-                            ),
-                          )).toList(),
+                          children:
+                              _statusOptions
+                                  .map(
+                                    (status) => Padding(
+                                      padding: const EdgeInsets.only(right: 8),
+                                      child: _buildFilterChip(
+                                        status,
+                                        () {
+                                          final bool isCargoInTab =
+                                              _tabController.index == 0;
+                                          return isCargoInTab
+                                              ? _selectedStatus == status
+                                              : _selectedStatusStuffing ==
+                                                  status;
+                                        }(),
+                                        () => setState(() {
+                                          final bool isCargoInTab =
+                                              _tabController.index == 0;
+                                          if (isCargoInTab) {
+                                            _selectedStatus = status;
+                                          } else {
+                                            _selectedStatusStuffing = status;
+                                          }
+                                        }),
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
                         ),
                       ),
                     ),
@@ -1364,27 +1592,35 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
     );
   }
 
-  List<List<String>> _getFilteredRows(List<List<String>> allRows, {bool isCargoInTab = true}) {
-    final String selectedCategory = isCargoInTab ? _selectedCategory : _selectedCategoryStuffing;
-    final String selectedStatus = isCargoInTab ? _selectedStatus : _selectedStatusStuffing;
-    final DateTime? selectedDate = isCargoInTab ? _selectedDate : _selectedDateStuffing;
-    
+  List<List<String>> _getFilteredRows(
+    List<List<String>> allRows, {
+    bool isCargoInTab = true,
+  }) {
+    final String selectedCategory =
+        isCargoInTab ? _selectedCategory : _selectedCategoryStuffing;
+    final String selectedStatus =
+        isCargoInTab ? _selectedStatus : _selectedStatusStuffing;
+    final DateTime? selectedDate =
+        isCargoInTab ? _selectedDate : _selectedDateStuffing;
+
     return allRows.where((row) {
       bool categoryMatch = true;
       bool statusMatch = true;
       bool dateMatch = true;
-      
+
       if (selectedCategory != 'None') {
-        categoryMatch = row.length > 6 && 
+        categoryMatch =
+            row.length > 6 &&
             (row[2].toLowerCase().contains(selectedCategory.toLowerCase()) ||
-             row[6].toLowerCase().contains(selectedCategory.toLowerCase()));
+                row[6].toLowerCase().contains(selectedCategory.toLowerCase()));
       }
-      
+
       if (selectedStatus != 'All') {
-        statusMatch = row.length > 7 && 
+        statusMatch =
+            row.length > 7 &&
             row[7].toLowerCase().contains(selectedStatus.toLowerCase());
       }
-      
+
       if (selectedDate != null && row.length > 1) {
         try {
           final rowDateParts = row[1].split('-');
@@ -1394,15 +1630,23 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
               int.parse(rowDateParts[1]),
               int.parse(rowDateParts[2]),
             );
-            final selectedDateOnly = DateTime(_selectedDate!.year, _selectedDate!.month, _selectedDate!.day);
-            final rowDateOnly = DateTime(rowDate.year, rowDate.month, rowDate.day);
+            final selectedDateOnly = DateTime(
+              selectedDate.year,
+              selectedDate.month,
+              selectedDate.day,
+            );
+            final rowDateOnly = DateTime(
+              rowDate.year,
+              rowDate.month,
+              rowDate.day,
+            );
             dateMatch = selectedDateOnly.isAtSameMomentAs(rowDateOnly);
           }
         } catch (e) {
           dateMatch = false;
         }
       }
-      
+
       return categoryMatch && statusMatch && dateMatch;
     }).toList();
   }
@@ -1416,7 +1660,8 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
           color: isSelected ? const Color(0xFF0F172A) : Colors.white,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: isSelected ? const Color(0xFF374151) : const Color(0xFFE5E7EB),
+            color:
+                isSelected ? const Color(0xFF374151) : const Color(0xFFE5E7EB),
             width: 1,
           ),
         ),
@@ -1483,7 +1728,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       default:
         selectedDate = DateTime.now();
     }
-    
+
     setState(() {
       _selectedDate = selectedDate;
       _currentMonth = DateTime(selectedDate.year, selectedDate.month, 1);
@@ -1515,8 +1760,18 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
   List<String> _getMonthName() {
     const months = [
-      'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
-      'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+      'JAN',
+      'FEB',
+      'MAR',
+      'APR',
+      'MAY',
+      'JUN',
+      'JUL',
+      'AUG',
+      'SEP',
+      'OCT',
+      'NOV',
+      'DEC',
     ];
     return months;
   }
@@ -1525,7 +1780,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   Widget build(BuildContext context) {
     final monthNames = _getMonthName();
     final currentMonthName = monthNames[_currentMonth.month - 1];
-    
+
     return Dialog(
       backgroundColor: const Color(0xFF2D3748),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -1550,9 +1805,9 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 _buildQuickOption('Last month'),
               ],
             ),
-            
+
             const SizedBox(height: 20),
-            
+
             // Month/Year navigation
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -1565,7 +1820,11 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 children: [
                   GestureDetector(
                     onTap: _previousMonth,
-                    child: const Icon(Icons.chevron_left, color: Colors.white),
+                    child: const SvgIcon(
+                      assetPath: 'assets/icons/chevron_left.svg',
+                      color: Colors.white,
+                      size: 20,
+                    ),
                   ),
                   Text(
                     '$currentMonthName ${_currentMonth.year}',
@@ -1577,30 +1836,55 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   ),
                   GestureDetector(
                     onTap: _nextMonth,
-                    child: const Icon(Icons.chevron_right, color: Colors.white),
+                    child: const SvgIcon(
+                      assetPath: 'assets/icons/chevron_right.svg',
+                      color: Colors.white,
+                      size: 20,
+                    ),
                   ),
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // Day headers
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: const [
-                Text('Sun', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
-                Text('Mon', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
-                Text('Tue', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
-                Text('Wed', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
-                Text('Thu', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
-                Text('Fri', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
-                Text('Sat', style: TextStyle(color: Color(0xFF718096), fontSize: 12)),
+                Text(
+                  'Sun',
+                  style: TextStyle(color: Color(0xFF718096), fontSize: 12),
+                ),
+                Text(
+                  'Mon',
+                  style: TextStyle(color: Color(0xFF718096), fontSize: 12),
+                ),
+                Text(
+                  'Tue',
+                  style: TextStyle(color: Color(0xFF718096), fontSize: 12),
+                ),
+                Text(
+                  'Wed',
+                  style: TextStyle(color: Color(0xFF718096), fontSize: 12),
+                ),
+                Text(
+                  'Thu',
+                  style: TextStyle(color: Color(0xFF718096), fontSize: 12),
+                ),
+                Text(
+                  'Fri',
+                  style: TextStyle(color: Color(0xFF718096), fontSize: 12),
+                ),
+                Text(
+                  'Sat',
+                  style: TextStyle(color: Color(0xFF718096), fontSize: 12),
+                ),
               ],
             ),
-            
+
             const SizedBox(height: 8),
-            
+
             _buildCalendarGrid(),
           ],
         ),
@@ -1632,22 +1916,30 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   }
 
   Widget _buildCalendarGrid() {
-    final firstDayOfMonth = DateTime(_currentMonth.year, _currentMonth.month, 1);
-    final startOfWeek = firstDayOfMonth.subtract(Duration(days: firstDayOfMonth.weekday % 7));
-    
+    final firstDayOfMonth = DateTime(
+      _currentMonth.year,
+      _currentMonth.month,
+      1,
+    );
+    final startOfWeek = firstDayOfMonth.subtract(
+      Duration(days: firstDayOfMonth.weekday % 7),
+    );
+
     List<Widget> dayWidgets = [];
-    
+
     for (int i = 0; i < 42; i++) {
       final date = startOfWeek.add(Duration(days: i));
       final isCurrentMonth = date.month == _currentMonth.month;
-      final isSelected = _selectedDate != null &&
+      final isSelected =
+          _selectedDate != null &&
           date.year == _selectedDate!.year &&
           date.month == _selectedDate!.month &&
           date.day == _selectedDate!.day;
-      final isToday = date.year == DateTime.now().year &&
+      final isToday =
+          date.year == DateTime.now().year &&
           date.month == DateTime.now().month &&
           date.day == DateTime.now().day;
-      
+
       dayWidgets.add(
         GestureDetector(
           onTap: isCurrentMonth ? () => _onDateTap(date.day) : null,
@@ -1662,9 +1954,10 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               child: Text(
                 '${date.day}',
                 style: TextStyle(
-                  color: isCurrentMonth
-                      ? (isSelected ? Colors.white : Colors.white)
-                      : const Color(0xFF4A5568),
+                  color:
+                      isCurrentMonth
+                          ? (isSelected ? Colors.white : Colors.white)
+                          : const Color(0xFF4A5568),
                   fontSize: 14,
                   fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
                 ),
@@ -1674,7 +1967,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         ),
       );
     }
-    
+
     return GridView.count(
       shrinkWrap: true,
       crossAxisCount: 7,

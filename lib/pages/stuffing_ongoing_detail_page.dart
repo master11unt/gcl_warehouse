@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import '../widgets/home/custom_drawer.dart';
-import '../models/stuffing_data.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class StuffingOngoingDetailPage extends StatelessWidget {
   final Map<String, dynamic> stuffingData;
-  const StuffingOngoingDetailPage({Key? key, required this.stuffingData}) : super(key: key);
+  const StuffingOngoingDetailPage({Key? key, required this.stuffingData})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
-      drawer: CustomDrawer(currentPage: "stuffing"),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -20,9 +19,9 @@ class StuffingOngoingDetailPage extends StatelessWidget {
               // Combined Header, Job Details and Table Section
               _buildMainContentSection(context),
               const SizedBox(height: 16),
-              
+
               _buildStatusSection(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
             ],
           ),
         ),
@@ -30,17 +29,26 @@ class StuffingOngoingDetailPage extends StatelessWidget {
     );
   }
 
-  PopupMenuItem<String> _buildPopupMenuItem(String value, IconData icon, String text) {
+  PopupMenuItem<String> _buildPopupMenuItem(
+    String value,
+    String svgPath,
+    String text,
+  ) {
     return PopupMenuItem<String>(
       value: value,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 4),
         child: Row(
           children: [
-            Icon(
-              icon,
-              color: Colors.white,
-              size: 20,
+            SvgPicture.asset(
+              svgPath,
+              width: 20,
+              height: 20,
+              fit: BoxFit.contain,
+              colorFilter: const ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcIn,
+              ),
             ),
             const SizedBox(width: 12),
             Text(
@@ -65,6 +73,9 @@ class StuffingOngoingDetailPage extends StatelessWidget {
       case 'call_support':
         print('Call Support selected');
         break;
+      case 'edit':
+        print('Edit selected');
+        break;
       case 'data':
         print('Data selected');
         break;
@@ -73,6 +84,9 @@ class StuffingOngoingDetailPage extends StatelessWidget {
         break;
       case 'print':
         print('Print selected');
+        break;
+      case 'photo':
+        print('Photo selected');
         break;
       default:
         break;
@@ -112,16 +126,22 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                   onTap: () => Navigator.of(context).pop(),
                   child: Container(
                     padding: const EdgeInsets.all(8),
-                    child: const Icon(
-                      Icons.arrow_back_ios,
-                      color: Color(0xFF0F172A),
-                      size: 24,
+                    child:
+                        SvgPicture.asset(
+                      'assets/icons/chevron_left.svg',
+                      width: 20,
+                      height: 20,
+                      fit: BoxFit.contain,
+                      colorFilter: const ColorFilter.mode(
+                        Color(0xFF0F172A),
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(width: 16),
-                
+
                 const Expanded(
                   child: Text(
                     'Stuffing Plan Detail',
@@ -132,12 +152,17 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                
+
                 PopupMenuButton<String>(
-                  icon: const Icon(
-                    Icons.more_vert,
-                    color: Color(0xFF0F172A),
-                    size: 24,
+                  icon: SvgPicture.asset(
+                    'assets/icons/menu_stuffing.svg',
+                    width: 20,
+                    height: 20,
+                    fit: BoxFit.contain,
+                    colorFilter: const ColorFilter.mode(
+                      Color(0xFF0F172A),
+                      BlendMode.srcIn,
+                    ),
                   ),
                   color: const Color(0xFF0F172A),
                   shape: RoundedRectangleBorder(
@@ -147,65 +172,113 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                   onSelected: (String value) {
                     _handleMenuAction(value);
                   },
-                  itemBuilder: (BuildContext context) => [
-                    _buildPopupMenuItem('send_email', Icons.send_outlined, 'Send Email'),
-                    _buildPopupMenuItem('call_support', Icons.support_agent, 'Call Support'),
-                    _buildPopupMenuItem('data', Icons.description_outlined, 'Data'),
-                    _buildPopupMenuItem('open_mark', Icons.tag, 'Open Mark'),
-                    _buildPopupMenuItem('print', Icons.print_outlined, 'Print'),
-                  ],
+                  itemBuilder:
+                      (BuildContext context) => [
+                        _buildPopupMenuItem(
+                          'send_email',
+                          'assets/icons/send.svg',
+                          'Send Email',
+                        ),
+                        _buildPopupMenuItem(
+                          'call_support',
+                          'assets/icons/microphone.svg',
+                          'Call Support',
+                        ),
+                        _buildPopupMenuItem(
+                          'edit',
+                          'assets/icons/edit.svg',
+                          'Edit',
+                        ),
+                        _buildPopupMenuItem(
+                          'data',
+                          'assets/icons/inventory_outline.svg',
+                          'Data',
+                        ),
+                        _buildPopupMenuItem(
+                          'open_mark',
+                          'assets/icons/tag.svg',
+                          'Open Mark',
+                        ),
+                        _buildPopupMenuItem(
+                          'print',
+                          'assets/icons/print.svg',
+                          'Print',
+                        ),
+                        _buildPopupMenuItem(
+                          'photo',
+                          'assets/icons/camera.svg',
+                          'Photo',
+                        ),
+                      ],
                 ),
               ],
             ),
           ),
-          
-          // Divider line
+
           Container(
             height: 1,
             margin: const EdgeInsets.symmetric(horizontal: 16),
             color: const Color(0xFFE5E7EB),
           ),
-          
+
           // Job Details Section
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.all(28),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(child: _buildDetailRow('Job No', 'GCL-10025081107')),
+                    Expanded(
+                      child: _buildDetailRow('Job No', 'GCL-10025081107'),
+                    ),
                     const SizedBox(width: 26),
-                    Expanded(child: _buildDetailRow('Container Number', 'SIKU2243145 / 0059574')),
+                    Expanded(
+                      child: _buildDetailRow(
+                        'Container Number',
+                        'SIKU2243145 / 0059574',
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 24),
-                
+
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(child: _buildDetailRow('Container Size', '20FT')),
                     const SizedBox(width: 26),
-                    Expanded(child: _buildDetailRow('Stuffing Date', '2025-08-29')),
+                    Expanded(
+                      child: _buildDetailRow('Stuffing Date', '2025-08-29'),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 24),
-                
+
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(child: _buildDetailRow('Estimated Time Departure', '2025-09-03')),
+                    Expanded(
+                      child: _buildDetailRow(
+                        'Estimated Time Departure',
+                        '2025-09-03',
+                      ),
+                    ),
                     const SizedBox(width: 26),
-                    Expanded(child: _buildDetailRow('Closing Date', '2025-08-30')),
+                    Expanded(
+                      child: _buildDetailRow('Closing Date', '2025-08-30'),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 24),
-                
+
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(child: _buildDetailRow('Destination', 'SINGAPORE')),
+                    Expanded(
+                      child: _buildDetailRow('Destination', 'SINGAPORE'),
+                    ),
                     const SizedBox(width: 26),
                     Expanded(child: _buildDetailRow('Agent', 'ASTSIN')),
                   ],
@@ -213,17 +286,15 @@ class StuffingOngoingDetailPage extends StatelessWidget {
               ],
             ),
           ),
-          
-          
+
           // Booking Table Section
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.all(28),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                
                 const SizedBox(height: 12),
-                
+
                 SizedBox(
                   width: double.infinity,
                   child: SingleChildScrollView(
@@ -246,7 +317,110 @@ class StuffingOngoingDetailPage extends StatelessWidget {
   }
 
   Widget _buildTableContent() {
-    final stuffingList = StuffingData.getDummyOngoingTable();
+    final stuffingList = [
+      {
+        'num': 'A',
+        'bookingNumber': 'GTW-20250810113423',
+        'shipper': 'OCEAN SKY I',
+        'marking': 'OCEAN SKY I',
+        'destination': 'HONG KONG',
+        'cargoReadiness': 'READY',
+        'quantity': '8',
+        'packages': 'PALLETS',
+        'description': 'MARINE EQUIPMENT & SPARE PARTS',
+        'grossWeight': '3,240.120',
+        'nettWeight': '3,150.000',
+        'shipperMeas': '7.8000',
+        'warehouseMeas': '7.5000',
+        'chargedMeas': '9.1200',
+        'pebNumber': 'PEB-HK-08/2025/2456',
+      },
+      {
+        'num': 'B',
+        'bookingNumber': 'GTW-20250809142035',
+        'shipper': 'LAVA TEXTIL BVBA INDON PT',
+        'marking': 'LAVA TEXTIL BVBA INDON PT',
+        'destination': 'HONG KONG',
+        'cargoReadiness': 'READY',
+        'quantity': '12',
+        'packages': 'BALES',
+        'description': 'TEXTILE MATERIALS & FABRIC ROLLS',
+        'grossWeight': '4,580.350',
+        'nettWeight': '4,420.000',
+        'shipperMeas': '11.2000',
+        'warehouseMeas': '10.8000',
+        'chargedMeas': '12.9600',
+        'pebNumber': 'PEB-HK-08/2025/2457',
+      },
+      {
+        'num': 'C',
+        'bookingNumber': 'GTW-20250808091247',
+        'shipper': 'KLINE LOGIST PT',
+        'marking': 'KLINE LOGIST PT',
+        'destination': 'HONG KONG',
+        'cargoReadiness': 'READY',
+        'quantity': '6',
+        'packages': 'PALLETS',
+        'description': 'INDUSTRIAL MACHINERY COMPONENTS',
+        'grossWeight': '2,890.000',
+        'nettWeight': '2,750.000',
+        'shipperMeas': '6.5000',
+        'warehouseMeas': '6.2000',
+        'chargedMeas': '7.8000',
+        'pebNumber': 'PEB-HK-08/2025/2458',
+      },
+      {
+        'num': 'D',
+        'bookingNumber': 'GTW-20250807154512',
+        'shipper': 'WINFASTSHIP INDONESIA',
+        'marking': 'WINFASTSHIP INDONESIA',
+        'destination': 'HONG KONG',
+        'cargoReadiness': 'READY',
+        'quantity': '15',
+        'packages': 'BOXES',
+        'description': 'ELECTRONIC COMPONENTS & DEVICES',
+        'grossWeight': '1,875.500',
+        'nettWeight': '1,800.000',
+        'shipperMeas': '5.2000',
+        'warehouseMeas': '5.0000',
+        'chargedMeas': '6.2400',
+        'pebNumber': 'PEB-HK-08/2025/2459',
+      },
+      {
+        'num': 'E',
+        'bookingNumber': 'GTW-20250806083316',
+        'shipper': 'NIDEC INSTRUMENT INDONESIA',
+        'marking': 'NIDEC INSTRUMENT INDONESIA',
+        'destination': 'HONG KONG',
+        'cargoReadiness': 'READY',
+        'quantity': '4',
+        'packages': 'CARTONS',
+        'description': 'SERVO MOTORS & AUTOMATION EQUIPMENT',
+        'grossWeight': '1,290.750',
+        'nettWeight': '1,200.000',
+        'shipperMeas': '3.8000',
+        'warehouseMeas': '3.6000',
+        'chargedMeas': '4.5600',
+        'pebNumber': 'PEB-HK-08/2025/2460',
+      },
+      {
+        'num': 'F',
+        'bookingNumber': 'GTW-20250805162144',
+        'shipper': 'GLOBAL TECH SOLUTIONS PT',
+        'marking': 'GLOBAL TECH SOLUTIONS PT',
+        'destination': 'HONG KONG',
+        'cargoReadiness': 'READY',
+        'quantity': '10',
+        'packages': 'CARTONS',
+        'description': 'COMPUTER HARDWARE & ACCESSORIES',
+        'grossWeight': '2,150.300',
+        'nettWeight': '2,050.000',
+        'shipperMeas': '4.2000',
+        'warehouseMeas': '4.0000',
+        'chargedMeas': '5.0400',
+        'pebNumber': 'PEB-HK-08/2025/2461',
+      },
+    ];
 
     final columnHeaders = [
       'Num',
@@ -267,69 +441,71 @@ class StuffingOngoingDetailPage extends StatelessWidget {
     ];
 
     const columnWidths = [
-      60.0,   // Num
-      180.0,  // Booking Number
-      150.0,  // Shipper
-      250.0,  // Marking
-      120.0,  // Destination
-      130.0,  // Cargo Readiness
-      80.0,   // Quantity
-      100.0,  // Packages
-      300.0,  // Description of Goods
-      120.0,  // Gross Weight
-      120.0,  // Nett Weight
-      120.0,  // Shipper Meas
-      150.0,  // Warehouse Meas
-      120.0,  // Charged Meas
-      150.0,  // PEB Number
+      60.0, // Num
+      180.0, // Booking Number
+      150.0, // Shipper
+      250.0, // Marking
+      120.0, // Destination
+      130.0, // Cargo Readiness
+      80.0, // Quantity
+      100.0, // Packages
+      300.0, // Description of Goods
+      120.0, // Gross Weight
+      120.0, // Nett Weight
+      120.0, // Shipper Meas
+      150.0, // Warehouse Meas
+      120.0, // Charged Meas
+      150.0, // PEB Number
     ];
 
     return Column(
       children: [
         // Table Header
         Container(
-          decoration: const BoxDecoration(
-            color: Color(0xFF0F172A),
-          ),
+          decoration: const BoxDecoration(color: Color(0xFF0F172A)),
           child: Row(
-            children: columnHeaders.asMap().entries.map((entry) {
-              final index = entry.key;
-              final header = entry.value;
-              final width = columnWidths[index];
-              
-              return Container(
-                width: width,
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-                decoration: BoxDecoration(
-                  border: index < columnHeaders.length - 1
-                      ? const Border(
-                          right: BorderSide(
-                            color: Color(0xFF4B5563),
-                            width: 1,
-                          ),
-                        )
-                      : null,
-                ),
-                child: Text(
-                  header,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              );
-            }).toList(),
+            children:
+                columnHeaders.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final header = entry.value;
+                  final width = columnWidths[index];
+
+                  return Container(
+                    width: width,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 14,
+                    ),
+                    decoration: BoxDecoration(
+                      border:
+                          index < columnHeaders.length - 1
+                              ? const Border(
+                                right: BorderSide(
+                                  color: Color(0xFF4B5563),
+                                  width: 1,
+                                ),
+                              )
+                              : null,
+                    ),
+                    child: Text(
+                      header,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                }).toList(),
           ),
         ),
-        
-        // Table Rows
+
         ...stuffingList.asMap().entries.map((entry) {
           final index = entry.key;
           final item = entry.value;
           final isEven = index % 2 == 0;
-          
+
           final rowData = [
             item['num']!,
             item['bookingNumber']!,
@@ -353,37 +529,48 @@ class StuffingOngoingDetailPage extends StatelessWidget {
               color: isEven ? const Color(0xFFF9FAFB) : Colors.white,
             ),
             child: Row(
-              children: rowData.asMap().entries.map((cellEntry) {
-                final cellIndex = cellEntry.key;
-                final cellData = cellEntry.value;
-                final width = columnWidths[cellIndex];
+              children:
+                  rowData.asMap().entries.map((cellEntry) {
+                    final cellIndex = cellEntry.key;
+                    final cellData = cellEntry.value;
+                    final width = columnWidths[cellIndex];
 
-                return Container(
-                  width: width,
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                  decoration: BoxDecoration(
-                    border: cellIndex < rowData.length - 1
-                        ? const Border(
-                            right: BorderSide(
-                              color: Color(0xFFE5E7EB),
-                              width: 1,
-                            ),
-                          )
-                        : null,
-                  ),
-                  child: Text(
-                    cellData,
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: cellIndex == 0 ? FontWeight.w700 : FontWeight.w500,
-                      color: cellIndex == 0 ? const Color(0xFF111827) : const Color(0xFF374151),
-                      height: 1.3,
-                    ),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.visible,
-                  ),
-                );
-              }).toList(),
+                    return Container(
+                      width: width,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        border:
+                            cellIndex < rowData.length - 1
+                                ? const Border(
+                                  right: BorderSide(
+                                    color: Color(0xFFE5E7EB),
+                                    width: 1,
+                                  ),
+                                )
+                                : null,
+                      ),
+                      child: Text(
+                        cellData,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight:
+                              cellIndex == 0
+                                  ? FontWeight.w700
+                                  : FontWeight.w500,
+                          color:
+                              cellIndex == 0
+                                  ? const Color(0xFF111827)
+                                  : const Color(0xFF374151),
+                          height: 1.3,
+                        ),
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.visible,
+                      ),
+                    );
+                  }).toList(),
             ),
           );
         }).toList(),
@@ -520,7 +707,8 @@ class StuffingOngoingDetailPage extends StatelessWidget {
         'cargoReadiness': 'READY',
         'quantity': '9',
         'packages': 'PALLETS',
-        'description': 'PATCHOULI OIL DECOL, EUGENOL NAT (UN 3082, CLASS 9, PG III)',
+        'description':
+            'PATCHOULI OIL DECOL, EUGENOL NAT (UN 3082, CLASS 9, PG III)',
         'grossWeight': '3,650.250',
         'nettWeight': '3,500.000',
         'shipperMeas': '8.9000',
@@ -549,21 +737,21 @@ class StuffingOngoingDetailPage extends StatelessWidget {
     ];
 
     const columnWidths = [
-      60.0,   // Num
-      180.0,  // Booking Number
-      150.0,  // Shipper
-      250.0,  // Marking
-      120.0,  // Destination
-      130.0,  // Cargo Readiness
-      80.0,   // Quantity
-      100.0,  // Packages
-      300.0,  // Description of Goods
-      120.0,  // Gross Weight
-      120.0,  // Nett Weight
-      120.0,  // Shipper Meas
-      150.0,  // Warehouse Meas
-      120.0,  // Charged Meas
-      150.0,  // PEB Number
+      60.0, // Num
+      180.0, // Booking Number
+      150.0, // Shipper
+      250.0, // Marking
+      120.0, // Destination
+      130.0, // Cargo Readiness
+      80.0, // Quantity
+      100.0, // Packages
+      300.0, // Description of Goods
+      120.0, // Gross Weight
+      120.0, // Nett Weight
+      120.0, // Shipper Meas
+      150.0, // Warehouse Meas
+      120.0, // Charged Meas
+      150.0, // PEB Number
     ];
 
     return Container(
@@ -591,154 +779,198 @@ class StuffingOngoingDetailPage extends StatelessWidget {
               color: Color(0xFF111827),
             ),
           ),
-          
+
           const SizedBox(height: 12),
-          
-          // Horizontal Scrollable Table
+
           SizedBox(
             width: double.infinity,
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: const Color(0xFFE5E7EB)),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Column(
-                children: [
-                  // Table Header
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF0F172A),
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color(0xFFE5E7EB)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  children: [
+                    // Table Header
+                    Container(
+                      decoration: const BoxDecoration(color: Color(0xFF0F172A)),
+                      child: Row(
+                        children:
+                            columnHeaders.asMap().entries.map((entry) {
+                              final index = entry.key;
+                              final header = entry.value;
+                              final width = columnWidths[index];
+
+                              return Container(
+                                width: width,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 14,
+                                ),
+                                decoration: BoxDecoration(
+                                  border:
+                                      index < columnHeaders.length - 1
+                                          ? const Border(
+                                            right: BorderSide(
+                                              color: Color(0xFF4B5563),
+                                              width: 1,
+                                            ),
+                                          )
+                                          : null,
+                                ),
+                                child: Text(
+                                  header,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              );
+                            }).toList(),
+                      ),
                     ),
-                    child: Row(
-                      children: columnHeaders.asMap().entries.map((entry) {
-                        final index = entry.key;
-                        final header = entry.value;
-                        final width = columnWidths[index];
-                        
-                        return Container(
-                          width: width,
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-                          decoration: BoxDecoration(
-                            border: index < columnHeaders.length - 1
-                                ? const Border(
-                                    right: BorderSide(
-                                      color: Color(0xFF4B5563),
-                                      width: 1,
-                                    ),
-                                  )
-                                : null,
-                          ),
-                          child: Text(
-                            header,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  
-                  // Table Rows
-                  Column(
-                    children: stuffingList.asMap().entries.map((entry) {
-                      final rowIndex = entry.key;
-                      final item = entry.value;
-                      final isLastRow = rowIndex == stuffingList.length - 1;
-                      
-                      final rowData = [
-                        item['num']!,
-                        item['bookingNumber']!,
-                        item['shipper']!,
-                        item['marking']!,
-                        item['destination']!,
-                        item['cargoReadiness']!,
-                        item['quantity']!,
-                        item['packages']!,
-                        item['description']!,
-                        item['grossWeight']!,
-                        item['nettWeight']!,
-                        item['shipperMeas']!,
-                        item['warehouseMeas']!,
-                        item['chargedMeas']!,
-                        item['pebNumber']!,
-                      ];
-                      
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: rowIndex % 2 == 0 ? Colors.white : const Color(0xFFF9FAFB),
-                          border: isLastRow ? null : const Border(
-                            bottom: BorderSide(
-                              color: Color(0xFFE5E7EB),
-                              width: 1,
-                            ),
-                          ),
-                          borderRadius: isLastRow ? const BorderRadius.only(
-                            bottomLeft: Radius.circular(8),
-                            bottomRight: Radius.circular(8),
-                          ) : null,
-                        ),
-                        child: Row(
-                          children: rowData.asMap().entries.map((cellEntry) {
-                            final cellIndex = cellEntry.key;
-                            final cellData = cellEntry.value;
-                            final width = columnWidths[cellIndex];
-                            
+
+                    // Table Rows
+                    Column(
+                      children:
+                          stuffingList.asMap().entries.map((entry) {
+                            final rowIndex = entry.key;
+                            final item = entry.value;
+                            final isLastRow =
+                                rowIndex == stuffingList.length - 1;
+
+                            final rowData = [
+                              item['num']!,
+                              item['bookingNumber']!,
+                              item['shipper']!,
+                              item['marking']!,
+                              item['destination']!,
+                              item['cargoReadiness']!,
+                              item['quantity']!,
+                              item['packages']!,
+                              item['description']!,
+                              item['grossWeight']!,
+                              item['nettWeight']!,
+                              item['shipperMeas']!,
+                              item['warehouseMeas']!,
+                              item['chargedMeas']!,
+                              item['pebNumber']!,
+                            ];
+
                             return Container(
-                              width: width,
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
                               decoration: BoxDecoration(
-                                border: cellIndex < rowData.length - 1
-                                    ? const Border(
-                                        right: BorderSide(
-                                          color: Color(0xFFE5E7EB),
-                                          width: 1,
+                                color:
+                                    rowIndex % 2 == 0
+                                        ? Colors.white
+                                        : const Color(0xFFF9FAFB),
+                                border:
+                                    isLastRow
+                                        ? null
+                                        : const Border(
+                                          bottom: BorderSide(
+                                            color: Color(0xFFE5E7EB),
+                                            width: 1,
+                                          ),
                                         ),
-                                      )
-                                    : null,
+                                borderRadius:
+                                    isLastRow
+                                        ? const BorderRadius.only(
+                                          bottomLeft: Radius.circular(8),
+                                          bottomRight: Radius.circular(8),
+                                        )
+                                        : null,
                               ),
-                              child: cellIndex == 5 && cellData == 'READY' 
-                                  ? Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFF10B981),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: Text(
-                                        cellData,
-                                        style: const TextStyle(
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white,
+                              child: Row(
+                                children:
+                                    rowData.asMap().entries.map((cellEntry) {
+                                      final cellIndex = cellEntry.key;
+                                      final cellData = cellEntry.value;
+                                      final width = columnWidths[cellIndex];
+
+                                      return Container(
+                                        width: width,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                          vertical: 14,
                                         ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    )
-                                  : Text(
-                                      cellData,
-                                      style: TextStyle(
-                                        fontSize: cellIndex == 0 ? 14 : 12,
-                                        fontWeight: cellIndex == 0 ? FontWeight.w700 : FontWeight.w500,
-                                        color: cellIndex == 0 ? const Color(0xFF111827) : const Color(0xFF374151),
-                                        height: 1.3,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                      overflow: TextOverflow.visible,
-                                    ),
+                                        decoration: BoxDecoration(
+                                          border:
+                                              cellIndex < rowData.length - 1
+                                                  ? const Border(
+                                                    right: BorderSide(
+                                                      color: Color(0xFFE5E7EB),
+                                                      width: 1,
+                                                    ),
+                                                  )
+                                                  : null,
+                                        ),
+                                        child:
+                                            cellIndex == 5 &&
+                                                    cellData == 'READY'
+                                                ? Container(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        horizontal: 8,
+                                                        vertical: 4,
+                                                      ),
+                                                  decoration: BoxDecoration(
+                                                    color: const Color(
+                                                      0xFF10B981,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          12,
+                                                        ),
+                                                  ),
+                                                  child: Text(
+                                                    cellData,
+                                                    style: const TextStyle(
+                                                      fontSize: 11,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.white,
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                )
+                                                : Text(
+                                                  cellData,
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        cellIndex == 0
+                                                            ? 14
+                                                            : 12,
+                                                    fontWeight:
+                                                        cellIndex == 0
+                                                            ? FontWeight.w700
+                                                            : FontWeight.w500,
+                                                    color:
+                                                        cellIndex == 0
+                                                            ? const Color(
+                                                              0xFF111827,
+                                                            )
+                                                            : const Color(
+                                                              0xFF374151,
+                                                            ),
+                                                    height: 1.3,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                  overflow:
+                                                      TextOverflow.visible,
+                                                ),
+                                      );
+                                    }).toList(),
+                              ),
                             );
                           }).toList(),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
-            ),
             ),
           ),
         ],
@@ -749,7 +981,7 @@ class StuffingOngoingDetailPage extends StatelessWidget {
   Widget _buildStatusSection() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -781,11 +1013,17 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xFFFEF2F2),
                         borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: const Color(0xFFEF4444), width: 1),
+                        border: Border.all(
+                          color: const Color(0xFFEF4444),
+                          width: 1,
+                        ),
                       ),
                       child: const Text(
                         'Access Denied',
@@ -817,7 +1055,7 @@ class StuffingOngoingDetailPage extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 24),
+              const SizedBox(width: 48),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -877,14 +1115,3 @@ class StuffingOngoingDetailPage extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 
 class GuideSection extends StatelessWidget {
   const GuideSection({Key? key}) : super(key: key);
@@ -10,8 +11,8 @@ class GuideSection extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.menu_book_outlined,
+            SvgIcon(
+              assetPath: 'assets/icons/guide.svg',
               color: Colors.black,
               size: 20,
             ),
@@ -54,9 +55,10 @@ class GuideSection extends StatelessWidget {
                   color: Color(0xFF0F172A),
                 ),
               ),
-              trailing: Icon(
-                Icons.keyboard_arrow_down,
+              trailing: SvgIcon(
+                assetPath: 'assets/icons/arrow_down.svg',
                 color: Color(0xFF6B7280),
+                size: 10,
               ),
               children: [
               Container(

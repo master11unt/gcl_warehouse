@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
+import 'package:gcl_warehouse/widgets/inventory_detail_cargo_out_page/detail_item_widget.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/home/custom_drawer.dart';
 import '../models/inventory_data.dart';
@@ -147,13 +149,13 @@ class _InventoryDetailCargoOutPageState
                     ),
                   ),
                 ),
-                const SizedBox(width: 6),
-                const Icon(
-                  Icons.chevron_right,
-                  color: Color(0xFF374151),
-                  size: 20,
+                const SizedBox(width: 12),
+                const SvgIcon(
+                  assetPath: 'assets/icons/chevron_right.svg',
+                  color: Color(0xFF0F172A),
+                  size: 12,
                 ),
-                const SizedBox(width: 6),
+                const SizedBox(width: 12),
                 Flexible(
                   child: Text(
                     data['bookingCode'] ?? '',
@@ -1495,35 +1497,7 @@ class _InventoryDetailCargoOutPageState
   }
 
   Widget _buildDetailItem(String label, String value) {
-    if (label.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Color(0xFF6B7280),
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            value.isEmpty ? '-' : value,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Color(0xFF0F172A),
-              fontWeight: FontWeight.w600, 
-            ),
-          ),
-        ],
-      ),
-    );
+    return DetailItemWidget(label: label, value: value);
   }
 
   Widget _buildOptionsSection() {
@@ -1567,17 +1541,20 @@ class _InventoryDetailCargoOutPageState
             controller: _optionsScrollController,
             child: Row(
               children: [
-                _buildOptionButton(Icons.ads_click, 'Action', isEnabled: false),
-                const SizedBox(width: 16),
-                _buildOptionButton(Icons.edit_square, 'Edit', isEnabled: false),
-                const SizedBox(width: 16),
-                _buildOptionButton(Icons.share_outlined, 'Share'),
-                const SizedBox(width: 16),
-                _buildOptionButton(Icons.print_outlined, 'Print'),
-                const SizedBox(width: 16),
-                _buildOptionButton(Icons.headset_mic_rounded, 'Call Support'),
-                const SizedBox(width: 16),
-                _buildOptionButton(Icons.send, 'Send Tallysheet'),
+                _buildOptionButton('assets/icons/option1.svg', 'Action', isDisabled: true),
+                const SizedBox(width: 21),
+                _buildOptionButton('assets/icons/edit.svg', 'Edit', isDisabled: true),
+                const SizedBox(width: 21),
+                _buildOptionButton('assets/icons/share.svg', 'Share'),
+                const SizedBox(width: 21),
+                _buildOptionButton('assets/icons/print.svg', 'Print'),
+                const SizedBox(width: 21),
+                _buildOptionButton(
+                  'assets/icons/microphone.svg',
+                  'Call Support',
+                ),
+                const SizedBox(width: 21),
+                _buildOptionButton('assets/icons/send.svg', 'Send Tallysheet'),
               ],
             ),
           ),
@@ -1617,24 +1594,24 @@ class _InventoryDetailCargoOutPageState
     );
   }
 
-  Widget _buildOptionButton(IconData icon, String label, {bool isEnabled = true}) {
+  Widget _buildOptionButton(
+    String assetPath,
+    String label, {
+    bool isDisabled = false,
+  }) {
     return Container(
       width: 50,
       height: 50,
       decoration: BoxDecoration(
-        color: isEnabled ? const Color(0xFF0F172A) : const Color(0xFF9CA3AF),
+        color: isDisabled ? const Color(0xFFE5E7EB) : const Color(0xFF374151),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon, 
-            color: isEnabled ? Colors.white : const Color(0xFFD1D5DB), 
-            size: 24
-          ),
-          const SizedBox(height: 4),
-        ],
+      child: Center(
+        child: SvgIcon(
+          assetPath: assetPath,
+          color: isDisabled ? const Color(0xFF9CA3AF) : Colors.white,
+          size: 24,
+        ),
       ),
     );
   }
@@ -2373,9 +2350,16 @@ class _InventoryDetailCargoOutPageState
                                       'Sender Identity',
                                       style: TextStyle(color: Color(0xFF6B7280), fontWeight: FontWeight.w600),
                                     ),
-                                    Icon(
-                                      isSenderIdentityExpanded ? Icons.expand_less : Icons.chevron_right, 
-                                      color: const Color(0xFF9CA3AF)
+                                    SvgIcon(
+                                      assetPath:
+                                          isSenderIdentityExpanded
+                                              ? 'assets/icons/chevron_up.svg'
+                                              : 'assets/icons/chevron_right.svg',
+                                      color: const Color(0xFF9CA3AF),
+                                      size:
+                                          isSenderIdentityExpanded
+                                              ? 8
+                                              : 12,
                                     ),
                                   ],
                                 ),
@@ -2469,9 +2453,16 @@ class _InventoryDetailCargoOutPageState
                                       'Documentation',
                                       style: TextStyle(color: Color(0xFF6B7280), fontWeight: FontWeight.w600),
                                     ),
-                                    Icon(
-                                      isDocumentationExpanded ? Icons.expand_less : Icons.chevron_right,
-                                      color: const Color(0xFF9CA3AF)
+                                    SvgIcon(
+                                      assetPath:
+                                          isDocumentationExpanded
+                                              ? 'assets/icons/chevron_up.svg'
+                                              : 'assets/icons/chevron_right.svg',
+                                      color: const Color(0xFF9CA3AF),
+                                      size:
+                                          isDocumentationExpanded
+                                              ? 8
+                                              : 12,
                                     ),
                                   ],
                                 ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 
 class StuffingDialog extends StatefulWidget {
   const StuffingDialog({Key? key}) : super(key: key);
@@ -9,35 +11,30 @@ class StuffingDialog extends StatefulWidget {
 
 class _StuffingDialogState extends State<StuffingDialog> {
   final _formKey = GlobalKey<FormState>();
-  
+
   // Form controllers
   final _containerNumberController = TextEditingController();
   final _destinationController = TextEditingController();
   final _vesselController = TextEditingController();
   final _agentController = TextEditingController();
   final _stuffingInstructionController = TextEditingController();
-  
+
   // Dropdown values
   String _selectedStuffingOwner = 'DANLIRIS';
   DateTime? _stuffingDate;
   DateTime? _estimatedTimeDeparture;
   String _selectedContainerSize = '20FT';
   DateTime? _closingDate;
-  
+
   // Dropdown options
   final List<String> _stuffingOwnerOptions = [
     'GAP LOGISTICS',
-    'DANLIRIS', 
+    'DANLIRIS',
     'SMAS LOGISTICS',
-    'ULTRA PRIMA'
+    'ULTRA PRIMA',
   ];
-  
-  final List<String> _containerSizeOptions = [
-    '20FT',
-    '40FT',
-    '40HC',
-    '45FT'
-  ];
+
+  final List<String> _containerSizeOptions = ['20FT', '40FT', '40HC', '45FT'];
 
   List<Map<String, String>> _stuffingFillRows = [
     {
@@ -54,7 +51,7 @@ class _StuffingDialogState extends State<StuffingDialog> {
       'shipperMeas': '',
       'warehouseMeas': '',
       'chargedMeas': '',
-    }
+    },
   ];
 
   void _addRow() {
@@ -81,9 +78,7 @@ class _StuffingDialogState extends State<StuffingDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.9,
         constraints: BoxConstraints(
@@ -109,20 +104,28 @@ class _StuffingDialogState extends State<StuffingDialog> {
                     const Spacer(),
                     IconButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.close, size: 24),
+                      icon: SvgIcon(
+                        assetPath: 'assets/icons/close.svg',
+                        size: 14,
+                        color:
+                            Colors.black87,
+                      ),
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
                     ),
                   ],
                 ),
               ),
-              
+
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 24),
                 child: Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xFFE5E7EB),
                         borderRadius: BorderRadius.circular(8),
@@ -148,7 +151,7 @@ class _StuffingDialogState extends State<StuffingDialog> {
                   ],
                 ),
               ),
-              
+
               const SizedBox(height: 16),
 
               Form(
@@ -163,11 +166,12 @@ class _StuffingDialogState extends State<StuffingDialog> {
                         child: _buildDropdownField2(
                           _selectedStuffingOwner,
                           _stuffingOwnerOptions,
-                          (value) => setState(() => _selectedStuffingOwner = value!),
+                          (value) =>
+                              setState(() => _selectedStuffingOwner = value!),
                         ),
                       ),
                       const SizedBox(height: 20),
-                      
+
                       _buildFormField2(
                         'Stuffing Date',
                         child: _buildDateTimeField2(
@@ -176,38 +180,40 @@ class _StuffingDialogState extends State<StuffingDialog> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      
+
                       _buildFormField2(
                         'Container Number',
                         child: _buildTextFormField2(_containerNumberController),
                       ),
                       const SizedBox(height: 20),
-                      
+
                       _buildFormField2(
                         'Estimated Time Departure',
                         child: _buildDateTimeField2(
                           _estimatedTimeDeparture,
-                          (date) => setState(() => _estimatedTimeDeparture = date),
+                          (date) =>
+                              setState(() => _estimatedTimeDeparture = date),
                         ),
                       ),
                       const SizedBox(height: 20),
-                      
+
                       _buildFormField2(
                         'Destination',
                         child: _buildTextFormField2(_destinationController),
                       ),
                       const SizedBox(height: 20),
-                      
+
                       _buildFormField2(
                         'Container Size',
                         child: _buildDropdownField2(
                           _selectedContainerSize,
                           _containerSizeOptions,
-                          (value) => setState(() => _selectedContainerSize = value!),
+                          (value) =>
+                              setState(() => _selectedContainerSize = value!),
                         ),
                       ),
                       const SizedBox(height: 20),
-                      
+
                       _buildFormField2(
                         'Closing Date',
                         child: _buildDateTimeField2(
@@ -216,32 +222,35 @@ class _StuffingDialogState extends State<StuffingDialog> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      
+
                       _buildFormField2(
                         'Vessel',
                         child: _buildTextFormField2(_vesselController),
                       ),
                       const SizedBox(height: 20),
-                      
+
                       _buildFormField2(
                         'Agent',
                         child: _buildTextFormField2(_agentController),
                       ),
                       const SizedBox(height: 32),
-                      
+
                       _buildFormField2(
                         'Stuffing Fill',
                         child: _buildStuffingFillTable(),
                       ),
                       const SizedBox(height: 16),
-                     
+
                       Align(
                         alignment: Alignment.centerRight,
                         child: ElevatedButton(
                           onPressed: _addRow,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF6B7280),
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 12,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -257,13 +266,16 @@ class _StuffingDialogState extends State<StuffingDialog> {
                           ),
                         ),
                       ),
-                      
+
                       const SizedBox(height: 16),
-                      
-                      _buildTextAreaField('Instruksi Stuffing', _stuffingInstructionController),
-                      
+
+                      _buildTextAreaField(
+                        'Instruksi Stuffing',
+                        _stuffingInstructionController,
+                      ),
+
                       const SizedBox(height: 32),
-                      
+
                       Container(
                         margin: const EdgeInsets.only(bottom: 24),
                         child: Row(
@@ -281,7 +293,10 @@ class _StuffingDialogState extends State<StuffingDialog> {
                               onPressed: _handleCreate,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF6B7280),
-                                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 32,
+                                  vertical: 12,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
@@ -342,15 +357,16 @@ class _StuffingDialogState extends State<StuffingDialog> {
           border: InputBorder.none,
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         ),
-        style: const TextStyle(
-          fontSize: 14,
-          color: Color(0xFF374151),
-        ),
+        style: const TextStyle(fontSize: 14, color: Color(0xFF374151)),
       ),
     );
   }
 
-  Widget _buildDropdownField2(String value, List<String> options, Function(String?) onChanged) {
+  Widget _buildDropdownField2(
+    String value,
+    List<String> options,
+    Function(String?) onChanged,
+  ) {
     return Container(
       height: 48,
       decoration: BoxDecoration(
@@ -363,16 +379,20 @@ class _StuffingDialogState extends State<StuffingDialog> {
           border: InputBorder.none,
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         ),
-        style: const TextStyle(
-          fontSize: 14,
-          color: Color(0xFF374151),
-        ),
-        items: options.map((option) => DropdownMenuItem(
-          value: option,
-          child: Text(option),
-        )).toList(),
+        style: const TextStyle(fontSize: 14, color: Color(0xFF374151)),
+        items:
+            options
+                .map(
+                  (option) =>
+                      DropdownMenuItem(value: option, child: Text(option)),
+                )
+                .toList(),
         onChanged: onChanged,
-        icon: const Icon(Icons.keyboard_arrow_down, color: Color(0xFF6B7280)),
+        icon: SvgIcon(
+          assetPath: 'assets/icons/arrow_down.svg',
+          size: 8,
+          color: const Color(0xFF6B7280),
+        ),
       ),
     );
   }
@@ -392,7 +412,9 @@ class _StuffingDialogState extends State<StuffingDialog> {
             initialTime: TimeOfDay.fromDateTime(value ?? DateTime.now()),
           );
           if (time != null) {
-            onChanged(DateTime(date.year, date.month, date.day, time.hour, time.minute));
+            onChanged(
+              DateTime(date.year, date.month, date.day, time.hour, time.minute),
+            );
           }
         }
       },
@@ -408,15 +430,22 @@ class _StuffingDialogState extends State<StuffingDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                value != null 
-                  ? '${value.month.toString().padLeft(2, '0')}/${value.day.toString().padLeft(2, '0')}/${value.year} ${value.hour.toString().padLeft(2, '0')}:${value.minute.toString().padLeft(2, '0')}'
-                  : 'mm/dd/yyyy --:-- --',
+                value != null
+                    ? '${value.month.toString().padLeft(2, '0')}/${value.day.toString().padLeft(2, '0')}/${value.year} ${value.hour.toString().padLeft(2, '0')}:${value.minute.toString().padLeft(2, '0')}'
+                    : 'mm/dd/yyyy --:-- --',
                 style: TextStyle(
-                  color: value != null ? const Color(0xFF374151) : const Color(0xFF9CA3AF),
+                  color:
+                      value != null
+                          ? const Color(0xFF374151)
+                          : const Color(0xFF9CA3AF),
                   fontSize: 14,
                 ),
               ),
-              const Icon(Icons.calendar_today, color: Color(0xFF6B7280), size: 16),
+              SvgIcon(
+                assetPath: 'assets/icons/calendar.svg',
+                size: 16,
+                color: const Color(0xFF6B7280),
+              ),
             ],
           ),
         ),
@@ -448,12 +477,12 @@ class _StuffingDialogState extends State<StuffingDialog> {
             maxLines: 2,
             decoration: const InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 12,
+              ),
             ),
-            style: const TextStyle(
-              fontSize: 14,
-              color: Color(0xFF374151),
-            ),
+            style: const TextStyle(fontSize: 14, color: Color(0xFF374151)),
           ),
         ),
       ],
@@ -472,9 +501,7 @@ class _StuffingDialogState extends State<StuffingDialog> {
           children: [
             // Table Header
             Container(
-              decoration: const BoxDecoration(
-                color: Color(0xFF6B7280),
-              ),
+              decoration: const BoxDecoration(color: Color(0xFF6B7280)),
               child: Row(
                 children: [
                   _buildTableHeaderCell('Num', 80),
@@ -490,68 +517,172 @@ class _StuffingDialogState extends State<StuffingDialog> {
                   _buildTableHeaderCell('Shipper Meas', 130),
                   _buildTableHeaderCell('Warehouse Meas', 140),
                   _buildTableHeaderCell('Charged Meas', 130),
-                  _buildTableHeaderIconCell(Icons.settings, 80),
+                  _buildTableHeaderIconCell(
+                    'assets/icons/setting.svg',
+                    80,
+                  ),
                 ],
               ),
             ),
-            
+
             // Table Rows
             Container(
               constraints: const BoxConstraints(maxHeight: 200),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                ),
+              decoration: const BoxDecoration(color: Colors.white),
               child: SingleChildScrollView(
                 child: Column(
-                  children: _stuffingFillRows.asMap().entries.map((entry) {
-                    final index = entry.key;
-                    final row = entry.value;
-                    
-                    return Row(
-                        children: [
-                          _buildTableCell(row['num']!, 80, onChanged: (value) {
-                            setState(() => _stuffingFillRows[index]['num'] = value);
-                          }),
-                          _buildTableCell(row['bookingNumber']!, 180, onChanged: (value) {
-                            setState(() => _stuffingFillRows[index]['bookingNumber'] = value);
-                          }),
-                          _buildTableCell(row['shipper']!, 150, onChanged: (value) {
-                            setState(() => _stuffingFillRows[index]['shipper'] = value);
-                          }),
-                          _buildTableCell(row['description']!, 200, onChanged: (value) {
-                            setState(() => _stuffingFillRows[index]['description'] = value);
-                          }),
-                          _buildTableCell(row['quantity']!, 120, onChanged: (value) {
-                            setState(() => _stuffingFillRows[index]['quantity'] = value);
-                          }),
-                          _buildTableCell(row['packages']!, 120, onChanged: (value) {
-                            setState(() => _stuffingFillRows[index]['packages'] = value);
-                          }),
-                          _buildTableCell(row['destination']!, 150, onChanged: (value) {
-                            setState(() => _stuffingFillRows[index]['destination'] = value);
-                          }),
-                          _buildTableCell(row['marking']!, 150, onChanged: (value) {
-                            setState(() => _stuffingFillRows[index]['marking'] = value);
-                          }),
-                          _buildTableCell(row['grossWeight']!, 130, onChanged: (value) {
-                            setState(() => _stuffingFillRows[index]['grossWeight'] = value);
-                          }),
-                          _buildTableCell(row['nettWeight']!, 130, onChanged: (value) {
-                            setState(() => _stuffingFillRows[index]['nettWeight'] = value);
-                          }),
-                          _buildTableCell(row['shipperMeas']!, 130, onChanged: (value) {
-                            setState(() => _stuffingFillRows[index]['shipperMeas'] = value);
-                          }),
-                          _buildTableCell(row['warehouseMeas']!, 140, onChanged: (value) {
-                            setState(() => _stuffingFillRows[index]['warehouseMeas'] = value);
-                          }),
-                          _buildTableCell(row['chargedMeas']!, 130, onChanged: (value) {
-                            setState(() => _stuffingFillRows[index]['chargedMeas'] = value);
-                          }),
-                          _buildActionCell(index),
-                        ],
-                      );
-                  }).toList(),
+                  children:
+                      _stuffingFillRows.asMap().entries.map((entry) {
+                        final index = entry.key;
+                        final row = entry.value;
+
+                        return Row(
+                          children: [
+                            _buildTableCell(
+                              row['num']!,
+                              80,
+                              onChanged: (value) {
+                                setState(
+                                  () => _stuffingFillRows[index]['num'] = value,
+                                );
+                              },
+                            ),
+                            _buildTableCell(
+                              row['bookingNumber']!,
+                              180,
+                              onChanged: (value) {
+                                setState(
+                                  () =>
+                                      _stuffingFillRows[index]['bookingNumber'] =
+                                          value,
+                                );
+                              },
+                            ),
+                            _buildTableCell(
+                              row['shipper']!,
+                              150,
+                              onChanged: (value) {
+                                setState(
+                                  () =>
+                                      _stuffingFillRows[index]['shipper'] =
+                                          value,
+                                );
+                              },
+                            ),
+                            _buildTableCell(
+                              row['description']!,
+                              200,
+                              onChanged: (value) {
+                                setState(
+                                  () =>
+                                      _stuffingFillRows[index]['description'] =
+                                          value,
+                                );
+                              },
+                            ),
+                            _buildTableCell(
+                              row['quantity']!,
+                              120,
+                              onChanged: (value) {
+                                setState(
+                                  () =>
+                                      _stuffingFillRows[index]['quantity'] =
+                                          value,
+                                );
+                              },
+                            ),
+                            _buildTableCell(
+                              row['packages']!,
+                              120,
+                              onChanged: (value) {
+                                setState(
+                                  () =>
+                                      _stuffingFillRows[index]['packages'] =
+                                          value,
+                                );
+                              },
+                            ),
+                            _buildTableCell(
+                              row['destination']!,
+                              150,
+                              onChanged: (value) {
+                                setState(
+                                  () =>
+                                      _stuffingFillRows[index]['destination'] =
+                                          value,
+                                );
+                              },
+                            ),
+                            _buildTableCell(
+                              row['marking']!,
+                              150,
+                              onChanged: (value) {
+                                setState(
+                                  () =>
+                                      _stuffingFillRows[index]['marking'] =
+                                          value,
+                                );
+                              },
+                            ),
+                            _buildTableCell(
+                              row['grossWeight']!,
+                              130,
+                              onChanged: (value) {
+                                setState(
+                                  () =>
+                                      _stuffingFillRows[index]['grossWeight'] =
+                                          value,
+                                );
+                              },
+                            ),
+                            _buildTableCell(
+                              row['nettWeight']!,
+                              130,
+                              onChanged: (value) {
+                                setState(
+                                  () =>
+                                      _stuffingFillRows[index]['nettWeight'] =
+                                          value,
+                                );
+                              },
+                            ),
+                            _buildTableCell(
+                              row['shipperMeas']!,
+                              130,
+                              onChanged: (value) {
+                                setState(
+                                  () =>
+                                      _stuffingFillRows[index]['shipperMeas'] =
+                                          value,
+                                );
+                              },
+                            ),
+                            _buildTableCell(
+                              row['warehouseMeas']!,
+                              140,
+                              onChanged: (value) {
+                                setState(
+                                  () =>
+                                      _stuffingFillRows[index]['warehouseMeas'] =
+                                          value,
+                                );
+                              },
+                            ),
+                            _buildTableCell(
+                              row['chargedMeas']!,
+                              130,
+                              onChanged: (value) {
+                                setState(
+                                  () =>
+                                      _stuffingFillRows[index]['chargedMeas'] =
+                                          value,
+                                );
+                              },
+                            ),
+                            _buildActionCell(index),
+                          ],
+                        );
+                      }).toList(),
                 ),
               ),
             ),
@@ -567,9 +698,7 @@ class _StuffingDialogState extends State<StuffingDialog> {
       height: 48,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
       decoration: const BoxDecoration(
-        border: Border(
-          right: BorderSide(color: Color(0xFF9CA3AF), width: 1),
-        ),
+        border: Border(right: BorderSide(color: Color(0xFF9CA3AF), width: 1)),
       ),
       child: Center(
         child: Text(
@@ -585,27 +714,30 @@ class _StuffingDialogState extends State<StuffingDialog> {
     );
   }
 
-  Widget _buildTableHeaderIconCell(IconData icon, double width) {
+  Widget _buildTableHeaderIconCell(String assetPath, double width) {
     return Container(
       width: width,
       height: 48,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
       decoration: const BoxDecoration(
-        border: Border(
-          right: BorderSide(color: Color(0xFF9CA3AF), width: 1),
-        ),
+        border: Border(right: BorderSide(color: Color(0xFF9CA3AF), width: 1)),
       ),
       child: Center(
-        child: Icon(
-          icon,
-          color: Colors.white,
+        child: SvgIcon(
+          assetPath: assetPath,
           size: 16,
+          color: Colors.white,
         ),
       ),
     );
   }
 
-  Widget _buildTableCell(String value, double width, {Function(String)? onChanged, bool isReadOnly = false}) {
+  Widget _buildTableCell(
+    String value,
+    double width, {
+    Function(String)? onChanged,
+    bool isReadOnly = false,
+  }) {
     return Container(
       width: width,
       height: 48,
@@ -618,36 +750,40 @@ class _StuffingDialogState extends State<StuffingDialog> {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        child: isReadOnly 
-          ? Center(
-              child: Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 13,
-                  color: Color(0xFF6B7280),
-                  fontWeight: FontWeight.w500,
+        child:
+            isReadOnly
+                ? Center(
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      color: Color(0xFF6B7280),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                )
+                : TextFormField(
+                  initialValue: value,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: Color(0xFF374151),
+                  ),
+                  textAlign: TextAlign.center,
+                  decoration: const InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 8,
+                    ),
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    fillColor: Colors.transparent,
+                    filled: true,
+                  ),
+                  onChanged: onChanged,
                 ),
-                textAlign: TextAlign.center,
-              ),
-            )
-          : TextFormField(
-              initialValue: value,
-              style: const TextStyle(
-                fontSize: 13,
-                color: Color(0xFF374151),
-              ),
-              textAlign: TextAlign.center,
-              decoration: const InputDecoration(
-                isDense: true,
-                contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-                border: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                fillColor: Colors.transparent,
-                filled: true,
-              ),
-              onChanged: onChanged,
-            ),
       ),
     );
   }
@@ -666,10 +802,10 @@ class _StuffingDialogState extends State<StuffingDialog> {
       child: Center(
         child: IconButton(
           onPressed: () => _removeRow(index),
-          icon: const Icon(
-            Icons.delete_outline,
-            color: Colors.red,
+          icon: SvgIcon(
+            assetPath: 'assets/icons/delete.svg',
             size: 18,
+            color: Colors.red,
           ),
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(minWidth: 40, minHeight: 40),
@@ -696,7 +832,9 @@ class _StuffingDialogState extends State<StuffingDialog> {
 
   void _handleCreate() {
     if (_formKey.currentState!.validate()) {
-      if (_stuffingDate == null || _estimatedTimeDeparture == null || _closingDate == null) {
+      if (_stuffingDate == null ||
+          _estimatedTimeDeparture == null ||
+          _closingDate == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Please fill in all required date fields'),
@@ -721,7 +859,7 @@ class _StuffingDialogState extends State<StuffingDialog> {
       };
 
       Navigator.pop(context, stuffingData);
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Stuffing ticket created successfully!'),
@@ -737,6 +875,7 @@ class _StuffingDialogState extends State<StuffingDialog> {
     _destinationController.dispose();
     _vesselController.dispose();
     _agentController.dispose();
+    _stuffingInstructionController.dispose();
     super.dispose();
   }
 }

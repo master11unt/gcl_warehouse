@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 
 class SummaryCards extends StatelessWidget {
   const SummaryCards({Key? key}) : super(key: key);
@@ -10,14 +11,15 @@ class SummaryCards extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(Icons.insert_chart_outlined, color: Colors.black),
+            SvgIcon(
+              assetPath: 'assets/icons/summary.svg',
+              size: 24,
+              color: Colors.black87,
+            ),
             SizedBox(width: 8),
             Text(
               "Summary",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
           ],
         ),
