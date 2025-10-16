@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gcl_warehouse/pages/login_page.dart';
 import 'package:gcl_warehouse/pages/profile_page.dart';
 import 'package:gcl_warehouse/pages/settings_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../common/svg_icon.dart';
 
 class UserPopup extends StatefulWidget {
@@ -125,8 +127,93 @@ class _UserPopupState extends State<UserPopup> {
                           _buildUserMenuItem(
                             iconPath: 'assets/icons/logout.svg',
                             text: "Sign out",
-                            onTap: () {
+                            onTap: () async {
                               _hidePopup();
+
+                              // Confirmation dialog
+                              final shouldLogout = await showDialog<bool>(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (ctx) => Dialog(
+                                  backgroundColor: Colors.transparent,
+                                  insetPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+                                  child: Container(
+                                    padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(14),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.12),
+                                          blurRadius: 18,
+                                          offset: const Offset(0, 8),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Container(
+                                          width: 56,
+                                          height: 56,
+                                          decoration: BoxDecoration(
+                                            color: const Color(0xFF214098), // app primary color
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: const Icon(
+                                            Icons.logout,
+                                            color: Colors.white,
+                                            size: 28,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 12),
+                                        const Text(
+                                          'Sign out',
+                                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        const Text(
+                                          'Are you sure you want to sign out from the app?',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(fontSize: 14, color: Color(0xFF4B5563)),
+                                        ),
+                                        const SizedBox(height: 18),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: OutlinedButton(
+                                                style: OutlinedButton.styleFrom(
+                                                  padding: const EdgeInsets.symmetric(vertical: 12),
+                                                  side: const BorderSide(color: Color(0xFF9CA3AF)),
+                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                                ),
+                                                onPressed: () => Navigator.of(ctx).pop(false),
+                                                child: const Text('No', style: TextStyle(color: Color(0xFF374151))),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 12),
+                                            Expanded(
+                                              child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: const Color(0xFF214098), // app primary color
+                                                  padding: const EdgeInsets.symmetric(vertical: 12),
+                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                                ),
+                                                onPressed: () => Navigator.of(ctx).pop(true),
+                                                child: const Text('Yes', style: TextStyle(color: Colors.white)),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+
+                              if (shouldLogout == true) {
+                                await _performLogout();
+                              }
                             },
                           ),
                         ],
@@ -150,6 +237,19 @@ class _UserPopupState extends State<UserPopup> {
     setState(() {
       _isPopupOpen = false;
     });
+  }
+
+  Future<void> _performLogout() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('rememberMe');
+      await prefs.remove('username');
+    } catch (_) {}
+    if (!mounted) return;
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => LoginPage()),
+      (route) => false,
+    );
   }
 
   Widget _buildUserMenuItem({
