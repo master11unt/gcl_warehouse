@@ -66,10 +66,10 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
       child: Row(
         children: [
           Container(
-            width: 4,
+            width: 8,
             height: 40,
             decoration: BoxDecoration(
-              color: const Color(0xFF374151),
+              color: const Color(0xFFE5E7EB),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -88,15 +88,15 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF374151),
+                      color: Color(0xFF0F172A),
                     ),
                   ),
                 ),
                 const SizedBox(width: 8),
                 const SvgIcon(
                   assetPath: 'assets/icons/chevron_right.svg',
-                  color: Color(0xFF9CA3AF),
-                  size: 14,
+                  color: Color(0xFF0F172A),
+                  size: 12,
                 ),
                 const SizedBox(width: 8),
                 const Text(
@@ -104,14 +104,14 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF374151),
+                    color: Color(0xFF0F172A),
                   ),
                 ),
                 const SizedBox(width: 8),
                 const SvgIcon(
                   assetPath: 'assets/icons/chevron_right.svg',
-                  color: Color(0xFF9CA3AF),
-                  size: 14,
+                  color: Color(0xFF0F172A),
+                  size: 12,
                 ),
                 const SizedBox(width: 8),
                 Flexible(
@@ -628,7 +628,7 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
                                           color:
                                               cellIndex == 0
                                                   ? const Color(0xFF111827)
-                                                  : const Color(0xFF374151),
+                                                  : const Color(0xFF0F172A),
                                           height: 1.3,
                                         ),
                                         textAlign: TextAlign.center,
@@ -662,7 +662,7 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF374151),
+              color: Color(0xFF0F172A),
               height: 1.5,
             ),
           ),
@@ -793,7 +793,7 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
               onPressed: () {},
               icon: const SvgIcon(
                 assetPath: 'assets/icons/download.svg',
-                color: Color(0xFF374151),
+                color: Color(0xFF0F172A),
                 size: 20,
               ),
               label: const Text(
@@ -801,7 +801,7 @@ class _TicketStuffingDetailPageState extends State<TicketStuffingDetailPage> {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF374151),
+                  color: Color(0xFF0F172A),
                 ),
               ),
               style: ElevatedButton.styleFrom(

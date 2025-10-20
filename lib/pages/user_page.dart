@@ -186,7 +186,7 @@ class _UserPageState extends State<UserPage> {
                   fontWeight: FontWeight.w600,
                   color: Color(0xFF0F172A),
                 ),
-              ), 
+              ),
               GestureDetector(
                 onTap: () {
                   _showAddUserDialog();
@@ -462,204 +462,214 @@ class _UserPageState extends State<UserPage> {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Container(
-            width: 600,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-            ),
-            constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * 0.85,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 20, 20, 0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Center(
-                          child: const Text(
-                            'User',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF0F172A),
+          backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.all(24),
+          child: Center(
+            child: Container(
+              width: 520,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(color: const Color(0xFFE9ECEF)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.06),
+                    blurRadius: 12,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
+              ),
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.9,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // header
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 18, 18, 0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'User',
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFF0F172A),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      IconButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        icon: _buildSvgIcon(
-                          assetPath: 'assets/icons/close.svg',
-                          size: 14,
+                        IconButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          icon: _buildSvgIcon(
+                            assetPath: 'assets/icons/close.svg',
+                            size: 16,
+                            color: const Color(0xFF374151),
+                          ),
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
                         ),
-                        padding: EdgeInsets.zero,
-                        constraints: const BoxConstraints(),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
 
-                Flexible(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
-                    child: Column(
-                      children: [
-                        Row(
+                  Flexible(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.fromLTRB(24, 12, 24, 20),
+                      child: Container(
+                        padding: const EdgeInsets.all(18),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: const Color(0xFFE9ECEF)),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Avatar
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF9CA3AF),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  user['username']![0].toLowerCase(),
-                                  style: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-
-                            // Name and username
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    user['fullName']!,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0xFF0F172A),
-                                    ),
-                                  ),
-                                  Text(
-                                    '@${user['username']!}',
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      color: Color(0xFF6B7280),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
                             Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.all(8),
+                                  width: 56,
+                                  height: 56,
                                   decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: const Color(0xFFE5E7EB),
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
+                                    color: const Color(0xFFE9EEF3),
+                                    borderRadius: BorderRadius.circular(28),
                                   ),
-                                  child: _buildSvgIcon(
-                                    assetPath: 'assets/icons/edit.svg',
-                                    color: const Color(0xFF6B7280),
-                                    size: 20,
+                                  child: Center(
+                                    child: Text(
+                                      user['username']![0].toLowerCase(),
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xFF0F172A),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                const SizedBox(width: 8),
-                                Container(
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: const Color(0xFFE5E7EB),
+                                const SizedBox(width: 12),
+
+                                // Name and username
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        user['fullName']!,
+                                        style: const TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w700,
+                                          color: Color(0xFF0F172A),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Text(
+                                        '@${user['username']!}',
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xFF6B7280),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                                // action icons
+                                Row(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(2),
+                                      child: _buildSvgIcon(
+                                        assetPath: 'assets/icons/edit.svg',
+                                        color: const Color(0xFF374151),
+                                        size: 20,
+                                      ),
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: _buildSvgIcon(
-                                    assetPath: 'assets/icons/delete.svg',
-                                    color: const Color(0xFFEF4444),
-                                    size: 20,
-                                  ),
+                                    const SizedBox(width: 16),
+                                    Container(
+                                      padding: const EdgeInsets.all(2),
+                                      child: _buildSvgIcon(
+                                        assetPath: 'assets/icons/delete.svg',
+                                        color: const Color(0xFFEF4444),
+                                        size: 20,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
 
-                        const SizedBox(height: 24),
+                            const SizedBox(height: 18),
 
-                        // Divider line
-                        Container(height: 1, color: const Color(0xFFE5E7EB)),
+                            // const Divider(height: 1, color: Color(0xFFE5E7EB)),
 
-                        const SizedBox(height: 24),
+                            const SizedBox(height: 18),
 
-                        _buildInfoField('Username:', user['username']!),
-                        _buildInfoField('Full Name:', user['fullName']!),
-                        _buildInfoField('NIP:', user['nip']!),
-                        _buildInfoField('Email:', user['email']!),
-                        _buildInfoField('Region:', user['region']!),
-                        _buildInfoField('Division:', user['division']!),
-                        _buildInfoField('Role:', user['role']!),
-                        _buildInfoField('Group:', user['group']!),
+                            _buildStackedInfo('Username', user['username']!),
+                            const SizedBox(height: 14),
+                            _buildStackedInfo('Full Name', user['fullName']!),
+                            const SizedBox(height: 14),
+                            _buildStackedInfo('NIP', user['nip']!),
+                            const SizedBox(height: 14),
+                            _buildStackedInfo('Email', user['email']!),
+                            const SizedBox(height: 14),
+                            _buildStackedInfo('Region', user['region']!),
+                            const SizedBox(height: 14),
+                            _buildStackedInfo('Division', user['division']!),
+                            const SizedBox(height: 14),
+                            _buildStackedInfo('Role', user['role']!),
+                            const SizedBox(height: 14),
+                            _buildStackedInfo('Group', user['group']!),
 
-                        // Status section
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'Status:',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xFF374151),
-                              ),
-                            ),
+                            const SizedBox(height: 12),
+
                             Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                const Text(
+                                  'Status:',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFF374151),
+                                  ),
+                                ),
+                                const SizedBox(width: 16),
                                 Container(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 12,
-                                    vertical: 4,
+                                    vertical: 6,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: const Color(
-                                      0xFF10B981,
-                                    ).withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(16),
+                                    color: const Color(0xFFDFF7EA),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: const Text(
                                     'Active',
                                     style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0xFF10B981),
+                                      color: Color(0xFF059669),
+                                      fontWeight: FontWeight.w700,
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 8),
+                                const SizedBox(width: 12),
                                 Container(
                                   width: 44,
                                   height: 24,
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF10B981),
+                                    color: const Color(0xFFDFF7EA),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Align(
                                     alignment: Alignment.centerRight,
                                     child: Container(
-                                      margin: const EdgeInsets.only(right: 2),
-                                      width: 20,
-                                      height: 20,
+                                      margin: const EdgeInsets.only(right: 4),
+                                      width: 18,
+                                      height: 18,
                                       decoration: const BoxDecoration(
                                         color: Colors.white,
                                         shape: BoxShape.circle,
@@ -669,29 +679,27 @@ class _UserPageState extends State<UserPage> {
                                 ),
                               ],
                             ),
-                          ],
-                        ),
 
-                        // Permissions section
-                        const SizedBox(height: 20),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                            const SizedBox(height: 20),
+
                             const Text(
                               'Permissions',
                               style: TextStyle(
                                 fontSize: 14,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w600,
                                 color: Color(0xFF374151),
                               ),
                             ),
                             const SizedBox(height: 8),
                             Container(
                               width: double.infinity,
-                              padding: const EdgeInsets.all(12),
+                              padding: const EdgeInsets.all(14),
                               decoration: BoxDecoration(
-                                color: const Color(0xFFF3F4F6),
-                                borderRadius: BorderRadius.circular(8),
+                                color: const Color(0xFFF8FAFC),
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: const Color(0xFFE9ECEF),
+                                ),
                               ),
                               child: Text(
                                 user['permissions']!,
@@ -704,11 +712,11 @@ class _UserPageState extends State<UserPage> {
                             ),
                           ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
@@ -716,35 +724,30 @@ class _UserPageState extends State<UserPage> {
     );
   }
 
-  Widget _buildInfoField(String label, String value) {
+
+  Widget _buildStackedInfo(String label, String value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: 85,
-            child: Text(
-              label,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Color(0xFF374151),
-              ),
+          Text(
+            '$label:',
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF374151),
             ),
           ),
-          Expanded(
-            child: Text(
-              value.isEmpty ? '-' : value,
-              style: TextStyle(
-                fontSize: 14,
-                color:
-                    value.isEmpty
-                        ? const Color(0xFF9CA3AF)
-                        : const Color(0xFF0F172A),
-              ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
+          const SizedBox(height: 8),
+          Text(
+            value.isEmpty ? '-' : value,
+            style: TextStyle(
+              fontSize: 16,
+              color:
+                  value.isEmpty
+                      ? const Color(0xFF9CA3AF)
+                      : const Color(0xFF0F172A),
             ),
           ),
         ],

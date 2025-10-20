@@ -147,10 +147,10 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
         Row(
           children: [
             Container(
-              width: 4,
-              height: 24,
+              width: 8,
+              height: 40,
               decoration: BoxDecoration(
-                color: const Color(0xFF9CA3AF),
+                color: const Color(0xFFE5E7EB),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),

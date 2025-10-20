@@ -109,10 +109,10 @@ class _StuffingPageState extends State<StuffingPage> {
                       child: Row(
                         children: [
                           Container(
-                            width: 4,
-                            height: 24,
+                            width: 8,
+                            height: 40,
                             decoration: BoxDecoration(
-                              color: const Color(0xFF6B7280),
+                              color: const Color(0xFFE5E7EB),
                               borderRadius: BorderRadius.circular(2),
                             ),
                           ),
@@ -122,7 +122,7 @@ class _StuffingPageState extends State<StuffingPage> {
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Color(0xFF0F172A),
                             ),
                           ),
                         ],
@@ -181,7 +181,7 @@ class _StuffingPageState extends State<StuffingPage> {
                                             color:
                                                 selectedFilter == 'all'
                                                     ? Colors.white
-                                                    : Colors.black,
+                                                    : Color(0xFF0F172A),
                                             fontSize: 28,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -256,7 +256,7 @@ class _StuffingPageState extends State<StuffingPage> {
                                             color:
                                                 selectedFilter == 'ongoing'
                                                     ? Colors.white
-                                                    : Colors.black,
+                                                    : Color(0xFF0F172A),
                                             fontSize: 28,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -335,7 +335,7 @@ class _StuffingPageState extends State<StuffingPage> {
                                             color:
                                                 selectedFilter == 'cleared'
                                                     ? Colors.white
-                                                    : Colors.black,
+                                                    : Color(0xFF0F172A),
                                             fontSize: 28,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -368,7 +368,7 @@ class _StuffingPageState extends State<StuffingPage> {
                     ),
 
                     // Divider
-                    Divider(height: 1, color: Colors.grey[200]),
+                    // Divider(height: 1, color: Colors.grey[200]),
 
                     Padding(
                       padding: const EdgeInsets.all(20),
@@ -380,7 +380,7 @@ class _StuffingPageState extends State<StuffingPage> {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Color(0xFF0F172A),
                             ),
                           ),
                           const SizedBox(height: 16),

@@ -8,9 +8,7 @@ class TodayStuffings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 2,
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -28,10 +26,7 @@ class TodayStuffings extends StatelessWidget {
             SizedBox(height: 12),
             Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 16,
-              ),
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
               decoration: BoxDecoration(
                 color: Color(0xFF0F172A),
                 borderRadius: BorderRadius.circular(6),
@@ -59,11 +54,7 @@ class TodayStuffings extends StatelessWidget {
                       "LAEM CHABANG",
                     ),
                     SizedBox(height: 8),
-                    _todayStuffingItem(
-                      context,
-                      "GCL-10025081105",
-                      "BANGKOK",
-                    ),
+                    _todayStuffingItem(context, "GCL-10025081105", "BANGKOK"),
                     SizedBox(height: 8),
                     _todayStuffingItem(
                       context,
@@ -71,16 +62,30 @@ class TodayStuffings extends StatelessWidget {
                       "LAEM CHABANG",
                     ),
                     SizedBox(height: 8),
-                    _todayStuffingItem(
-                      context,
-                      "GCL-10025081103",
-                      "SINGAPORE",
-                    ),
+                    _todayStuffingItem(context, "GCL-10025081103", "SINGAPORE"),
                     SizedBox(height: 8),
-                    _todayStuffingItem(
-                      context,
-                      "GCL-10025081104",
-                      "JAKARTA",
+                    _todayStuffingItem(context, "GCL-10025081104", "JAKARTA"),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Color(0xFF0F172A),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        "Stuffed",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -92,19 +97,24 @@ class TodayStuffings extends StatelessWidget {
     );
   }
 
-  Widget _todayStuffingItem(BuildContext context, String jobNumber, String destination) {
+  Widget _todayStuffingItem(
+    BuildContext context,
+    String jobNumber,
+    String destination,
+  ) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TicketStuffingDetailPage(
-              ticketData: {
-                'jobNumber': jobNumber,
-                'destination': destination,
-                'status': 'Unloaded',
-              },
-            ),
+            builder:
+                (context) => TicketStuffingDetailPage(
+                  ticketData: {
+                    'jobNumber': jobNumber,
+                    'destination': destination,
+                    'status': 'Unloaded',
+                  },
+                ),
           ),
         );
       },

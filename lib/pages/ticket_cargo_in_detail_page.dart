@@ -314,7 +314,7 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF374151),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -364,7 +364,7 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF374151),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -418,7 +418,7 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF374151),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -468,7 +468,7 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF374151),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -530,7 +530,7 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: Color(0xFF374151),
+              color: Color(0xFF0F172A),
             ),
           ),
           const SizedBox(height: 4),
@@ -583,12 +583,12 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
               icon: const SvgIcon(
                 assetPath: 'assets/icons/download.svg',
                 size: 18,
-                color: Color(0xFF374151),
+                color: Color(0xFF0F172A),
               ),
               label: const Text('Download'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
-                foregroundColor: const Color(0xFF374151),
+                foregroundColor: const Color(0xFF0F172A),
                 side: const BorderSide(color: Color(0xFFE5E7EB)),
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 shape: RoundedRectangleBorder(
@@ -798,10 +798,10 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
       child: Row(
         children: [
           Container(
-            width: 4,
+            width: 8,
             height: 40,
             decoration: BoxDecoration(
-              color: const Color(0xFF374151),
+              color: const Color(0xFFE5E7EB),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -819,15 +819,15 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF374151),
+                      color: Color(0xFF0F172A),
                     ),
                   ),
                 ),
                 const SizedBox(width: 8),
                 const SvgIcon(
                   assetPath: 'assets/icons/chevron_right.svg',
-                  color: Color(0xFF9CA3AF),
-                  size: 14,
+                  color: Color(0xFF0F172A),
+                  size: 12,
                 ),
                 const SizedBox(width: 8),
                 const Text(
@@ -835,14 +835,14 @@ class _TicketCargoInDetailPageState extends State<TicketCargoInDetailPage> {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF374151),
+                    color: Color(0xFF0F172A),
                   ),
                 ),
                 const SizedBox(width: 8),
                 const SvgIcon(
                   assetPath: 'assets/icons/chevron_right.svg',
-                  color: Color(0xFF9CA3AF),
-                  size: 14,
+                  color: Color(0xFF0F172A),
+                  size: 12,
                 ),
                 const SizedBox(width: 8),
                 Flexible(

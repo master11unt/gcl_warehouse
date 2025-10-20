@@ -818,7 +818,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
               child: Row(
                 children: const [
                   SizedBox(
-                    width: 4,
+                    width: 8,
                     height: 40,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
@@ -833,7 +833,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Color(0xFF0F172A),
                     ),
                   ),
                 ],
@@ -864,7 +864,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                 ),
                 indicatorPadding: EdgeInsets.zero,
                 dividerColor: Colors.transparent,
-                labelColor: Colors.black,
+                labelColor: Color(0xFF0F172A),
                 unselectedLabelColor: const Color(0xFFF3F4F6),
                 labelStyle: const TextStyle(
                   fontWeight: FontWeight.w700,
@@ -1015,7 +1015,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color(0xFF0F172A),
                 ),
               ),
               SizedBox(height: 4),
@@ -1137,7 +1137,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color(0xFF0F172A),
                 ),
               ),
               SizedBox(height: 4),
@@ -1162,7 +1162,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
           style: const TextStyle(
             fontSize: 34,
             fontWeight: FontWeight.w800,
-            color: Colors.black,
+            color: Color(0xFF0F172A),
           ),
         ),
         const SizedBox(height: 8),
@@ -1215,8 +1215,8 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
           Row(
             children: [
               Container(
-                width: 4,
-                height: 24,
+                width: 8,
+                height: 40,
                 decoration: BoxDecoration(
                   color: const Color(0xFFE5E7EB),
                   borderRadius: BorderRadius.circular(2),
@@ -1228,7 +1228,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color(0xFF0F172A),
                 ),
               ),
             ],
@@ -1252,10 +1252,10 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
           Row(
             children: [
               Container(
-                width: 4,
-                height: 24,
+                width: 8,
+                height: 40,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF6B7280),
+                  color: const Color(0xFFE5E7EB),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -1265,12 +1265,12 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color(0xFF0F172A),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           GestureDetector(
             onTap:
                 () =>
@@ -1301,14 +1301,14 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
             ),
           ),
 
-          const SizedBox(height: 32),
+          const SizedBox(height: 48),
 
           // Table Section
           Row(
             children: [
               Container(
-                width: 4,
-                height: 24,
+                width: 8,
+                height: 40,
                 decoration: BoxDecoration(
                   color: const Color(0xFFE5E7EB),
                   borderRadius: BorderRadius.circular(2),
@@ -1320,7 +1320,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color(0xFF0F172A),
                 ),
               ),
             ],

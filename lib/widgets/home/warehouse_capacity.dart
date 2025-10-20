@@ -20,8 +20,8 @@ class WarehouseCapacity extends StatelessWidget {
                   width: 8,
                   height: 28,
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(4),
+                    color: Color(0xFFE5E7EB),
+                    borderRadius: BorderRadius.circular(2),
                   ),
                 ),
                 SizedBox(width: 12),

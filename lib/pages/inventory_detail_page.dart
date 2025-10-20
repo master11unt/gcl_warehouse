@@ -119,10 +119,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
       child: Row(
         children: [
           Container(
-            width: 4,
+            width: 8,
             height: 40,
             decoration: BoxDecoration(
-              color: const Color(0xFF9CA3AF),
+              color: const Color(0xFFE5E7EB),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -143,18 +143,18 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 10),
+                const SizedBox(width: 12),
                 const SvgIcon(
                   assetPath: 'assets/icons/chevron_right.svg',
                   color: Color(0xFF0F172A),
                   size: 12,
                 ),
-                const SizedBox(width: 10),
+                const SizedBox(width: 12),
                 Flexible(
                   child: Text(
                     data['bookingCode'] ?? '',
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       color: Color(0xFF0F172A),
                       fontWeight: FontWeight.bold,
                     ),
@@ -335,7 +335,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF374151),
+                  color: Color(0xFF0F172A),
                 ),
               ),
               const SizedBox(width: 16),
@@ -367,7 +367,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                   'Remark',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF374151),
+                    color: Color(0xFF0F172A),
                     fontStyle: FontStyle.italic,
                   ),
                 ),
@@ -389,11 +389,11 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF374151),
+                          color: Color(0xFF0F172A),
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Container(height: 2, color: const Color(0xFF374151)),
+                      Container(height: 2, color: const Color(0xFF0F172A)),
                       const SizedBox(height: 16),
 
                       // Quantity / Package row
@@ -404,7 +404,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             'Quantity',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -412,7 +412,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             'Package',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -427,7 +427,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                             ),
                           ),
                           Text(
@@ -435,7 +435,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                             ),
                           ),
                         ],
@@ -450,7 +450,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             'Weight',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -458,7 +458,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             'Volume',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -481,7 +481,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                             ),
                           ),
                         ],
@@ -496,7 +496,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             'Warehouse Meas',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -506,7 +506,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                             ),
                           ),
                         ],
@@ -528,7 +528,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF374151),
+                  color: Color(0xFF0F172A),
                 ),
               ),
               const SizedBox(width: 16),
@@ -1501,10 +1501,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 16),
             decoration: const BoxDecoration(
               border: Border(
-                left: BorderSide(color: Color(0xFF374151), width: 6),
+                left: BorderSide(color: Color(0xFF0F172A), width: 6),
               ),
             ),
             child: const Text(
@@ -1619,10 +1619,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
         children: [
           // Status Section
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 16),
             decoration: const BoxDecoration(
               border: Border(
-                left: BorderSide(color: Color(0xFF374151), width: 6),
+                left: BorderSide(color: Color(0xFF0F172A), width: 6),
               ),
             ),
             child: const Text(
@@ -1648,10 +1648,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
           const SizedBox(height: 32),
 
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 16),
             decoration: const BoxDecoration(
               border: Border(
-                left: BorderSide(color: Color(0xFF374151), width: 6),
+                left: BorderSide(color: Color(0xFF0F172A), width: 6),
               ),
             ),
             child: const Text(
@@ -1768,10 +1768,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 16),
             decoration: const BoxDecoration(
               border: Border(
-                left: BorderSide(color: Color(0xFF374151), width: 6),
+                left: BorderSide(color: Color(0xFF0F172A), width: 6),
               ),
             ),
             child: const Text(
@@ -1864,10 +1864,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 16),
             decoration: const BoxDecoration(
               border: Border(
-                left: BorderSide(color: Color(0xFF374151), width: 6),
+                left: BorderSide(color: Color(0xFF0F172A), width: 6),
               ),
             ),
             child: const Text(
@@ -2314,7 +2314,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                         'B 1234 ABC',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: Color(0xFF374151),
+                                          color: Color(0xFF0F172A),
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -2332,7 +2332,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                         'Ahmad Susanto',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: Color(0xFF374151),
+                                          color: Color(0xFF0F172A),
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -2350,7 +2350,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                         '+62 812-3456-7890',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: Color(0xFF374151),
+                                          color: Color(0xFF0F172A),
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -2453,7 +2453,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                         'SJ-2025-001234',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: Color(0xFF374151),
+                                          color: Color(0xFF0F172A),
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -2471,7 +2471,7 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                                         'Jakarta Warehouse',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: Color(0xFF374151),
+                                          color: Color(0xFF0F172A),
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -2761,11 +2761,11 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
                 Container(
                   padding: const EdgeInsets.symmetric(
                     vertical: 3,
-                    horizontal: 4,
+                    horizontal: 16,
                   ),
                   decoration: const BoxDecoration(
                     border: Border(
-                      left: BorderSide(color: Color(0xFF374151), width: 6),
+                      left: BorderSide(color: Color(0xFF0F172A), width: 6),
                     ),
                   ),
                   child: const Text(
@@ -2928,10 +2928,10 @@ class _InventoryDetailPageState extends State<InventoryDetailPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 16),
             decoration: const BoxDecoration(
               border: Border(
-                left: BorderSide(color: Color(0xFF374151), width: 6),
+                left: BorderSide(color: Color(0xFF0F172A), width: 6),
               ),
             ),
             child: const Text(

@@ -125,10 +125,10 @@ class _InventoryDetailCargoOutPageState
       child: Row(
         children: [
           Container(
-            width: 4,
+            width: 8,
             height: 40,
             decoration: BoxDecoration(
-              color: const Color(0xFF9CA3AF),
+              color: const Color(0xFFE5E7EB),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -160,7 +160,7 @@ class _InventoryDetailCargoOutPageState
                   child: Text(
                     data['bookingCode'] ?? '',
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       color: Color(0xFF0F172A),
                       fontWeight: FontWeight.bold,
                     ),
@@ -298,7 +298,7 @@ class _InventoryDetailCargoOutPageState
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF374151),
+              color: Color(0xFF0F172A),
             ),
             textAlign: TextAlign.center,
           ),
@@ -307,7 +307,7 @@ class _InventoryDetailCargoOutPageState
             'Please check again or if there something suspicious\ncontact support',
             style: TextStyle(
               fontSize: 16,
-              color: Color(0xFF374151),
+              color: Color(0xFF0F172A),
               height: 1.5,
             ),
             textAlign: TextAlign.center,
@@ -497,7 +497,7 @@ class _InventoryDetailCargoOutPageState
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF374151),
+                  color: Color(0xFF0F172A),
                 ),
               ),
               const SizedBox(width: 16),
@@ -526,7 +526,7 @@ class _InventoryDetailCargoOutPageState
                   'Remark',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF374151),
+                    color: Color(0xFF0F172A),
                     fontStyle: FontStyle.italic,
                   ),
                 ),
@@ -548,11 +548,11 @@ class _InventoryDetailCargoOutPageState
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF374151),
+                          color: Color(0xFF0F172A),
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Container(height: 2, color: const Color(0xFF374151)),
+                      Container(height: 2, color: const Color(0xFF0F172A)),
                       const SizedBox(height: 16),
 
                       // Quantity / Package row
@@ -563,7 +563,7 @@ class _InventoryDetailCargoOutPageState
                             'Quantity',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -571,7 +571,7 @@ class _InventoryDetailCargoOutPageState
                             'Package',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -586,7 +586,7 @@ class _InventoryDetailCargoOutPageState
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                             ),
                           ),
                           Text(
@@ -594,7 +594,7 @@ class _InventoryDetailCargoOutPageState
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                             ),
                           ),
                         ],
@@ -609,7 +609,7 @@ class _InventoryDetailCargoOutPageState
                             'Weight',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -617,7 +617,7 @@ class _InventoryDetailCargoOutPageState
                             'Volume',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -632,7 +632,7 @@ class _InventoryDetailCargoOutPageState
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                             ),
                           ),
                           Text(
@@ -640,7 +640,7 @@ class _InventoryDetailCargoOutPageState
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                             ),
                           ),
                         ],
@@ -655,7 +655,7 @@ class _InventoryDetailCargoOutPageState
                             'Warehouse Meas',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -665,7 +665,7 @@ class _InventoryDetailCargoOutPageState
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF374151),
+                              color: Color(0xFF0F172A),
                             ),
                           ),
                         ],
@@ -687,7 +687,7 @@ class _InventoryDetailCargoOutPageState
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF374151),
+                  color: Color(0xFF0F172A),
                 ),
               ),
               const SizedBox(width: 16),
@@ -1034,7 +1034,7 @@ class _InventoryDetailCargoOutPageState
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF374151),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -1062,7 +1062,7 @@ class _InventoryDetailCargoOutPageState
                               style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF374151),
+                                color: Color(0xFF0F172A),
                                 height: 1.3,
                               ),
                               textAlign: TextAlign.center,
@@ -1087,7 +1087,7 @@ class _InventoryDetailCargoOutPageState
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF374151),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -1111,7 +1111,7 @@ class _InventoryDetailCargoOutPageState
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF374151),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -1135,7 +1135,7 @@ class _InventoryDetailCargoOutPageState
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF374151),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -1159,7 +1159,7 @@ class _InventoryDetailCargoOutPageState
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF374151),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -1183,7 +1183,7 @@ class _InventoryDetailCargoOutPageState
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF374151),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -1207,7 +1207,7 @@ class _InventoryDetailCargoOutPageState
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF374151),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -1223,7 +1223,7 @@ class _InventoryDetailCargoOutPageState
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF374151),
+                                color: Color(0xFF0F172A),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -1247,7 +1247,7 @@ class _InventoryDetailCargoOutPageState
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF374151),
+                  color: Color(0xFF0F172A),
                 ),
               ),
               const SizedBox(width: 16),
@@ -1263,7 +1263,7 @@ class _InventoryDetailCargoOutPageState
             'PKBE Aju',
             style: TextStyle(
               fontSize: 14,
-              color: Color(0xFF374151),
+              color: Color(0xFF0F172A),
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -1290,7 +1290,7 @@ class _InventoryDetailCargoOutPageState
                         'Number',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF374151),
+                          color: Color(0xFF0F172A),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1312,7 +1312,7 @@ class _InventoryDetailCargoOutPageState
                         '-',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF374151),
+                          color: Color(0xFF0F172A),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1341,7 +1341,7 @@ class _InventoryDetailCargoOutPageState
                         'Date',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF374151),
+                          color: Color(0xFF0F172A),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1363,7 +1363,7 @@ class _InventoryDetailCargoOutPageState
                         '-',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF374151),
+                          color: Color(0xFF0F172A),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1381,7 +1381,7 @@ class _InventoryDetailCargoOutPageState
             'PKBE',
             style: TextStyle(
               fontSize: 14,
-              color: Color(0xFF374151),
+              color: Color(0xFF0F172A),
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -1408,7 +1408,7 @@ class _InventoryDetailCargoOutPageState
                         'Number',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF374151),
+                          color: Color(0xFF0F172A),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1430,7 +1430,7 @@ class _InventoryDetailCargoOutPageState
                         '-',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF374151),
+                          color: Color(0xFF0F172A),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1459,7 +1459,7 @@ class _InventoryDetailCargoOutPageState
                         'Date',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF374151),
+                          color: Color(0xFF0F172A),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1481,7 +1481,7 @@ class _InventoryDetailCargoOutPageState
                         '-',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Color(0xFF374151),
+                          color: Color(0xFF0F172A),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1519,7 +1519,7 @@ class _InventoryDetailCargoOutPageState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 16),
             decoration: const BoxDecoration(
               border: Border(
                 left: BorderSide(color: Color(0xFF0F172A), width: 6),
@@ -1636,10 +1636,10 @@ class _InventoryDetailCargoOutPageState
         children: [
           // Status Section
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 16),
             decoration: const BoxDecoration(
               border: Border(
-                left: BorderSide(color: Color(0xFF374151), width: 6),
+                left: BorderSide(color: Color(0xFF0F172A), width: 6),
               ),
             ),
             child: const Text(
@@ -1647,7 +1647,7 @@ class _InventoryDetailCargoOutPageState
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF374151),
+                color: Color(0xFF0F172A),
               ),
             ),
           ),
@@ -1669,10 +1669,10 @@ class _InventoryDetailCargoOutPageState
 
           // Cargo Properties Section
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 16),
             decoration: const BoxDecoration(
               border: Border(
-                left: BorderSide(color: Color(0xFF374151), width: 6),
+                left: BorderSide(color: Color(0xFF0F172A), width: 6),
               ),
             ),
             child: const Text(
@@ -1680,7 +1680,7 @@ class _InventoryDetailCargoOutPageState
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF374151),
+                color: Color(0xFF0F172A),
               ),
             ),
           ),
@@ -1723,7 +1723,7 @@ class _InventoryDetailCargoOutPageState
                   ? const Color(0xFF10B981)
                   : value.toLowerCase() == 'incomplete'
                       ? const Color(0xFFEF4444)
-                      : const Color(0xFF374151),
+                      : const Color(0xFF0F172A),
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -1751,7 +1751,7 @@ class _InventoryDetailCargoOutPageState
               value.isEmpty ? '-' : value,
               style: const TextStyle(
                 fontSize: 14,
-                color: Color(0xFF374151),
+                color: Color(0xFF0F172A),
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -1787,10 +1787,10 @@ class _InventoryDetailCargoOutPageState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 16),
             decoration: const BoxDecoration(
               border: Border(
-                left: BorderSide(color: Color(0xFF374151), width: 6),
+                left: BorderSide(color: Color(0xFF0F172A), width: 6),
               ),
             ),
             child: const Text(
@@ -1798,7 +1798,7 @@ class _InventoryDetailCargoOutPageState
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF374151),
+                color: Color(0xFF0F172A),
               ),
             ),
           ),
@@ -1884,10 +1884,10 @@ class _InventoryDetailCargoOutPageState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 16),
             decoration: const BoxDecoration(
               border: Border(
-                left: BorderSide(color: Color(0xFF374151), width: 6),
+                left: BorderSide(color: Color(0xFF0F172A), width: 6),
               ),
             ),
             child: const Text(
@@ -1895,7 +1895,7 @@ class _InventoryDetailCargoOutPageState
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF374151),
+                color: Color(0xFF0F172A),
               ),
             ),
           ),
@@ -2066,7 +2066,7 @@ class _InventoryDetailCargoOutPageState
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF374151),
+                        color: Color(0xFF0F172A),
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -2074,7 +2074,7 @@ class _InventoryDetailCargoOutPageState
                       time,
                       style: const TextStyle(
                         fontSize: 14,
-                        color: Color(0xFF374151),
+                        color: Color(0xFF0F172A),
                       ),
                     ),
 
@@ -2112,7 +2112,7 @@ class _InventoryDetailCargoOutPageState
                                     'Good',
                                     style: TextStyle(
                                       fontSize: 14,
-                                      color: Color(0xFF374151),
+                                      color: Color(0xFF6B7280),
                                       fontWeight: FontWeight.w500,
                                     ),
                                     textAlign: TextAlign.center,
@@ -2167,7 +2167,7 @@ class _InventoryDetailCargoOutPageState
                                     'Damaged',
                                     style: TextStyle(
                                       fontSize: 14,
-                                      color: Color(0xFF374151),
+                                      color: Color(0xFF6B7280),
                                       fontWeight: FontWeight.w500,
                                     ),
                                     textAlign: TextAlign.center,
@@ -2227,7 +2227,7 @@ class _InventoryDetailCargoOutPageState
                                     'Short',
                                     style: TextStyle(
                                       fontSize: 14,
-                                      color: Color(0xFF374151),
+                                      color: Color(0xFF6B7280),
                                       fontWeight: FontWeight.w500,
                                     ),
                                     textAlign: TextAlign.center,
@@ -2282,7 +2282,7 @@ class _InventoryDetailCargoOutPageState
                                     'Over',
                                     style: TextStyle(
                                       fontSize: 14,
-                                      color: Color(0xFF374151),
+                                      color: Color(0xFF6B7280),
                                       fontWeight: FontWeight.w500,
                                     ),
                                     textAlign: TextAlign.center,
@@ -2384,7 +2384,7 @@ class _InventoryDetailCargoOutPageState
                                         'B 1234 ABC',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: Color(0xFF374151),
+                                          color: Color(0xFF0F172A),
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -2402,7 +2402,7 @@ class _InventoryDetailCargoOutPageState
                                         'Ahmad Susanto',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: Color(0xFF374151),
+                                          color: Color(0xFF0F172A),
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -2420,7 +2420,7 @@ class _InventoryDetailCargoOutPageState
                                         '+62 812-3456-7890',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: Color(0xFF374151),
+                                          color: Color(0xFF0F172A),
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -2505,7 +2505,7 @@ class _InventoryDetailCargoOutPageState
                                         'SJ-2025-001234',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: Color(0xFF374151),
+                                          color: Color(0xFF0F172A),
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -2523,7 +2523,7 @@ class _InventoryDetailCargoOutPageState
                                         'Jakarta Warehouse',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: Color(0xFF374151),
+                                          color: Color(0xFF0F172A),
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -2626,10 +2626,10 @@ class _InventoryDetailCargoOutPageState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 16),
             decoration: const BoxDecoration(
               border: Border(
-                left: BorderSide(color: Color(0xFF374151), width: 6),
+                left: BorderSide(color: Color(0xFF0F172A), width: 6),
               ),
             ),
             child: const Text(
@@ -2637,7 +2637,7 @@ class _InventoryDetailCargoOutPageState
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF374151),
+                color: Color(0xFF0F172A),
               ),
             ),
           ),
@@ -2724,7 +2724,7 @@ class _InventoryDetailCargoOutPageState
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF374151),
+                      color: Color(0xFF0F172A),
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -2732,7 +2732,7 @@ class _InventoryDetailCargoOutPageState
                     time,
                     style: const TextStyle(
                       fontSize: 14,
-                      color: Color(0xFF374151),
+                      color: Color(0xFF0F172A),
                     ),
                   ),
                 ],

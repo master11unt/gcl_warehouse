@@ -233,10 +233,10 @@ class _InventoryPageState extends State<InventoryPage>
               Row(
                 children: [
                   Container(
-                    width: 4,
-                    height: 24,
+                    width: 8,
+                    height: 40,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF6B7280),
+                      color: const Color(0xFFE5E7EB),
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
@@ -246,7 +246,7 @@ class _InventoryPageState extends State<InventoryPage>
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Color(0xFF0F172A),
                     ),
                   ),
                 ],
@@ -663,10 +663,10 @@ class _InventoryPageState extends State<InventoryPage>
               Row(
                 children: [
                   Container(
-                    width: 4,
-                    height: 24,
+                    width: 8,
+                    height: 40,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF6B7280),
+                      color: const Color(0xFFE5E7EB),
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
@@ -676,7 +676,7 @@ class _InventoryPageState extends State<InventoryPage>
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Color(0xFF0F172A),
                     ),
                   ),
                 ],
@@ -1095,10 +1095,10 @@ class _InventoryPageState extends State<InventoryPage>
               Row(
                 children: [
                   Container(
-                    width: 4,
-                    height: 24,
+                    width: 8,
+                    height: 40,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF6B7280),
+                      color: const Color(0xFFE5E7EB),
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
@@ -1108,7 +1108,7 @@ class _InventoryPageState extends State<InventoryPage>
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Color(0xFF0F172A),
                     ),
                   ),
                 ],
