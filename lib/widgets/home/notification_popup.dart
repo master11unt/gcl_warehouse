@@ -227,7 +227,7 @@ class _NotificationPopupState extends State<NotificationPopup> {
                                             children: [
                                               SvgIcon(
                                                 assetPath:
-                                                    'assets/icons/visibility.svg',
+                                                    'assets/icons/visibility_outline.svg',
                                                 color: Color(0xFF6B7280),
                                                 size: 16,
                                               ),

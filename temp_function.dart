@@ -1,71 +1,72 @@
-    import 'package:flutter/material.dart';
-    import 'package:fl_chart/fl_chart.dart';
-  
-  class DetailQuantityCargoWidget extends StatefulWidget {
-    @override
-    _DetailQuantityCargoWidgetState createState() => _DetailQuantityCargoWidgetState();
+import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
+
+class DetailQuantityCargoWidget extends StatefulWidget {
+  @override
+  _DetailQuantityCargoWidgetState createState() =>
+      _DetailQuantityCargoWidgetState();
+}
+
+class _DetailQuantityCargoWidgetState extends State<DetailQuantityCargoWidget> {
+  bool _showCenterContent = false;
+  int _hoveredSectionIndex = 0;
+
+  Map<String, dynamic> _getSectionData(int index) {
+    switch (index) {
+      case 0:
+        return {'title': 'Match', 'value': '6061', 'icon': Icons.check};
+      case 1:
+        return {'title': 'Over', 'value': '262', 'icon': Icons.arrow_upward};
+      case 2:
+        return {'title': 'Short', 'value': '0', 'icon': Icons.arrow_downward};
+      default:
+        return {'title': 'Match', 'value': '6061', 'icon': Icons.check};
+    }
   }
-  
-  class _DetailQuantityCargoWidgetState extends State<DetailQuantityCargoWidget> {
-    bool _showCenterContent = false;
-    int _hoveredSectionIndex = 0;
-  
-    Map<String, dynamic> _getSectionData(int index) {
-      switch (index) {
-        case 0:
-          return {'title': 'Match', 'value': '6061', 'icon': Icons.check};
-        case 1:
-          return {'title': 'Over', 'value': '262', 'icon': Icons.arrow_upward};
-        case 2:
-          return {'title': 'Short', 'value': '0', 'icon': Icons.arrow_downward};
-        default:
-          return {'title': 'Match', 'value': '6061', 'icon': Icons.check};
-      }
-    }
-  
-    Widget _buildLegendItemDetailed(String label, String value, Color color) {
-      return Row(
-        children: [
-          Container(
-            width: 12,
-            height: 12,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(2),
-            ),
+
+  Widget _buildLegendItemDetailed(String label, String value, Color color) {
+    return Row(
+      children: [
+        Container(
+          width: 12,
+          height: 12,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(2),
           ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  label,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
                 ),
-                Text(
-                  value,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+              ),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      );
-    }
-  
-    @override
-    Widget build(BuildContext context) {
-      return _buildDetailQuantityCargo();
-    }
-  
-    Widget _buildDetailQuantityCargo() {
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildDetailQuantityCargo();
+  }
+
+  Widget _buildDetailQuantityCargo() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -98,7 +99,7 @@
               double centerRadius = constraints.maxWidth < 400 ? 40 : 60;
               double radius = constraints.maxWidth < 400 ? 35 : 50;
               double spacing = constraints.maxWidth < 400 ? 16 : 30;
-              
+
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -112,11 +113,18 @@
                         PieChart(
                           PieChartData(
                             pieTouchData: PieTouchData(
-                              touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                                if (pieTouchResponse != null && pieTouchResponse.touchedSection != null) {
+                              touchCallback: (
+                                FlTouchEvent event,
+                                pieTouchResponse,
+                              ) {
+                                if (pieTouchResponse != null &&
+                                    pieTouchResponse.touchedSection != null) {
                                   setState(() {
                                     _showCenterContent = true;
-                                    _hoveredSectionIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
+                                    _hoveredSectionIndex =
+                                        pieTouchResponse
+                                            .touchedSection!
+                                            .touchedSectionIndex;
                                   });
                                 } else if (event is FlPointerExitEvent) {
                                   setState(() {
@@ -153,7 +161,9 @@
                         if (_showCenterContent)
                           Builder(
                             builder: (context) {
-                              final sectionData = _getSectionData(_hoveredSectionIndex);
+                              final sectionData = _getSectionData(
+                                _hoveredSectionIndex,
+                              );
                               return Container(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 12,
@@ -182,11 +192,13 @@
                                           width: 12,
                                           height: 12,
                                           decoration: BoxDecoration(
-  border: Border.all(
-    color: Colors.white,
-    width: 1,
-  ),
-  borderRadius: BorderRadius.circular(2),
+                                            border: Border.all(
+                                              color: Colors.white,
+                                              width: 1,
+                                            ),
+                                            borderRadius: BorderRadius.circular(
+                                              2,
+                                            ),
                                           ),
                                           child: Icon(
                                             sectionData['icon'],
@@ -234,20 +246,20 @@
                           const Color(0xFFEC4899),
                         ),
                         const SizedBox(height: 16),
-                          _buildLegendItemDetailed(
-                            'Short',
-                            '0',
-                            const Color(0xFFFBBF24),
-                          ),
-                        ],
-                      ),
+                        _buildLegendItemDetailed(
+                          'Short',
+                          '0',
+                          const Color(0xFFFBBF24),
+                        ),
+                      ],
                     ),
-                  ],
-                );
-              },
-            ),
+                  ),
+                ],
+              );
+            },
           ),
-        ],
-      );
-    }
+        ),
+      ],
+    );
   }
+}

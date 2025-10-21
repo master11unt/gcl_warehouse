@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widgets/common/common_app_bar.dart';
-import '../widgets/home/custom_drawer.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -191,116 +189,109 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar: CommonAppBar(),
-      drawer: CustomDrawer(currentPage: "settings"),
       body: SafeArea(
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverToBoxAdapter(
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(20),
-                  color: Colors.grey[100],
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Settings',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF374151),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      // Search Bar
-                      Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xFF374151)),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: TextField(
-                          controller: _searchController,
-                          decoration: const InputDecoration(
-                            hintText: 'Search',
-                            hintStyle: TextStyle(color: Color(0xFF9CA3AF)),
-                            prefixIcon: Icon(
-                              Icons.search,
-                              color: Color(0xFF6B7280),
-                            ),
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 8,
-                            ),
-                          ),
-                          onChanged: (value) {},
-                        ),
-                      ),
-                    ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header with back button and title
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12, 16, 12, 0),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back_ios, color: Color(0xFF374151)),
+                    onPressed: () {
+                      Navigator.of(context).maybePop();
+                    },
                   ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Container(
-                  color: Colors.grey[100],
-                  child: Container(
-                    height: 50,
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: _tabs.length,
-                      itemBuilder: (context, index) {
-                        bool isSelected = _selectedTabIndex == index;
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _selectedTabIndex = index;
-                            });
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 4),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 12,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color:
-                                      isSelected
-                                          ? const Color(0xFF214098)
-                                          : Colors.transparent,
-                                  width: 2,
-                                ),
-                              ),
-                            ),
-                            child: Text(
-                              _tabs[index],
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight:
-                                    isSelected
-                                        ? FontWeight.w600
-                                        : FontWeight.normal,
-                                color:
-                                    isSelected
-                                        ? const Color(0xFF214098)
-                                        : const Color(0xFF6B7280),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
+                  const SizedBox(width: 8),
+                  const Text(
+                    'Settings',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF374151),
                     ),
                   ),
+                ],
+              ),
+            ),
+            // Search Bar
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color(0xFF374151)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: TextField(
+                  controller: _searchController,
+                  decoration: const InputDecoration(
+                    hintText: 'Search',
+                    hintStyle: TextStyle(color: Color(0xFF9CA3AF)),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Color(0xFF6B7280),
+                    ),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                  ),
+                  onChanged: (value) {},
                 ),
               ),
-            ];
-          },
-          body: _buildTabContent(),
+            ),
+            // Tab bar (fixed)
+            Container(
+              color: Colors.grey[100],
+              height: 50,
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: _tabs.length,
+                itemBuilder: (context, index) {
+                  bool isSelected = _selectedTabIndex == index;
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _selectedTabIndex = index;
+                      });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: isSelected ? const Color(0xFF214098) : Colors.transparent,
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        _tabs[index],
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                          color: isSelected ? const Color(0xFF214098) : const Color(0xFF6B7280),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            // Expanded scrollable content
+            Expanded(
+              child: _buildTabContent(),
+            ),
+          ],
         ),
       ),
     );
@@ -925,7 +916,7 @@ class _SettingsPageState extends State<SettingsPage> {
       case 'message':
         return const Color(0xFF06B6D4);
       case 'security':
-        return const Color(0xEF4444);
+        return const Color(0xFFEF4444);
       default:
         return const Color(0xFF6B7280);
     }

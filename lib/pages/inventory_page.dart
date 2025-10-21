@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 import 'package:gcl_warehouse/pages/inventory_detail_cargo_out_page.dart';
-import '../widgets/home/custom_drawer.dart';
+import '../widgets/common/custom_drawer.dart';
 import 'input_cargo_in_page.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/ticket/ticket_table.dart';
@@ -265,7 +265,7 @@ class _InventoryPageState extends State<InventoryPage>
                     child: const SvgIcon(
                       assetPath: 'assets/icons/filter_outline.svg',
                       color: Color(0xFF6B7280),
-                      size: 24,
+                      size: 20,
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -695,7 +695,7 @@ class _InventoryPageState extends State<InventoryPage>
                     child: const SvgIcon(
                       assetPath: 'assets/icons/filter_outline.svg',
                       color: Color(0xFF6B7280),
-                      size: 24,
+                      size: 20,
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -1127,7 +1127,7 @@ class _InventoryPageState extends State<InventoryPage>
                     child: const SvgIcon(
                       assetPath: 'assets/icons/filter_outline.svg',
                       color: Color(0xFF6B7280),
-                      size: 24,
+                      size: 20,
                     ),
                   ),
                   const SizedBox(width: 16),

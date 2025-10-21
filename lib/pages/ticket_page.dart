@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
-import '../widgets/home/custom_drawer.dart';
+import '../widgets/common/custom_form_fields.dart';
+import '../widgets/common/custom_drawer.dart';
 import '../widgets/ticket/ticket_table.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/stuffing/stuffing_dialog.dart';
@@ -22,12 +24,13 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
   int _stuffingPage = 1;
   late final List<List<String>> _stuffingAllRows;
 
+  // Filter variables
   bool _isFilterExpanded = false;
-
+  // Cargo In filters
   String _selectedCategory = 'None';
   String _selectedStatus = 'All';
   DateTime? _selectedDate;
-
+  // Stuffing filters
   String _selectedCategoryStuffing = 'None';
   String _selectedStatusStuffing = 'All';
   DateTime? _selectedDateStuffing;
@@ -76,9 +79,36 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  Widget _loadSvgIcon(String path, {Color? color, double? size}) {
+    return SizedBox(
+      width: size,
+      height: size,
+      child: SvgPicture.asset(
+        path,
+        colorFilter:
+            color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+        fit: BoxFit.contain,
+        placeholderBuilder:
+            (context) => SizedBox(
+              width: size,
+              height: size,
+              child: SvgPicture.asset(
+                'assets/icons/default.svg',
+                colorFilter:
+                    color != null
+                        ? ColorFilter.mode(color, BlendMode.srcIn)
+                        : null,
+                fit: BoxFit.contain,
+              ),
+            ),
+      ),
+    );
+  }
+
   void _showCreateTicketDialog(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
 
+    // Form controllers
     final _bookingCodeController = TextEditingController(
       text: 'WHM-20250925152539',
     );
@@ -101,6 +131,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
     final _contactNameController = TextEditingController();
     final _contactEmailController = TextEditingController();
 
+    // Dropdown values
     String _selectedCargoOwner = 'GAP LOGISTICS';
     DateTime? _estimatedTimeDeparture;
     DateTime? _planCargoInDate;
@@ -148,10 +179,10 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                             const Spacer(),
                             IconButton(
                               onPressed: () => Navigator.of(context).pop(),
-                              icon: SvgIcon(
-                                assetPath: 'assets/icons/close.svg',
+                              icon: _loadSvgIcon(
+                                'assets/icons/close.svg',
+                                color: Colors.black,
                                 size: 14,
-                                color: Colors.black87,
                               ),
                               padding: EdgeInsets.zero,
                               constraints: const BoxConstraints(),
@@ -210,136 +241,124 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                               ),
                               const SizedBox(height: 16),
 
-                              _buildDropdownField2(
-                                'Cargo Owner',
-                                _selectedCargoOwner,
-                                _cargoOwnerOptions,
-                                (value) => setState(
-                                  () => _selectedCargoOwner = value!,
-                                ),
+                              CustomDropdownFormField(
+                                label: 'Cargo Owner',
+                                value: _selectedCargoOwner,
+                                options: _cargoOwnerOptions,
+                                onChanged: (value) => setState(() => _selectedCargoOwner = value!),
                               ),
                               const SizedBox(height: 16),
 
-                              _buildFormField(
-                                'Shipper Name',
-                                _shipperNameController,
+                              CustomTextAreaField(
+                                label: 'Shipper Name',
+                                controller: _shipperNameController,
+                                maxLines: 2,
                               ),
                               const SizedBox(height: 16),
 
-                              _buildFormField(
-                                'Description of Goods',
-                                _descriptionController,
+                              CustomTextAreaField(
+                                label: 'Description of Goods',
+                                controller: _descriptionController,
+                                maxLines: 2,
                               ),
                               const SizedBox(height: 16),
 
-                              _buildFormField(
-                                'Destination City',
-                                _destinationController,
+                              CustomTextFormField(
+                                label: 'Destination City',
+                                controller: _destinationController,
                               ),
                               const SizedBox(height: 16),
 
-                              _buildFormField(
-                                'Description Print (Optional)',
-                                _descriptionPrintController,
+                              CustomTextFormField(
+                                label: 'Description Print (Optional)',
+                                controller: _descriptionPrintController,
                                 required: false,
                               ),
                               const SizedBox(height: 16),
 
-                              _buildFormField(
-                                'Quantity',
-                                _quantityController,
+                              CustomTextFormField(
+                                label: 'Quantity',
+                                controller: _quantityController,
                                 keyboardType: TextInputType.number,
                               ),
                               const SizedBox(height: 16),
 
-                              _buildFormField(
-                                'Package Type',
-                                _packageTypeController,
+                              CustomTextFormField(
+                                label: 'Package Type',
+                                controller: _packageTypeController,
                               ),
                               const SizedBox(height: 16),
 
-                              _buildFormField(
-                                'Volume',
-                                _volumeController,
+                              CustomTextFormField(
+                                label: 'Volume',
+                                controller: _volumeController,
                                 keyboardType: TextInputType.number,
                               ),
                               const SizedBox(height: 16),
 
-                              _buildFormField(
-                                'Weight',
-                                _weightController,
+                              CustomTextFormField(
+                                label: 'Weight',
+                                controller: _weightController,
                                 keyboardType: TextInputType.number,
                               ),
                               const SizedBox(height: 16),
 
-                              _buildFormField('Marking', _markingController),
+                              CustomTextAreaField(label: 'Marking', controller: _markingController, maxLines: 2),
                               const SizedBox(height: 16),
 
-                              _buildFormField(
-                                'Service Type',
-                                _serviceTypeController,
+                              CustomTextFormField(
+                                label: 'Service Type',
+                                controller: _serviceTypeController,
                               ),
                               const SizedBox(height: 16),
 
-                              _buildFormField(
-                                'Container Number',
-                                _containerNumberController,
+                              CustomTextFormField(
+                                label: 'Container Number',
+                                controller: _containerNumberController,
                               ),
                               const SizedBox(height: 16),
 
-                              _buildFormField(
-                                'Container Size',
-                                _containerSizeController,
+                              CustomTextFormField(
+                                label: 'Container Size',
+                                controller: _containerSizeController,
                               ),
                               const SizedBox(height: 16),
 
-                              _buildFormField(
-                                'Seal Number',
-                                _sealNumberController,
+                              CustomTextFormField(
+                                label: 'Seal Number',
+                                controller: _sealNumberController,
                               ),
                               const SizedBox(height: 16),
 
-                              _buildDateTimeField(
-                                'Estimated Time Departure',
-                                _estimatedTimeDeparture,
-                                (date) => setState(
-                                  () => _estimatedTimeDeparture = date,
-                                ),
+                              CustomDateTimeFormField(
+                                label: 'Estimated Time Departure',
+                                value: _estimatedTimeDeparture,
+                                onChanged: (date) => setState(() => _estimatedTimeDeparture = date),
                               ),
                               const SizedBox(height: 16),
 
-                              _buildFormField('Vessel', _vesselController),
+                              CustomTextFormField(label: 'Vessel', controller: _vesselController),
                               const SizedBox(height: 16),
 
-                              _buildFormField(
-                                'Connecting Vessel',
-                                _connectingVesselController,
+                              CustomTextFormField(label: 'Connecting Vessel', controller: _connectingVesselController),
+                              const SizedBox(height: 16),
+
+                              CustomDateTimeFormField(
+                                label: 'Plan Cargo In',
+                                value: _planCargoInDate,
+                                onChanged: (date) => setState(() => _planCargoInDate = date),
                               ),
                               const SizedBox(height: 16),
 
-                              _buildDateTimeField(
-                                'Plan Cargo In',
-                                _planCargoInDate,
-                                (date) =>
-                                    setState(() => _planCargoInDate = date),
-                              ),
+                              CustomTextFormField(label: 'PIC Order Ticket', controller: _picOrderTicketController),
                               const SizedBox(height: 16),
 
-                              _buildFormField(
-                                'PIC Order Ticket',
-                                _picOrderTicketController,
-                              ),
+                              CustomTextFormField(label: 'Contact Name', controller: _contactNameController),
                               const SizedBox(height: 16),
 
-                              _buildFormField(
-                                'Contact Name',
-                                _contactNameController,
-                              ),
-                              const SizedBox(height: 16),
-
-                              _buildFormField(
-                                'Contact Email',
-                                _contactEmailController,
+                              CustomTextFormField(
+                                label: 'Contact Email',
+                                controller: _contactEmailController,
                                 keyboardType: TextInputType.emailAddress,
                               ),
 
@@ -429,196 +448,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
     });
   }
 
-  Widget _buildDropdownField2(
-    String label,
-    String value,
-    List<String> options,
-    Function(String?) onChanged,
-  ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF6B7280),
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Container(
-          height: 48,
-          decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xFFE5E7EB)),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: DropdownButtonFormField<String>(
-            value: value,
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
-            ),
-            style: const TextStyle(fontSize: 14, color: Color(0xFF374151)),
-            items:
-                options
-                    .map(
-                      (option) =>
-                          DropdownMenuItem(value: option, child: Text(option)),
-                    )
-                    .toList(),
-            onChanged: onChanged,
-            icon: SvgIcon(
-              assetPath: 'assets/icons/arrow_down.svg',
-              size: 8,
-              color: Color(0xFF6B7280),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildFormField(
-    String label,
-    TextEditingController controller, {
-    bool required = true,
-    bool enabled = true,
-    TextInputType keyboardType = TextInputType.text,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF6B7280),
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Container(
-          height: 48,
-          decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xFFE5E7EB)),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: TextFormField(
-            controller: controller,
-            enabled: enabled,
-            keyboardType: keyboardType,
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
-            ),
-            style: const TextStyle(fontSize: 14, color: Color(0xFF374151)),
-            validator:
-                required
-                    ? (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'This field is required';
-                      }
-                      return null;
-                    }
-                    : null,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildDateTimeField(
-    String label,
-    DateTime? value,
-    ValueChanged<DateTime?> onChanged,
-  ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF6B7280),
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        const SizedBox(height: 8),
-        InkWell(
-          onTap: () async {
-            final date = await showDatePicker(
-              context: context,
-              initialDate: value ?? DateTime.now(),
-              firstDate: DateTime.now(),
-              lastDate: DateTime.now().add(const Duration(days: 365)),
-            );
-            if (date != null) {
-              final time = await showTimePicker(
-                context: context,
-                initialTime: TimeOfDay.fromDateTime(value ?? DateTime.now()),
-              );
-              if (time != null) {
-                final dateTime = DateTime(
-                  date.year,
-                  date.month,
-                  date.day,
-                  time.hour,
-                  time.minute,
-                );
-                onChanged(dateTime);
-              }
-            }
-          },
-          child: Container(
-            height: 48,
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xFFE5E7EB)),
-              borderRadius: BorderRadius.circular(8),
-              color: Colors.white,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    value != null
-                        ? '${value.day}/${value.month}/${value.year} ${value.hour.toString().padLeft(2, '0')}:${value.minute.toString().padLeft(2, '0')}'
-                        : 'Select date and time',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color:
-                          value != null
-                              ? const Color(0xFF374151)
-                              : const Color(0xFF9CA3AF),
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                SvgIcon(
-                  assetPath: 'assets/icons/calendar.svg',
-                  color: const Color(0xFF6B7280),
-                  size: 20,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _buildSpecialFormField(
     String label,
     String value, {
@@ -653,15 +482,12 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                   ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        child: Text(
-                          value,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFF111827),
-                          ),
-                          overflow: TextOverflow.ellipsis,
+                      Text(
+                        value,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF111827),
                         ),
                       ),
                       GestureDetector(
@@ -670,10 +496,10 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                             _showDropdownMenu(options, value, onChanged);
                           }
                         },
-                        child: SvgIcon(
-                          assetPath: 'assets/icons/arrow_down.svg',
+                        child: _loadSvgIcon(
+                          'assets/icons/arrow_down.svg',
                           color: const Color(0xFF6B7280),
-                          size: 8,
+                          size: 20,
                         ),
                       ),
                     ],
@@ -717,8 +543,8 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                   title: Text(option),
                   trailing:
                       currentValue == option
-                          ? SvgIcon(
-                            assetPath: 'assets/icons/check.svg',
+                          ? _loadSvgIcon(
+                            'assets/icons/check.svg',
                             color: const Color(0xFF3B82F6),
                             size: 20,
                           )
@@ -735,60 +561,6 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
       },
     );
   }
-
-  // Widget _buildWhiteDropdownField(
-  //   String label,
-  //   String value,
-  //   List<String> options,
-  //   ValueChanged<String?> onChanged,
-  // ) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Text(
-  //         label,
-  //         style: const TextStyle(
-  //           fontSize: 14,
-  //           fontWeight: FontWeight.w500,
-  //           fontStyle: FontStyle.italic,
-  //           color: Color(0xFF9CA3AF),
-  //         ),
-  //       ),
-  //       const SizedBox(height: 8),
-  //       DropdownButtonFormField<String>(
-  //         value: value,
-  //         decoration: InputDecoration(
-  //           border: OutlineInputBorder(
-  //             borderRadius: BorderRadius.circular(8),
-  //             borderSide: const BorderSide(color: Color(0xFFD1D5DB)),
-  //           ),
-  //           enabledBorder: OutlineInputBorder(
-  //             borderRadius: BorderRadius.circular(8),
-  //             borderSide: const BorderSide(color: Color(0xFFD1D5DB)),
-  //           ),
-  //           focusedBorder: OutlineInputBorder(
-  //             borderRadius: BorderRadius.circular(8),
-  //             borderSide: const BorderSide(color: Color(0xFF3B82F6)),
-  //           ),
-  //           contentPadding: const EdgeInsets.symmetric(
-  //             horizontal: 12,
-  //             vertical: 12,
-  //           ),
-  //           fillColor: Colors.white,
-  //           filled: true,
-  //         ),
-  //         items:
-  //             options.map((String option) {
-  //               return DropdownMenuItem<String>(
-  //                 value: option,
-  //                 child: Text(option),
-  //               );
-  //             }).toList(),
-  //         onChanged: onChanged,
-  //       ),
-  //     ],
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -840,6 +612,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
               ),
             ),
 
+            // Tab Section
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
               padding: const EdgeInsets.all(4),
@@ -1285,17 +1058,17 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.15),
+                    color: Color(0xFF0F172A).withOpacity(0.15),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
                 ],
               ),
-              child: Padding(
-                padding: EdgeInsets.all(14),
-                child: SvgIcon(
-                  assetPath: 'assets/icons/add.svg',
+              child: Center(
+                child: _loadSvgIcon(
+                  'assets/icons/add.svg',
                   color: Colors.white,
+                  size: 28,
                 ),
               ),
             ),
@@ -1335,10 +1108,12 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                     _isFilterExpanded = !_isFilterExpanded;
                   });
                 },
-                child: const SvgIcon(
-                  assetPath: 'assets/icons/filter_outline.svg',
-                  color: Color(0xFF6B7280),
-                  size: 24,
+                child: _loadSvgIcon(
+                  _isFilterExpanded
+                      ? 'assets/icons/filter.svg'
+                      : 'assets/icons/filter_outline.svg',
+                  color: const Color(0xFF6B7280),
+                  size: 20,
                 ),
               ),
               const SizedBox(width: 16),
@@ -1347,24 +1122,23 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                   height: 40,
                   child: TextField(
                     controller: _searchController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: "Search",
-                      hintStyle: TextStyle(color: Color(0xFF9CA3AF)),
+                      hintStyle: const TextStyle(color: Color(0xFF9CA3AF)),
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(6.0),
+                        padding: EdgeInsets.all(6),
                         child: SvgIcon(
                           assetPath: 'assets/icons/search.svg',
                           color: Color(0xFF6B7280),
-                          size: 18,
                         ),
                       ),
-                      enabledBorder: UnderlineInputBorder(
+                      enabledBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0xFFE5E7EB),
                           width: 2,
                         ),
                       ),
-                      focusedBorder: UnderlineInputBorder(
+                      focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black, width: 2),
                       ),
                     ),
@@ -1392,7 +1166,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                     const Text(
                       'Time Filter',
                       style: TextStyle(
-                        color: Color(0xFF374151),
+                        color: Color.fromRGBO(55, 65, 81, 1),
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
@@ -1457,9 +1231,9 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
                                     ),
                                   ),
                                 ),
-                                const SvgIcon(
-                                  assetPath: 'assets/icons/calendar.svg',
-                                  color: Color(0xFF6B7280),
+                                _loadSvgIcon(
+                                  'assets/icons/calendar.svg',
+                                  color: const Color(0xFF6B7280),
                                   size: 20,
                                 ),
                               ],
@@ -1703,6 +1477,19 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     _selectedDate = widget.initialDate;
   }
 
+  Widget _loadSvgIcon(String path, {Color? color, double? size}) {
+    return SvgPicture.asset(
+      path,
+      colorFilter:
+          color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+      height: size,
+      width: size,
+      fit: BoxFit.contain,
+      placeholderBuilder:
+          (context) => Icon(Icons.error_outline, color: color, size: size),
+    );
+  }
+
   void _onQuickSelect(String option) {
     DateTime selectedDate;
     switch (option) {
@@ -1782,7 +1569,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     final currentMonthName = monthNames[_currentMonth.month - 1];
 
     return Dialog(
-      backgroundColor: const Color(0xFF2D3748),
+      backgroundColor: const Color(0xFF0F172A),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Container(
         width: 320,
@@ -1790,6 +1577,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            // Quick select options
             GridView.count(
               shrinkWrap: true,
               crossAxisCount: 2,
@@ -1820,10 +1608,10 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 children: [
                   GestureDetector(
                     onTap: _previousMonth,
-                    child: const SvgIcon(
-                      assetPath: 'assets/icons/chevron_left.svg',
+                    child: _loadSvgIcon(
+                      'assets/icons/chevron_left.svg',
                       color: Colors.white,
-                      size: 20,
+                      size: 12,
                     ),
                   ),
                   Text(
@@ -1836,10 +1624,10 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   ),
                   GestureDetector(
                     onTap: _nextMonth,
-                    child: const SvgIcon(
-                      assetPath: 'assets/icons/chevron_right.svg',
+                    child: _loadSvgIcon(
+                      'assets/icons/chevron_right.svg',
                       color: Colors.white,
-                      size: 20,
+                      size: 12,
                     ),
                   ),
                 ],

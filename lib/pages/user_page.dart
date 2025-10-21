@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/common/common_app_bar.dart';
-import '../widgets/home/custom_drawer.dart';
+import '../widgets/common/custom_drawer.dart';
 import '../models/user_data.dart';
 
 class UserPage extends StatefulWidget {

@@ -16,7 +16,7 @@ class StuffingCards extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: 18,
+                vertical: 14,
                 horizontal: 12,
               ),
               child: Column(
@@ -32,14 +32,14 @@ class StuffingCards extends StatelessWidget {
                       fontSize: 16,
                     ),
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: 14),
                   Text(
                     "305",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFF214098),
                       fontWeight: FontWeight.bold,
-                      fontSize: 48,
+                      fontSize: 32,
                     ),
                   ),
                 ],
@@ -57,7 +57,7 @@ class StuffingCards extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: 18,
+                vertical: 14,
                 horizontal: 12,
               ),
               child: Column(
@@ -73,14 +73,14 @@ class StuffingCards extends StatelessWidget {
                       fontSize: 16,
                     ),
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: 14),
                   Text(
                     "9",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFFFFF100),
                       fontWeight: FontWeight.bold,
-                      fontSize: 48,
+                      fontSize: 32,
                     ),
                   ),
                 ],

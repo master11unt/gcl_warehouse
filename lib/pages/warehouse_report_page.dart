@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/common/common_app_bar.dart';
-import '../widgets/home/custom_drawer.dart';
+import '../widgets/common/custom_drawer.dart';
 
 class WarehouseReportPage extends StatefulWidget {
   @override
@@ -1931,34 +1931,41 @@ class _WarehouseReportPageState extends State<WarehouseReportPage> {
                 const SizedBox(height: 20),
 
                 // Circular Progress
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SizedBox(
-                      width: 120,
-                      height: 120,
-                      child: CircularProgressIndicator(
-                        value: 1.0,
-                        strokeWidth: 12,
-                        backgroundColor: Colors.grey[200],
-                        valueColor: const AlwaysStoppedAnimation<Color>(
-                          Color(0xFF10B981),
-                        ),
-                      ),
-                    ),
-                    const Column(
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    double maxCircle = 180;
+                    double minCircle = 100;
+                    double circleSize = (constraints.maxWidth * 0.7).clamp(minCircle, maxCircle);
+                    return Stack(
+                      alignment: Alignment.center,
                       children: [
-                        Text(
-                          '100 %',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF10B981),
+                        SizedBox(
+                          width: circleSize,
+                          height: circleSize,
+                          child: CircularProgressIndicator(
+                            value: 1.0,
+                            strokeWidth: 12,
+                            backgroundColor: Colors.grey[200],
+                            valueColor: const AlwaysStoppedAnimation<Color>(
+                              Color(0xFF10B981),
+                            ),
                           ),
                         ),
+                        const Column(
+                          children: [
+                            Text(
+                              '100 %',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF10B981),
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
-                    ),
-                  ],
+                    );
+                  },
                 ),
 
                 const SizedBox(height: 16),

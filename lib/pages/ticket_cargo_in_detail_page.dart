@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 import '../widgets/common/common_app_bar.dart';
-import '../widgets/home/custom_drawer.dart';
+import '../widgets/common/custom_drawer.dart';
 import '../models/ticket_data.dart';
 
 class TicketCargoInDetailPage extends StatefulWidget {

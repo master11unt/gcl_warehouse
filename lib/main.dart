@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'GCL Warehouse',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 30, 56, 136)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 33, 64, 152)),
       ),
       home: LoginPage(),
     );

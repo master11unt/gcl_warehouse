@@ -9,6 +9,6 @@ export 'today_stuffings.dart';
 export 'warehouse_status_chart.dart';
 export 'warehouse_capacity.dart';
 export 'guide_section.dart';
-export 'custom_drawer.dart';
+export '../common/custom_drawer.dart';
 export 'notification_popup.dart';
 export '../common/common_app_bar.dart';

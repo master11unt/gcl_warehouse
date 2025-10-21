@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gcl_warehouse/widgets/common/custom_form_fields.dart';
 
 class StuffingDialog extends StatefulWidget {
   const StuffingDialog({Key? key}) : super(key: key);
@@ -36,6 +36,7 @@ class _StuffingDialogState extends State<StuffingDialog> {
 
   final List<String> _containerSizeOptions = ['20FT', '40FT', '40HC', '45FT'];
 
+  // Stuffing Fill Table data
   List<Map<String, String>> _stuffingFillRows = [
     {
       'num': '',
@@ -98,17 +99,22 @@ class _StuffingDialogState extends State<StuffingDialog> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF0F172A),
+                        color: Color(0xFF1F2937),
                       ),
                     ),
                     const Spacer(),
                     IconButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      icon: SvgIcon(
-                        assetPath: 'assets/icons/close.svg',
-                        size: 14,
-                        color:
-                            Colors.black87,
+                      icon: SizedBox(
+                        width: 14,
+                        height: 14,
+                        child: SvgPicture.asset(
+                          'assets/icons/close.svg',
+                          colorFilter: const ColorFilter.mode(
+                            Color(0xFF374151),
+                            BlendMode.srcIn,
+                          ),
+                        ),
                       ),
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
@@ -154,6 +160,7 @@ class _StuffingDialogState extends State<StuffingDialog> {
 
               const SizedBox(height: 16),
 
+              // Form Content
               Form(
                 key: _formKey,
                 child: Padding(
@@ -161,83 +168,90 @@ class _StuffingDialogState extends State<StuffingDialog> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildFormField2(
-                        'Stuffing Owner',
-                        child: _buildDropdownField2(
-                          _selectedStuffingOwner,
-                          _stuffingOwnerOptions,
-                          (value) =>
-                              setState(() => _selectedStuffingOwner = value!),
-                        ),
+                      CustomDropdownFormField(
+                        label: 'Stuffing Owner',
+                        value: _selectedStuffingOwner,
+                        options: _stuffingOwnerOptions,
+                        onChanged: (value) => setState(() {
+                          if (value != null) _selectedStuffingOwner = value;
+                        }),
                       ),
                       const SizedBox(height: 20),
 
-                      _buildFormField2(
-                        'Stuffing Date',
-                        child: _buildDateTimeField2(
-                          _stuffingDate,
-                          (date) => setState(() => _stuffingDate = date),
-                        ),
+                      CustomDateTimeFormField(
+                        label: 'Stuffing Date',
+                        value: _stuffingDate,
+                        onChanged: (date) => setState(() => _stuffingDate = date),
                       ),
                       const SizedBox(height: 20),
 
-                      _buildFormField2(
-                        'Container Number',
-                        child: _buildTextFormField2(_containerNumberController),
+                      CustomTextFormField(
+                        label: 'Container Number',
+                        controller: _containerNumberController,
+                        maxLines: 1,
                       ),
                       const SizedBox(height: 20),
 
-                      _buildFormField2(
-                        'Estimated Time Departure',
-                        child: _buildDateTimeField2(
-                          _estimatedTimeDeparture,
-                          (date) =>
-                              setState(() => _estimatedTimeDeparture = date),
-                        ),
+                      CustomDateTimeFormField(
+                        label: 'Estimated Time Departure',
+                        value: _estimatedTimeDeparture,
+                        onChanged: (date) => setState(() => _estimatedTimeDeparture = date),
                       ),
                       const SizedBox(height: 20),
 
-                      _buildFormField2(
-                        'Destination',
-                        child: _buildTextFormField2(_destinationController),
+                      CustomTextFormField(
+                        label: 'Destination',
+                        controller: _destinationController,
+                        maxLines: 1,
                       ),
                       const SizedBox(height: 20),
 
-                      _buildFormField2(
-                        'Container Size',
-                        child: _buildDropdownField2(
-                          _selectedContainerSize,
-                          _containerSizeOptions,
-                          (value) =>
-                              setState(() => _selectedContainerSize = value!),
-                        ),
+                      CustomDropdownFormField(
+                        label: 'Container Size',
+                        value: _selectedContainerSize,
+                        options: _containerSizeOptions,
+                        onChanged: (value) => setState(() {
+                          if (value != null) _selectedContainerSize = value;
+                        }),
                       ),
                       const SizedBox(height: 20),
 
-                      _buildFormField2(
-                        'Closing Date',
-                        child: _buildDateTimeField2(
-                          _closingDate,
-                          (date) => setState(() => _closingDate = date),
-                        ),
+                      CustomDateTimeFormField(
+                        label: 'Closing Date',
+                        value: _closingDate,
+                        onChanged: (date) => setState(() => _closingDate = date),
                       ),
                       const SizedBox(height: 20),
 
-                      _buildFormField2(
-                        'Vessel',
-                        child: _buildTextFormField2(_vesselController),
+                      CustomTextFormField(
+                        label: 'Vessel',
+                        controller: _vesselController,
+                        maxLines: 1,
                       ),
                       const SizedBox(height: 20),
 
-                      _buildFormField2(
-                        'Agent',
-                        child: _buildTextFormField2(_agentController),
+                      CustomTextFormField(
+                        label: 'Agent',
+                        controller: _agentController,
+                        maxLines: 1,
                       ),
                       const SizedBox(height: 32),
 
-                      _buildFormField2(
-                        'Stuffing Fill',
-                        child: _buildStuffingFillTable(),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Stuffing Fill',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xFF6B7280),
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          _buildStuffingFillTable(),
+                        ],
                       ),
                       const SizedBox(height: 16),
 
@@ -269,9 +283,10 @@ class _StuffingDialogState extends State<StuffingDialog> {
 
                       const SizedBox(height: 16),
 
-                      _buildTextAreaField(
-                        'Instruksi Stuffing',
-                        _stuffingInstructionController,
+                      CustomTextAreaField(
+                        label: 'Instruksi Stuffing',
+                        controller: _stuffingInstructionController,
+                        maxLines: 2,
                       ),
 
                       const SizedBox(height: 32),
@@ -325,169 +340,9 @@ class _StuffingDialogState extends State<StuffingDialog> {
     );
   }
 
-  Widget _buildFormField2(String label, {required Widget child}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF6B7280),
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        const SizedBox(height: 8),
-        child,
-      ],
-    );
-  }
-
-  Widget _buildTextFormField2(TextEditingController controller) {
-    return Container(
-      height: 48,
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFE5E7EB)),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: TextFormField(
-        controller: controller,
-        decoration: const InputDecoration(
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        ),
-        style: const TextStyle(fontSize: 14, color: Color(0xFF374151)),
-      ),
-    );
-  }
-
-  Widget _buildDropdownField2(
-    String value,
-    List<String> options,
-    Function(String?) onChanged,
-  ) {
-    return Container(
-      height: 48,
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFE5E7EB)),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: DropdownButtonFormField<String>(
-        value: value,
-        decoration: const InputDecoration(
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        ),
-        style: const TextStyle(fontSize: 14, color: Color(0xFF374151)),
-        items:
-            options
-                .map(
-                  (option) =>
-                      DropdownMenuItem(value: option, child: Text(option)),
-                )
-                .toList(),
-        onChanged: onChanged,
-        icon: SvgIcon(
-          assetPath: 'assets/icons/arrow_down.svg',
-          size: 8,
-          color: const Color(0xFF6B7280),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDateTimeField2(DateTime? value, Function(DateTime?) onChanged) {
-    return InkWell(
-      onTap: () async {
-        final date = await showDatePicker(
-          context: context,
-          initialDate: value ?? DateTime.now(),
-          firstDate: DateTime(2020),
-          lastDate: DateTime(2030),
-        );
-        if (date != null) {
-          final time = await showTimePicker(
-            context: context,
-            initialTime: TimeOfDay.fromDateTime(value ?? DateTime.now()),
-          );
-          if (time != null) {
-            onChanged(
-              DateTime(date.year, date.month, date.day, time.hour, time.minute),
-            );
-          }
-        }
-      },
-      child: Container(
-        height: 48,
-        decoration: BoxDecoration(
-          border: Border.all(color: const Color(0xFFE5E7EB)),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                value != null
-                    ? '${value.month.toString().padLeft(2, '0')}/${value.day.toString().padLeft(2, '0')}/${value.year} ${value.hour.toString().padLeft(2, '0')}:${value.minute.toString().padLeft(2, '0')}'
-                    : 'mm/dd/yyyy --:-- --',
-                style: TextStyle(
-                  color:
-                      value != null
-                          ? const Color(0xFF374151)
-                          : const Color(0xFF9CA3AF),
-                  fontSize: 14,
-                ),
-              ),
-              SvgIcon(
-                assetPath: 'assets/icons/calendar.svg',
-                size: 16,
-                color: const Color(0xFF6B7280),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTextAreaField(String label, TextEditingController controller) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF6B7280),
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xFFE5E7EB)),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: TextFormField(
-            controller: controller,
-            maxLines: 2,
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
-            ),
-            style: const TextStyle(fontSize: 14, color: Color(0xFF374151)),
-          ),
-        ),
-      ],
-    );
-  }
+  // The form field widgets are now provided by shared custom widgets in
+  // lib/widgets/common/custom_form_fields.dart. Previous helper methods were
+  // removed to avoid duplicate/unused declarations and keep a single source of truth.
 
   Widget _buildStuffingFillTable() {
     return Container(
@@ -518,14 +373,13 @@ class _StuffingDialogState extends State<StuffingDialog> {
                   _buildTableHeaderCell('Warehouse Meas', 140),
                   _buildTableHeaderCell('Charged Meas', 130),
                   _buildTableHeaderIconCell(
-                    'assets/icons/setting.svg',
+                    Icons.settings,
                     80,
-                  ),
+                  ), // Ini akan diganti di fungsi _buildTableHeaderIconCell
                 ],
               ),
             ),
 
-            // Table Rows
             Container(
               constraints: const BoxConstraints(maxHeight: 200),
               decoration: const BoxDecoration(color: Colors.white),
@@ -679,7 +533,9 @@ class _StuffingDialogState extends State<StuffingDialog> {
                                 );
                               },
                             ),
-                            _buildActionCell(index),
+                            _buildActionCell(
+                              index,
+                            ), // Ini akan menggunakan SVG delete di fungsi _buildActionCell
                           ],
                         );
                       }).toList(),
@@ -714,7 +570,7 @@ class _StuffingDialogState extends State<StuffingDialog> {
     );
   }
 
-  Widget _buildTableHeaderIconCell(String assetPath, double width) {
+  Widget _buildTableHeaderIconCell(IconData icon, double width) {
     return Container(
       width: width,
       height: 48,
@@ -723,10 +579,13 @@ class _StuffingDialogState extends State<StuffingDialog> {
         border: Border(right: BorderSide(color: Color(0xFF9CA3AF), width: 1)),
       ),
       child: Center(
-        child: SvgIcon(
-          assetPath: assetPath,
-          size: 16,
-          color: Colors.white,
+        child: SizedBox(
+          width: 16,
+          height: 16,
+          child: SvgPicture.asset(
+            'assets/icons/setting.svg', // Ganti dengan path SVG Anda
+            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+          ),
         ),
       ),
     );
@@ -802,10 +661,13 @@ class _StuffingDialogState extends State<StuffingDialog> {
       child: Center(
         child: IconButton(
           onPressed: () => _removeRow(index),
-          icon: SvgIcon(
-            assetPath: 'assets/icons/delete.svg',
-            size: 18,
-            color: Colors.red,
+          icon: SizedBox(
+            width: 18,
+            height: 18,
+            child: SvgPicture.asset(
+              'assets/icons/delete.svg', // Ganti dengan path SVG Anda
+              colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),
+            ),
           ),
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(minWidth: 40, minHeight: 40),
@@ -832,17 +694,6 @@ class _StuffingDialogState extends State<StuffingDialog> {
 
   void _handleCreate() {
     if (_formKey.currentState!.validate()) {
-      if (_stuffingDate == null ||
-          _estimatedTimeDeparture == null ||
-          _closingDate == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Please fill in all required date fields'),
-            backgroundColor: Colors.red,
-          ),
-        );
-        return;
-      }
 
       final stuffingData = {
         'stuffingOwner': _selectedStuffingOwner,

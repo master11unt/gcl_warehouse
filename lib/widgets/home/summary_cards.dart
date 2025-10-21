@@ -50,7 +50,7 @@ class SummaryCards extends StatelessWidget {
     return Card(
       color: color,
       elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
         child: Column(
@@ -69,7 +69,7 @@ class SummaryCards extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 12),
             Text(
               value,
               textAlign: TextAlign.center,

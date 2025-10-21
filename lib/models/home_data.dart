@@ -30,14 +30,14 @@ class HomeData {
   static final List<Map<String, dynamic>> warehouseStatusData = [
     {'x': 0, 'y': 500, 'color': Color(0xFF2346A0), 'label': 'Received'},
     {'x': 1, 'y': 2500, 'color': Color(0xFFF43D7E), 'label': 'Stuffing'},
-    {'x': 2, 'y': 1800, 'color': Color(0xFFF7C32E), 'label': 'Deivered'},
+    {'x': 2, 'y': 1800, 'color': Color(0xFFF7C32E), 'label': 'Delivered'},
     {'x': 3, 'y': 3200, 'color': Color(0xFF10B981), 'label': 'Exited'},
     {'x': 4, 'y': 100, 'color': Color(0xFF8B5CF6), 'label': 'Coloaded'},
     {'x': 5, 'y': 25, 'color': Color(0xFF6B7280), 'label': 'Canceled'},
   ];
 
   // Chart axis labels
-  static final List<String> chartLabels = ['Received', 'Stuffing', 'Deivered', 'Exited', 'Coloaded', 'Canceled'];
+  static final List<String> chartLabels = ['Received', 'Stuffing', 'Delivered', 'Exited', 'Coloaded', 'Canceled'];
 
   // Summary statistics
   static const int totalCargoIn = 1912;

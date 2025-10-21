@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
-import '../widgets/common/common_app_bar.dart';
-import '../widgets/home/custom_drawer.dart';
+// import '../widgets/common/common_app_bar.dart';
+// import '../widgets/common/custom_drawer.dart';
 import '../models/profile_data.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -12,8 +12,28 @@ class ProfilePage extends StatelessWidget {
     final Map<String, dynamic> profile = ProfileData.getDummyProfile();
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
-      appBar: CommonAppBar(),
-      drawer: CustomDrawer(currentPage: "profile"),
+      appBar: AppBar(
+        backgroundColor: Colors.grey[100],
+        elevation: 0,
+        leading: Navigator.of(context).canPop()
+            ? IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                    color: Color(0xFF374151),
+                  ),
+                  onPressed: () => Navigator.of(context).maybePop(),
+                )
+                : null,
+        title: const Text(
+          'Profile',
+          style: TextStyle(
+            color: Color(0xFF374151),
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),

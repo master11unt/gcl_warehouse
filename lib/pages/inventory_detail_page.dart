@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 import '../widgets/common/common_app_bar.dart';
-import '../widgets/home/custom_drawer.dart';
+import '../widgets/common/custom_drawer.dart';
 import '../models/inventory_data.dart';
 
 class InventoryDetailPage extends StatefulWidget {

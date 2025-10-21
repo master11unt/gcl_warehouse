@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
-import '../widgets/home/custom_drawer.dart';
+import '../widgets/common/custom_drawer.dart';
 import '../widgets/common/common_app_bar.dart';
 import '../widgets/stuffing/stuffing_table.dart';
 import '../models/stuffing_data.dart';
@@ -390,7 +390,7 @@ class _StuffingPageState extends State<StuffingPage> {
                               SvgIcon(
                                 assetPath: 'assets/icons/filter_outline.svg',
                                 color: Color(0xFF6B7280),
-                                size: 24,
+                                size: 20,
                               ),
                               const SizedBox(width: 12),
                               Expanded(

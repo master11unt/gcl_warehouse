@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gcl_warehouse/widgets/common/svg_icon.dart';
 import '../widgets/common/common_app_bar.dart';
-import '../widgets/home/custom_drawer.dart';
+import '../widgets/common/custom_drawer.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import '../widgets/ticket/ticket_table.dart';
 import '../models/ticket_data.dart';
@@ -17,7 +17,6 @@ class InputCargoInPage extends StatefulWidget {
 
 class _InputCargoInPageState extends State<InputCargoInPage> {
   DateTime? _selectedDate;
-  // Category and status options matching ticket cargo in
   final List<String> _categoryOptions = [
     'None',
     'GCL-JAKARTA',
@@ -218,11 +217,11 @@ class _InputCargoInPageState extends State<InputCargoInPage> {
                         children: [
                           Container(
                             width: 8,
-                            height: 32,
+                            height: 40,
                             margin: const EdgeInsets.only(right: 8),
                             decoration: BoxDecoration(
                               color: Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(2),
                             ),
                           ),
                           const Text(
@@ -246,7 +245,7 @@ class _InputCargoInPageState extends State<InputCargoInPage> {
                             child: SvgIcon(
                               assetPath: 'assets/icons/filter_outline.svg',
                               color: Color(0xFF6B7280),
-                              size: 24,
+                              size: 20,
                             ),
                           ),
                           const SizedBox(width: 16),
