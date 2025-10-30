@@ -5,7 +5,7 @@ import '../widgets/common/custom_drawer.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import '../widgets/ticket/ticket_table.dart';
 import '../models/ticket_data.dart';
-import '../widgets/input_cargo_in_page/custom_date_picker.dart';
+import '../pages/ticket_page.dart' show CustomDatePicker;
 import '../widgets/input_cargo_in_page/filter_chip_widget.dart';
 
 class InputCargoInPage extends StatefulWidget {

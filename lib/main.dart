@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gcl_warehouse/pages/home_page.dart';
+// import 'package:gcl_warehouse/pages/home_page.dart';
 import 'package:gcl_warehouse/pages/login_page.dart';
 
 void main() {
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'GCL Warehouse',
+      title: 'Admin Warehouse',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 33, 64, 152)),

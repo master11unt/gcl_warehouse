@@ -1085,7 +1085,7 @@ class _InventoryDetailCargoOutPageState
                             child: Text(
                               data['quantity'] ?? '',
                               style: const TextStyle(
-                                fontSize: 16,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF0F172A),
                               ),
@@ -1109,7 +1109,7 @@ class _InventoryDetailCargoOutPageState
                             child: Text(
                               data['package'] ?? '',
                               style: const TextStyle(
-                                fontSize: 16,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF0F172A),
                               ),
@@ -1133,7 +1133,7 @@ class _InventoryDetailCargoOutPageState
                             child: Text(
                               data['weight'] ?? '',
                               style: const TextStyle(
-                                fontSize: 16,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF0F172A),
                               ),

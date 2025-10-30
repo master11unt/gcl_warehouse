@@ -568,22 +568,22 @@ class _InventoryPageState extends State<InventoryPage>
                   'Status',
                 ],
                 columnWidths: const [
-                  120, // Booking Code
-                  130, // Date In
-                  200, // Shipper
-                  100, // Destination
-                  80, // Quantity
-                  80, // Marking
-                  110, // Description of Goods
-                  90, // Warehouse Meas
-                  80, // Weight (KGs)
-                  100, // PEB Number
-                  80, // PEB Date
-                  100, // NPE Number
-                  80, // NPE Date
-                  60, // Value
-                  50, // Currency
-                  220, // Status
+                  120,  // Booking Code
+                  130,  // Date In
+                  200,  // Shipper
+                  100,  // Destination
+                  80,   // Quantity
+                  80,   // Marking
+                  110,  // Description of Goods
+                  90,   // Warehouse Meas
+                  80,   // Weight (KGs)
+                  100,  // PEB Number
+                  80,   // PEB Date
+                  100,  // NPE Number
+                  80,   // NPE Date
+                  60,   // Value
+                  50,   // Currency
+                  220,  // Status
                 ],
                 rows: InventoryData.cargoInTableData,
                 emptyMessage: 'Showing Result',
@@ -1848,7 +1848,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     final currentMonthName = monthNames[_currentMonth.month - 1];
 
     return Dialog(
-      backgroundColor: const Color(0xFF2D3748),
+      backgroundColor: const Color(0xFF0F172A),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Container(
         width: 320,
@@ -1889,7 +1889,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                     child: const SvgIcon(
                       assetPath: 'assets/icons/chevron_left.svg',
                       color: Colors.white,
-                      size: 20,
+                      size: 24,
                     ),
                   ),
                   Text(
@@ -1905,7 +1905,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                     child: const SvgIcon(
                       assetPath: 'assets/icons/chevron_right.svg',
                       color: Colors.white,
-                      size: 20,
+                      size: 24,
                     ),
                   ),
                 ],

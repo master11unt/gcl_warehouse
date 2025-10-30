@@ -441,7 +441,7 @@ class _StuffingPageState extends State<StuffingPage> {
                           });
                         },
                         onRowTap: _handleRowTap,
-                      ),
+                      ),                                                                                                                                                                                                                                                                                                                                                                                                                                
                     ),
                   ],
                 ),

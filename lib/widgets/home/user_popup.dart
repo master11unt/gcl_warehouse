@@ -30,12 +30,13 @@ class _UserPopupState extends State<UserPopup> {
       onTap: () => _showUserPopup(context),
       child: Container(
         padding: const EdgeInsets.all(8),
-        decoration: _isPopupOpen
-            ? BoxDecoration(
-                color: const Color(0xFF0F172A),
-                shape: BoxShape.circle,
-              )
-            : null,
+        decoration:
+            _isPopupOpen
+                ? BoxDecoration(
+                  color: const Color(0xFF0F172A),
+                  shape: BoxShape.circle,
+                )
+                : null,
         child: SvgIcon(
           assetPath: 'assets/icons/user_outline.svg',
           color: _isPopupOpen ? Colors.white : Colors.black,
@@ -67,165 +68,233 @@ class _UserPopupState extends State<UserPopup> {
     final Size buttonSize = renderBox.size;
 
     _overlayEntry = OverlayEntry(
-      builder: (context) => GestureDetector(
-        onTap: _hidePopup,
-        behavior: HitTestBehavior.translucent,
-        child: SizedBox.expand(
-          child: Stack(
-            children: [
-              Positioned(
-                top: buttonPosition.dy + buttonSize.height + 5,
-                right: MediaQuery.of(context).size.width -
-                    buttonPosition.dx -
-                    buttonSize.width,
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Material(
-                    color: Colors.transparent,
-                    child: Container(
-                      width: 200,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 20,
-                            offset: const Offset(0, 8),
+      builder:
+          (context) => GestureDetector(
+            onTap: _hidePopup,
+            behavior: HitTestBehavior.translucent,
+            child: SizedBox.expand(
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: buttonPosition.dy + buttonSize.height + 5,
+                    right:
+                        MediaQuery.of(context).size.width -
+                        buttonPosition.dx -
+                        buttonSize.width,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Material(
+                        color: Colors.transparent,
+                        child: Container(
+                          width: 200,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 20,
+                                offset: const Offset(0, 8),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          _buildUserMenuItem(
-                            iconPath: 'assets/icons/user_outline.svg',
-                            text: "Your Profile",
-                            onTap: () {
-                              _hidePopup();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ProfilePage(),
-                                ),
-                              );
-                            },
-                          ),
-                          _buildUserMenuItem(
-                            iconPath: 'assets/icons/setting.svg',
-                            text: "Settings",
-                            onTap: () {
-                              _hidePopup();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const SettingsPage(),
-                                ),
-                              );
-                            },
-                          ),
-                          _buildUserMenuItem(
-                            iconPath: 'assets/icons/logout.svg',
-                            text: "Sign out",
-                            onTap: () async {
-                              _hidePopup();
-
-                              // Confirmation dialog
-                              final shouldLogout = await showDialog<bool>(
-                                context: context,
-                                barrierDismissible: true,
-                                builder: (ctx) => Dialog(
-                                  backgroundColor: Colors.transparent,
-                                  insetPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-                                  child: Container(
-                                    padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(14),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.12),
-                                          blurRadius: 18,
-                                          offset: const Offset(0, 8),
-                                        ),
-                                      ],
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              _buildUserMenuItem(
+                                iconPath: 'assets/icons/user_outline.svg',
+                                text: "Your Profile",
+                                onTap: () {
+                                  _hidePopup();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProfilePage(),
                                     ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Container(
-                                          width: 56,
-                                          height: 56,
-                                          decoration: BoxDecoration(
-                                            color: const Color(0xFF214098), // app primary color
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: const Icon(
-                                            Icons.logout,
-                                            color: Colors.white,
-                                            size: 28,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 12),
-                                        const Text(
-                                          'Sign out',
-                                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        const Text(
-                                          'Are you sure you want to sign out from the app?',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(fontSize: 14, color: Color(0xFF4B5563)),
-                                        ),
-                                        const SizedBox(height: 18),
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              child: OutlinedButton(
-                                                style: OutlinedButton.styleFrom(
-                                                  padding: const EdgeInsets.symmetric(vertical: 12),
-                                                  side: const BorderSide(color: Color(0xFF9CA3AF)),
-                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                                                ),
-                                                onPressed: () => Navigator.of(ctx).pop(false),
-                                                child: const Text('No', style: TextStyle(color: Color(0xFF374151))),
-                                              ),
-                                            ),
-                                            const SizedBox(width: 12),
-                                            Expanded(
-                                              child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: const Color(0xFF214098), // app primary color
-                                                  padding: const EdgeInsets.symmetric(vertical: 12),
-                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                                                ),
-                                                onPressed: () => Navigator.of(ctx).pop(true),
-                                                child: const Text('Yes', style: TextStyle(color: Colors.white)),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                  );
+                                },
+                              ),
+                              _buildUserMenuItem(
+                                iconPath: 'assets/icons/setting.svg',
+                                text: "Settings",
+                                onTap: () {
+                                  _hidePopup();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (context) => const SettingsPage(),
                                     ),
-                                  ),
-                                ),
-                              );
+                                  );
+                                },
+                              ),
+                              _buildUserMenuItem(
+                                iconPath: 'assets/icons/logout.svg',
+                                text: "Sign out",
+                                onTap: () async {
+                                  _hidePopup();
 
-                              if (shouldLogout == true) {
-                                await _performLogout();
-                              }
-                            },
+                                  // Confirmation dialog
+                                  final shouldLogout = await showDialog<bool>(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder:
+                                        (ctx) => Dialog(
+                                          backgroundColor: Colors.transparent,
+                                          insetPadding:
+                                              const EdgeInsets.symmetric(
+                                                horizontal: 24,
+                                                vertical: 24,
+                                              ),
+                                          child: Container(
+                                            padding: const EdgeInsets.fromLTRB(
+                                              20,
+                                              18,
+                                              20,
+                                              16,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(14),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.12),
+                                                  blurRadius: 18,
+                                                  offset: const Offset(0, 8),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Container(
+                                                  width: 56,
+                                                  height: 56,
+                                                  decoration: BoxDecoration(
+                                                    color: const Color(
+                                                      0xFF214098,
+                                                    ),
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: Padding(
+                                                    padding: EdgeInsets.all(14),
+                                                    child: SvgIcon(
+                                                      assetPath:
+                                                          'assets/icons/logout.svg',
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 12),
+                                                const Text(
+                                                  'Sign out',
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 8),
+                                                const Text(
+                                                  'Are you sure you want to sign out from the app?',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Color(0xFF4B5563),
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 18),
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: OutlinedButton(
+                                                        style: OutlinedButton.styleFrom(
+                                                          padding:
+                                                              const EdgeInsets.symmetric(
+                                                                vertical: 12,
+                                                              ),
+                                                          side:
+                                                              const BorderSide(
+                                                                color: Color(
+                                                                  0xFF9CA3AF,
+                                                                ),
+                                                              ),
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                  8,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                        onPressed:
+                                                            () => Navigator.of(
+                                                              ctx,
+                                                            ).pop(false),
+                                                        child: const Text(
+                                                          'No',
+                                                          style: TextStyle(
+                                                            color: Color(
+                                                              0xFF374151,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 12),
+                                                    Expanded(
+                                                      child: ElevatedButton(
+                                                        style: ElevatedButton.styleFrom(
+                                                          backgroundColor:
+                                                              const Color(
+                                                                0xFF214098,
+                                                              ), // app primary color
+                                                          padding:
+                                                              const EdgeInsets.symmetric(
+                                                                vertical: 12,
+                                                              ),
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                  8,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                        onPressed:
+                                                            () => Navigator.of(
+                                                              ctx,
+                                                            ).pop(true),
+                                                        child: const Text(
+                                                          'Yes',
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                  );
+
+                                  if (shouldLogout == true) {
+                                    await _performLogout();
+                                  }
+                                },
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
     );
 
     Overlay.of(context).insert(_overlayEntry!);

@@ -193,13 +193,15 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header with back button and title
             Padding(
               padding: const EdgeInsets.fromLTRB(12, 16, 12, 0),
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back_ios, color: Color(0xFF374151)),
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      color: Color(0xFF374151),
+                    ),
                     onPressed: () {
                       Navigator.of(context).maybePop();
                     },
@@ -230,10 +232,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   decoration: const InputDecoration(
                     hintText: 'Search',
                     hintStyle: TextStyle(color: Color(0xFF9CA3AF)),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Color(0xFF6B7280),
-                    ),
+                    prefixIcon: Icon(Icons.search, color: Color(0xFF6B7280)),
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 16,
@@ -244,7 +243,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
             ),
-            // Tab bar (fixed)
             Container(
               color: Colors.grey[100],
               height: 50,
@@ -269,7 +267,10 @@ class _SettingsPageState extends State<SettingsPage> {
                       decoration: BoxDecoration(
                         border: Border(
                           bottom: BorderSide(
-                            color: isSelected ? const Color(0xFF214098) : Colors.transparent,
+                            color:
+                                isSelected
+                                    ? const Color(0xFF214098)
+                                    : Colors.transparent,
                             width: 2,
                           ),
                         ),
@@ -278,8 +279,12 @@ class _SettingsPageState extends State<SettingsPage> {
                         _tabs[index],
                         style: TextStyle(
                           fontSize: 14,
-                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                          color: isSelected ? const Color(0xFF214098) : const Color(0xFF6B7280),
+                          fontWeight:
+                              isSelected ? FontWeight.w600 : FontWeight.normal,
+                          color:
+                              isSelected
+                                  ? const Color(0xFF214098)
+                                  : const Color(0xFF6B7280),
                         ),
                       ),
                     ),
@@ -287,10 +292,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
             ),
-            // Expanded scrollable content
-            Expanded(
-              child: _buildTabContent(),
-            ),
+            Expanded(child: _buildTabContent()),
           ],
         ),
       ),
@@ -345,8 +347,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
 
             const SizedBox(height: 16),
-
-            const SizedBox(height: 8),
 
             Align(
               alignment: Alignment.center,
@@ -539,7 +539,7 @@ class _SettingsPageState extends State<SettingsPage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             decoration: BoxDecoration(
-              color: const Color(0xFFDCFCE7), 
+              color: const Color(0xFFDCFCE7),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
@@ -730,8 +730,7 @@ class _SettingsPageState extends State<SettingsPage> {
             Row(
               children: [
                 TextButton(
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                   child: const Text(
                     'Mark all as read',
                     style: TextStyle(
@@ -743,8 +742,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 const SizedBox(width: 8),
                 IconButton(
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                   icon: const Icon(
                     Icons.clear_all,
                     size: 20,
@@ -872,8 +870,7 @@ class _SettingsPageState extends State<SettingsPage> {
               color: Color(0xFF9CA3AF),
               size: 16,
             ),
-            onSelected: (value) {
-            },
+            onSelected: (value) {},
             itemBuilder:
                 (context) => [
                   const PopupMenuItem(

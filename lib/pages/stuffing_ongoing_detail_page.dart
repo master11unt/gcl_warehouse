@@ -16,7 +16,7 @@ class StuffingOngoingDetailPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Combined Header, Job Details and Table Section
+              // Header, Job Details and Table Section
               _buildMainContentSection(context),
               const SizedBox(height: 16),
 
@@ -441,13 +441,13 @@ class StuffingOngoingDetailPage extends StatelessWidget {
     ];
 
     const columnWidths = [
-      60.0, // Num
+      60.0,  // Num
       180.0, // Booking Number
       150.0, // Shipper
       250.0, // Marking
       120.0, // Destination
       130.0, // Cargo Readiness
-      80.0, // Quantity
+      80.0,  // Quantity
       100.0, // Packages
       300.0, // Description of Goods
       120.0, // Gross Weight
@@ -737,13 +737,13 @@ class StuffingOngoingDetailPage extends StatelessWidget {
     ];
 
     const columnWidths = [
-      60.0, // Num
+      60.0,  // Num
       180.0, // Booking Number
       150.0, // Shipper
       250.0, // Marking
       120.0, // Destination
       130.0, // Cargo Readiness
-      80.0, // Quantity
+      80.0,  // Quantity
       100.0, // Packages
       300.0, // Description of Goods
       120.0, // Gross Weight

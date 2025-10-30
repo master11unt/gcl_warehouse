@@ -927,8 +927,9 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildSummaryItem(String number, String label) {
+  Widget _buildSummaryItem(String number, String label, {bool isLeftAligned = false}) {
     return Column(
+      crossAxisAlignment: isLeftAligned ? CrossAxisAlignment.start : CrossAxisAlignment.center,
       children: [
         Text(
           number,
@@ -941,7 +942,7 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
         const SizedBox(height: 8),
         Text(
           label,
-          textAlign: TextAlign.center,
+          textAlign: isLeftAligned ? TextAlign.left : TextAlign.center,
           style: const TextStyle(fontSize: 14, color: Color(0xFF6B7280)),
         ),
       ],
@@ -1007,16 +1008,19 @@ class _TicketPageState extends State<TicketPage> with TickerProviderStateMixin {
             ],
           ),
           const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(child: _buildSummaryItem(summaryValue1, summaryTitle1)),
-              if (showSecondSummary) ...[
-                Container(width: 1, height: 72, color: const Color(0xFFE5E7EB)),
-                Expanded(
-                  child: _buildSummaryItem(summaryValue2, summaryTitle2),
-                ),
+          Padding(
+            padding: EdgeInsets.only(left: isStuffingTab ? 24 : 0),
+            child: Row(
+              children: [
+                Expanded(child: _buildSummaryItem(summaryValue1, summaryTitle1, isLeftAligned: isStuffingTab)),
+                if (showSecondSummary) ...[
+                  Container(width: 1, height: 72, color: const Color(0xFFE5E7EB)),
+                  Expanded(
+                    child: _buildSummaryItem(summaryValue2, summaryTitle2, isLeftAligned: false),
+                  ),
+                ],
               ],
-            ],
+            ),
           ),
 
           const SizedBox(height: 32),
@@ -1611,7 +1615,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                     child: _loadSvgIcon(
                       'assets/icons/chevron_left.svg',
                       color: Colors.white,
-                      size: 12,
+                      size: 24,
                     ),
                   ),
                   Text(
@@ -1627,7 +1631,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                     child: _loadSvgIcon(
                       'assets/icons/chevron_right.svg',
                       color: Colors.white,
-                      size: 12,
+                      size: 24,
                     ),
                   ),
                 ],
